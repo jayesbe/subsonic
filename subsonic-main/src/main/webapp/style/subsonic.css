@@ -1,0 +1,351 @@
+@import "accordion-smoothness.css";
+@import "playermod-000000.css";
+@import "default.css";
+
+/*
+ * Background colors
+ */
+
+	.bgcolor1 {
+	/* Primary background color. (lightgray) */
+		background-color: #efefef;
+	}
+
+	.bgcolor2, .ruleTableHeader, .log {
+	/* Secondary background color. (darker blue) */
+		background-color: #dee3e7;
+	}
+
+/*
+ * Border settings for main frames
+ */
+
+	.logonframe {
+	/* Logon frame border style */
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+	}
+
+	.topframe {
+	/* Top frame border style */
+		border-bottom: 1px transparent;
+	}
+
+	.leftframe {
+	/* Left frame border style */
+		border-right: 1px transparent;
+		border-top: 1px transparent; 
+	}
+
+	.mainframe {
+	/* Main frame border style */
+		border-top: 1px transparent;
+	}
+
+	.playlistframe {
+	/* Playlist frame border style */
+		border-top: 1px transparent;
+	}
+
+	.rightframe {
+	/* Right frame border style */
+		border-left: 1px transparent;
+		border-top: 1px transparent;
+	}
+
+	/*
+	 * Border settings for other targets
+	 */
+	 
+		#leftframemenucontainer {
+			border-bottom: 1px transparent;
+		}
+
+		#mainframemenucontainer {
+		/* Main frame menu border style */
+			border-bottom: 1px transparent;
+		}
+
+		#playlistframemenucontainer {
+		/* Playlist frame border style */
+			border-bottom: 1px transparent;
+		}
+
+		#uploadFile, #addPodcast {
+			border-bottom: 1px transparent;
+		}
+
+		#longbar {
+			border-left: 1px transparent;
+			border-right: 1px transparent;
+		}
+
+		.welcomeMessage {
+			border-left: 1px solid black;
+		}
+	 
+		.formattingOptions {
+		/* Formatting options border style */
+			border: 1px solid black;
+		}
+
+		.border1, .ruleTableHeader, .ruleTableCell, .headerSelected, .log {
+		/* Simple dark border. */
+			border: 1px solid black;
+		}
+
+/*
+ * Miscellaneous style settings and helpers
+ */
+
+	body {
+	/* Primary foreground (font) color. (black) */
+		color: black;
+		font-size: 75%;/*9pt;*/
+
+	/* Scrollbar colors (supported on IE and Opera) */
+		scrollbar-face-color: #DEE3E7;
+		scrollbar-highlight-color: #FFFFFF;
+		scrollbar-shadow-color: #DEE3E7;
+		scrollbar-3dlight-color: #D1D7DC;
+		scrollbar-arrow-color: #006699;
+		scrollbar-track-color: #EFEFEF;
+		scrollbar-darkshadow-color: #98AAB1;
+	}
+
+	body, h2, form, label, table, a {
+	/* Font 1 */
+		font-family: verdana, arial, sans-serif;
+	}
+
+	a {
+	/* Link style general */
+		font-size: 100%;
+		text-decoration: none;
+	}
+
+	a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+	/* Link color */
+		color: #006699;
+	}
+
+	a:hover, a:hover * {
+	/* Link hover style */
+		text-decoration: none;
+		color: #DD6900;
+	}
+
+	h1, h1 a, .logo {
+	/* Font 2 */
+		font-family: arial, sans-serif;
+	}
+
+	h1 {
+	/* Header style 1 font style */
+		font-size: 140%;
+	}
+
+	h1, .detail, .albumComment {
+	/* Secondary foreground color for h1, details etc. (gray) */
+		color: #696969;
+	}
+
+	h2 {
+	/* Header style 2 font style */
+		font-size: 100%;
+	}
+
+	h2, b, tr {
+	/* Foreground color for h2, bold and tr. */
+		color: #333333;
+	}
+	
+	table {
+	/* Table font size */
+		font-size: 100%;
+	}
+	
+	label {
+	/* Label font size */
+		font-size: 100%;
+	}
+
+	form { 
+	/* Input form font-size */
+		font-size: 100%;
+	}
+
+	input, select, textarea {
+	/* Input form control font style */
+		font-size: 9pt;
+	}
+	
+	img {
+	/* Img border style */
+		border: 0px;
+		border-style: none;
+	}
+
+	input {
+	/* Input form control style. */
+		color: #555;
+		font-weight: normal;
+		border: 1px solid #AAA;
+		background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+		-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+		-webkit-border-radius: 1px;
+	}
+
+	select, #musicFolder, #listSize, #listSizeRow, #imageSearchProvider, #playerSelect, #moreActions {
+	/* Dropdown form control style */
+		margin: 0;
+		padding: 2px;
+		height: 24px;
+		color: #555;
+		font-weight: bold;
+		border: 1px solid #AAA;
+		background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+		-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+		-webkit-appearance: button;
+		-webkit-border-radius: 2px;
+	}
+
+	#pageimage {
+	/* Top left image for each page */
+		display:;
+	}
+	
+	#imageSearchProvider {
+		max-width: 10em;
+		position: absolute;
+	}
+
+	input:hover, select:hover {
+	/* Form control hover color. (default) */
+		color:;
+	}
+
+	#logo img {
+	/* Logo image size */
+		width:;
+		height:;
+	}
+
+	.desc {
+	/* Top frame text page-link font style. */
+		font-weight: bold;
+	}
+
+	.albumComment {
+		font-size: 8pt;
+	}
+
+	.pagination a {
+	/* Main frame menu pagination links font style. */
+		font-size: 90%;
+	}
+
+	.pagination .current {
+	/* Main frame menu pagination current item width. (10em minimum recommended) */
+		min-width: 10em;
+	}
+	
+	.detail {
+	/* Detail font style */
+		font-size: 8pt;
+	}
+
+	.enter {
+		font-size: 14pt;
+		font-weight: bold;
+		color: #FFE600;
+		font-family: Arial, Helvetica, sans-serif;
+		text-align: left;
+	}
+
+	.headerSelected {
+	/* Background color for selected header. */
+		background-color: lightyellow;
+	}
+
+	.warning {
+	/* Color for warning messages. */
+		color: red;
+	}
+	
+	.log {
+	/* Log file font size */
+		font-size: 8pt;
+	}
+
+/*
+ * Playlist colors
+ */
+
+	.tracklist1 { 
+		background-color:;
+		color:;
+	}
+
+	.tracklist2 { 
+		background-color:;
+		border-top:;
+		border-bottom:;
+		color:;
+	}
+
+	.loadedlist1 { 
+		background-color:;
+		border:;
+	}
+
+	.loadedlist1:hover { 	
+			background-color:;
+			border:;
+	}
+
+	.loadedlist2 { 
+		background-color:;
+		border:;
+	}
+
+	.loadedlist2:hover { 
+		background-color:;
+		border:;
+	}
+
+/*
+ * Main frame menu images
+ */
+
+	.back {
+		background-image: url("../icons/back.gif");
+	}
+
+	.forward {
+		background-image: url("../icons/forward.gif");
+	}
+
+/*
+ * Player images
+ */
+ 
+	.solidblockmenu {
+	/* Background repeating image */
+		background: black url("../icons/player_back.png") center center repeat;
+	}
+
+	.playerleftround {
+	/* Left side */
+		/* background-image:url("../icons/player_leftround.png"); */
+	}
+
+	.playerrightround {
+	/* Right side */
+		/* background-image:url("../icons/player_rightround.png"); */
+	}
+
+	.solidblockmenu li a:hover, .solidblockmenu li .current {
+	/* Player control hover style */
+		background-color: #8a8a8a;
+	}

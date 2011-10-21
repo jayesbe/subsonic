@@ -134,7 +134,7 @@ public class AvatarUploadController extends ParameterizableViewController {
         this.settingsService = settingsService;
     }
 
-    public void setSeturityService(SecurityService securityService) {
+    public void setSecurityService(SecurityService securityService) {
         this.securityService = securityService;
     }
 }

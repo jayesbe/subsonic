@@ -1,0 +1,68 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+a.playerstart {
+    background-image:url("playermod/333333/player_start.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+	
+a.playerstop {
+    background-image:url("playermod/333333/player_stop.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+	
+a.playerrewind {
+    background-image:url("playermod/333333/player_rewind.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+	
+a.playerforward {
+    background-image:url("playermod/333333/player_forward.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+	
+a.playerclear {
+    background-image:url("playermod/333333/player_clear.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;
+}
+		
+a.playershuffle {
+    background-image:url("playermod/333333/player_shuffle.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+	
+/*a.playerrepeaton {
+    background-image:url("playermod/333333/player_repeaton.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}*/
+	
+a.playerrepeatoff {
+    background-image:url("playermod/333333/player_repeatoff.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+	
+a.playerundo {
+    background-image:url("playermod/333333/player_undo.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+	
+a.playersettings {
+    background-image:url("playermod/333333/player_settings.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+
+a.playerload {
+    background-image:url("playermod/333333/player_load.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+	
+a.playersave {
+    background-image:url("playermod/333333/player_save.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+	
+a.playersorttrack {
+    background-image:url("playermod/333333/player_sorttrack.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+
+a.playersortalbum {
+    background-image:url("playermod/333333/player_sortalbum.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+
+a.playersortartist {
+    background-image:url("playermod/333333/player_sortartist.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+	
+a.playerselectall {
+    background-image:url("playermod/333333/player_selectall.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+	
+a.playerselectnone {
+    background-image:url("playermod/333333/player_selectnone.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+	
+a.playerremove {
+    background-image:url("playermod/333333/player_remove.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+		
+a.playerappend {
+    background-image:url("playermod/333333/player_append.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+		
+a.playerdownload {
+    background-image:url("playermod/333333/player_download.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
+
+a.playershare{
+    background-image:url("playermod/333333/player_share.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
