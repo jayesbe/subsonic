@@ -4,8 +4,9 @@
  * Author: Thomas Bruce Dyrud (thomasbrucedyrud[at]gmail.com)
  *
  */
-
+@import "accordion-mintchocolate.css";
 @import "default.css";
+@import "playermod-cccccc.css";
 
 /* The primary background colour. */
 .bgcolor1 {
@@ -34,11 +35,6 @@ h1, .detail, .albumComment {
 /* Foreground colour used for h2, bold and tr. */
 h2, b, tr {
     color: #EFE9D9;
-}
-
-/* Table sizing */
-table {
-    margin: 0 0 0 0;
 }
 
 /* Main frame image & colour */
@@ -89,3 +85,9 @@ html {
 label, p {
 	color: #CCC;
 }
+
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/pinkpanther/player_back.png") center center repeat;}
+.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #11bdcb solid 1px;}

@@ -3,8 +3,9 @@
  *
  * Author: Don Pearson
  */
-
+@import "accordion-darkness.css";
 @import "default.css";
+@import "playermod-ffffff.css";
 
 /* The primary background colour. */
 .bgcolor1 {
@@ -38,11 +39,6 @@ h1, .detail, .albumComment {
 /* Foreground colour used for h2, bold and tr. */
 h2, b, tr {
     color: #000000;
-}
-
-/* Table sizing */
-table {
-    margin: 0 0 0 0;
 }
 
 /* Main frame image & colour */
@@ -154,5 +150,12 @@ body {
     background-color: #C0C0C0;
 }
 
+.logo {
+	margin-top: 15px;
+}
 
-/* MidnightFun http://www.midnightfun.co.uk */
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/midnightfun/player_back.png") center center repeat;}
+.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #000 solid 1px;}

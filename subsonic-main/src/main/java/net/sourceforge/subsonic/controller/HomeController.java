@@ -50,10 +50,15 @@ public class HomeController extends ParameterizableViewController {
 
     private static final Logger LOG = Logger.getLogger(HomeController.class);
 
-    private static final int DEFAULT_LIST_SIZE    =   10;
+    private static final int DEFAULT_LIST_ROWS    =   2;
+    private static final int DEFAULT_LIST_COLUMNS    =   5;
+    private static final int DEFAULT_LIST_SIZE    =   DEFAULT_LIST_ROWS * DEFAULT_LIST_COLUMNS;
+    private static final int MAX_LIST_ROWS        =  100;
+    private static final int MAX_LIST_COLUMNS        =  50;
     private static final int MAX_LIST_SIZE        =  500;
     private static final int DEFAULT_LIST_OFFSET  =    0;
     private static final int MAX_LIST_OFFSET      = 5000;
+    private static final String DEFAULT_LIST_TYPE    =   "newest";
 
     private SettingsService settingsService;
     private SearchService searchService;
@@ -68,18 +73,28 @@ public class HomeController extends ParameterizableViewController {
             return new ModelAndView(new RedirectView("gettingStarted.view"));
         }
 
-        int listSize = DEFAULT_LIST_SIZE;
+        String listType = DEFAULT_LIST_TYPE;
+        int listRows = DEFAULT_LIST_ROWS;
+        int listColumns = DEFAULT_LIST_COLUMNS;
         int listOffset = DEFAULT_LIST_OFFSET;
-        if (request.getParameter("listSize") != null) {
-            listSize = Math.max(0, Math.min(Integer.parseInt(request.getParameter("listSize")), MAX_LIST_SIZE));
+
+        if (request.getParameter("listType") != null) {
+            listType = String.valueOf(request.getParameter("listType"));
+        }
+  
+        if (request.getParameter("listRows") != null) {
+            listRows = Math.max(0, Math.min(Integer.parseInt(request.getParameter("listRows")), MAX_LIST_ROWS));
+        }
+        if (request.getParameter("listColumns") != null) {
+            listColumns = Math.max(0, Math.min(Integer.parseInt(request.getParameter("listColumns")), MAX_LIST_COLUMNS));
         }
         if (request.getParameter("listOffset") != null) {
             listOffset = Math.max(0, Math.min(Integer.parseInt(request.getParameter("listOffset")), MAX_LIST_OFFSET));
         }
 
-        String listType = request.getParameter("listType");
-        if (listType == null) {
-            listType = "random";
+        int listSize = listRows * listColumns;
+        if (request.getParameter("listSize") != null) {
+            listSize = Math.max(0, Math.min(Integer.parseInt(request.getParameter("listSize")), MAX_LIST_SIZE));
         }
 
         List<Album> albums;
@@ -104,6 +119,8 @@ public class HomeController extends ParameterizableViewController {
         map.put("listType", listType);
         map.put("listSize", listSize);
         map.put("listOffset", listOffset);
+        map.put("listRows", listRows);
+        map.put("listColumns", listColumns);
 
         ModelAndView result = super.handleRequestInternal(request, response);
         result.addObject("model", map);
@@ -177,7 +194,7 @@ public class HomeController extends ParameterizableViewController {
         Album album = new Album();
         album.setPath(file.getPath());
         try {
-            resolveArtistAndAlbumTitle(album, file);
+            resolveAlbumInfo(album, file);
             resolveCoverArt(album, file);
         } catch (Exception x) {
             LOG.warn("Failed to create albumTitle list entry for " + file.getPath(), x);
@@ -195,7 +212,7 @@ public class HomeController extends ParameterizableViewController {
         }
     }
 
-    private void resolveArtistAndAlbumTitle(Album album, MusicFile file) throws IOException {
+    private void resolveAlbumInfo(Album album, MusicFile file) throws IOException {
 
         // If directory, find  title and artist from metadata in child.
         if (file.isDirectory()) {
@@ -207,6 +224,7 @@ public class HomeController extends ParameterizableViewController {
 
         album.setArtist(file.getMetaData().getArtist());
         album.setAlbumTitle(file.getMetaData().getAlbum());
+        // TODO album.setAlbumYear(file.getMetaData().getYear());
     }
 
     private void resolveCoverArt(Album album, MusicFile file) {
@@ -256,6 +274,7 @@ public class HomeController extends ParameterizableViewController {
         private String coverArtPath;
         private String artist;
         private String albumTitle;
+        private String albumYear;
         private Date created;
         private Date lastPlayed;
         private Integer playCount;
@@ -291,6 +310,14 @@ public class HomeController extends ParameterizableViewController {
 
         public void setAlbumTitle(String albumTitle) {
             this.albumTitle = albumTitle;
+        }
+
+        public String getAlbumYear() {
+            return albumYear;
+        }
+
+        public void setAlbumYear(String albumYear) {
+            this.albumYear = albumYear;
         }
 
         public Date getCreated() {

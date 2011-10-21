@@ -155,6 +155,10 @@
         <filter-name>CacheFilter</filter-name>
         <url-pattern>/style/*</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>CacheFilter</filter-name>
+        <url-pattern>/changeCoverArt.view</url-pattern>
+    </filter-mapping>
 
     <filter-mapping>
         <filter-name>NoCacheFilter</filter-name>

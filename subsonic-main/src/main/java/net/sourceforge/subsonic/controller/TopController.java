@@ -64,6 +64,9 @@ public class TopController extends ParameterizableViewController {
             map.put("newVersionAvailable", true);
             map.put("latestVersion", versionService.getLatestBetaVersion());
         }
+        map.put("listType", userSettings.getListType());
+        map.put("listRows", userSettings.getListRows());
+        map.put("listColumns", userSettings.getListColumns());
 
         ModelAndView result = super.handleRequestInternal(request, response);
         result.addObject("model", map);

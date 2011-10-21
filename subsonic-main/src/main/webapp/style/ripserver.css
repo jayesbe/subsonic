@@ -3,7 +3,7 @@
  *
  * Author: Ralph Hill
  */
-
+@import "accordion-redmond.css";
 @import "default.css";
 
 /* The primary background color (light blue). */
@@ -25,7 +25,7 @@
 
 /* Link color */
 a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #0076B6
+    color: #0076B6;
 }
 
 /* Link hover color */
@@ -42,3 +42,13 @@ body {
     scrollbar-track-color: #EFEFEF;
     scrollbar-darkshadow-color: #98AAB1;
 }
+
+.logo {
+	margin-top: 15px;
+}
+
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/ripserver/player_back.png") center center repeat;}
+.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #0076B6 solid 1px;}

@@ -4,7 +4,8 @@
  * Author: Thomas Bruce Dyrud (thomasbrucedyrud[at]gmail.com)
  *
  */
-
+@import "accordion-smoothness.css";
+@import "playermod-696969.css";
 @import "default.css";
 
 /* The primary background colour. */
@@ -40,11 +41,6 @@ h1, .detail, .albumComment {
 /* Foreground colour used for h2, bold and tr. */
 h2, b, tr {
     color: #696969;
-}
-
-/* Table sizing */
-table {
-    margin: 0 0 0 0;
 }
 
 /* Main frame image & colour */
@@ -86,3 +82,9 @@ html {
 label, p {
 	color: #696969;
 }
+
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/sonic/player_back.png") center center repeat;}
+.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #F90 solid 1px;}

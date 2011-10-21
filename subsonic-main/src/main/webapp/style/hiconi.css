@@ -3,8 +3,9 @@
  *
  * Author: Jeebs (Fisher Evans)
  */
-
+@import "accordion-darkness.css";
 @import "default.css";
+@import "playermod-a3a3a3.css";
 
 table {
 	color: #a3a3a3;
@@ -77,9 +78,12 @@ body {
     scrollbar-darkshadow-color: #a3a3a3;
 }
 
-.back {
-    background-image:url("../icons/midnight/back.png");background-position: 0px 3px; background-repeat:no-repeat; padding-left: 16px; line-height: 16px;
-}
-.forward {
-    background-image:url("../icons/midnight/forward.png");background-position: 0px 3px; background-repeat:no-repeat; padding-left: 16px; line-height: 16px;
-}
+.back {background-image:url("../icons/midnight/back.png");background-position: 0px 3px; background-repeat:no-repeat; padding-left: 16px; line-height: 16px;}
+.forward {background-image:url("../icons/midnight/forward.png");background-position: 0px 3px; background-repeat:no-repeat; padding-left: 16px; line-height: 16px;}
+
+
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/hiconi/player_back.png") center center repeat;}
+.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #fff solid 1px;}

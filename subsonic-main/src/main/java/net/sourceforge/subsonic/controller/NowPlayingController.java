@@ -30,9 +30,13 @@ import org.springframework.web.servlet.view.RedirectView;
 import net.sourceforge.subsonic.domain.MusicFile;
 import net.sourceforge.subsonic.domain.Player;
 import net.sourceforge.subsonic.domain.TransferStatus;
+//import net.sourceforge.subsonic.domain.UserSettings;
 import net.sourceforge.subsonic.filter.ParameterDecodingFilter;
 import net.sourceforge.subsonic.service.MusicFileService;
 import net.sourceforge.subsonic.service.PlayerService;
+import net.sourceforge.subsonic.domain.UserSettings;
+import net.sourceforge.subsonic.service.SecurityService;
+import net.sourceforge.subsonic.service.SettingsService;
 import net.sourceforge.subsonic.service.StatusService;
 import net.sourceforge.subsonic.util.StringUtil;
 
@@ -46,6 +50,8 @@ public class NowPlayingController extends AbstractController {
     private PlayerService playerService;
     private StatusService statusService;
     private MusicFileService musicFileService;
+    private SecurityService securityService;
+    private SettingsService settingsService;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -60,7 +66,8 @@ public class NowPlayingController extends AbstractController {
             url = "main.view?path" + ParameterDecodingFilter.PARAM_SUFFIX + "=" +
                     StringUtil.utf8HexEncode(current.getParent().getPath()) + "&updateNowPlaying=true";
         } else {
-            url = "home.view";
+            UserSettings userSettings = settingsService.getUserSettings(securityService.getCurrentUsername(request));
+            url = "home.view?listType=" + userSettings.getListType() + "&listRows=" + userSettings.getListRows() + "&listColumns=" + userSettings.getListColumns();
         }
 
         return new ModelAndView(new RedirectView(url));
@@ -76,5 +83,13 @@ public class NowPlayingController extends AbstractController {
 
     public void setMusicFileService(MusicFileService musicFileService) {
         this.musicFileService = musicFileService;
+    }
+
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
+    }
+
+    public void setSettingsService(SettingsService settingsService) {
+        this.settingsService = settingsService;
     }
 }

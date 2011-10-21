@@ -1,26 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<%@ include file="doctype_frameset.jsp" %>
 
-<html><head>
-    <%@ include file="head.jsp" %>
-    <link rel="alternate" type="application/rss+xml" title="Subsonic Podcast" href="podcast.view?suffix=.rss">
-</head>
+<html>
+	<head>
+		<%@ include file="head.jsp" %>
+		<link rel="alternate" type="application/rss+xml" title="Subsonic Podcast" href="podcast.view?suffix=.rss">
+	</head>
 
-<frameset rows="70,*,0" border="0" framespacing="0" frameborder="0">
-    <frame name="upper" src="top.view?">
-    <frameset cols="15%,85%" border="0" framespacing="0" frameborder="0">
-        <frame name="left" src="left.view?" marginwidth="0" marginheight="0">
+	<frameset rows="80,*" border="0">
+		<frame name="upper" src="top.view?" scrolling="No" noresize="noresize" />
+		<frameset rows="*" cols="245,*,${model.showRight ? 240 : 0}" border="0">
+			<frame name="left" src="left.view?" scrolling="No" noresize="noresize" />
+			<frameset rows="*,25%" cols="*" border="0"></>
+				<frame name="main" src="home.view?listType=${model.listType}&listRows=${model.listRows}&listColumns=${model.listColumns}" scrolling="No"/>
+				<frame name="playlist" src="playlist.view?" id="playlistframe" scrolling="No" />
+			</frameset>
+			<frame name="right" src="right.view?" scrolling="No" noresize="noresize" />	
+		</frameset>
+	</frameset>
 
-        <frameset rows="70%,30%" border="0" framespacing="0" frameborder="0">
-            <frameset cols="*,${model.showRight ? 230 : 0}" border="0" framespacing="0" frameborder="0">
-                <frame name="main" src="nowPlaying.view?" marginwidth="0" marginheight="0">
-                <frame name="right" src="right.view?">
-            </frameset>
-            <frame name="playlist" src="playlist.view?">
-        </frameset>
-    </frameset>
-    <frame name="hidden" frameborder="0" noresize="noresize">
-
-</frameset>
+	<noframes></noframes>
 
 </html>

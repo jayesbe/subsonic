@@ -1,5 +1,6 @@
 <%--@elvariable id="model" type="java.util.Map"--%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
+<%@ include file="doctype.jsp" %>
 
 <html>
 <head>
@@ -16,7 +17,8 @@
 
     <meta name="og:title" content="${fn:escapeXml(model.songs[0].metaData.artist)} &mdash; ${fn:escapeXml(model.songs[0].metaData.album)}"/>
     <meta name="og:type" content="album"/>
-    <meta name="og:image" content="http://${model.redirectFrom}.subsonic.org${coverArtUrl}"/>
+    <!--<meta name="og:image" content="http://${model.redirectFrom}.subsonic.org${coverArtUrl}"/>-->
+    <meta name="og:image" content="http://www.trickysworld.com${coverArtUrl}"/>
 
     <script type="text/javascript">
         function init() {
@@ -78,7 +80,7 @@
     </script>
 </head>
 
-<body class="mainframe bgcolor1" style="padding-top:2em" onload="init();">
+<body class="mainframe bgcolor1" style="padding-top:2em" onLoad="init();">
 
 <div style="margin:auto;width:500px">
     <h1 >${model.songs[0].metaData.artist}</h1>

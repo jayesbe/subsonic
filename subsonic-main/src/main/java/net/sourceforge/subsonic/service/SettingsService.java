@@ -117,7 +117,7 @@ public class SettingsService {
     private static final String KEY_SETTINGS_CHANGED = "SettingsChanged";
 
     // Default values.
-    private static final String DEFAULT_INDEX_STRING = "A B C D E F G H I J K L M N O P Q R S T U V W X-Z(XYZ)";
+    private static final String DEFAULT_INDEX_STRING = "# A B C D E F G H I J K L M N O P Q R S T U V W X-Z(XYZ)";
     private static final String DEFAULT_IGNORED_ARTICLES = "The El La Los Las Le Les";
     private static final String DEFAULT_SHORTCUTS = "New Incoming Podcast";
     private static final String DEFAULT_PLAYLIST_FOLDER = Util.getDefaultPlaylistFolder();
@@ -587,10 +587,7 @@ public class SettingsService {
     }
 
     public boolean isLicenseValid(String email, String license) {
-        if (email == null || license == null) {
-            return false;
-        }
-        return license.equalsIgnoreCase(StringUtil.md5Hex(email.toLowerCase()));
+        return !(email == null || license == null) && license.equalsIgnoreCase(StringUtil.md5Hex(email.toLowerCase()));
     }
 
     public String getDownsamplingCommand() {
@@ -1043,6 +1040,9 @@ public class SettingsService {
         settings.setLastFmUsername(null);
         settings.setLastFmPassword(null);
         settings.setChanged(new Date());
+        settings.setListType("newest");
+        settings.setListRows(2);
+        settings.setListColumns(5);
 
         UserSettings.Visibility playlist = settings.getPlaylistVisibility();
         playlist.setCaptionCutoff(35);

@@ -3,7 +3,7 @@
  *
  * Author: Sindre Mehus
  */
-
+@import "accordion-vader.css";
 @import "midnight.css";
 
 /* The primary background color. */
@@ -15,3 +15,4 @@
 .bgcolor2, .ruleTableHeader, .log  {
     background-color: black
 }
+.solidblockmenu{background: black url("../icons/black/player_back.png") center center repeat;}

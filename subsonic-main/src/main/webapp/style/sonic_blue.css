@@ -6,6 +6,7 @@
  */
 
 @import "sonic.css";
+@import "playermod-cccccc.css";
 
 /* The primary background colour. */
 .bgcolor1 {
@@ -75,3 +76,9 @@ a:hover, a:hover * {
 label, p {
 	color: #CCC;
 }
+
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/sonic_blue/player_back.png") center center repeat;}
+.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #EFE9D9 solid 1px;}

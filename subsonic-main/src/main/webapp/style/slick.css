@@ -3,8 +3,9 @@
  *
  * Author: Jeebs (Fisher Evans)
  */
-
+@import "accordion-dotluv.css";
 @import "default.css";
+@import "playermod-1e3127.css";
 
 table {
 	color: #0e0e0e;
@@ -87,3 +88,10 @@ body {
 .forward {
     background-image:url("../icons/midnight/forward.png");background-position: 0px 3px; background-repeat:no-repeat; padding-left: 16px; line-height: 16px;
 }
+
+
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/slick/player_back.png") center center repeat;}
+.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #8a9aa7 solid 1px;}

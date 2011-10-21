@@ -44,7 +44,7 @@ PARAMETERS
     </sub:url>
 
     <str:randomString count="5" type="alphabet" var="divId"/>
-    <div class="outerpair1" id="${divId}" style="opacity:${opacity}">
+    <div class="outerpair1" id="${divId}" style="opacity:${opacity}%">
         <div class="outerpair2">
             <div class="shadowbox">
                 <div class="innerbox">
@@ -69,7 +69,7 @@ PARAMETERS
     </c:if>
 </div>
 
-<div style="text-align:right; padding-right: 8px;">
+<div style="text-align:center; padding-right: 8px;">
     <c:if test="${param.showChange}">
         <sub:url value="/changeCoverArt.view" var="changeCoverArtUrl">
             <sub:param name="path" value="${param.albumPath}"/>

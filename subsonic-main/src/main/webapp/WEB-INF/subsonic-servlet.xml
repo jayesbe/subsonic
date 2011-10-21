@@ -34,14 +34,20 @@
     </bean>
     <bean id="topController" class="net.sourceforge.subsonic.controller.TopController">
         <property name="viewName" value="top"/>
-        <property name="settingsService" ref="settingsService"/>
         <property name="versionService" ref="versionService"/>
         <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
     </bean>
     <bean id="helpController" class="net.sourceforge.subsonic.controller.HelpController">
         <property name="viewName" value="help"/>
+    </bean>
+    <bean id="aboutController" class="net.sourceforge.subsonic.controller.AboutController">
+        <property name="viewName" value="about"/>
         <property name="versionService" ref="versionService"/>
         <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="logfileController" class="net.sourceforge.subsonic.controller.LogfileController">
+        <property name="viewName" value="logfile"/>
     </bean>
     <bean id="moreController" class="net.sourceforge.subsonic.controller.MoreController">
         <property name="viewName" value="more"/>
@@ -74,8 +80,7 @@
         <property name="securityService" ref="securityService"/>
         <property name="settingsService" ref="settingsService"/>
     </bean>
-    <bean id="podcastReceiverAdminController"
-          class="net.sourceforge.subsonic.controller.PodcastReceiverAdminController">
+    <bean id="podcastReceiverAdminController" class="net.sourceforge.subsonic.controller.PodcastReceiverAdminController">
         <property name="podcastService" ref="podcastService"/>
     </bean>
     <bean id="setMusicFileInfoController" class="net.sourceforge.subsonic.controller.SetMusicFileInfoController">
@@ -133,6 +138,8 @@
         <property name="playerService" ref="playerService"/>
         <property name="statusService" ref="statusService"/>
         <property name="musicFileService" ref="musicFileService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
     </bean>
     <bean id="searchController" class="net.sourceforge.subsonic.controller.SearchController">
         <property name="commandClass" value="net.sourceforge.subsonic.command.SearchCommand"/>
@@ -216,7 +223,7 @@
     <bean id="avatarUploadController" class="net.sourceforge.subsonic.controller.AvatarUploadController">
         <property name="viewName" value="avatarUploadResult"/>
         <property name="settingsService" ref="settingsService"/>
-        <property name="secturityService" ref="securityService"/>
+        <property name="securityService" ref="securityService"/>
     </bean>
     <bean id="userSettingsController" class="net.sourceforge.subsonic.controller.UserSettingsController">
         <property name="sessionForm" value="true"/>
@@ -380,6 +387,8 @@
             <props>
                 <prop key="/main.view">mainController</prop>
                 <prop key="/help.view">helpController</prop>
+                <prop key="/about.view">aboutController</prop>
+                <prop key="/logfile.view">logfileController</prop>
                 <prop key="/lyrics.view">lyricsController</prop>
                 <prop key="/left.view">leftController</prop>
                 <prop key="/right.view">rightController</prop>

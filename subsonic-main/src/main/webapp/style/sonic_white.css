@@ -76,3 +76,9 @@ a:hover, a:hover * {
 label, p {
 	color: #696969;
 }
+
+
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/sonic_white/player_back.png") center center repeat;}

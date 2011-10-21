@@ -3,8 +3,9 @@
  *
  * Author: Jeebs (Fisher Evans)
  */
-
+@import "accordion-lefrog.css";
 @import "default.css";
+@import "playermod-d2f1d5.css";
 
 table {
 	color: #d2f1d5;
@@ -25,7 +26,7 @@ body.bgcolor2 {
 }
 
 .bgcolor2 {
-	background-image:url(../icons/hitech/bg.jpg);
+	background-image:url("../icons/hitech/bg_dn.png");
 }
 
 /* Background color for selected header, log etc. */
@@ -37,6 +38,7 @@ body.bgcolor2 {
 /* The primary foreground color. */
 body {
     color: #d2f1d5;
+	background-image:url("../icons/hitech/bg_dn.png");
 }
 
 /* The secondary foreground color used for h1, details etc. */
@@ -51,7 +53,7 @@ h2, b, tr {
 
 /* Link color */
 a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #00d61b
+    color: #00d61b;
 }
 
 /* Link hover color */
@@ -89,8 +91,14 @@ body {
 }
 
 .mainframe {
-    background-image:url( "../icons/hitech/bg2.jpg" );
-    background-repeat:no-repeat;
+    background-image:url( "../icons/hitech/bg_dn.png" );
+    background-repeat:repeat;
     background-attachment:fixed;
-    background-position:bottom right;
+    background-position:top left;
 }
+
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/hitech/player_back.png") center center repeat;}
+.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #00d61b solid 1px;}

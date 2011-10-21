@@ -61,6 +61,9 @@ public class PersonalSettingsController extends SimpleFormController {
         command.setLastFmEnabled(userSettings.isLastFmEnabled());
         command.setLastFmUsername(userSettings.getLastFmUsername());
         command.setLastFmPassword(userSettings.getLastFmPassword());
+        command.setListType(userSettings.getListType());
+        command.setListRows(userSettings.getListRows());
+        command.setListColumns(userSettings.getListColumns());
 
         Locale currentLocale = userSettings.getLocale();
         Locale[] locales = settingsService.getAvailableLocales();
@@ -119,6 +122,9 @@ public class PersonalSettingsController extends SimpleFormController {
         settings.setLastFmUsername(command.getLastFmUsername());
         settings.setSystemAvatarId(getSystemAvatarId(command));
         settings.setAvatarScheme(getAvatarScheme(command));
+        settings.setListType(command.getListType());
+        settings.setListRows(command.getListRows());
+        settings.setListColumns(command.getListColumns());
 
         if (StringUtils.isNotBlank(command.getLastFmPassword())) {
             settings.setLastFmPassword(command.getLastFmPassword());

@@ -160,6 +160,9 @@ public class UserDaoTestCase extends DaoTestCaseBase {
         assertFalse("Error in getUserSettings().", userSettings.isNowPlayingAllowed());
         assertSame("Error in getUserSettings().", AvatarScheme.NONE, userSettings.getAvatarScheme());
         assertNull("Error in getUserSettings().", userSettings.getSystemAvatarId());
+        assertNotNull("Error in getUserSettings().", userSettings.getListType());
+        assertEquals("Error in getUserSettings().", 2, userSettings.getListRows());
+        assertEquals("Error in getUserSettings().", 5, userSettings.getListColumns());
 
         UserSettings settings = new UserSettings("sindre");
         settings.setLocale(Locale.SIMPLIFIED_CHINESE);
@@ -180,6 +183,9 @@ public class UserDaoTestCase extends DaoTestCaseBase {
         settings.setAvatarScheme(AvatarScheme.SYSTEM);
         settings.setSystemAvatarId(1);
         settings.setChanged(new Date(9412L));
+        settings.setListType("random");
+        settings.setListRows(3);
+        settings.setListColumns(7);
 
         userDao.updateUserSettings(settings);
         userSettings = userDao.getUserSettings("sindre");
@@ -203,6 +209,9 @@ public class UserDaoTestCase extends DaoTestCaseBase {
         assertSame("Error in getUserSettings().", AvatarScheme.SYSTEM, userSettings.getAvatarScheme());
         assertEquals("Error in getUserSettings().", 1, userSettings.getSystemAvatarId().intValue());
         assertEquals("Error in getUserSettings().", new Date(9412L), userSettings.getChanged());
+        assertEquals("Error in getUserSettings().", "random", userSettings.getListType());
+        assertEquals("Error in getUserSettings().", 3, userSettings.getListRows());
+        assertEquals("Error in getUserSettings().", 7, userSettings.getListColumns());
 
         userDao.deleteUser("sindre");
         assertNull("Error in cascading delete.", userDao.getUserSettings("sindre"));
@@ -221,7 +230,6 @@ public class UserDaoTestCase extends DaoTestCaseBase {
         assertEquals("Wrong cover art role.", expected.isCoverArtRole(), actual.isCoverArtRole());
         assertEquals("Wrong download role.", expected.isDownloadRole(), actual.isDownloadRole());
         assertEquals("Wrong playlist role.", expected.isPlaylistRole(), actual.isPlaylistRole());
-        assertEquals("Wrong upload role.", expected.isUploadRole(), actual.isUploadRole());
         assertEquals("Wrong upload role.", expected.isUploadRole(), actual.isUploadRole());
         assertEquals("Wrong stream role.", expected.isStreamRole(), actual.isStreamRole());
         assertEquals("Wrong jukebox role.", expected.isJukeboxRole(), actual.isJukeboxRole());

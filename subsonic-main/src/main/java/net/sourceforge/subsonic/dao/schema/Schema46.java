@@ -76,6 +76,24 @@ public class Schema46 extends Schema {
 
             LOG.info("Database table 'player_transcoding2' was created successfully.");
         }
+
+        if (!columnExists(template, "list_type", "user_settings")) {
+            LOG.info("Database column 'user_settings.list_type' not found.  Creating it.");
+            template.execute("alter table user_settings add list_type varchar default 'newest' not null");
+            LOG.info("Database column 'user_settings.list_type' was added successfully.");
+        }
+
+        if (!columnExists(template, "list_rows", "user_settings")) {
+            LOG.info("Database column 'user_settings.list_rows' not found.  Creating it.");
+            template.execute("alter table user_settings add list_rows int default 2");
+            LOG.info("Database column 'user_settings.list_rows' was added successfully.");
+        }
+
+        if (!columnExists(template, "list_columns", "user_settings")) {
+            LOG.info("Database column 'user_settings.list_columns' not found.  Creating it.");
+            template.execute("alter table user_settings add list_columns int default 5");
+            LOG.info("Database column 'user_settings.list_columns' was added successfully.");
+        }
     }
 
 }

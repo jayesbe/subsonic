@@ -3,8 +3,8 @@
  *
  * Author: Sindre Mehus
  */
-
 @import "midnight.css";
+@import "playermod-cfd1d6";
 
 /* The primary background color. */
 .bgcolor1 {
@@ -91,3 +91,8 @@ input, select {
     font-size: 12pt;
 }
 
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/hd/player_back.png") center center repeat;}
+.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #97D9FF solid 1px;}

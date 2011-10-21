@@ -9,7 +9,7 @@
 Scroller = {
 	// control the speed of the scroller.
 	// dont change it here directly, please use Scroller.speed=50;
-	speed:10,
+	speed:50,
 
 	// returns the Y position of the div
 	gy: function (d) {

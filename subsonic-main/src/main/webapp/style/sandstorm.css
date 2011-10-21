@@ -3,7 +3,7 @@
  *
  * Author: Sindre Mehus
  */
-
+@import "accordion-humanity.css";
 @import "default.css";
 
 /* The primary background color. */
@@ -37,3 +37,9 @@ body {
     scrollbar-track-color: #F5F5D0;
     scrollbar-darkshadow-color: #F5F5D0;
 }
+
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/sandstorm/player_back.png") center center repeat;}
+.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #057368 solid 1px;}

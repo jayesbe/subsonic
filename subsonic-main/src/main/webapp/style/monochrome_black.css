@@ -3,8 +3,9 @@
  *
  * Author: David D ddavis1@gmail.com
  */
-
+@import "accordion-darkness.css";
 @import "default.css";
+@import "playermod-cccccc.css";
 
 /* The primary background colour. */
 .bgcolor1 {
@@ -31,11 +32,6 @@ h1, .detail, .albumComment {
 /* Foreground colour used for h2, bold and tr. */
 h2, b, tr {
     color: #FFFFFF;
-}
-
-/* Table sizing */
-table {
-    margin: 0 0 0 0;
 }
 
 /* Main frame image & colour */
@@ -113,3 +109,9 @@ body {
 label, p {
 	color: #CCC;
 }
+
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/monochrome_black/player_back.png") center center repeat;}
+.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #fff solid 1px;}

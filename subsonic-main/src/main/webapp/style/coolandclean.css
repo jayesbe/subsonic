@@ -7,13 +7,11 @@
  * Heading icons are part of the Albook icon pack created by Laurent Baumann (http://lbaumann.com/)
  * Main theme icon part of itunes icon pack created by Michael Flarup (http://pixelresort.com)
  */
-
+@import "accordion-smoothness.css";
 @import "default.css";
 
 /* The primary background colour, light gray. Images used to force background on left frame headings and playlist. */
 .bgcolor1 {
-    background-image:url( "../icons/coolandclean/list_heading.png" );
-    background-repeat:repeat;
     background-color: #F7F7F7;
 }
 
@@ -39,9 +37,7 @@ h1, h2, b, tr, .detail, .albumComment {
 table {
     font-size: 100%;
     line-height: 130%;
-    padding: 0;
     border: 0;
-    margin: 0 0 0 0;
 }
 
 /* Main frame image & colour */
@@ -114,3 +110,12 @@ body {
     padding: 5px;
 }
 
+.logo {
+	margin-top: 15px;
+}
+
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/coolandclean/player_back.png") center center repeat;}
+.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #333333 solid 1px;}

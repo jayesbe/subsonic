@@ -52,6 +52,9 @@ public class PersonalSettingsCommand {
     private String lastFmUsername;
     private String lastFmPassword;
     private boolean isReloadNeeded;
+    private String listType;
+    private int listRows;
+    private int listColumns;
 
     public User getUser() {
         return user;
@@ -212,4 +215,28 @@ public class PersonalSettingsCommand {
     public void setReloadNeeded(boolean reloadNeeded) {
         isReloadNeeded = reloadNeeded;
     }
+
+    public String getListType() {
+        return listType;
+    }
+
+	public void setListType(String listType) {
+        this.listType = listType;
+	}
+
+    public int getListRows() {
+        return listRows;
+    }
+
+	public void setListRows(int listRows) {
+        this.listRows = listRows;
+	}
+
+    public int getListColumns() {
+        return listColumns;
+    }
+
+	public void setListColumns(int listColumns) {
+        this.listColumns = listColumns;
+	}
 }

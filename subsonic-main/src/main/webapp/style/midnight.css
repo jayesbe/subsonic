@@ -3,8 +3,9 @@
  *
  * Author: Sindre Mehus
  */
-
+@import "accordion-darkness.css";
 @import "default.css";
+@import "playermod-cccccc.css";
 
 /* The primary background color. */
 .bgcolor1 {
@@ -45,12 +46,12 @@ a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
 /* Link hover color */
 a:hover, a:hover * {
     text-decoration: underline;
-    color: orange;
+    color: #F90;
 }
 
 /* Color for warning messages. */
 .warning {
-    color: orange;
+    color: #F90;
 }
 
 /* Simple border. */
@@ -75,3 +76,10 @@ body {
 .forward {
     background-image:url("../icons/midnight/forward.png");background-position: 0px 3px; background-repeat:no-repeat; padding-left: 16px; line-height: 16px;
 }
+
+
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/midnight/player_back.png") center center repeat;}
+.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #F90 solid 1px;}

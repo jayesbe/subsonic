@@ -3,8 +3,9 @@
  *
  * Author: Jeebs (Fisher Evans)
  */
-
+@import "accordion-smoothness.css";
 @import "default.css";
+@import "playermod-5c5c5c";
 
 table {
 	color: #5c5c5c;
@@ -47,7 +48,7 @@ h2, b, tr {
 
 /* Link color */
 a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: black
+    color: #000000;
 }
 
 /* Link hover color */
@@ -83,3 +84,9 @@ body {
 .forward {
     background-image:url("../icons/midnight/forward.png");background-position: 0px 3px; background-repeat:no-repeat; padding-left: 16px; line-height: 16px;
 }
+
+
+/***************************************************************************************
+ * player images and control dropdown *
+ ***************************************************************************************/
+.solidblockmenu{background: black url("../icons/hicon/player_back.png") center center repeat;}

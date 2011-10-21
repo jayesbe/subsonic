@@ -96,6 +96,9 @@ public class MultiController extends MultiActionController {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("showRight", userSettings.isShowNowPlayingEnabled() || userSettings.isShowChatEnabled());
         map.put("brand", settingsService.getBrand());
+        map.put("listType", userSettings.getListType());
+        map.put("listRows", userSettings.getListRows());
+        map.put("listColumns", userSettings.getListColumns());
         return new ModelAndView("index", "model", map);
     }
 

@@ -19,7 +19,6 @@
 package net.sourceforge.subsonic.controller;
 
 import net.sourceforge.subsonic.*;
-import net.sourceforge.subsonic.service.*;
 import org.springframework.web.servlet.*;
 import org.springframework.web.servlet.mvc.*;
 
@@ -27,15 +26,18 @@ import javax.servlet.http.*;
 import java.util.*;
 
 /**
- * Controller for the help page.
+ * Controller for the Logfile page.
  *
  * @author Sindre Mehus
  */
-public class HelpController extends ParameterizableViewController {
+public class LogfileController extends ParameterizableViewController {
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
+
+        map.put("logEntries", Logger.getLatestLogEntries());
+        map.put("logFile", Logger.getLogFile());
 
         ModelAndView result = super.handleRequestInternal(request, response);
         result.addObject("model", map);
