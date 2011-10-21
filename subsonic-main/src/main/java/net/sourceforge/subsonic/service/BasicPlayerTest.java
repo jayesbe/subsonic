@@ -153,12 +153,12 @@ public class BasicPlayerTest implements BasicPlayerListener {
      */
     public void setController(BasicController controller) {
         display("setController : "+controller);
-	}
+    }
 
-	public void display(String msg) {
+    public void display(String msg) {
         if (out != null) {
             out.println(msg);
         }
-	}
+    }
 
 }

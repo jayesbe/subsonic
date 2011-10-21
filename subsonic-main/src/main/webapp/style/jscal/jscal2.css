@@ -207,11 +207,11 @@ table.DynarchCalendar-titleCont {
   filter: alpha(opacity=85);
 }
 .DynarchCalendar-menu table {
-	text-align: center;
+    text-align: center;
 }
 
 .DynarchCalendar-menu table td div {
-	border: 1px solid transparent;
+    border: 1px solid transparent;
 }
 
 .DynarchCalendar-menu table td div {

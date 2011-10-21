@@ -2,14 +2,14 @@
 <%@ include file="doctype.jsp" %>
 
 <html>
-	<head>
-		<%@ include file="head.jsp" %>
-	</head>
-	<body>
+    <head>
+        <%@ include file="head.jsp" %>
+    </head>
+    <body>
 
-	<c:forEach items="${model.reloadFrames}" var="reloadFrame">
-		<script language="javascript" type="text/javascript">parent.frames.${reloadFrame.frame}.location.href="${reloadFrame.view}"</script>
-	</c:forEach>
+    <c:forEach items="${model.reloadFrames}" var="reloadFrame">
+        <script language="javascript" type="text/javascript">parent.frames.${reloadFrame.frame}.location.href="${reloadFrame.view}"</script>
+    </c:forEach>
 
-	</body>
+    </body>
 </html>

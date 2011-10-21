@@ -2,345 +2,345 @@
 <%@ include file="doctype.jsp" %>
 
 <html>
-	<head>
-		<%@ include file="head.jsp" %>
-		<script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/script/prototype.js"/>"></script>
+    <head>
+        <%@ include file="head.jsp" %>
+        <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/script/prototype.js"/>"></script>
 
-		<script type="text/javascript">
-			var channelCount;
-			
-			function itemSelected() {
-			}
+        <script type="text/javascript">
+            var channelCount;
+            
+            function itemSelected() {
+            }
 
-			function downloadSelected() {
-				if (getSelectedEpisodes().length == 0 && getSelectedChannels().length == 0) { return false; }
-				location.href = "podcastReceiverAdmin.view?downloadChannel=" + getSelectedChannels() +
-								"&downloadEpisode=" + getSelectedEpisodes() +
-								"&expandedChannels=" + getExpandedChannels();
-			}
+            function downloadSelected() {
+                if (getSelectedEpisodes().length == 0 && getSelectedChannels().length == 0) { return false; }
+                location.href = "podcastReceiverAdmin.view?downloadChannel=" + getSelectedChannels() +
+                                "&downloadEpisode=" + getSelectedEpisodes() +
+                                "&expandedChannels=" + getExpandedChannels();
+            }
 
-			function deleteSelected() {
-				if (getSelectedChannels().length == 0 && getSelectedEpisodes().length == 0) { return false; }
-				if (confirm("<fmt:message key='podcastreceiver.confirmdelete'/>")) {
-					location.href = "podcastReceiverAdmin.view?deleteChannel=" + getSelectedChannels() +
-					"&deleteEpisode=" + getSelectedEpisodes() +
-					"&expandedChannels=" + getExpandedChannels();
-				}
-			}
+            function deleteSelected() {
+                if (getSelectedChannels().length == 0 && getSelectedEpisodes().length == 0) { return false; }
+                if (confirm("<fmt:message key='podcastreceiver.confirmdelete'/>")) {
+                    location.href = "podcastReceiverAdmin.view?deleteChannel=" + getSelectedChannels() +
+                    "&deleteEpisode=" + getSelectedEpisodes() +
+                    "&expandedChannels=" + getExpandedChannels();
+                }
+            }
 
-			function refreshChannels() {
-				location.href = "podcastReceiverAdmin.view?refresh=" + ((getExpandedChannels() != null) ? "&expandedChannels=" + getExpandedChannels() : "");
-			}
+            function refreshChannels() {
+                location.href = "podcastReceiverAdmin.view?refresh=" + ((getExpandedChannels() != null) ? "&expandedChannels=" + getExpandedChannels() : "");
+            }
 
-			function refreshPage() {
-				location.href = "podcastReceiver.view?" + ((getExpandedChannels() != null) ? "expandedChannels=" + getExpandedChannels() : "");
-			}
+            function refreshPage() {
+                location.href = "podcastReceiver.view?" + ((getExpandedChannels() != null) ? "expandedChannels=" + getExpandedChannels() : "");
+            }
 
-			function toggleEpisodesUpdate() {
-				channelCount = ${fn:length(model.channels)};
-				var expandedChannels = getExpandedChannels().split(" ");
-				var expandedChannelCount = expandedChannels.length - 1;
-				
-				(expandedChannelCount > 0) ? $("hideEpisodes").show() : $("hideEpisodes").hide();
-				(expandedChannelCount == channelCount) ? $("showEpisodes").hide() : $("showEpisodes").show();
+            function toggleEpisodesUpdate() {
+                channelCount = ${fn:length(model.channels)};
+                var expandedChannels = getExpandedChannels().split(" ");
+                var expandedChannelCount = expandedChannels.length - 1;
+                
+                (expandedChannelCount > 0) ? $("hideEpisodes").show() : $("hideEpisodes").hide();
+                (expandedChannelCount == channelCount) ? $("showEpisodes").hide() : $("showEpisodes").show();
 
-				var newURI = "podcastReceiver.view?" + ((expandedChannelCount > 0) ? "expandedChannels=" + getExpandedChannels() : "");
-				parent.upper.document.getElementById("podcastLink").href = newURI;
-				parent.upper.document.getElementById("podcastLinkDesc").href = newURI;
-			}
+                var newURI = "podcastReceiver.view?" + ((expandedChannelCount > 0) ? "expandedChannels=" + getExpandedChannels() : "");
+                parent.upper.document.getElementById("podcastLink").href = newURI;
+                parent.upper.document.getElementById("podcastLinkDesc").href = newURI;
+            }
 
-			function selectionUpdate() {
-				var selectedChannels = getSelectedChannels().split(" ");
-				var selectedChannelCount = selectedChannels.length - 1;
-				var selectedEpisodes = getSelectedEpisodes().split(" ");
-				var selectedEpisodeCount = selectedEpisodes.length - 1;
+            function selectionUpdate() {
+                var selectedChannels = getSelectedChannels().split(" ");
+                var selectedChannelCount = selectedChannels.length - 1;
+                var selectedEpisodes = getSelectedEpisodes().split(" ");
+                var selectedEpisodeCount = selectedEpisodes.length - 1;
 
-				if (selectedChannelCount > 0 || selectedEpisodeCount > 0) {$("downloadSelected").show(); $("deleteSelected").show()} else {$("downloadSelected").hide(); $("deleteSelected").hide();}
-			}
+                if (selectedChannelCount > 0 || selectedEpisodeCount > 0) {$("downloadSelected").show(); $("deleteSelected").show()} else {$("downloadSelected").hide(); $("deleteSelected").hide();}
+            }
 
-			function toggleEpisodes(channelIndex) {	
-				for (var i = 0; i < episodeCount; i++) {
-					var row = $("episodeRow" + i);
-					if (row.title == "channel" + channelIndex) {
-						row.toggle();
-						$("channelExpanded" + channelIndex).checked = row.visible() ? "checked" : "";
-					}
-				}
-				toggleEpisodesUpdate();
-			}
+            function toggleEpisodes(channelIndex) {    
+                for (var i = 0; i < episodeCount; i++) {
+                    var row = $("episodeRow" + i);
+                    if (row.title == "channel" + channelIndex) {
+                        row.toggle();
+                        $("channelExpanded" + channelIndex).checked = row.visible() ? "checked" : "";
+                    }
+                }
+                toggleEpisodesUpdate();
+            }
 
-			function toggleAllEpisodes(visible) {
-				for (var i = 0; i < episodeCount; i++) {
-					var row = $("episodeRow" + i);
-					if (visible) {
-						row.show();
-					} else {
-						row.hide();
-					}
-				}
-				for (i = 0; i < channelCount; i++) {
-					$("channelExpanded" + i).checked = visible ? "checked" : "";
-				}
-				toggleEpisodesUpdate();
-			}
+            function toggleAllEpisodes(visible) {
+                for (var i = 0; i < episodeCount; i++) {
+                    var row = $("episodeRow" + i);
+                    if (visible) {
+                        row.show();
+                    } else {
+                        row.hide();
+                    }
+                }
+                for (i = 0; i < channelCount; i++) {
+                    $("channelExpanded" + i).checked = visible ? "checked" : "";
+                }
+                toggleEpisodesUpdate();
+            }
 
-			function getExpandedChannels() {
-				var result = "";
-				for (var i = 0; i < channelCount; i++) {
-					var checkbox = $("channelExpanded" + i);
-					if (checkbox.checked) {
-						result += (checkbox.value + " ");
-					}
-				}
-				return result;
-			}
+            function getExpandedChannels() {
+                var result = "";
+                for (var i = 0; i < channelCount; i++) {
+                    var checkbox = $("channelExpanded" + i);
+                    if (checkbox.checked) {
+                        result += (checkbox.value + " ");
+                    }
+                }
+                return result;
+            }
 
-			function getSelectedChannels() {
-				var result = "";
-				for (var i = 0; i < channelCount; i++) {
-					var checkbox = $("channel" + i);
-					if (checkbox.checked) {
-						result += (checkbox.value + " ");
-					}
-				}
-				return result;
-			}
+            function getSelectedChannels() {
+                var result = "";
+                for (var i = 0; i < channelCount; i++) {
+                    var checkbox = $("channel" + i);
+                    if (checkbox.checked) {
+                        result += (checkbox.value + " ");
+                    }
+                }
+                return result;
+            }
 
-			function getSelectedEpisodes() {
-				var result = "";
-				for (var i = 0; i < episodeCount; i++) {
-					var checkbox = $("episode" + i);
-					if (checkbox.checked) {
-						result += (checkbox.value + " ");
-					}
-				}
-				return result;
-			}
+            function getSelectedEpisodes() {
+                var result = "";
+                for (var i = 0; i < episodeCount; i++) {
+                    var checkbox = $("episode" + i);
+                    if (checkbox.checked) {
+                        result += (checkbox.value + " ");
+                    }
+                }
+                return result;
+            }
 
-			function toggleAddPodcast() {
-				$("addPodcast").toggle();
-			}
-			
-			function verifyPodcastURI() {
-				// Not foolproof but keeps most 
-				// junk values from being submitted.
-				var uri = document.addPodcastForm.add.value;
-				var regexp = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+            function toggleAddPodcast() {
+                $("addPodcast").toggle();
+            }
+            
+            function verifyPodcastURI() {
+                // Not foolproof but keeps most 
+                // junk values from being submitted.
+                var uri = document.addPodcastForm.add.value;
+                var regexp = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
 
-				// Check for null value
-				if (uri == "") {
-					return false;
-				}
-				// Check for valid URI
-				if (regexp.test(uri) == false) {
-					return false;
-				}
-				
-				// Checks passed: submit
-				document.addPodcastForm.submit();
-				$("addPodcast").toggle();
-			}
-		</script>
-	</head>
-	<body class="mainframe bgcolor1" onLoad="toggleEpisodesUpdate()">
+                // Check for null value
+                if (uri == "") {
+                    return false;
+                }
+                // Check for valid URI
+                if (regexp.test(uri) == false) {
+                    return false;
+                }
+                
+                // Checks passed: submit
+                document.addPodcastForm.submit();
+                $("addPodcast").toggle();
+            }
+        </script>
+    </head>
+    <body class="mainframe bgcolor1" onLoad="toggleEpisodesUpdate()">
 
-		<c:if test="${model.user.podcastRole}">
-			<div id="addPodcast" class="bgcolor1" style="display:none">
-				<div style="width:50%;margin:2px auto;">
-					<form name="addPodcastForm" method="post" action="podcastReceiverAdmin.view?">
-						<input type="hidden" name="expandedChannels" value=""/>
-						<table>
-							<tr>
-								<td><fmt:message key="podcastreceiver.address"/></td>
-								<td><input type="text" name="add" value="" style="width:30em" onclick="select()"/></td>
-								<td><input type="button" value="<fmt:message key='common.ok'/>" onClick="verifyPodcastURI()"/></td>
-								<td><input type="reset" value="<fmt:message key='common.cancel'/>" onClick="document.getElementById('addPodcast').style.display='none'"/></td>
-							</tr>
-						</table>
-					</form>
-				</div>
-			</div>
-		</c:if>
+        <c:if test="${model.user.podcastRole}">
+            <div id="addPodcast" class="bgcolor1" style="display:none">
+                <div style="width:50%;margin:2px auto;">
+                    <form name="addPodcastForm" method="post" action="podcastReceiverAdmin.view?">
+                        <input type="hidden" name="expandedChannels" value=""/>
+                        <table>
+                            <tr>
+                                <td><fmt:message key="podcastreceiver.address"/></td>
+                                <td><input type="text" name="add" value="" style="width:30em" onclick="select()"/></td>
+                                <td><input type="button" value="<fmt:message key='common.ok'/>" onClick="verifyPodcastURI()"/></td>
+                                <td><input type="reset" value="<fmt:message key='common.cancel'/>" onClick="document.getElementById('addPodcast').style.display='none'"/></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </c:if>
 
-		<div id="mainframecontainer">
+        <div id="mainframecontainer">
 
-			<div id="mainframemenucontainer" class="bgcolor1">
-				<span id="mainframemenuleft">
-					<c:if test="${model.user.podcastRole}">
-						<span class="mainframemenuitem refresh" style="background-image: url('<spring:theme code='refreshImage'/>')"><a href="javascript:refreshChannels()"><fmt:message key="podcastreceiver.check"/></a></span>
-						<span class="mainframemenuitem addFromURI" style="background-image: url(<spring:theme code='addImage'/>)"><a href="#" onClick="javascript:toggleAddPodcast()"><fmt:message key="podcastreceiver.subscribe"/></a></span>
-						<span id="downloadSelected" class="mainframemenuitem" style="display:none;background-image: url(<spring:theme code='downloadImage'/>)"><a href="javascript:downloadSelected()"><fmt:message key="podcastreceiver.downloadselected"/></a></span>
-						<span id="deleteSelected" class="mainframemenuitem" style="display:none;background-image: url(<spring:theme code='removeImage'/>)"><a href="javascript:deleteSelected()"><fmt:message key="podcastreceiver.deleteselected"/></a></span>
-					</c:if>
-				</span>
-				<span id="mainframemenucenter">
-					<span id="hideEpisodes" class="mainframemenuitem" style="display:none;background-image: url(<spring:theme code='upImage'/>)"><a href="javascript:toggleAllEpisodes(false)"><fmt:message key="podcastreceiver.collapseall"/></a></span>
-					<span id="showEpisodes" class="mainframemenuitem" style="display:none;background-image: url(<spring:theme code='downImage'/>)"><a href="javascript:toggleAllEpisodes(true)"><fmt:message key="podcastreceiver.expandall"/></a></span>
-				</span>
-				<span id="mainframemenuright">
-					<span class="mainframemenuitem refresh right" style="background-image: url('<spring:theme code='refreshImage'/>')"><a href="javascript:refreshPage()"><fmt:message key="podcastreceiver.refresh"/></a></span>
-					<c:if test="${model.user.adminRole}">
-						<span class="mainframemenuitem forward right"><a href="podcastSettings.view?"><fmt:message key="podcastreceiver.settings"/></a></span>
-					</c:if>
-				</span>
-			</div>
+            <div id="mainframemenucontainer" class="bgcolor1">
+                <span id="mainframemenuleft">
+                    <c:if test="${model.user.podcastRole}">
+                        <span class="mainframemenuitem refresh" style="background-image: url('<spring:theme code='refreshImage'/>')"><a href="javascript:refreshChannels()"><fmt:message key="podcastreceiver.check"/></a></span>
+                        <span class="mainframemenuitem addFromURI" style="background-image: url(<spring:theme code='addImage'/>)"><a href="#" onClick="javascript:toggleAddPodcast()"><fmt:message key="podcastreceiver.subscribe"/></a></span>
+                        <span id="downloadSelected" class="mainframemenuitem" style="display:none;background-image: url(<spring:theme code='downloadImage'/>)"><a href="javascript:downloadSelected()"><fmt:message key="podcastreceiver.downloadselected"/></a></span>
+                        <span id="deleteSelected" class="mainframemenuitem" style="display:none;background-image: url(<spring:theme code='removeImage'/>)"><a href="javascript:deleteSelected()"><fmt:message key="podcastreceiver.deleteselected"/></a></span>
+                    </c:if>
+                </span>
+                <span id="mainframemenucenter">
+                    <span id="hideEpisodes" class="mainframemenuitem" style="display:none;background-image: url(<spring:theme code='upImage'/>)"><a href="javascript:toggleAllEpisodes(false)"><fmt:message key="podcastreceiver.collapseall"/></a></span>
+                    <span id="showEpisodes" class="mainframemenuitem" style="display:none;background-image: url(<spring:theme code='downImage'/>)"><a href="javascript:toggleAllEpisodes(true)"><fmt:message key="podcastreceiver.expandall"/></a></span>
+                </span>
+                <span id="mainframemenuright">
+                    <span class="mainframemenuitem refresh right" style="background-image: url('<spring:theme code='refreshImage'/>')"><a href="javascript:refreshPage()"><fmt:message key="podcastreceiver.refresh"/></a></span>
+                    <c:if test="${model.user.adminRole}">
+                        <span class="mainframemenuitem forward right"><a href="podcastSettings.view?"><fmt:message key="podcastreceiver.settings"/></a></span>
+                    </c:if>
+                </span>
+            </div>
 
-			<div id="mainframecontentcontainer">
-				<div id="mainframecontent">
+            <div id="mainframecontentcontainer">
+                <div id="mainframecontent">
 
-				<h1>
-					<img id="pageimage" src="<spring:theme code="podcastLargeImage"/>" alt=""/>
-					<span class="desc"><fmt:message key="podcastreceiver.title"/></span>
-				</h1>
+                <h1>
+                    <img id="pageimage" src="<spring:theme code="podcastLargeImage"/>" alt=""/>
+                    <span class="desc"><fmt:message key="podcastreceiver.title"/></span>
+                </h1>
 
-					<table style="border-collapse:collapse;white-space:nowrap">
-						<tr style="margin:0;padding:0;border:0">
-							<td style="padding-left:0.25em;padding-top:1em" colspan="7">Podcast Name</td>
-							<td style="padding-left:1.5em;padding-top:1em;text-align:center;" align="center">Status</td>
-							<td style="padding-left:1.5em;padding-top:1em">Details</td>
-						</tr>
+                    <table style="border-collapse:collapse;white-space:nowrap">
+                        <tr style="margin:0;padding:0;border:0">
+                            <td style="padding-left:0.25em;padding-top:1em" colspan="7">Podcast Name</td>
+                            <td style="padding-left:1.5em;padding-top:1em;text-align:center;" align="center">Status</td>
+                            <td style="padding-left:1.5em;padding-top:1em">Details</td>
+                        </tr>
 
-						<c:set var="episodeCount" value="0"/>
+                        <c:set var="episodeCount" value="0"/>
 
-						<c:forEach items="${model.channels}" var="channel" varStatus="i">
+                        <c:forEach items="${model.channels}" var="channel" varStatus="i">
 
-							<c:set var="title" value="${channel.key.title}"/>
-							<c:if test="${empty title}">
-								<c:set var="title" value="${channel.key.url}"/>
-							</c:if>
+                            <c:set var="title" value="${channel.key.title}"/>
+                            <c:if test="${empty title}">
+                                <c:set var="title" value="${channel.key.url}"/>
+                            </c:if>
 
-							<c:set var="channelExpanded" value="false"/>
-							<c:forEach items="${model.expandedChannels}" var="expandedChannelId">
-								<c:if test="${expandedChannelId eq channel.key.id}">
-									<c:set var="channelExpanded" value="true"/>
-								</c:if>
-							</c:forEach>
+                            <c:set var="channelExpanded" value="false"/>
+                            <c:forEach items="${model.expandedChannels}" var="expandedChannelId">
+                                <c:if test="${expandedChannelId eq channel.key.id}">
+                                    <c:set var="channelExpanded" value="true"/>
+                                </c:if>
+                            </c:forEach>
 
-							<tr style="margin:0;padding:0;border:0">
-								<td style="padding-top:1em">
-									<input type="checkbox" class="checkbox" id="channel${i.index}" value="${channel.key.id}" onClick="selectionUpdate()"/>
-									<input type="checkbox" class="checkbox" id="channelExpanded${i.index}" value="${channel.key.id}" style="display:none"
-										   <c:if test="${channelExpanded}">checked="checked"</c:if>/>
-								</td>
-								<td colspan="6" style="padding-left:0.25em;padding-top:1em">
-									<a href="javascript:toggleEpisodes(${i.index})">
-										<span title="${title}"><b><str:truncateNicely upper="40">${title}</str:truncateNicely></b></span>
-										(${fn:length(channel.value)})
-									</a>
-								</td>
-								<td style="padding-left:1.5em;padding-top:1em;text-align:center;">
-									<span class="detail"><fmt:message key="podcastreceiver.status.${fn:toLowerCase(channel.key.status)}"/></span>
-								</td>
-								<td style="padding-left:1.5em;padding-top:1em">
-									<c:choose>
-										<c:when test="${channel.key.status eq 'ERROR'}">
-											<span class="detail warning" title="${channel.key.errorMessage}"><str:truncateNicely upper="100">${channel.key.errorMessage}</str:truncateNicely></span>
-										</c:when>
-										<c:otherwise>
-											<span class="detail" title="${channel.key.description}"><str:truncateNicely upper="100">${channel.key.description}</str:truncateNicely></span>
-										</c:otherwise>
-									</c:choose>
-								</td>
-							</tr>
+                            <tr style="margin:0;padding:0;border:0">
+                                <td style="padding-top:1em">
+                                    <input type="checkbox" class="checkbox" id="channel${i.index}" value="${channel.key.id}" onClick="selectionUpdate()"/>
+                                    <input type="checkbox" class="checkbox" id="channelExpanded${i.index}" value="${channel.key.id}" style="display:none"
+                                           <c:if test="${channelExpanded}">checked="checked"</c:if>/>
+                                </td>
+                                <td colspan="6" style="padding-left:0.25em;padding-top:1em">
+                                    <a href="javascript:toggleEpisodes(${i.index})">
+                                        <span title="${title}"><b><str:truncateNicely upper="40">${title}</str:truncateNicely></b></span>
+                                        (${fn:length(channel.value)})
+                                    </a>
+                                </td>
+                                <td style="padding-left:1.5em;padding-top:1em;text-align:center;">
+                                    <span class="detail"><fmt:message key="podcastreceiver.status.${fn:toLowerCase(channel.key.status)}"/></span>
+                                </td>
+                                <td style="padding-left:1.5em;padding-top:1em">
+                                    <c:choose>
+                                        <c:when test="${channel.key.status eq 'ERROR'}">
+                                            <span class="detail warning" title="${channel.key.errorMessage}"><str:truncateNicely upper="100">${channel.key.errorMessage}</str:truncateNicely></span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="detail" title="${channel.key.description}"><str:truncateNicely upper="100">${channel.key.description}</str:truncateNicely></span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                            </tr>
 
-							<c:set var="class" value=""/>
+                            <c:set var="class" value=""/>
 
-							<c:forEach items="${channel.value}" var="episode" varStatus="j">
+                            <c:forEach items="${channel.value}" var="episode" varStatus="j">
 
-								<c:choose>
-									<c:when test="${empty class}">
-										<c:set var="class" value="class='bgcolor2'"/>
-									</c:when>
-									<c:otherwise>
-										<c:set var="class" value=""/>
-									</c:otherwise>
-								</c:choose>
-								<tr title="channel${i.index}" id="episodeRow${episodeCount}" style="margin:0;padding:0;border:0;display:${channelExpanded ? 'table-row' : 'none'}">
+                                <c:choose>
+                                    <c:when test="${empty class}">
+                                        <c:set var="class" value="class='bgcolor2'"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="class" value=""/>
+                                    </c:otherwise>
+                                </c:choose>
+                                <tr title="channel${i.index}" id="episodeRow${episodeCount}" style="margin:0;padding:0;border:0;display:${channelExpanded ? 'table-row' : 'none'}">
 
-									<td><input type="checkbox" class="checkbox" id="episode${episodeCount}" value="${episode.id}" onClick="selectionUpdate()"/></td>
+                                    <td><input type="checkbox" class="checkbox" id="episode${episodeCount}" value="${episode.id}" onClick="selectionUpdate()"/></td>
 
-									<c:choose>
-										<c:when test="${empty episode.path}">
-											<td ${class} colspan="3"/>
-										</c:when>
-										<c:otherwise>
-											<c:import url="playAddDownload.jsp">
-												<c:param name="path" value="${episode.path}"/>
-												<c:param name="playEnabled" value="${model.user.streamRole and not model.partyMode}"/>
-												<c:param name="addEnabled" value="${model.user.streamRole and not model.partyMode}"/>
-												<c:param name="downloadEnabled" value="false"/>
-												<c:param name="asTable" value="true"/>
-											</c:import>
-										</c:otherwise>
-									</c:choose>
+                                    <c:choose>
+                                        <c:when test="${empty episode.path}">
+                                            <td ${class} colspan="3"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:import url="playAddDownload.jsp">
+                                                <c:param name="path" value="${episode.path}"/>
+                                                <c:param name="playEnabled" value="${model.user.streamRole and not model.partyMode}"/>
+                                                <c:param name="addEnabled" value="${model.user.streamRole and not model.partyMode}"/>
+                                                <c:param name="downloadEnabled" value="false"/>
+                                                <c:param name="asTable" value="true"/>
+                                            </c:import>
+                                        </c:otherwise>
+                                    </c:choose>
 
-									<c:set var="episodeCount" value="${episodeCount + 1}"/>
-
-
-									<sub:url value="main.view" var="mainUrl">
-										<sub:param name="path" value="${episode.path}"/>
-									</sub:url>
+                                    <c:set var="episodeCount" value="${episodeCount + 1}"/>
 
 
-									<td ${class} style="padding-left:0.6em">
-										<span title="${episode.title}">
-											<c:choose>
-												<c:when test="${empty episode.path}">
-													<str:truncateNicely upper="40">${episode.title}</str:truncateNicely>
-												</c:when>
-												<c:otherwise>
-													<a target="main" href="${mainUrl}"><str:truncateNicely upper="40">${episode.title}</str:truncateNicely></a>
-												</c:otherwise>
-											</c:choose>
-										</span>
-									</td>
+                                    <sub:url value="main.view" var="mainUrl">
+                                        <sub:param name="path" value="${episode.path}"/>
+                                    </sub:url>
 
-									<td ${class} style="padding-left:1.5em">
-										<span class="detail">${episode.duration}</span>
-									</td>
 
-									<td ${class} style="padding-left:1.5em">
-										<span class="detail"><fmt:formatDate value="${episode.publishDate}" dateStyle="medium"/></span>
-									</td>
+                                    <td ${class} style="padding-left:0.6em">
+                                        <span title="${episode.title}">
+                                            <c:choose>
+                                                <c:when test="${empty episode.path}">
+                                                    <str:truncateNicely upper="40">${episode.title}</str:truncateNicely>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a target="main" href="${mainUrl}"><str:truncateNicely upper="40">${episode.title}</str:truncateNicely></a>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </span>
+                                    </td>
 
-									<td ${class} style="padding-left:1.5em;text-align:center">
-										<span class="detail">
-										<c:choose>
-											<c:when test="${episode.status eq 'DOWNLOADING'}">
-												<fmt:formatNumber type="percent" value="${episode.completionRate}"/>
-											</c:when>
-											<c:otherwise>
-												<fmt:message key="podcastreceiver.status.${fn:toLowerCase(episode.status)}"/>
-											</c:otherwise>
-										</c:choose>
-										</span>
-									</td>
+                                    <td ${class} style="padding-left:1.5em">
+                                        <span class="detail">${episode.duration}</span>
+                                    </td>
 
-									<td ${class} style="padding-left:1.5em">
-										<c:choose>
-											<c:when test="${episode.status eq 'ERROR'}">
-												<span class="detail warning" title="${episode.errorMessage}"><str:truncateNicely upper="100">${episode.errorMessage}</str:truncateNicely></span>
-											</c:when>
-											<c:otherwise>
-												<span class="detail" title="${episode.description}"><str:truncateNicely upper="100">${episode.description}</str:truncateNicely></span>
-											</c:otherwise>
-										</c:choose>
-									</td>
+                                    <td ${class} style="padding-left:1.5em">
+                                        <span class="detail"><fmt:formatDate value="${episode.publishDate}" dateStyle="medium"/></span>
+                                    </td>
 
-								</tr>
-							</c:forEach>
-						</c:forEach>
-					</table>
+                                    <td ${class} style="padding-left:1.5em;text-align:center">
+                                        <span class="detail">
+                                        <c:choose>
+                                            <c:when test="${episode.status eq 'DOWNLOADING'}">
+                                                <fmt:formatNumber type="percent" value="${episode.completionRate}"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <fmt:message key="podcastreceiver.status.${fn:toLowerCase(episode.status)}"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        </span>
+                                    </td>
 
-					<script type="text/javascript" language="javascript">
-						var episodeCount = ${episodeCount};
-					</script>
+                                    <td ${class} style="padding-left:1.5em">
+                                        <c:choose>
+                                            <c:when test="${episode.status eq 'ERROR'}">
+                                                <span class="detail warning" title="${episode.errorMessage}"><str:truncateNicely upper="100">${episode.errorMessage}</str:truncateNicely></span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="detail" title="${episode.description}"><str:truncateNicely upper="100">${episode.description}</str:truncateNicely></span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
 
-					<table style="padding-top:1em"><tr>
-					</tr></table>
-				</div>
-			</div>
-		</div>
-	</body>
+                                </tr>
+                            </c:forEach>
+                        </c:forEach>
+                    </table>
+
+                    <script type="text/javascript" language="javascript">
+                        var episodeCount = ${episodeCount};
+                    </script>
+
+                    <table style="padding-top:1em"><tr>
+                    </tr></table>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

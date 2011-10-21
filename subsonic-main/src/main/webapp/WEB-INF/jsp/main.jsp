@@ -63,7 +63,7 @@
                                         </c:choose>
                                     </span>
                                 </span>
-                            </c:when>		
+                            </c:when>        
                             <c:otherwise>
                             <!-- Multiple albums available -->
                                 <c:if test="${not empty model.previousAlbum}">
@@ -76,7 +76,7 @@
                                     </span>
                                 </c:if>
                                 <span id="mainframemenucenter">
-                                    <span class="current <c:choose><c:when test='${(empty model.previousAlbum || empty model.nextAlbum) && not empty model.ancestors}'>doubleAlbum<c:choose><c:when test='${empty model.previousAlbum}'>Left</c:when><c:otherwise>Right</c:otherwise></c:choose></c:when><c:otherwise>multipleAlbum</c:otherwise></c:choose><c:if test='${fn:length(fn:escapeXml(model.dir.name)) > 25}'>Marquee</c:if> headerSelected">	
+                                    <span class="current <c:choose><c:when test='${(empty model.previousAlbum || empty model.nextAlbum) && not empty model.ancestors}'>doubleAlbum<c:choose><c:when test='${empty model.previousAlbum}'>Left</c:when><c:otherwise>Right</c:otherwise></c:choose></c:when><c:otherwise>multipleAlbum</c:otherwise></c:choose><c:if test='${fn:length(fn:escapeXml(model.dir.name)) > 25}'>Marquee</c:if> headerSelected">    
                                         <c:choose>
                                             <c:when test="${fn:length(fn:escapeXml(model.dir.name)) > 25}"><marquee style="width:15em;">${fn:escapeXml(model.dir.name)}</marquee></c:when>
                                             <c:otherwise><str:truncateNicely upper="25">${fn:escapeXml(model.dir.name)}</str:truncateNicely></c:otherwise>

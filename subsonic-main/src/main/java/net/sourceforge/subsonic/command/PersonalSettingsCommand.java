@@ -220,23 +220,23 @@ public class PersonalSettingsCommand {
         return listType;
     }
 
-	public void setListType(String listType) {
+    public void setListType(String listType) {
         this.listType = listType;
-	}
+    }
 
     public int getListRows() {
         return listRows;
     }
 
-	public void setListRows(int listRows) {
+    public void setListRows(int listRows) {
         this.listRows = listRows;
-	}
+    }
 
     public int getListColumns() {
         return listColumns;
     }
 
-	public void setListColumns(int listColumns) {
+    public void setListColumns(int listColumns) {
         this.listColumns = listColumns;
-	}
+    }
 }

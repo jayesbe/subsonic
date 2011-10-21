@@ -1325,7 +1325,7 @@ public class RESTController extends MultiActionController {
             builder = XMLBuilder.createJSONPBuilder(request.getParameter("callback"));
             response.setContentType("text/javascript");
         } else {
-        	builder = XMLBuilder.createXMLBuilder();
+            builder = XMLBuilder.createXMLBuilder();
             response.setContentType("text/xml");
         }
         

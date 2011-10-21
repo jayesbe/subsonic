@@ -19,7 +19,7 @@
 .mainframe {
     background-image:url('../icons/ripserver/background.png');
     background-repeat:no-repeat;
-	background-attachment:fixed;
+    background-attachment:fixed;
     background-color: #FFFFFF
 }
 
@@ -44,7 +44,7 @@ body {
 }
 
 .logo {
-	margin-top: 15px;
+    margin-top: 15px;
 }
 
 /***************************************************************************************

@@ -18,349 +18,349 @@
  * Background colors
  */
 
-	.bgcolor1 {
-	/* Primary background color. (lightgray) */
-		background-color: #efefef;
-	}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: #efefef;
+    }
 
-	.bgcolor2, .ruleTableHeader, .log {
-	/* Secondary background color. (darker blue) */
-		background-color: #dee3e7;
-	}
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: #dee3e7;
+    }
 
 /*
  * Border settings for main frames
  */
 
-	.logonframe {
-	/* Logon frame border style */
-		border-top: 1px solid black;
-		border-bottom: 1px solid black;
-	}
+    .logonframe {
+    /* Logon frame border style */
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
 
-	.topframe {
-	/* Top frame border style */
-		border-bottom: 1px transparent;
-	}
+    .topframe {
+    /* Top frame border style */
+        border-bottom: 1px transparent;
+    }
 
-	.leftframe {
-	/* Left frame border style */
-		border-right: 1px transparent;
-		border-top: 1px transparent; 
-	}
+    .leftframe {
+    /* Left frame border style */
+        border-right: 1px transparent;
+        border-top: 1px transparent; 
+    }
 
-	.mainframe {
-	/* Main frame border style */
-		border-top: 1px transparent;
-	}
+    .mainframe {
+    /* Main frame border style */
+        border-top: 1px transparent;
+    }
 
-	.playlistframe {
-	/* Playlist frame border style */
-		border-top: 1px transparent;
-	}
+    .playlistframe {
+    /* Playlist frame border style */
+        border-top: 1px transparent;
+    }
 
-	.rightframe {
-	/* Right frame border style */
-		border-left: 1px transparent;
-		border-top: 1px transparent;
-	}
+    .rightframe {
+    /* Right frame border style */
+        border-left: 1px transparent;
+        border-top: 1px transparent;
+    }
 
-	/*
-	 * Border settings for other targets
-	 */
-	 
-		#leftframemenucontainer {
-			border-bottom: 1px transparent;
-		}
+    /*
+     * Border settings for other targets
+     */
+     
+        #leftframemenucontainer {
+            border-bottom: 1px transparent;
+        }
 
-		#mainframemenucontainer {
-		/* Main frame menu border style */
-			border-bottom: 1px transparent;
-		}
+        #mainframemenucontainer {
+        /* Main frame menu border style */
+            border-bottom: 1px transparent;
+        }
 
-		#playlistframemenucontainer {
-		/* Playlist frame border style */
-			border-bottom: 1px transparent;
-		}
+        #playlistframemenucontainer {
+        /* Playlist frame border style */
+            border-bottom: 1px transparent;
+        }
 
-		#uploadFile, #addPodcast {
-			border-bottom: 1px transparent;
-		}
+        #uploadFile, #addPodcast {
+            border-bottom: 1px transparent;
+        }
 
-		#longbar {
-			border-left: 1px transparent;
-			border-right: 1px transparent;
-		}
+        #longbar {
+            border-left: 1px transparent;
+            border-right: 1px transparent;
+        }
 
-		.welcomeMessage {
-			border-left: 1px solid black;
-		}
-	 
-		.formattingOptions {
-		/* Formatting options border style */
-			border: 1px solid black;
-		}
+        .welcomeMessage {
+            border-left: 1px solid black;
+        }
+     
+        .formattingOptions {
+        /* Formatting options border style */
+            border: 1px solid black;
+        }
 
-		.border1, .ruleTableHeader, .ruleTableCell, .headerSelected, .log {
-		/* Simple dark border. */
-			border: 1px solid black;
-		}
+        .border1, .ruleTableHeader, .ruleTableCell, .headerSelected, .log {
+        /* Simple dark border. */
+            border: 1px solid black;
+        }
 
 /*
  * Miscellaneous style settings and helpers
  */
 
-	body {
-	/* Primary foreground (font) color. (black) */
-		color: black;
-		font-size: 75%;/*9pt;*/
+    body {
+    /* Primary foreground (font) color. (black) */
+        color: black;
+        font-size: 75%;/*9pt;*/
 
-	/* Scrollbar colors (supported on IE and Opera) */
-		scrollbar-face-color: #DEE3E7;
-		scrollbar-highlight-color: #FFFFFF;
-		scrollbar-shadow-color: #DEE3E7;
-		scrollbar-3dlight-color: #D1D7DC;
-		scrollbar-arrow-color: #006699;
-		scrollbar-track-color: #EFEFEF;
-		scrollbar-darkshadow-color: #98AAB1;
-	}
+    /* Scrollbar colors (supported on IE and Opera) */
+        scrollbar-face-color: #DEE3E7;
+        scrollbar-highlight-color: #FFFFFF;
+        scrollbar-shadow-color: #DEE3E7;
+        scrollbar-3dlight-color: #D1D7DC;
+        scrollbar-arrow-color: #006699;
+        scrollbar-track-color: #EFEFEF;
+        scrollbar-darkshadow-color: #98AAB1;
+    }
 
-	body, h2, form, label, table, a {
-	/* Font 1 */
-		font-family: verdana, arial, sans-serif;
-	}
+    body, h2, form, label, table, a {
+    /* Font 1 */
+        font-family: verdana, arial, sans-serif;
+    }
 
-	a {
-	/* Link style general */
-		font-size: 100%;
-		text-decoration: none;
-	}
+    a {
+    /* Link style general */
+        font-size: 100%;
+        text-decoration: none;
+    }
 
-	a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-	/* Link color */
-		color: #006699;
-	}
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #006699;
+    }
 
-	a:hover, a:hover * {
-	/* Link hover style */
-		text-decoration: none;
-		color: #DD6900;
-	}
+    a:hover, a:hover * {
+    /* Link hover style */
+        text-decoration: none;
+        color: #DD6900;
+    }
 
-	h1, h1 a, .logo {
-	/* Font 2 */
-		font-family: arial, sans-serif;
-	}
+    h1, h1 a, .logo {
+    /* Font 2 */
+        font-family: arial, sans-serif;
+    }
 
-	h1 {
-	/* Header style 1 font style */
-		font-size: 140%;
-	}
+    h1 {
+    /* Header style 1 font style */
+        font-size: 140%;
+    }
 
-	h1, .detail, .albumComment {
-	/* Secondary foreground color for h1, details etc. (gray) */
-		color: #696969;
-	}
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+        color: #696969;
+    }
 
-	h2 {
-	/* Header style 2 font style */
-		font-size: 100%;
-	}
+    h2 {
+    /* Header style 2 font style */
+        font-size: 100%;
+    }
 
-	h2, b, tr {
-	/* Foreground color for h2, bold and tr. */
-		color: #333333;
-	}
-	
-	table {
-	/* Table font size */
-		font-size: 100%;
-	}
-	
-	label {
-	/* Label font size */
-		font-size: 100%;
-	}
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+        color: #333333;
+    }
+    
+    table {
+    /* Table font size */
+        font-size: 100%;
+    }
+    
+    label {
+    /* Label font size */
+        font-size: 100%;
+    }
 
-	form { 
-	/* Input form font-size */
-		font-size: 100%;
-	}
+    form { 
+    /* Input form font-size */
+        font-size: 100%;
+    }
 
-	input, select, textarea {
-	/* Input form control font style */
-		font-size: 9pt;
-	}
-	
-	img {
-	/* Img border style */
-		border: 0px;
-		border-style: none;
-	}
+    input, select, textarea {
+    /* Input form control font style */
+        font-size: 9pt;
+    }
+    
+    img {
+    /* Img border style */
+        border: 0px;
+        border-style: none;
+    }
 
-	input {
-	/* Input form control style. */
-		color: #555;
-		font-weight: normal;
-		border: 1px solid #AAA;
-		background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
-		-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-		-webkit-border-radius: 1px;
-	}
+    input {
+    /* Input form control style. */
+        color: #555;
+        font-weight: normal;
+        border: 1px solid #AAA;
+        background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+        -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+        -webkit-border-radius: 1px;
+    }
 
-	select, #musicFolder, #listSize, #listSizeRow, #imageSearchProvider, #playerSelect, #moreActions {
-	/* Dropdown form control style */
-		margin: 0;
-		padding: 2px;
-		height: 24px;
-		color: #555;
-		font-weight: bold;
-		border: 1px solid #AAA;
-		background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
-		-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-		-webkit-appearance: button;
-		-webkit-border-radius: 2px;
-	}
+    select, #musicFolder, #listSize, #listSizeRow, #imageSearchProvider, #playerSelect, #moreActions {
+    /* Dropdown form control style */
+        margin: 0;
+        padding: 2px;
+        height: 24px;
+        color: #555;
+        font-weight: bold;
+        border: 1px solid #AAA;
+        background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+        -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+        -webkit-appearance: button;
+        -webkit-border-radius: 2px;
+    }
 
-	#pageimage {
-	/* Top left image for each page */
-		visibility:;
-	}
-	
-	#imageSearchProvider {
-		max-width: 10em;
-		position: absolute;
-	}
+    #pageimage {
+    /* Top left image for each page */
+        visibility:;
+    }
+    
+    #imageSearchProvider {
+        max-width: 10em;
+        position: absolute;
+    }
 
-	input:hover, select:hover {
-	/* Form control hover color. (default) */
-		color:;
-	}
+    input:hover, select:hover {
+    /* Form control hover color. (default) */
+        color:;
+    }
 
-	#logo img {
-	/* Logo image size */
-		width:;
-		height:;
-	}
+    #logo img {
+    /* Logo image size */
+        width:;
+        height:;
+    }
 
-	.desc {
-	/* Top frame text page-link font style. */
-		font-weight: bold;
-	}
+    .desc {
+    /* Top frame text page-link font style. */
+        font-weight: bold;
+    }
 
-	.albumComment {
-		font-size: 8pt;
-	}
+    .albumComment {
+        font-size: 8pt;
+    }
 
-	.pagination a {
-	/* Main frame menu pagination links font style. */
-		font-size: 90%;
-	}
+    .pagination a {
+    /* Main frame menu pagination links font style. */
+        font-size: 90%;
+    }
 
-	.pagination .current {
-	/* Main frame menu pagination current item width. (10em minimum recommended) */
-		min-width: 10em;
-	}
-	
-	.detail {
-	/* Detail font style */
-		font-size: 8pt;
-	}
+    .pagination .current {
+    /* Main frame menu pagination current item width. (10em minimum recommended) */
+        min-width: 10em;
+    }
+    
+    .detail {
+    /* Detail font style */
+        font-size: 8pt;
+    }
 
-	.enter {
-		font-size: 14pt;
-		font-weight: bold;
-		color: #FFE600;
-		font-family: Arial, Helvetica, sans-serif;
-		text-align: left;
-	}
+    .enter {
+        font-size: 14pt;
+        font-weight: bold;
+        color: #FFE600;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: left;
+    }
 
-	.headerSelected {
-	/* Background color for selected header. */
-		background-color: lightyellow;
-	}
+    .headerSelected {
+    /* Background color for selected header. */
+        background-color: lightyellow;
+    }
 
-	.warning {
-	/* Color for warning messages. */
-		color: red;
-	}
-	
-	.log {
-	/* Log file font size */
-		font-size: 8pt;
-	}
+    .warning {
+    /* Color for warning messages. */
+        color: red;
+    }
+    
+    .log {
+    /* Log file font size */
+        font-size: 8pt;
+    }
 
 /*
  * Playlist colors
  */
 
-	.tracklist1 { 
-		background-color:;
-		color:;
-	}
+    .tracklist1 { 
+        background-color:;
+        color:;
+    }
 
-	.tracklist2 { 
-		background-color:;
-		border-top:;
-		border-bottom:;
-		color:;
-	}
+    .tracklist2 { 
+        background-color:;
+        border-top:;
+        border-bottom:;
+        color:;
+    }
 
-	.loadedlist1 { 
-		background-color:;
-		border:;
-	}
+    .loadedlist1 { 
+        background-color:;
+        border:;
+    }
 
-	.loadedlist1:hover { 	
-			background-color:;
-			border:;
-	}
+    .loadedlist1:hover {     
+            background-color:;
+            border:;
+    }
 
-	.loadedlist2 { 
-		background-color:;
-		border:;
-	}
+    .loadedlist2 { 
+        background-color:;
+        border:;
+    }
 
-	.loadedlist2:hover { 
-		background-color:;
-		border:;
-	}
+    .loadedlist2:hover { 
+        background-color:;
+        border:;
+    }
 
 /*
  * Main frame menu images
  */
 
-	.back {
-		background-image: url("../icons/back.gif");
-	}
+    .back {
+        background-image: url("../icons/back.gif");
+    }
 
-	.forward {
-		background-image: url("../icons/forward.gif");
-	}
+    .forward {
+        background-image: url("../icons/forward.gif");
+    }
 
 /*
  * Player images
  */
  
-	.solidblockmenu {
-	/* Background repeating image */
-		background: black url("../icons/player_back.png") center center repeat;
-	}
+    .solidblockmenu {
+    /* Background repeating image */
+        background: black url("../icons/player_back.png") center center repeat;
+    }
 
-	.playerleftround {
-	/* Left side */
-		/* background-image:url("../icons/player_leftround.png"); */
-	}
+    .playerleftround {
+    /* Left side */
+        /* background-image:url("../icons/player_leftround.png"); */
+    }
 
-	.playerrightround {
-	/* Right side */
-		/* background-image:url("../icons/player_rightround.png"); */
-	}
+    .playerrightround {
+    /* Right side */
+        /* background-image:url("../icons/player_rightround.png"); */
+    }
 
-	.solidblockmenu li a:hover, .solidblockmenu li .current {
-	/* Player control hover style */
-		background-color: #8a8a8a;
-	}
+    .solidblockmenu li a:hover, .solidblockmenu li .current {
+    /* Player control hover style */
+        background-color: #8a8a8a;
+    }
  
 /*
  * CSS styling tags below should not need 
@@ -373,575 +373,575 @@
  * WARNING: DRAGONS AHEAD!
  */
 
-	html, body {
-		height: 100%;
-	}
+    html, body {
+        height: 100%;
+    }
 
-	body {
-		padding: 0;
-		border: 0;
-		margin: 0;
-	}
+    body {
+        padding: 0;
+        border: 0;
+        margin: 0;
+    }
 
-	p {
-		padding: 0;
-		border: 0;
-		margin: 0 0 1em 0;
-	}
+    p {
+        padding: 0;
+        border: 0;
+        margin: 0 0 1em 0;
+    }
 
-	h1 {
-		white-space: nowrap;
-		padding: 0 0 0.2em 0;
-		border: 0;
-		margin: 0;
-	}
+    h1 {
+        white-space: nowrap;
+        padding: 0 0 0.2em 0;
+        border: 0;
+        margin: 0;
+    }
 
-	h2 {
-		white-space: nowrap;
-		margin: 0.2em 0 0.2em 0;
-	}
+    h2 {
+        white-space: nowrap;
+        margin: 0.2em 0 0.2em 0;
+    }
 
-	form {
-		line-height: 140%;
-		padding: 0;
-		border: 0;
-		margin: 0;
-	}
+    form {
+        line-height: 140%;
+        padding: 0;
+        border: 0;
+        margin: 0;
+    }
 
-	label {
-		line-height: 140%;
-	}
+    label {
+        line-height: 140%;
+    }
 
-	table {
-		line-height: 140%;
-		padding: 0;
-		border: 0;
-	}
+    table {
+        line-height: 140%;
+        padding: 0;
+        border: 0;
+    }
 
-	table.indent {
-		margin: 1em 0 0.4em 0;
-	}
+    table.indent {
+        margin: 1em 0 0.4em 0;
+    }
 
-	img {
-		margin: 0;
-		padding: 0;
-		vertical-align: middle;
-	}
+    img {
+        margin: 0;
+        padding: 0;
+        vertical-align: middle;
+    }
 
 /*
  * General Prototypes
  */
 
-	.static {
-		position: fixed;
-		left: 0;
-		top: 0;
-		width: auto;
-		height: auto;
-		z-index:100;
-	}
+    .static {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: auto;
+        height: auto;
+        z-index:100;
+    }
 
-	.dense {
-		white-space: nowrap;
-		margin: 0;
-		line-height: 1.3em
-	}
+    .dense {
+        white-space: nowrap;
+        margin: 0;
+        line-height: 1.3em
+    }
 
-	.left {
-		float: left;
-	}
+    .left {
+        float: left;
+    }
 
-	.right {
-		float: right;
-	}
+    .right {
+        float: right;
+    }
 
-	.back, .forward, .current, .mainframemenuitem {
-		display: inline-block;
-		line-height: 16px;
-		background-repeat: no-repeat;
-	}
-	
-	.mainframemenuitem {
-		padding: 0px 16px 0px 16px;
-		background-position: center left;
-	}
+    .back, .forward, .current, .mainframemenuitem {
+        display: inline-block;
+        line-height: 16px;
+        background-repeat: no-repeat;
+    }
+    
+    .mainframemenuitem {
+        padding: 0px 16px 0px 16px;
+        background-position: center left;
+    }
 
-	.current {
-		padding: 0 0.3em 0 0.3em;
-	}
+    .current {
+        padding: 0 0.3em 0 0.3em;
+    }
 
-	.back {
-		background-position: center right;
-		padding-right: 16px;
-	}
+    .back {
+        background-position: center right;
+        padding-right: 16px;
+    }
 
-	.forward {
-		padding-left: 16px;
-		background-position: center left;
-	}
+    .forward {
+        padding-left: 16px;
+        background-position: center left;
+    }
 
-	.cancel {
-		margin-left: 20px;
-		padding-right: 30px;
-	}
-	
-	.settings {
-		padding-left: 0px;
-		padding-right: 16px;
-	}
-	
-	.refresh, .logfile, #minisub {
-		margin-left: 5px;
-	}
+    .cancel {
+        margin-left: 20px;
+        padding-right: 30px;
+    }
+    
+    .settings {
+        padding-left: 0px;
+        padding-right: 16px;
+    }
+    
+    .refresh, .logfile, #minisub {
+        margin-left: 5px;
+    }
 
-	.detail {
-		white-space: nowrap;
-		line-height: 1.25em;
-	}
+    .detail {
+        white-space: nowrap;
+        line-height: 1.25em;
+    }
 
-	.warning {
-		white-space: nowrap;
-	}
+    .warning {
+        white-space: nowrap;
+    }
 
-	.headerSelected {
-		padding: 0.4em;
-	}
+    .headerSelected {
+        padding: 0.4em;
+    }
 
-	/*
-	 * Simple table structure
-	 */
+    /*
+     * Simple table structure
+     */
 
-		.ruleTable {
-			border-collapse: collapse;
-		}
+        .ruleTable {
+            border-collapse: collapse;
+        }
 
-		.ruleTableHeader {
-			font-weight: bold;
-		}
+        .ruleTableHeader {
+            font-weight: bold;
+        }
 
-		.ruleTableHeader, .ruleTableCell {
-			margin: 5px;
-			padding: 5px;
-		}
+        .ruleTableHeader, .ruleTableCell {
+            margin: 5px;
+            padding: 5px;
+        }
 
 /*
  * Targeted structure
  */
  
-	/*
-	 * Shared structure
-	 */
+    /*
+     * Shared structure
+     */
 
-		#topframecontainer, #leftframecontainer, #mainframecontainer, #playlistframecontainer, #rightframecontainer  {
-			width: 100%;
-			height: 100%;
-			vertical-align: middle;
-		}
+        #topframecontainer, #leftframecontainer, #mainframecontainer, #playlistframecontainer, #rightframecontainer  {
+            width: 100%;
+            height: 100%;
+            vertical-align: middle;
+        }
 
-		#topframecontainer, #leftframemenucontainer, #mainframemenucontainer, #playlistframemenucontainer {
-			display: table;
-			overflow: hidden;
-			#position: relative;
-			vertical-align: middle;
-			width: 100%;
-		}
-			
-		#logocontainer, #topframemenucontainer, #topframerightmenucontainer, #musicfoldercontainer, 
-		#mainframemenuleft, #mainframemenuright, #mainframemenucenter, #playlistframemenupanel {
-			#top: 50%;
-			#position: absolute;
-			display: table-cell; 
-			vertical-align: middle; 
-		}
+        #topframecontainer, #leftframemenucontainer, #mainframemenucontainer, #playlistframemenucontainer {
+            display: table;
+            overflow: hidden;
+            #position: relative;
+            vertical-align: middle;
+            width: 100%;
+        }
+            
+        #logocontainer, #topframemenucontainer, #topframerightmenucontainer, #musicfoldercontainer, 
+        #mainframemenuleft, #mainframemenuright, #mainframemenucenter, #playlistframemenupanel {
+            #top: 50%;
+            #position: absolute;
+            display: table-cell; 
+            vertical-align: middle; 
+        }
 
-		#logo, #musicFolder, #listSize, #listSizeRow, #imageSearchProvider, .solidblockmenu-outer, #mypanel  {
-			#top: -50%;
-			#position: relative;
-			background-position: left; 
-			background-repeat: no-repeat;
-		}
-		
-		#mainframecontentcontainer, #accordioncontainer, #playlistcontainer {
-			overflow-y: auto;
-		}
-		
-		#accordioncontainer {
-			overflow-x: hidden;
-		}
-		
-		#musicfoldercontainer, #accordioncontainer, 
-		#mainframemenuleft, #mainframemenuright, #mainframemenucenter, #mainframecontent, 
-		#playlistframemenupanel, #playlistcontainer {
-			padding: 2px;
-		}
-		
-		#searchForm, #listSizeForm {
-			width: 300px;
-		}
+        #logo, #musicFolder, #listSize, #listSizeRow, #imageSearchProvider, .solidblockmenu-outer, #mypanel  {
+            #top: -50%;
+            #position: relative;
+            background-position: left; 
+            background-repeat: no-repeat;
+        }
+        
+        #mainframecontentcontainer, #accordioncontainer, #playlistcontainer {
+            overflow-y: auto;
+        }
+        
+        #accordioncontainer {
+            overflow-x: hidden;
+        }
+        
+        #musicfoldercontainer, #accordioncontainer, 
+        #mainframemenuleft, #mainframemenuright, #mainframemenucenter, #mainframecontent, 
+        #playlistframemenupanel, #playlistcontainer {
+            padding: 2px;
+        }
+        
+        #searchForm, #listSizeForm {
+            width: 300px;
+        }
 
-		#longbar {
-			width: 100%;
-			height: 5px;
-			margin: 5px 0px 5px 0px;
-			background-position: left;
-			background-repeat: repeat-x;
-		}
-		
-		.searchboxquery {
-			color: b3b3b3; 
-			border: 1px transparent;
-			width: 100%;
-			height: 18px;
-			padding:1px 3px;
-			position:relative;
-		}
-		
-		.searchboxsubmit {
-			position:relative;
-		}
+        #longbar {
+            width: 100%;
+            height: 5px;
+            margin: 5px 0px 5px 0px;
+            background-position: left;
+            background-repeat: repeat-x;
+        }
+        
+        .searchboxquery {
+            color: b3b3b3; 
+            border: 1px transparent;
+            width: 100%;
+            height: 18px;
+            padding:1px 3px;
+            position:relative;
+        }
+        
+        .searchboxsubmit {
+            position:relative;
+        }
 
-	/*
-	 * Top frame structure
-	 */
-		.topframe {
-			margin-top: -1px;
-		}
+    /*
+     * Top frame structure
+     */
+        .topframe {
+            margin-top: -1px;
+        }
 
-		#logocontainer {
-			width: 240px;
-			padding-left: 5px
-		}
-		
-		#topframerightmenucontainer {
-			width: 240px;
-			text-align: center;
-			padding-right: 5px;
-		}
-		
-		#topframerightmenu p {
-			margin: 0 auto;
-		}
+        #logocontainer {
+            width: 240px;
+            padding-left: 5px
+        }
+        
+        #topframerightmenucontainer {
+            width: 240px;
+            text-align: center;
+            padding-right: 5px;
+        }
+        
+        #topframerightmenu p {
+            margin: 0 auto;
+        }
 
-		/*
-		 * Top frame menu structure
-		 */
+        /*
+         * Top frame menu structure
+         */
 
-			.topimgcontainer { 
-				display: inline-block; 
-			}
+            .topimgcontainer { 
+                display: inline-block; 
+            }
 
-			.topimg {
-				text-align: center;
-			}
+            .topimg {
+                text-align: center;
+            }
 
-			.topimg * {
-			}
+            .topimg * {
+            }
 
-			.topimg img { }
-			.topimg a:hover img { }
+            .topimg img { }
+            .topimg a:hover img { }
 
-			.desc {
-				width: 60px;
-				margin: 2px;
-			}
+            .desc {
+                width: 60px;
+                margin: 2px;
+            }
 
-	/*
-	 * Left frame structure
-	 */
+    /*
+     * Left frame structure
+     */
 
-		#leftframemenucontainer {
-			height: 5%;
-			#height: 40px;
-		}
+        #leftframemenucontainer {
+            height: 5%;
+            #height: 40px;
+        }
 
-		#musicFolder {
-			padding: 2px;
-			margin: 0px auto;
-			width: 100%;
-		}
-		
-		#accordioncontainer {
-			height: 95%; /*max-height: 95%;*/
-		}
-		
-		#accordion {
-			padding-bottom: 1em;
-		}
-	
-	/*
-	 * Main frame structure
-	 */
+        #musicFolder {
+            padding: 2px;
+            margin: 0px auto;
+            width: 100%;
+        }
+        
+        #accordioncontainer {
+            height: 95%; /*max-height: 95%;*/
+        }
+        
+        #accordion {
+            padding-bottom: 1em;
+        }
+    
+    /*
+     * Main frame structure
+     */
 
-		#mainframemenucontainer {
-			height: 6.7%;
-		}
-		
-		#mainframemenucenter {
-			text-align: center;
-		}
+        #mainframemenucontainer {
+            height: 6.7%;
+        }
+        
+        #mainframemenucenter {
+            text-align: center;
+        }
 
-		#mainframecontentcontainer {
-			 height: 93.3%;
-		}
+        #mainframecontentcontainer {
+             height: 93.3%;
+        }
 
-		#uploadFile, #addPodcast {
-			position: fixed;
-			top: 35px;
-			width: 100%;
-			text-align: center;
-		}
+        #uploadFile, #addPodcast {
+            position: fixed;
+            top: 35px;
+            width: 100%;
+            text-align: center;
+        }
 
-		.albumComment {
-			width: 575px;
-			line-height: 1.4em;
-			padding-top: 0.25em;
-		}
+        .albumComment {
+            width: 575px;
+            line-height: 1.4em;
+            padding-top: 0.25em;
+        }
 
-		.formattingOptions {
-			display: none;
-			position: relative;
-			width: 575px;
-			margin: 0px 0px 5px 5px;
-		}
-		
-		
-		/*
-		 * Main frame menu paginated item layout
-		 */
+        .formattingOptions {
+            display: none;
+            position: relative;
+            width: 575px;
+            margin: 0px 0px 5px 5px;
+        }
+        
+        
+        /*
+         * Main frame menu paginated item layout
+         */
 
-			.pagination {
-			}
+            .pagination {
+            }
 
-			.pagination .current {
-				display: inline-block;
-			}
+            .pagination .current {
+                display: inline-block;
+            }
 
-			.baseDirectory, .baseDirectoryMarquee,
-			.baseAlbum, .baseAlbumMarquee,
-			.singleAlbum, .singleAlbumMarquee,
-			.doubleAlbumLeft, .doubleAlbumLeftMarquee,
-			.doubleAlbumRight, .doubleAlbumRightMarquee,
-			.multipleAlbum, .multipleAlbumMarquee				{ text-align: center; min-width: 15em; padding: 0.2em; }
+            .baseDirectory, .baseDirectoryMarquee,
+            .baseAlbum, .baseAlbumMarquee,
+            .singleAlbum, .singleAlbumMarquee,
+            .doubleAlbumLeft, .doubleAlbumLeftMarquee,
+            .doubleAlbumRight, .doubleAlbumRightMarquee,
+            .multipleAlbum, .multipleAlbumMarquee                { text-align: center; min-width: 15em; padding: 0.2em; }
 
-			.doubleAlbumLeft, .doubleAlbumLeftMarquee,
-			.baseAlbum, .baseAlbumMarquee 						{ margin-right: 16px; }
-			
-			.doubleAlbumRight, .doubleAlbumRightMarquee,
-			.singleAlbum, .singleAlbumMarquee					{ margin-left: 16px; }
+            .doubleAlbumLeft, .doubleAlbumLeftMarquee,
+            .baseAlbum, .baseAlbumMarquee                         { margin-right: 16px; }
+            
+            .doubleAlbumRight, .doubleAlbumRightMarquee,
+            .singleAlbum, .singleAlbumMarquee                    { margin-left: 16px; }
 
-			.baseDirectory, .baseDirectoryMarquee				{ margin-left: 2px; }
+            .baseDirectory, .baseDirectoryMarquee                { margin-left: 2px; }
 
-			.multipleAlbum, .multipleAlbumMarquee				{ margin-left: 16px; margin-right: 16px; }
+            .multipleAlbum, .multipleAlbumMarquee                { margin-left: 16px; margin-right: 16px; }
 
-			.prevAncestor, .prevAlbum							{ margin-left: 8px; padding-right: 30px; }
-			.nextAlbum											{ margin-right: 2px; padding-left: 30px; }
-			
-		/*
-		 * Home page structure
-		 */
+            .prevAncestor, .prevAlbum                            { margin-left: 8px; padding-right: 30px; }
+            .nextAlbum                                            { margin-right: 2px; padding-left: 30px; }
+            
+        /*
+         * Home page structure
+         */
 
-			.homecategories {
-				margin-top: 2px;
-				margin-bottom: 7px;
-			}
+            .homecategories {
+                margin-top: 2px;
+                margin-bottom: 7px;
+            }
 
-			.welcomeMessage {
-				width: 20em;
-				padding: 0 1em 0 1em;
-			}
-			
-		/*
-		 * Edit Tags page structure
-		 */
+            .welcomeMessage {
+                width: 20em;
+                padding: 0 1em 0 1em;
+            }
+            
+        /*
+         * Edit Tags page structure
+         */
 
-			#saveTags {
-				height: 24px;
-				width: 150px;
-				padding: 0;
-			}
+            #saveTags {
+                height: 24px;
+                width: 150px;
+                padding: 0;
+            }
 
-		/*
-		 * Change cover art page structure
-		 */
-			
-			#imagesearchresultcontainer {
-				margin:0px auto;
-			}
-			
-		/*
-		 * Logfile page structure
-		 */
-			
-			#logfilecontainer {
-				text-align: center;
-			}
+        /*
+         * Change cover art page structure
+         */
+            
+            #imagesearchresultcontainer {
+                margin:0px auto;
+            }
+            
+        /*
+         * Logfile page structure
+         */
+            
+            #logfilecontainer {
+                text-align: center;
+            }
 
-			.log {
-				white-space: nowrap;
-				line-height: 1em;
-			}
-			
-		/*
-		 * More page structure
-		 */
-			
-			#randomplaylistgenerator {
-				width:25%;
-				margin:2px auto;
-				float:right;
-				display:inline-block;
-			}
-			
-		/*
-		 * Settings pages structure
-		 */
+            .log {
+                white-space: nowrap;
+                line-height: 1em;
+            }
+            
+        /*
+         * More page structure
+         */
+            
+            #randomplaylistgenerator {
+                width:25%;
+                margin:2px auto;
+                float:right;
+                display:inline-block;
+            }
+            
+        /*
+         * Settings pages structure
+         */
 
-			.avatarimage {
-				display: inline-block;
-			}
+            .avatarimage {
+                display: inline-block;
+            }
 
-		/*
-		 * Database Query page structure
-		 */
+        /*
+         * Database Query page structure
+         */
 
-			#runSQLQuery {
-				height: 24px;
-				width: 150px;
-				padding: 0;
-			}
-		
-		/*
-		 * Video player structure
-		 */
+            #runSQLQuery {
+                height: 24px;
+                width: 150px;
+                padding: 0;
+            }
+        
+        /*
+         * Video player structure
+         */
 
-			#timeOffset, #maxBitRate {
-				max-width: 10em;
-			}
-		
-			#timeOffset {
-				padding-left:0.25em;
-				padding-right:0.25em;
-				margin-right:0.5em
-			}
-			
-			#maxBitRate {
-			}
-			
-			
+            #timeOffset, #maxBitRate {
+                max-width: 10em;
+            }
+        
+            #timeOffset {
+                padding-left:0.25em;
+                padding-right:0.25em;
+                margin-right:0.5em
+            }
+            
+            #maxBitRate {
+            }
+            
+            
 
-	/*
-	 * Playlist structure
-	 */
-	 
-		#playlistframemenucontainer {
-			height: 15%;
-			/*position:fixed;
-			top:0;
-			width:100%;*/
-		}
-		
-		#player1 {position: relative}
-		
-		#playlistcontainer {
-			 height: 85%;
-		}
-		
-		#moreActions {
-			position: relative;
-			min-width: 10em;
-		}
-	 
-		.solidblockmenu-outer, .solidblockmenu, .solidblockmenu li a {
-			height: 24px;
-			overflow: hidden;
-		}
+    /*
+     * Playlist structure
+     */
+     
+        #playlistframemenucontainer {
+            height: 15%;
+            /*position:fixed;
+            top:0;
+            width:100%;*/
+        }
+        
+        #player1 {position: relative}
+        
+        #playlistcontainer {
+             height: 85%;
+        }
+        
+        #moreActions {
+            position: relative;
+            min-width: 10em;
+        }
+     
+        .solidblockmenu-outer, .solidblockmenu, .solidblockmenu li a {
+            height: 24px;
+            overflow: hidden;
+        }
 
-		#playlistframemenuplayerExternal {
-			max-width: 257px;
-		}
+        #playlistframemenuplayerExternal {
+            max-width: 257px;
+        }
 
-		#playlistframemenuplayerJukebox {
-			max-width: 375px;
-		}
+        #playlistframemenuplayerJukebox {
+            max-width: 375px;
+        }
 
-		#playlistframemenuplayer {
-			max-width: 595px;
-		}
+        #playlistframemenuplayer {
+            max-width: 595px;
+        }
 
-		#ddpanelcontainer, #playlistframemenuplayer, #playlistframemenuplayerExternal, #playlistframemenuplayerJukebox {
-			
-			padding: 2px 0px 2px 0px;
-		}
+        #ddpanelcontainer, #playlistframemenuplayer, #playlistframemenuplayerExternal, #playlistframemenuplayerJukebox {
+            
+            padding: 2px 0px 2px 0px;
+        }
 
-		.solidblockmenu {
-			margin: 0px;
-			padding: 0px;
-			list-style: none;
-			position: relative;
-		}
+        .solidblockmenu {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            position: relative;
+        }
 
-		.solidblockmenu li {	
-			width: auto;
-			float: right;
-			overflow: hidden;
-		}
+        .solidblockmenu li {    
+            width: auto;
+            float: right;
+            overflow: hidden;
+        }
 
-		.solidblockmenu li a {
-			text-indent: -1000px;
-		}
+        .solidblockmenu li a {
+            text-indent: -1000px;
+        }
 
-		.solidblockmenu li a:visited {
-		}
+        .solidblockmenu li a:visited {
+        }
 
-		.playerleftround, .playerrightround {
-			max-height: 24px;
-			max-width: 24px;
-			background-repeat: no-repeat; 
-		}
+        .playerleftround, .playerrightround {
+            max-height: 24px;
+            max-width: 24px;
+            background-repeat: no-repeat; 
+        }
 
-		.playerleftround {
-			background-position: right; 
-		}
+        .playerleftround {
+            background-position: right; 
+        }
 
-		.playerrightround {
-			background-position: left;
-		}
+        .playerrightround {
+            background-position: left;
+        }
 
-		.actionsdd {
-			visibility: hidden;
-		}
+        .actionsdd {
+            visibility: hidden;
+        }
 
-		.actionslnk {
-			visibility: visible;
-		}
+        .actionslnk {
+            visibility: visible;
+        }
 
-	/*
-	 * Right frame structure
-	 */
-	 
-		#right {
-			min-width: 230px;
-		}
-		 
-		.rightframespacebar {
-			height: 10px;
-		}
+    /*
+     * Right frame structure
+     */
+     
+        #right {
+            min-width: 230px;
+        }
+         
+        .rightframespacebar {
+            height: 10px;
+        }
 
-		.lyricslink {
-			display: inline-block;
-			margin: 5px auto auto 10px;
-		}
+        .lyricslink {
+            display: inline-block;
+            margin: 5px auto auto 10px;
+        }
 
-		#clockbox {
-			text-align: center;
-		}
+        #clockbox {
+            text-align: center;
+        }
 
-		.calendarbox {
-			margin: 0px auto;
-			padding: 5px;
-		}
+        .calendarbox {
+            margin: 0px auto;
+            padding: 5px;
+        }
 
-		#calendar {
-		}
+        #calendar {
+        }
 
 
