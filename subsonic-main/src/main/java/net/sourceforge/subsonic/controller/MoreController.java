@@ -36,6 +36,7 @@ import net.sourceforge.subsonic.service.PlayerService;
 import net.sourceforge.subsonic.service.SearchService;
 import net.sourceforge.subsonic.service.SecurityService;
 import net.sourceforge.subsonic.service.SettingsService;
+import net.sourceforge.subsonic.util.Util;
 
 /**
  * Controller for the "more" page.
@@ -49,6 +50,7 @@ public class MoreController extends ParameterizableViewController {
     private SearchService searchService;
     private PlayerService playerService;
 
+    @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
 
@@ -59,8 +61,6 @@ public class MoreController extends ParameterizableViewController {
         }
 
         Player player = playerService.getPlayer(request, response);
-        ModelAndView result = super.handleRequestInternal(request, response);
-        result.addObject("model", map);
         map.put("user", securityService.getCurrentUser(request));
         map.put("uploadDirectory", uploadDirectory);
         map.put("genres", searchService.getGenres());
@@ -68,6 +68,11 @@ public class MoreController extends ParameterizableViewController {
         map.put("musicFolders", settingsService.getAllMusicFolders());
         map.put("clientSidePlaylist", player.isExternalWithPlaylist() || player.isWeb());
         map.put("brand", settingsService.getBrand());
+        map.put("hostOS", Util.isWindows() ? "windows" : "other" );
+
+        ModelAndView result = super.handleRequestInternal(request, response);
+        result.addObject("model", map);
+ 
         return result;
     }
 

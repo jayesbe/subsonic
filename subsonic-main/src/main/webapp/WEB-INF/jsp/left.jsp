@@ -6,8 +6,8 @@
         <%@ include file="head.jsp" %>
         <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/script/smooth-scroll.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/jquery-1.5.2.min.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/jquery-ui-1.8.14.custom.min.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/script/jquery-1.6.4.min.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/script/jquery-ui-1.8.16.custom.min.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/script/niceforms2.js"/>"></script>
         <script>
             $(document).ready(function() {

@@ -7,7 +7,7 @@
         <%@ include file="head.jsp" %>
         <!--[if IE 7]>
         <![endif]-->
-        <script type='text/javascript' src="<c:url value="/script/jquery-1.3.js"/>"></script>
+        <script type='text/javascript' src="<c:url value="/script/jquery-1.6.4.js"/>"></script>
     </head>
     <body class="bgcolor2 topframe">
         <fmt:message key="top.home" var="home"/>

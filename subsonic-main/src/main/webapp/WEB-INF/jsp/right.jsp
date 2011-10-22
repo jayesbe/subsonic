@@ -158,6 +158,22 @@
                     var revision = 0;
                     startGetMessagesTimer();
 
+                    function split_long_word(text, limit) {
+                        var t = '';
+                        var j = 0;
+                        for (var i = 0; i < text.length; i++) {
+                            if (text[i] == ' ') {
+                                    j = i;
+                            }
+                            if (i > j + limit) {
+                                    t += "-\n-";
+                                    j = i;
+                            }
+                            t += text[i];
+                        }
+                        return t;
+                    }
+
                     function startGetMessagesTimer() {
                         chatService.getMessages(revision, getMessagesCallback);
                         setTimeout("startGetMessagesTimer()", 10000);
@@ -191,7 +207,7 @@
                             dwr.util.cloneNode("pattern", { idSuffix:id });
                             dwr.util.setValue("user" + id, message.username);
                             dwr.util.setValue("date" + id, " [" + formatDate(message.date) + "]");
-                            dwr.util.setValue("content" + id, message.content);
+                            dwr.util.setValue("content" + id, split_long_word(message.content, 25));
                             $("pattern" + id).show();
                         }
 

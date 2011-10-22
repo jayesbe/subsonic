@@ -34,6 +34,8 @@ import javax.servlet.http.*;
 import java.io.*;
 import java.util.*;
 
+
+
 /**
  * Controller which receives uploaded files.
  *
@@ -43,10 +45,10 @@ public class UploadController extends ParameterizableViewController {
 
     private static final Logger LOG = Logger.getLogger(UploadController.class);
 
-    private SecurityService securityService;
-    private PlayerService playerService;
-    private StatusService statusService;
     private SettingsService settingsService;
+    private SecurityService securityService;
+    private StatusService statusService;
+    private PlayerService playerService;
     public static final String UPLOAD_STATUS = "uploadStatus";
 
     @Override
@@ -56,6 +58,12 @@ public class UploadController extends ParameterizableViewController {
         List<File> uploadedFiles = new ArrayList<File>();
         List<File> unzippedFiles = new ArrayList<File>();
         TransferStatus status = null;
+        String uploadDirectory = null;
+
+        List<MusicFolder> musicFolders = settingsService.getAllMusicFolders();
+        if (musicFolders.size() > 0) {
+            uploadDirectory = new File(musicFolders.get(0).getPath(), "Incoming").getPath();
+        }
 
         try {
 
@@ -65,66 +73,64 @@ public class UploadController extends ParameterizableViewController {
             request.getSession().setAttribute(UPLOAD_STATUS, status);
 
             // Check that we have a file upload request
-            if (!ServletFileUpload.isMultipartContent(request)) {
-                throw new Exception("Illegal request.");
-            }
+            if (ServletFileUpload.isMultipartContent(request)) {
 
-            File dir = null;
-            boolean unzip = false;
+                File dir = null;
+                boolean unzip = false;
 
-            UploadListener listener = new UploadListenerImpl(status);
+                UploadListener listener = new UploadListenerImpl(status);
 
-            FileItemFactory factory = new MonitoredDiskFileItemFactory(listener);
-            ServletFileUpload upload = new ServletFileUpload(factory);
+                FileItemFactory factory = new MonitoredDiskFileItemFactory(listener);
+                ServletFileUpload upload = new ServletFileUpload(factory);
 
-            List<?> items = upload.parseRequest(request);
+                List<?> items = upload.parseRequest(request);
 
-            // First, look for "dir" and "unzip" parameters.
-            for (Object o : items) {
-                FileItem item = (FileItem) o;
+                // First, look for "dir" and "unzip" parameters.
+                for (Object o : items) {
+                    FileItem item = (FileItem) o;
 
-                if (item.isFormField() && "dir".equals(item.getFieldName())) {
-                    dir = new File(item.getString());
-                } else if (item.isFormField() && "unzip".equals(item.getFieldName())) {
-                    unzip = true;
+                    if (item.isFormField() && "dir".equals(item.getFieldName())) {
+                        dir = new File(item.getString());
+                    } else if (item.isFormField() && "unzip".equals(item.getFieldName())) {
+                        unzip = true;
+                    }
                 }
-            }
 
-            if (dir == null) {
-                throw new Exception("Missing 'dir' parameter.");
-            }
+                if (dir == null) {
+                    throw new Exception("Missing 'dir' parameter.");
+                }
 
-            // Look for file items.
-            for (Object o : items) {
-                FileItem item = (FileItem) o;
+                // Look for file items.
+                for (Object o : items) {
+                    FileItem item = (FileItem) o;
 
-                if (!item.isFormField()) {
-                    String fileName = item.getName();
-                    if (fileName.trim().length() > 0) {
+                    if (!item.isFormField()) {
+                        String fileName = item.getName();
+                        if (fileName.trim().length() > 0) {
 
-                        File targetFile = new File(dir, new File(fileName).getName());
+                            File targetFile = new File(dir, new File(fileName).getName());
 
-                        if (!securityService.isUploadAllowed(targetFile)) {
-                            throw new Exception("Permission denied: " + StringUtil.toHtml(targetFile.getPath()));
-                        }
+                            if (!securityService.isUploadAllowed(targetFile)) {
+                                throw new Exception("Permission denied: " + StringUtil.toHtml(targetFile.getPath()));
+                            }
 
-                        if (!dir.exists()) {
-                            dir.mkdirs();
-                        }
+                            if (!dir.exists()) {
+                                dir.mkdirs();
+                            }
 
-                        item.write(targetFile);
-                        uploadedFiles.add(targetFile);
-                        LOG.info("Uploaded " + targetFile);
+                            item.write(targetFile);
+                            uploadedFiles.add(targetFile);
+                            LOG.info("Uploaded " + targetFile);
 
-                        if (unzip && targetFile.getName().toLowerCase().endsWith(".zip")) {
-                            unzip(targetFile, unzippedFiles);
+                            if (unzip && targetFile.getName().toLowerCase().endsWith(".zip")) {
+                                unzip(targetFile, unzippedFiles);
+                            }
                         }
                     }
                 }
             }
-
         } catch (Exception x) {
-            LOG.warn("Uploading failed.", x);
+            LOG.warn("File upload failed.", x);
             map.put("exception", x);
         } finally {
             if (status != null) {
@@ -137,6 +143,8 @@ public class UploadController extends ParameterizableViewController {
 
         map.put("uploadedFiles", uploadedFiles);
         map.put("unzippedFiles", unzippedFiles);
+        map.put("uploadDirectory", uploadDirectory);
+        map.put("hostOS", Util.isWindows() ? "windows" : "other" );
 
         ModelAndView result = super.handleRequestInternal(request, response);
         result.addObject("model", map);

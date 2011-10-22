@@ -40,15 +40,7 @@
             function init() {
                 dwr.engine.setErrorHandler(null);
                 startTimer();
-
-                <c:choose>
-                    <c:when test="${model.player.web}">
-                        createPlayer();
-                    </c:when>
-                    <c:otherwise>
-                        getPlaylist();
-                    </c:otherwise>
-                </c:choose>
+                if (${model.player.web}) { createPlayer(); } else { getPlaylist(); }
             }
 
             function startTimer() {
@@ -64,18 +56,18 @@
                         top.main.location.replace("nowPlaying.view?");
                         currentAlbumUrl = nowPlayingInfo.albumUrl;
                     }
-                <c:if test="${not model.player.web}">
-                    currentStreamUrl = nowPlayingInfo.streamUrl;
-                    updateCurrentImage();
-                </c:if>
+                   if (${not model.player.web}) {
+                        currentStreamUrl = nowPlayingInfo.streamUrl;
+                        updateCurrentImage();
+                   }
                 }
             }
 
             function createPlayer() {
                 var flashvars = {
-                    backcolor:"<spring:theme code="backgroundColor"/>",
-                    frontcolor:"<spring:theme code="textColor"/>",
-                    plugins:"backstroke-1,subeq-1&subeq.gain=2&subeq.displaymode=decay&subeq.barbasecolor=<spring:theme code="barbasecolor"/>",
+                    backcolor:"<spring:theme code='backgroundColor'/>",
+                    frontcolor:"<spring:theme code='textColor'/>",
+                    plugins:"backstroke-1,subeq-1&subeq.gain=2&subeq.displaymode=decay&subeq.barbasecolor=<spring:theme code='barbasecolor'/>",
                     id:"player1"
                 };
                 var params = {
@@ -86,7 +78,7 @@
                     id:"player1",
                     name:"player1"
                 };
-                swfobject.embedSWF("<c:url value="/flash/jw-player-5.6.swf"/>", "placeholder", "340", "24", "9.0.0", false, flashvars, params, attributes);
+                swfobject.embedSWF("<c:url value="/flash/jw-player-5.8.swf"/>", "placeholder", "340", "24", "9", false, flashvars, params, attributes);
             }
 
             function playerReady(thePlayer) {
@@ -107,9 +99,9 @@
 
             function onClear() {
                 var ok = true;
-            <c:if test="${model.partyMode}">
-                ok = confirm("<fmt:message key="playlist.confirmclear"/>");
-            </c:if>
+                if (${model.partyMode}) {
+                    ok = confirm("<fmt:message key="playlist.confirmclear"/>");
+                }
                 if (ok) {
                     playlistService.clear(playlistCallback);
                 }
@@ -124,15 +116,12 @@
                 playlistService.setGain(gain);
             }
             function onSkip(index) {
-                <c:choose>
-                <c:when test="${model.player.web}">
+                if (${model.player.web}) {
                     skip(index);
-                </c:when>
-                <c:otherwise>
+                } else {
                     currentStreamUrl = songs[index].streamUrl;
                     playlistService.skip(index, playlistCallback);
-                </c:otherwise>
-                </c:choose>
+                }
             }
             function onNext(wrap) {
                 var index = parseInt(getCurrentSongIndex()) + 1;
@@ -187,12 +176,11 @@
                 playlistService.undo(playlistCallback);
             }
             
-            function onSortBy() {
-                var sort = $("sortorder").value.replace("Sort by ", "");
+            function onSortBy(id) {
                 switch(sort) {
-                    case "Album": playlistService.sortByAlbum(playlistCallback); break;
-                    case "Track": playlistService.sortByTrack(playlistCallback); break;
-                    case "Artist": playlistService.sortByArtist(playlistCallback); break;
+                    case 0: playlistService.sortByTrack(playlistCallback); break;
+                    case 1: playlistService.sortByArtist(playlistCallback); break;
+                    case 2: playlistService.sortByAlbum(playlistCallback); break;
                     default:
                 }
             }
@@ -212,7 +200,7 @@
                 }
 
                 if ($("toggleRepeat")) {
-                    var text = repeatEnabled ? "<fmt:message key="playlist.repeat_on"/>" : "<fmt:message key="playlist.repeat_off"/>";
+                    var text = repeatEnabled ? "<fmt:message key='playlist.repeat_on'/>" : "<fmt:message key='playlist.repeat_off'/>";
                     dwr.util.setValue("toggleRepeat", text);
                 }
 
@@ -288,9 +276,9 @@
                     slider.setValue(playlist.gain * 100);
                 }
 
-            <c:if test="${model.player.web}">
-                triggerPlayer();
-            </c:if>
+                if (${model.player.web}) {
+                    triggerPlayer();
+                }
             }
 
             function triggerPlayer() {
@@ -369,32 +357,21 @@
 
             <!-- actionSelected() is invoked when the users selects from the "More actions..." combo box. -->
             function actionSelected(id) {
-                if (id == "top") {
-                    return;
-                } else if (id == "loadPlaylist") {
-                    parent.frames.main.location.href = "loadPlaylist.view?";
-                } else if (id == "savePlaylist") {
-                    parent.frames.main.location.href = "savePlaylist.view?";
-                } else if (id == "downloadPlaylist") {
-                    location.href = "download.view?player=${model.player.id}";
-                } else if (id == "sharePlaylist") {
-                    parent.frames.main.location.href = "createShare.view?player=${model.player.id}&" + getSelectedIndexes();
-                } else if (id == "sortByTrack") {
-                    onSortByTrack();
-                } else if (id == "sortByArtist") {
-                    onSortByArtist();
-                } else if (id == "sortByAlbum") {
-                    onSortByAlbum();
-                } else if (id == "selectAll") {
-                    selectAll(true);
-                } else if (id == "selectNone") {
-                    selectAll(false);
-                } else if (id == "removeSelected") {
-                    onRemoveSelected();
-                } else if (id == "download") {
-                    location.href = "download.view?player=${model.player.id}&" + getSelectedIndexes();
-                } else if (id == "appendPlaylist") {
-                    parent.frames.main.location.href = "appendPlaylist.view?player=${model.player.id}&" + getSelectedIndexes();
+                switch (id) {
+                    case "top": return;
+                    case "loadPlaylist":        parent.frames.main.location.href = "loadPlaylist.view?"; break;
+                    case "savePlaylist":        parent.frames.main.location.href = "savePlaylist.view?"; break;
+                    case "downloadPlaylist":    location.href = "download.view?player=${model.player.id}"; break;
+                    case "sharePlaylist":       parent.frames.main.location.href = "createShare.view?player=${model.player.id}&" + getSelectedIndexes(); break;
+                    case "sortByTrack":         onSortBy(0); break;
+                    case "sortByArtist":        onSortBy(1); break;
+                    case "sortByAlbum":         onSortBy(2); break;
+                    case "selectAll":           selectAll(true); break;
+                    case "selectNone":          selectAll(false); break;
+                    case "removeSelected":      onRemoveSelected(); break;
+                    case "download":            location.href = "download.view?player=${model.player.id}&" + getSelectedIndexes(); break;
+                    case "appendPlaylist":      parent.frames.main.location.href = "appendPlaylist.view?player=${model.player.id}&" + getSelectedIndexes(); break;
+                    default:
                 }
                 $("moreActions").selectedIndex = 0;
             }
@@ -499,7 +476,7 @@
 
                         <ul class="solidblockmenu left">
                             <li>
-                                <select id="sortorder" onChange="javascript:onSortBy();"> 
+                                <select id="sortorder" onChange="javascript:onSortBy(selectedIndex);"> 
                                     <option value="<fmt:message key='playlist.more.sortbytrack'/>"><fmt:message key='playlist.more.sortbytrack'/></option> 
                                     <option value="<fmt:message key='playlist.more.sortbyartist'/>"><fmt:message key='playlist.more.sortbyartist'/></option>
                                     <option value="<fmt:message key='playlist.more.sortbyalbum'/>"><fmt:message key='playlist.more.sortbyalbum'/></option>
@@ -536,7 +513,7 @@
                             <li><a href="javascript:noop()" onClick="onStart()" class="playerstart" ><fmt:message key="playlist.start"/></a></li>
                             </c:if> 
                             <c:if test="${model.player.web}">
-                            <li><div id="placeholder" style="float:left;width:340px;"><a href="http://www.adobe.com/go/getflashplayer" target="_blank"><fmt:message key="playlist.getflash"/></a></div></li>
+                            <li><div id="placeholder" style="float:left;width:340px;margin-top:5px"><a href="http://www.adobe.com/go/getflashplayer" target="_blank"><fmt:message key="playlist.getflash"/></a></div></li>
                             </c:if> 
                        
                             <c:if test="${model.player.jukebox}">
