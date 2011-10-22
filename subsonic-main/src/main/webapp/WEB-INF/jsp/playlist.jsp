@@ -476,7 +476,7 @@
 
                         <ul class="solidblockmenu left">
                             <li>
-                                <select id="sortorder" onChange="javascript:onSortBy(selectedIndex);"> 
+                                <select id="sortorder" onChange="javascript:onSortBy(selectedIndex);" class="solidblockmenu"> 
                                     <option value="<fmt:message key='playlist.more.sortbytrack'/>"><fmt:message key='playlist.more.sortbytrack'/></option> 
                                     <option value="<fmt:message key='playlist.more.sortbyartist'/>"><fmt:message key='playlist.more.sortbyartist'/></option>
                                     <option value="<fmt:message key='playlist.more.sortbyalbum'/>"><fmt:message key='playlist.more.sortbyalbum'/></option>
