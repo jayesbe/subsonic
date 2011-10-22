@@ -1,6 +1,8 @@
 @charset "utf-8";
 /* CSS Document */
 
+#sortorder { color: #1f398e; }
+
 a.playerstart {
     background-image:url("playermod/1f398e/player_start.png");background-position: 0px 0px; background-repeat:no-repeat; height: 24px; width: 23px; display:block;text-indent: -9999px;}
     

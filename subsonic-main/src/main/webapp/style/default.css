@@ -856,6 +856,10 @@
             overflow: hidden;
         }
 
+        #sortorder {
+                border: 0;
+        }
+
         #playlistframemenuplayerExternal {
             max-width: 257px;
         }
@@ -865,7 +869,7 @@
         }
 
         #playlistframemenuplayer {
-            max-width: 595px;
+            max-width: 613px;
         }
 
         #ddpanelcontainer, #playlistframemenuplayer, #playlistframemenuplayerExternal, #playlistframemenuplayerJukebox {
