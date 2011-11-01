@@ -1,0 +1,8 @@
+@charset "utf-8";
+/* CSS Document */
+
+.solidblockmenu     { background-image: url("000000/player_back.png"); }
+
+.playerleftround    { background-image: url("000000/player_leftround.png"); }
+
+.playerrightround   { background-image: url("000000/player_rightround.png"); }

@@ -1,0 +1,8 @@
+@charset "utf-8";
+/* CSS Document */
+
+.solidblockmenu     { background-image: url("cedced/player_back.png"); }
+
+.playerleftround    { background-image: url("cedced/player_leftround.png"); }
+
+.playerrightround   { background-image: url("cedced/player_rightround.png"); }

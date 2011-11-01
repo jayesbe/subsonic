@@ -1,0 +1,48 @@
+@charset "utf-8";
+/* CSS Document */
+
+.solidblockmenu select { color: #d2f1d5; }
+
+.solidblockmenu select option { background: #3b433b; }
+
+a.playerstart       { background-image: url("d2f1d5/player_start.png"); }
+
+a.playerstop        { background-image: url("d2f1d5/player_stop.png"); }
+
+a.playerrewind      { background-image: url("d2f1d5/player_rewind.png"); }
+
+a.playerforward     { background-image: url("d2f1d5/player_forward.png"); }
+
+a.playerclear       { background-image: url("d2f1d5/player_clear.png"); }
+ 
+a.playershuffle     { background-image: url("d2f1d5/player_shuffle.png"); }
+
+a.playerrepeaton    { background-image: url("d2f1d5/player_repeaton.png"); }
+
+a.playerrepeatoff   { background-image: url("d2f1d5/player_repeatoff.png"); }
+
+a.playerundo        { background-image: url("d2f1d5/player_undo.png"); }
+
+a.playersettings    { background-image: url("d2f1d5/player_settings.png"); }
+
+a.playerload        { background-image: url("d2f1d5/player_load.png"); }
+
+a.playersave        { background-image: url("d2f1d5/player_save.png"); }
+
+a.playersorttrack   { background-image: url("d2f1d5/player_sorttrack.png"); }
+
+a.playersortalbum   { background-image: url("d2f1d5/player_sortalbum.png"); }
+
+a.playersortartist  { background-image: url("d2f1d5/player_sortartist.png"); }
+
+a.playerselectall   { background-image: url("d2f1d5/player_selectall.png"); }
+
+a.playerselectnone  { background-image: url("d2f1d5/player_selectnone.png"); }
+
+a.playerremove      { background-image: url("d2f1d5/player_remove.png"); }
+ 
+a.playerappend      { background-image: url("d2f1d5/player_append.png"); }
+
+a.playerdownload    { background-image: url("d2f1d5/player_download.png"); }
+
+a.playershare       { background-image: url("d2f1d5/player_share.png"); }
