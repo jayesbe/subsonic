@@ -1,23 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
 <%@ include file="doctype.jsp" %>
 
 <html>
     <head>
         <%@ include file="head.jsp" %>
-        <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/script/smooth-scroll.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/jquery-1.6.4.min.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/jquery-ui-1.8.16.custom.min.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/niceforms2.js"/>"></script>
-        <script>
-            $(document).ready(function() {
-            var icons = {
-                    header: "ui-icon-circle-arrow-e",
-                    headerSelected: "ui-icon-circle-arrow-s"
-                };
-            $("#accordion").accordion( {active: false, autoHeight: false, navigation: true, collapsible: true, icons: icons} );    
-          });
-        </script>
         <!--[if lte IE 8]>
             <style type="text/css" media="screen">
                 /* use static images */
@@ -28,16 +15,88 @@
                 .ui-accordion-header h3 { position:fixed; display:inline-block; }
             </style>
         <![endif]-->
+        <script>
+            function createAccordion() {
+                (function($) {
+                    var icons = {
+                        header: "ui-icon-circle-arrow-e",
+                        headerSelected: "ui-icon-circle-arrow-s"
+                    };
+
+                    $(function() {
+                        $("#accordion").accordion({
+                            active: false,
+                            icons: icons,
+                            autoHeight: false,
+                            navigation: true,
+                            collapsible: true,
+                            event: "click hoverintent"
+                        });
+                    })
+
+                    var cfg = ($.hoverintent = {
+                        sensitivity: 3,
+                        interval: 100
+                    });
+
+                    $.event.special.hoverintent = {
+                        setup: function() {
+                            $( this ).bind( "mouseover", jQuery.event.special.hoverintent.handler );
+                        },
+                        teardown: function() {
+                            $( this ).unbind( "mouseover", jQuery.event.special.hoverintent.handler );
+                        },
+                        handler: function( event ) {
+                            event.type = "hoverintent";
+                            var self = this,
+                                args = arguments,
+                                target = $( event.target ),
+                                cX, cY, pX, pY;
+
+                            function track( event ) {
+                                cX = event.pageX;
+                                cY = event.pageY;
+                            };
+                            pX = event.pageX;
+                            pY = event.pageY;
+                            function clear() {
+                                target
+                                    .unbind( "mousemove", track )
+                                    .unbind( "mouseout", arguments.callee );
+                                clearTimeout( timeout );
+                            }
+                            function handler() {
+                                if ( ( Math.abs( pX - cX ) + Math.abs( pY - cY ) ) < cfg.sensitivity ) {
+                                    clear();
+                                    jQuery.event.handle.apply( self, args );
+                                } else {
+                                    pX = cX;
+                                    pY = cY;
+                                    timeout = setTimeout( handler, cfg.interval );
+                                }
+                            }
+                            var timeout = setTimeout( handler, cfg.interval );
+                            target.mousemove( track ).mouseout( clear );
+                            return true;
+                        }
+                    };
+                })(jQuery);
+            }
+            
+            jQueryLoad.wait(function() {
+                jQueryUILoad.wait(function() { jQuery(createAccordion); });
+            });
+        </script>
     </head>
 
     <body class="bgcolor1 leftframe">
 
         <div id="leftframecontainer">
 
-            <div id="leftframemenucontainer" class="bgcolor1">
+            <div id="leftframemenucontainer" class="bgcolor1 fade">
                 <div id="musicfoldercontainer">
                     <c:if test="${fn:length(model.musicFolders) > 1}">
-                        <select id="musicFolder" name="musicFolderId" onChange="location='left.view?musicFolderId=' + options[selectedIndex].value;">
+                        <select id="musicFolder" name="musicFolderId" class="center" onChange="location='left.view?musicFolderId=' + options[selectedIndex].value;">
                             <option value="-1"><fmt:message key="left.allfolders"/></option>
                             <c:forEach items="${model.musicFolders}" var="musicFolder">
                                 <option ${model.selectedMusicFolder.id == musicFolder.id ? "selected" : ""} value="${musicFolder.id}">${musicFolder.name}</option>
@@ -67,7 +126,7 @@
             </c:if>
 
 
-            <div id="accordioncontainer">
+            <div id="accordioncontainer" class="fade">
                 <div id="accordion">
                     <c:if test="${model.statistics.songCount gt 0}">
                         <h3><a name="#"><fmt:message key="left.index"/></a></h3>

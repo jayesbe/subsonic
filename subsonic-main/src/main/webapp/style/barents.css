@@ -3,28 +3,13 @@
  *
  * Author: Sindre Mehus
  */
-@import "accordion-dotluv.css";
 @import "hd.css";
+@import "accordion/dotluv.css";
 
 body {
-    margin:0.75em;
     font-size: 9pt;
 }
 
 .detail, .albumComment, .log {
     font-size: 8pt;
-}
-
-/* Font 1 */
-body, h2, form, label, table, a {
-    font-family: verdana, arial, sans-serif;
-}
-
-/* Font 2 */
-h1, h1 a, input, select {
-    font-family: arial, sans-serif;
-}
-
-h1, h2, th {
-    font-weight:bold;
 }

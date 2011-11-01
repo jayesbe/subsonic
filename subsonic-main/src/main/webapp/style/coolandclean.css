@@ -7,115 +7,127 @@
  * Heading icons are part of the Albook icon pack created by Laurent Baumann (http://lbaumann.com/)
  * Main theme icon part of itunes icon pack created by Michael Flarup (http://pixelresort.com)
  */
-@import "accordion-smoothness.css";
 @import "default.css";
+@import "playermod/bg/d1d9e1.css";
 
-/* The primary background colour, light gray. Images used to force background on left frame headings and playlist. */
-.bgcolor1 {
-    background-color: #F7F7F7;
-}
+/*
+ * Background colors
+ */
 
-/* The secondary background colour, light blue, primary theme colour. */
-.bgcolor2, .ruleTableHeader, .log {
-    background-color: #D1D9E1;
-}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: #F7F7F7;
+    }
 
-/* Background for selected headers. */
-.headerSelected {
-    background-image:url( "../icons/coolandclean/home_hover.png" );
-    background-repeat:repeat;
-    color: #333333;
-}
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: #D1D9E1;
+    }
 
+/*
+ * Border settings for main frames
+ */
 
-/* Foreground colour used for h1, h2, b, tr, details and albumcomments. */
-h1, h2, b, tr, .detail, .albumComment {
-    color: #333333;
-}
+    .mainframe {
+    /* Main frame border style */
+        background-image:url( "../icons/coolandclean/background_main.png" );
+        background-repeat:no-repeat;
+        background-attachment:fixed;
+        background-color: #D1D9E1;
+        background-position:right;
+    }
 
-/* Table sizing */
-table {
-    font-size: 100%;
-    line-height: 130%;
-    border: 0;
-}
+    .rightframe {
+    /* Right frame border style */
+        background-color: #D1D9E1;
+    }
 
-/* Main frame image & colour */
-.mainframe {
-    background-image:url( "../icons/coolandclean/background_main.png" );
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-    background-color: #D1D9E1;
-    background-position:right;
-}
+/*
+ * Miscellaneous style settings and helpers
+ */
 
-/* Right frame background. */
-.rightframe {
-    background-color: #D1D9E1;
-    background-image:none;
-}
+    body {
+    /* Primary foreground (font) color. (black) */
+        background-color: #D1D9E1;
 
-/* Back image */
-.back {
-    background-image:url( "../icons/coolandclean/back.png" );
-}
+    /* Scrollbar colors (supported on IE and Opera) */
+        scrollbar-arrow-color: #636363;
+        scrollbar-track-color: #D1D9E1;
+    }
 
-/* Forward image */
-.forward {
-    background-image:url( "../icons/coolandclean/forward.png" );
-}
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #656569;
+    }
 
-/* Link colour */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #656569;
-}
+    a:hover, a:hover * {
+    /* Link hover style */
+        color: #333333;
+    }
 
-/* Link hover colour */
-a:hover, a:hover * {
-    text-decoration: none;
-    color: #333333;
-}
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+        color: #333333;
+    }
 
-/* Colour for warning messages. */
-.warning {
-    color: #AA1F15;
-}
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+        color: #333333;
+    }
 
-/* The primary foreground colour. */
-body {
-    background-color: #D1D9E1;
-    scrollbar-arrow-color: #636363;
-    scrollbar-track-color: #D1D9E1;
-}
+    .headerSelected {
+    /* Background color for selected header. */
+        background-image:url( "../icons/coolandclean/home_hover.png" );
+        background-repeat:repeat;
+        color: #333333;
+    }
 
-/* The album comments. */
-.albumComment {
-    width: 50em;
-    font-size: 8pt;
-    line-height: 1.4em;
-    padding-top: 0.25em;
-}
+    .warning {
+    /* Color for warning messages. */
+        color: #AA1F15;
+    }
+    
+    .log {
+    /* Log file font size */
+        font-weight: bold;
+    }
 
-/* The log. */
-.log {
-    font-weight: bold;
-    white-space: nowrap;
-    font-size: 8pt;
-    line-height: 1em;
-}
+/*
+ * Main frame menu images
+ */
 
-/* The help, status & web payer settings tables. */
-.ruleTableHeader, .ruleTableCell {
-    margin: 5px;
-    padding: 5px;
-}
+    .back {
+        background-image: url("../icons/coolandclean/back.png");
+    }
 
-.logo {
-    margin-top: 15px;
-}
+    .forward {
+        background-image: url("../icons/coolandclean/forward.png");
+    }
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/coolandclean/player_back.png") center center repeat;}
-.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #333333 solid 1px;}
+    .refresh {
+        background-image: url("../icons/coolandclean/refresh.png");
+    }
+
+    .download {
+        background-image: url("../icons/coolandclean/download.png");
+    }
+
+    .delete {
+        background-image: url("../icons/coolandclean/remove.png");
+    }
+
+    .up{
+        background-image: url("../icons/coolandclean/up.png");
+    }
+
+    .down {
+        background-image: url("../icons/coolandclean/down.png");
+    }
+
+    .addFromURI {
+        background-image: url("../icons/coolandclean/add.png");
+    }
+
+    .logfile {
+        background-image: url("../icons/coolandclean/log_small.png");
+    }

@@ -18,19 +18,21 @@
 
             <div id="mainframecontentcontainer">
                 <div id="mainframecontent">
-                    <h1>
-                        <img src="<spring:theme code="donateImage"/>" alt=""/>
-                        <fmt:message key="donate.title"/>
-                    </h1>
-                    <c:if test="${not empty command.path}">
-                        <sub:url value="main.view" var="backUrl">
-                            <sub:param name="path" value="${command.path}"/>
-                        </sub:url>
-                        <div class="back"><a href="${backUrl}">
-                            <fmt:message key="common.back"/>
-                        </a></div>
-                        <br/>
-                    </c:if>
+                    <div id="mainframecontentheader" class="fade">
+                        <h1>
+                            <img src="<spring:theme code="donateImage"/>" alt=""/>
+                            <fmt:message key="donate.title"/>
+                        </h1>
+                        <c:if test="${not empty command.path}">
+                            <sub:url value="main.view" var="backUrl">
+                                <sub:param name="path" value="${command.path}"/>
+                            </sub:url>
+                            <div class="back"><a href="${backUrl}">
+                                <fmt:message key="common.back"/>
+                            </a></div>
+                            <br/>
+                        </c:if>
+                    </div>
 
                     <c:url value="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=E5RNJMDJ7C862" var="donate10Url"/>
                     <c:url value="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CKRS9A4J99TFN" var="donate15Url"/>
@@ -39,7 +41,7 @@
                     <c:url value="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BXJVAQALLFREC" var="donate30Url"/>
                     <c:url value="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=M5PX55AC4ER9Y" var="donate50Url"/>
 
-                    <div style="width:50em; max-width:50em:">
+                    <div class="fade" style="width:50em; max-width:50em:">
                     <blockquote>
                         <fmt:message key="donate.textbefore"><fmt:param value="${command.brand}"/></fmt:message>
 

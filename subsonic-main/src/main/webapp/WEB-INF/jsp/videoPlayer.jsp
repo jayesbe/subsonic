@@ -12,9 +12,7 @@
             <sub:param name="path" value="${model.video.path}"/>
         </sub:url>
 
-        <script type="text/javascript" src="<c:url value="/script/swfobject.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/prototype.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
         <script type="text/javascript" language="javascript">
 
             var player;
@@ -23,10 +21,11 @@
             var timeOffset = ${model.timeOffset};
 
             function init() {
+                var jwplayerskin = "/flash/skins/<spring:theme code='jwPlayerVideoSkin'/>.zip"
 
                 var flashvars = {
                     id:"player1",
-                    skin:"<c:url value="/flash/whotube.zip"/>",
+                    skin: jwplayerskin,
     //                plugins:"metaviewer-1",
                     screencolor:"000000",
                     controlbar:"over",
@@ -47,16 +46,16 @@
 
                 var width = "${model.popout ? '100%' : '600'}";
                 var height = "${model.popout ? '85%' : '360'}";
-                swfobject.embedSWF("<c:url value="/flash/jw-player-5.6.swf"/>", "placeholder1", width, height, "9.0.0", false, flashvars, params, attributes);
+                swfobject.embedSWF("<c:url value='/flash/jw-player-5.8.swf'/>", "videoplaceholder", width, height, "9", false, flashvars, params, attributes);
             }
 
             function playerReady(thePlayer) {
                 player = $("player1");
                 player.addModelListener("TIME", "timeListener");
 
-            <c:if test="${not (model.trial and model.trialExpired)}">
-                play();
-            </c:if>
+				if (${not (model.trial and model.trialExpired)}){
+					play();
+				}
             }
 
             function play() {
@@ -185,7 +184,7 @@
                                             style="margin:1px 0; width:100%; color:b3b3b3; border:0px solid; height:18px; padding:0px 3px; position:relative;">
                                     </td>
                                     <td style="border-style:solid solid solid none;border-color:#849dbd;border-width:1px;" width="24px" align="right">
-                                    <input id="Submit" type="image" src="<spring:theme code="searchImage"/>" alt="${search}" title="${search}" align="absBottom" style="border-style:none" width="18px">
+                                    <input id="Submit" type="image" src="<spring:theme code='searchImage'/>" alt="${search}" title="${search}" align="absBottom" style="border-style:none" width="18px">
                                     <!--<a href="javascript:document.searchForm.submit()"><img src="<spring:theme code="searchImage"/>" alt="${search}" title="${search}"></a>-->
                                     </td>
                                 </tr>
@@ -206,8 +205,7 @@
                                     <fmt:message key="networksettings.trialexpired"><fmt:param>${expiryDate}</fmt:param></fmt:message>
                                 </c:when>
                                 <c:otherwise>
-                                    <fmt:message
-                                            key="networksettings.trialnotexpired"><fmt:param>${expiryDate}</fmt:param></fmt:message>
+                                    <fmt:message key="networksettings.trialnotexpired"><fmt:param>${expiryDate}</fmt:param></fmt:message>
                                 </c:otherwise>
                             </c:choose>
                         </p>
@@ -219,7 +217,7 @@
                     </c:if>
                     <span style="text-align:center">
                         <div id="wrapper" style="background-color:#000;margin-left:-5px">
-                        <div id="placeholder1"><a href="http://www.adobe.com/go/getflashplayer" target="_blank"><fmt:message key="playlist.getflash"/></a></div>
+                        <div id="videoplaceholder"><a href="http://www.adobe.com/go/getflashplayer" target="_blank"><fmt:message key="playlist.getflash"/></a></div>
                         </div>
                     </span>
 

@@ -5,7 +5,6 @@
 <html>
     <head>
         <%@ include file="head.jsp" %>
-        <script type="text/javascript" src="<c:url value="/script/prototype.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/dwr/interface/multiService.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/dwr/engine.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/dwr/util.js"/>"></script>

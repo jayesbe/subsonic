@@ -94,6 +94,12 @@ public class Schema46 extends Schema {
             template.execute("alter table user_settings add list_columns int default 5");
             LOG.info("Database column 'user_settings.list_columns' was added successfully.");
         }
+
+        if (!columnExists(template, "web_font", "user_settings")) {
+            LOG.info("Database column 'user_settings.web_font' not found.  Creating it.");
+            template.execute("alter table user_settings add web_font varchar");
+            LOG.info("Database column 'user_settings.web_font' was added successfully.");
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
 <%--@elvariable id="command" type="net.sourceforge.subsonic.command.SearchCommand"--%>
 <%@ include file="doctype.jsp" %>
 
@@ -6,7 +6,6 @@
     <head>
         <%@ include file="head.jsp" %>
         <script type="text/javascript" src="<c:url value='/script/scripts.js'/>"></script>
-        <script type="text/javascript" src="<c:url value='/script/prototype.js'/>"></script>
         <script type="text/javascript" src="<c:url value='/dwr/util.js'/>"></script>
 
         <script type="text/javascript">

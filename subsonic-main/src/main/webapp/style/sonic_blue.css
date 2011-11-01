@@ -6,79 +6,122 @@
  */
 
 @import "sonic.css";
-@import "playermod-cccccc.css";
+@import "playermod/fg/cccccc.css";
+@import "playermod/bg/456993.css";
 
-/* The primary background colour. */
-.bgcolor1 {
-    background-color: #456993;
-}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: #456993;
+    }
 
-/* The secondary background colour, light blue, primary theme colour. */
-.bgcolor2, .ruleTableHeader, .log {
-    background-color: #456993;
-    color: #EFE9D9;
-}
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: #456993;
+        color: #EFE9D9;
+    }
+    
+    .mainframe {
+    /* Main frame border style */
+        background-color: #456993;
+    }
 
-/* Background colour for selected header, log etc. */
-.headerSelected {
-    color: #EFE9D9;
-    background-color: #456993;
-    border: 1px solid #EFE9D9;
-}
+/*
+ * Miscellaneous style settings and helpers
+ */
 
-/* The primary foreground color (black). */
-body {
-    color: #EFE9D9;
-    background-color: #DDDDDD;
-}
+    body {
+    /* Primary foreground (font) color. (black) */
+        color: #EFE9D9;
+        background-color: #DDDDDD;
+    }
 
-/* The secondary foreground colour used for h1, details etc. */
-h1, .detail, .albumComment {
-    color: #EFE9D9;
-}
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #B6BEC2;
+    }
 
-/* Foreground colour used for h2, bold and tr. */
-h2, b, tr {
-    color: #EFE9D9;
-}
+    a:hover, a:hover * {
+    /* Link hover style */
+        color: #B6BEC2;
+    }
 
-/* Main frame image & colour */
-.mainframe {
-    background-color: #456993;
-}
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+        color: #EFE9D9;
+    }
 
-/* Back image */
-.back {
-    background-image:url( "../icons/sonic_blue/back.png" );
-}
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+        color: #EFE9D9;
+    }
+ 
+    label , p{
+    /* Label font size */
+        color: #CCC;
+    }
 
-/* Forward image */
-.forward {
-    background-image:url( "../icons/sonic_blue/forward.png" );
-}
+    .headerSelected {
+    /* Background color for selected header. */
+        color: #EFE9D9;
+        background-color: #456993;
+        border: 1px solid #EFE9D9;
+    }
 
+    .warning {
+    /* Color for warning messages. */
+        color: #990099;
+    }
 
-/* Link colour */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #B6BEC2;
-}
+/*
+ * Main frame menu images
+ */
 
-/* Link hover colour */
-a:hover, a:hover * {
-    color: #B6BEC2;
-}
+    .back {
+        background-image: url("../icons/sonic_blue/back.png");
+    }
 
-/* Colour for warning messages. */
-.warning {
-    color: #990099;
-}
+    .forward {
+        background-image: url("../icons/sonic_blue/forward.png");
+    }
 
-label, p {
-    color: #CCC;
-}
+    .refresh {
+        background-image: url("../icons/sonic_blue/refresh.png");
+    }
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/sonic_blue/player_back.png") center center repeat;}
-.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #EFE9D9 solid 1px;}
+    .download {
+        background-image: url("../icons/sonic_blue/download.png");
+    }
+
+    .delete {
+        background-image: url("../icons/sonic_blue/remove.png");
+    }
+
+    .up{
+        background-image: url("../icons/sonic_blue/up.png");
+    }
+
+    .down {
+        background-image: url("../icons/sonic_blue/down.png");
+    }
+
+    .addFromURI {
+        background-image: url("../icons/sonic_blue/add.png");
+    }
+
+    .logfile {
+        background-image: url("../icons/sonic_blue/log_small.png");
+    }
+
+/*
+ * Player style
+ */
+
+    .solidblockmenu li a:hover, .solidblockmenu li .current {
+    /* Player control hover style */
+        background-color: #EFE9D9;
+    }
+
+    .solidblockmenu select:hover {
+    /* Player select hover style */
+        background-color: #EFE9D9;
+    }

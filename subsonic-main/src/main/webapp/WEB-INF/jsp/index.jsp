@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
 <%@ include file="doctype_frameset.jsp" %>
 
 <html>
     <head>
         <%@ include file="head.jsp" %>
+        <script>webfont = getWebFont("${model.userWebFont}", "${model.systemWebFont}");</script>
         <link rel="alternate" type="application/rss+xml" title="Subsonic Podcast" href="podcast.view?suffix=.rss">
     </head>
 
@@ -20,5 +21,6 @@
     </frameset>
 
     <noframes></noframes>
+	<input id="webfont" name="webfont" type="hidden">
 
 </html>

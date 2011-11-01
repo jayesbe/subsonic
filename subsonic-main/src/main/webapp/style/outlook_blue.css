@@ -1,7 +1,7 @@
-@import "accordion-outlook_blue.css";
-@import "niceforms-default2.css";
 @import "default.css";
-@import "playermod-1f398e.css";
+@import "accordion/outlook_blue.css";
+@import "playermod/fg/1f398e.css";
+@import "playermod/bg/cedced.css";
  
 /*
  * Stuff that is safe to change
@@ -202,53 +202,17 @@
  * Main frame menu images
  */
 
-    .back, .forward, .refresh, #upload  {
-        background-image: none;
-    }
-
-/*
- * Player images
- */
-
-    .solidblockmenu {
-        background: black url("../icons/outlook_blue/player_back.png") center center repeat;
-    }
-
-    .playerleftround, .playerrightround  {
-        height: 24px;
-        width: 24px;
-    }
-
-    .playerleftround {
-    /* Left side */
-        background-image: url("../icons/outlook_blue/player_leftround.png");
-    }
-
-    .playerrightround {
-    /* Right side */
-        background-image: url("../icons/outlook_blue/player_rightround.png");
-    }
-
-    .solidblockmenu li a:hover, .solidblockmenu li .current {
-    /* Player control hover style */
-        background-color: #cedced;
-        margin-top: 1px;
-        padding-bottom: 1px;
-    }
-
-    .mainframemenuitem, .forward, .back {
+    .mainframemenuitem, .forward, .back, .refresh, .addFromURI, .delete, .download, #showEpisodes, #hideEpisodes, #upload {
         border: solid 1px #006699;
         color: #006699;
-        background-color:#e4eef9;    
+        background-color:#e4eef9;
+        background-image: none;
         padding: 0.2em 0.4em 0.2em 0.4em;
     }
     
-    .addFromURI, #downloadSelected, #deleteSelected, #showEpisodes, #hideEpisodes, #minisub {
-        padding-left: 16px;
-    }
     
-    #upload {
-        display: none;
+    #minisub {
+        padding-left: 16px;
     }
 
     .rightframespacebar {
@@ -300,6 +264,20 @@
     .loadedlist2:hover { 
         background-color: white;
         border: 1px solid #e3e3e3;
+    }
+
+/*
+ * Player style
+ */
+
+    .solidblockmenu li a:hover, .solidblockmenu li .current {
+    /* Player control hover style */
+        background-color: #7C848E;
+    }
+
+    .solidblockmenu select:hover {
+    /* Player select hover style */
+        background-color: #7C848E;
     }
  
 

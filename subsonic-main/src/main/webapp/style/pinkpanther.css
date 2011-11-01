@@ -4,90 +4,129 @@
  * Author: Thomas Bruce Dyrud (thomasbrucedyrud[at]gmail.com)
  *
  */
-@import "accordion-mintchocolate.css";
 @import "default.css";
-@import "playermod-cccccc.css";
+@import "accordion/mintchocolate.css";
+@import "playermod/fg/cccccc.css";
+@import "playermod/bg/402c31.css";
 
-/* The primary background colour. */
-.bgcolor1 {
-    background-color: #402c31;
-}
+/*
+ * Background colors
+ */
 
-/* The secondary background colour, light blue, primary theme colour. */
-.bgcolor2, .ruleTableHeader, .log {
-    background-color: #402c31;
-    color: #EFE9D9;
-}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: #402c31;
+    }
 
-/* Background colour for selected header, log etc. */
-.headerSelected {
-    color: #EFE9D9;
-    background-color: #402c31;
-    border: 1px solid #EFE9D9;
-}
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: #402c31;
+        color: #EFE9D9;
+    }
 
+/*
+ * Border settings for main frames
+ */
 
-/* The secondary foreground colour used for h1, details etc. */
-h1, .detail, .albumComment {
-    color: #EFE9D9;
-}
+    .mainframe {
+    /* Main frame border style */
+        background-color: #402c31;
+        background-position:right;
+    }
 
-/* Foreground colour used for h2, bold and tr. */
-h2, b, tr {
-    color: #EFE9D9;
-}
+/*
+ * Miscellaneous style settings and helpers
+ */
 
-/* Main frame image & colour */
-.mainframe {
-    background-color: #402c31;
-    background-position:right;
-}
+    body {
+    /* Primary foreground (font) color. (black) */
+        color: #EFE9D9;
+        background-color: #DDDDDD;
+    }
 
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #11bdcb;
+    }
 
-/* Back image */
-.back {
-    background-image:url( "../icons/pinkpanther/back.png" );
-}
+    a:hover, a:hover * {
+    /* Link hover style */
+        text-decoration: underline;
+        color: #11bdcb;
+    }
 
-/* Forward image */
-.forward {
-    background-image:url( "../icons/pinkpanther/forward.png" );
-}
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+        color: #EFE9D9;
+    }
 
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+        color: #EFE9D9;
+    }
 
-/* Link colour */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #11bdcb;
-}
+    .headerSelected {
+    /* Background color for selected header. */
+        color: #EFE9D9;
+        background-color: #402c31;
+        border: 1px solid #EFE9D9;
+    }
 
-/* Link hover colour */
-a:hover, a:hover * {
-    text-decoration: underline;
-    color: #11bdcb;
-}
+    .warning {
+    /* Color for warning messages. */
+        color: #990099;
+    }
 
-/* Colour for warning messages. */
-.warning {
-    color: #990099;
-}
+/*
+ * Main frame menu images
+ */
 
+    .back {
+        background-image: url("../icons/pinkpanther/back.png");
+    }
 
-/* The primary foreground colour. */
-body {
-    color: #EFE9D9;
-    background-color: #DDDDDD;
-}
+    .forward {
+        background-image: url("../icons/pinkpanther/forward.png");
+    }
 
-html {
-    background-color: transparent;
-}
+    .refresh {
+        background-image: url("../icons/pinkpanther/refresh.png");
+    }
 
-label, p {
-    color: #CCC;
-}
+    .download {
+        background-image: url("../icons/pinkpanther/download.png");
+    }
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/pinkpanther/player_back.png") center center repeat;}
-.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #11bdcb solid 1px;}
+    .delete {
+        background-image: url("../icons/pinkpanther/remove.png");
+    }
+
+    .up{
+        background-image: url("../icons/pinkpanther/up.png");
+    }
+
+    .down {
+        background-image: url("../icons/pinkpanther/down.png");
+    }
+
+    .addFromURI {
+        background-image: url("../icons/pinkpanther/add.png");
+    }
+
+    .logfile {
+        background-image: url("../icons/pinkpanther/log_small.png");
+    }
+
+/*
+ * Player style
+ */
+
+    .solidblockmenu li a:hover, .solidblockmenu li .current {
+    /* Player control hover style */
+        background-color: #11bdcb;
+    }
+
+    .solidblockmenu select:hover {
+    /* Player select hover style */
+        background-color: #11bdcb;
+    }

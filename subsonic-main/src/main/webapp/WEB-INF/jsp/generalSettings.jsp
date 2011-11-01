@@ -26,6 +26,48 @@
             <table>
 
                 <tr>
+                    <td><fmt:message key="generalsettings.language"/></td>
+                    <td>
+                        <form:select path="localeIndex" cssStyle="width:15em">
+                            <c:forEach items="${command.locales}" var="locale" varStatus="loopStatus">
+                                <form:option value="${loopStatus.count - 1}" label="${locale}"/>
+                            </c:forEach>
+                        </form:select>
+                        <c:import url="helpToolTip.jsp"><c:param name="topic" value="language"/></c:import>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><fmt:message key="generalsettings.theme"/></td>
+                    <td>
+                        <form:select path="themeIndex" cssStyle="width:15em">
+                            <c:forEach items="${command.themes}" var="theme" varStatus="loopStatus">
+                                <form:option value="${loopStatus.count - 1}" label="${theme.name}"/>
+                            </c:forEach>
+                        </form:select>
+                        <c:import url="helpToolTip.jsp"><c:param name="topic" value="theme"/></c:import>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><fmt:message key="generalsettings.webfont"/></td>
+                    <td>
+                        <form:input path="webFont" cssStyle="width:18em"/>
+                        <c:import url="helpToolTip.jsp"><c:param name="topic" value="webfont"/></c:import>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><fmt:message key="generalsettings.mmapikey"/></td>
+                    <td>
+                        <form:input path="MMAPIKey" cssStyle="width:18em"/>
+                        <c:import url="helpToolTip.jsp"><c:param name="topic" value="mmapikey"/></c:import>
+                    </td>
+                </tr>
+
+                <tr><td colspan="2">&nbsp;</td></tr>
+
+                <tr>
                     <td><fmt:message key="generalsettings.playlistfolder"/></td>
                     <td>
                         <form:input path="playlistFolder" size="70"/>
@@ -86,32 +128,6 @@
                 <tr><td colspan="2">&nbsp;</td></tr>
 
                 <tr>
-                    <td><fmt:message key="generalsettings.language"/></td>
-                    <td>
-                        <form:select path="localeIndex" cssStyle="width:15em">
-                            <c:forEach items="${command.locales}" var="locale" varStatus="loopStatus">
-                                <form:option value="${loopStatus.count - 1}" label="${locale}"/>
-                            </c:forEach>
-                        </form:select>
-                        <c:import url="helpToolTip.jsp"><c:param name="topic" value="language"/></c:import>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td><fmt:message key="generalsettings.theme"/></td>
-                    <td>
-                        <form:select path="themeIndex" cssStyle="width:15em">
-                            <c:forEach items="${command.themes}" var="theme" varStatus="loopStatus">
-                                <form:option value="${loopStatus.count - 1}" label="${theme.name}"/>
-                            </c:forEach>
-                        </form:select>
-                        <c:import url="helpToolTip.jsp"><c:param name="topic" value="theme"/></c:import>
-                    </td>
-                </tr>
-
-                <tr><td colspan="2">&nbsp;</td></tr>
-
-                <tr>
                     <td>
                     </td>
                     <td>
@@ -155,8 +171,7 @@
 
         <c:if test="${command.reloadNeeded}">
             <script language="javascript" type="text/javascript">
-                parent.frames.left.location.href="left.view?";
-                parent.frames.playlist.location.href="playlist.view?";
+                parent.location.href="index.view?";
             </script>
         </c:if>
 

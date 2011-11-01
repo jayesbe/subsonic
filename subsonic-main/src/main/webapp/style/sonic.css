@@ -4,87 +4,125 @@
  * Author: Thomas Bruce Dyrud (thomasbrucedyrud[at]gmail.com)
  *
  */
-@import "accordion-smoothness.css";
-@import "playermod-696969.css";
 @import "default.css";
+@import "accordion/smoothness.css";
+@import "playermod/fg/696969.css";
+@import "playermod/bg/e7e7e7.css";
 
-/* The primary background colour. */
-.bgcolor1 {
-    background-color: #e7e7e7;
-}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: #e7e7e7;
+    }
 
-/* The secondary background colour, light blue, primary theme colour. */
-.bgcolor2, .ruleTableHeader, .log {
-    background-color: #e7e7e7;
-    color: #696969;
-}
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: #e7e7e7;
+        color: #696969;
+    }
+    
+    .mainframe {
+    /* Main frame border style */
+        background-color: #e7e7e7;
+    }
 
-/* Background colour for selected header, log etc. */
-.headerSelected {
-    color: #696969;
-    background-color: #e7e7e7;
-    border: 1px solid #696969;
-}
+/*
+ * Miscellaneous style settings and helpers
+ */
 
+    body {
+    /* Primary foreground (font) color. (black) */
+        color: #696969;
+        background-color: #DDDDDD;
+    }
 
-/* The primary foreground color (black). */
-body {
-    color: #696969;
-    background-color: #DDDDDD;
-}
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #333333;
+    }
 
-/* The secondary foreground colour used for h1, details etc. */
-h1, .detail, .albumComment {
-    color: #696969;
-}
+    a:hover, a:hover * {
+    /* Link hover style */
+        text-decoration: underline;
+        color: #696969;
+    }
 
-/* Foreground colour used for h2, bold and tr. */
-h2, b, tr {
-    color: #696969;
-}
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+        color: #696969;
+    }
 
-/* Main frame image & colour */
-.mainframe {
-    background-color: #e7e7e7;
-}
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+        color: #696969;
+    }
+ 
+    label , p{
+    /* Label font size */
+        color: #696969;
+    }
 
-/* Back image */
-.back {
-    background-image:url( "../icons/sonic/back.png" );
-}
+    .headerSelected {
+    /* Background color for selected header. */
+        color: #696969;
+        background-color: #e7e7e7;
+        border: 1px solid #696969;
+    }
 
-/* Forward image */
-.forward {
-    background-image:url( "../icons/sonic/forward.png" );
-}
+    .warning {
+    /* Color for warning messages. */
+        color: #e7238b;
+    }
 
+/*
+ * Main frame menu images
+ */
 
-/* Link colour */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #333333;
-}
+    .back {
+        background-image: url("../icons/sonic/back.png");
+    }
 
-/* Link hover colour */
-a:hover, a:hover * {
-    text-decoration: underline;
-    color: #696969;
-}
+    .forward {
+        background-image: url("../icons/sonic/forward.png");
+    }
 
-/* Colour for warning messages. */
-.warning {
-    color: #e7238b;
-}
+    .refresh {
+        background-image: url("../icons/sonic/refresh.png");
+    }
 
-html {
-    background-color: transparent;
-}
+    .download {
+        background-image: url("../icons/sonic/download.png");
+    }
 
-label, p {
-    color: #696969;
-}
+    .delete {
+        background-image: url("../icons/sonic/remove.png");
+    }
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/sonic/player_back.png") center center repeat;}
-.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #F90 solid 1px;}
+    .up{
+        background-image: url("../icons/sonic/up.png");
+    }
+
+    .down {
+        background-image: url("../icons/sonic/down.png");
+    }
+
+    .addFromURI {
+        background-image: url("../icons/sonic/add.png");
+    }
+
+    .logfile {
+        background-image: url("../icons/sonic/log_small.png");
+    }
+
+/*
+ * Player style
+ */
+
+    .solidblockmenu li a:hover, .solidblockmenu li .current {
+    /* Player control hover style */
+        background-color: #f90;
+    }
+
+    .solidblockmenu select:hover {
+    /* Player select hover style */
+        background-color: #f90;
+    }

@@ -18,72 +18,110 @@
  */
 package net.sourceforge.subsonic.service;
 
-import javazoom.jlgui.basicplayer.BasicController;
-import javazoom.jlgui.basicplayer.BasicPlayer;
-import javazoom.jlgui.basicplayer.BasicPlayerEvent;
-import javazoom.jlgui.basicplayer.BasicPlayerException;
-import javazoom.jlgui.basicplayer.BasicPlayerListener;
 import net.sourceforge.subsonic.Logger;
+import net.sourceforge.subsonic.domain.MusicFile;
 import net.sourceforge.subsonic.domain.Player;
 import net.sourceforge.subsonic.domain.Playlist;
+import net.sourceforge.subsonic.domain.Transcoding;
 import net.sourceforge.subsonic.domain.TransferStatus;
 import net.sourceforge.subsonic.domain.User;
-import net.sourceforge.subsonic.io.PlaylistInputStream;
+import net.sourceforge.subsonic.domain.VideoTranscodingSettings;
+import net.sourceforge.subsonic.service.jukebox.AudioPlayer;
+import net.sourceforge.subsonic.util.FileUtil;
 import org.apache.commons.io.IOUtils;
 
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.sound.sampled.AudioSystem;
 import java.io.InputStream;
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.util.Map;
+
+import static net.sourceforge.subsonic.service.jukebox.AudioPlayer.State.EOM;
 
 /**
  * Plays music on the local audio device.
  *
  * @author Sindre Mehus
  */
-public class JukeboxService {
+public class JukeboxService implements AudioPlayer.Listener {
 
     private static final Logger LOG = Logger.getLogger(JukeboxService.class);
 
-    private JuxeboxPlayer jukeboxPlayer;
-    private float gain = 0.85F; // Between 0.0 and 1.0
-
-    private SecurityService securityService;
-    private StatusService statusService;
+    private AudioPlayer audioPlayer;
     private TranscodingService transcodingService;
-    private MusicInfoService musicInfoService;
-    private SearchService searchService;
     private AudioScrobblerService audioScrobblerService;
+    private StatusService statusService;
+    private SettingsService settingsService;
+    private MusicInfoService musicInfoService;
+    private SecurityService securityService;
+
+    private Player player;
+    private TransferStatus status;
+    private MusicFile currentPlayingFile;
+    private float gain = 0.5f;
+    private int offset;
 
     /**
-     * Start playing the playlist of the given player on the local audio device.
+     * Updates the jukebox by starting or pausing playback on the local audio device.
      *
      * @param player The player in question.
+     * @param offset Start playing after this many seconds into the track.
      */
-    public synchronized void play(Player player) {
+    public synchronized void updateJukebox(Player player, int offset) throws Exception {
         User user = securityService.getUserByName(player.getUsername());
         if (!user.isJukeboxRole()) {
             LOG.warn(user.getUsername() + " is not authorized for jukebox playback.");
             return;
         }
 
-        stop();
         if (player.getPlaylist().getStatus() == Playlist.Status.PLAYING) {
-            LOG.info("Starting jukebox player on behalf of " + player.getUsername());
-            jukeboxPlayer = new JuxeboxPlayer(player);
-            jukeboxPlayer.play();
+            this.player = player;
+            play(player.getPlaylist().getCurrentFile(), offset);
+        } else {
+            if (audioPlayer != null) {
+                audioPlayer.pause();
+            }
         }
     }
 
-    /**
-     * Stop playing audio on the local device.
-     */
-    public synchronized void stop() {
-        if (jukeboxPlayer != null) {
-            jukeboxPlayer.stop();
-            jukeboxPlayer = null;
+    private synchronized void play(MusicFile file, int offset) {
+		InputStream in = null;
+        try {
+
+            // Resume if possible.
+            boolean sameFile = file != null && file.equals(currentPlayingFile);
+            boolean paused = audioPlayer != null && audioPlayer.getState() == AudioPlayer.State.PAUSED;
+            if (sameFile && paused) {
+                audioPlayer.play();
+            } else {
+                this.offset = offset;
+                if (audioPlayer != null) {
+                    audioPlayer.close();
+                    if (currentPlayingFile != null) {
+                        onSongEnd(currentPlayingFile);
+                    }
+                }
+
+                if (file != null) {
+                    TranscodingService.Parameters parameters = new TranscodingService.Parameters(file, new VideoTranscodingSettings(0, 0, offset));
+                    String command = settingsService.getJukeboxCommand();
+                    parameters.setTranscoding(new Transcoding(null, null, null, null, command, null, null));
+                    in = transcodingService.getTranscodedInputStream(parameters);
+                    audioPlayer = new AudioPlayer(in, this);
+                    audioPlayer.setGain(gain);
+                    audioPlayer.play();
+                    onSongStart(file);
+                }
+            }
+
+            currentPlayingFile = file;
+
+        } catch (Exception x) {
+            LOG.error("Error in jukebox: " + x, x);
+			IOUtils.closeQuietly(in);
+        }
+    }
+
+    public synchronized void stateChanged(AudioPlayer audioPlayer, AudioPlayer.State state) {
+        if (state == EOM) {
+            player.getPlaylist().next();
+            play(player.getPlaylist().getCurrentFile(), 0);
         }
     }
 
@@ -91,115 +129,81 @@ public class JukeboxService {
         return gain;
     }
 
-    public synchronized void setGain(float gain) {
-        this.gain = gain;
-        if (jukeboxPlayer != null) {
-            jukeboxPlayer.setGain(gain);
+    public synchronized int getPosition() {
+        return audioPlayer == null ? 0 : offset + audioPlayer.getPosition();
+    }
+
+    /**
+     * Returns the player which currently uses the jukebox.
+     *
+     * @return The player, may be {@code null}.
+     */
+    public Player getPlayer() {
+        return player;
+    }
+
+    private void onSongStart(MusicFile file) {
+        LOG.info(player.getUsername() + " starting jukebox for \"" + FileUtil.getShortPath(file.getFile()) + "\"");
+        status = statusService.createStreamStatus(player);
+        status.setFile(file.getFile());
+        status.addBytesTransfered(file.length());
+        updateStatistics(file);
+        scrobble(file, false);
+    }
+
+    private void onSongEnd(MusicFile file) {
+        LOG.info(player.getUsername() + " stopping jukebox for \"" + FileUtil.getShortPath(file.getFile()) + "\"");
+        if (status != null) {
+            statusService.removeStreamStatus(status);
+        }
+        scrobble(file, true);
+    }
+
+    private void updateStatistics(MusicFile file) {
+        try {
+            MusicFile folder = file.getParent();
+            if (!folder.isRoot()) {
+                musicInfoService.incrementPlayCount(folder);
+            }
+        } catch (Exception x) {
+            LOG.warn("Failed to update statistics for " + file, x);
         }
     }
 
-    public void setSecurityService(SecurityService securityService) {
-        this.securityService = securityService;
+    private void scrobble(MusicFile file, boolean submission) {
+        if (player.getClientId() == null) {  // Don't scrobble REST players.
+            audioScrobblerService.register(file, player.getUsername(), submission);
+        }
     }
 
-    public void setStatusService(StatusService statusService) {
-        this.statusService = statusService;
+    public synchronized void setGain(float gain) {
+        this.gain = gain;
+        if (audioPlayer != null) {
+            audioPlayer.setGain(gain);
+        }
     }
 
     public void setTranscodingService(TranscodingService transcodingService) {
         this.transcodingService = transcodingService;
     }
 
-    public void setMusicInfoService(MusicInfoService musicInfoService) {
-        this.musicInfoService = musicInfoService;
-    }
-
-    public void setSearchService(SearchService searchService) {
-        this.searchService = searchService;
-    }
-
     public void setAudioScrobblerService(AudioScrobblerService audioScrobblerService) {
         this.audioScrobblerService = audioScrobblerService;
     }
 
+    public void setStatusService(StatusService statusService) {
+        this.statusService = statusService;
+    }
 
-    private class JuxeboxPlayer implements BasicPlayerListener {
+    public void setMusicInfoService(MusicInfoService musicInfoService) {
+        this.musicInfoService = musicInfoService;
+    }
 
-        private final BasicPlayer basicPlayer;
-        private final Player subsonicPlayer;
-        private final TransferStatus status;
-        private final InputStream in;
+    public void setSettingsService(SettingsService settingsService) {
+        this.settingsService = settingsService;
+    }
 
-        public JuxeboxPlayer(Player subsonicPlayer) {
-            this.subsonicPlayer = subsonicPlayer;
-            status = statusService.createStreamStatus(subsonicPlayer);
-            in = new BufferedInputStream(new PlaylistInputStream(subsonicPlayer, status, null, null, null, transcodingService, musicInfoService, audioScrobblerService, searchService));
-
-            basicPlayer = new BasicPlayer() {
-                /**
-                 * Work-around for a bug occuring when playing WAV.
-                 */
-                @Override
-                protected void initAudioInputStream(InputStream inputStream) throws UnsupportedAudioFileException, IOException {
-                    m_audioFileFormat = AudioSystem.getAudioFileFormat(inputStream);
-                    m_audioInputStream = AudioSystem.getAudioInputStream(inputStream);
-                }
-            };
-            basicPlayer.addBasicPlayerListener(this);
-        }
-
-        public void play() {
-            try {
-                basicPlayer.open(in);
-                basicPlayer.play();
-                basicPlayer.setGain(gain);
-            } catch (Throwable x) {
-                LOG.warn("Error in BasicPlayer.play()", x);
-                close();
-            }
-        }
-
-        public void stop() {
-            try {
-                basicPlayer.stop();
-            } catch (Throwable x) {
-                LOG.warn("Error in BasicPlayer.stop()", x);
-            } finally {
-                close();
-            }
-        }
-
-        public void setGain(float gain) {
-            try {
-                basicPlayer.setGain(gain);
-            } catch (BasicPlayerException x) {
-                LOG.error("Error in BasicPlayer.setGain()", x);
-            }
-        }
-
-        private void close() {
-            User user = securityService.getUserByName(subsonicPlayer.getUsername());
-            securityService.updateUserByteCounts(user, status.getBytesTransfered(), 0L, 0L);
-            statusService.removeStreamStatus(status);
-            IOUtils.closeQuietly(in);
-        }
-
-        public void stateUpdated(BasicPlayerEvent event) {
-            LOG.debug("stateUpdated : " + event.toString());
-            if (event.getCode() == BasicPlayerEvent.STOPPED) {
-                close();
-            }
-        }
-
-        public void opened(Object stream, Map properties) {
-            LOG.debug("opened : " + properties);
-        }
-
-        public void progress(int bytesread, long microseconds, byte[] pcmdata, Map properties) {
-//            LOG.debug("progress : " + properties.toString());
-        }
-
-        public void setController(BasicController controller) {
-        }
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
     }
 }

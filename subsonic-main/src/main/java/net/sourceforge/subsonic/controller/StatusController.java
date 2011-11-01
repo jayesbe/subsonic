@@ -42,10 +42,18 @@ import java.util.Map;
  */
 public class StatusController extends ParameterizableViewController {
 
+    private static final String DEFAULT_STATUS_VIEW        =  "player";
+
     private StatusService statusService;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        String statusView = DEFAULT_STATUS_VIEW;
+        if (request.getParameter("display") != null) {
+            statusView = String.valueOf(request.getParameter("display"));
+        }
+
         Map<String, Object> map = new HashMap<String, Object>();
 
         List<TransferStatus> streamStatuses = statusService.getAllStreamStatuses();
@@ -68,6 +76,7 @@ public class StatusController extends ParameterizableViewController {
             transferStatuses.add(new TransferStatusHolder(uploadStatuses.get(i), false, false, true, i, locale));
         }
 
+        map.put("statusView", statusView);
         map.put("transferStatuses", transferStatuses);
         map.put("chartWidth", StatusChartController.IMAGE_WIDTH);
         map.put("chartHeight", StatusChartController.IMAGE_HEIGHT);

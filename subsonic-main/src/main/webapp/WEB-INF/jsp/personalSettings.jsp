@@ -6,7 +6,6 @@
     <head>
         <%@ include file="head.jsp" %>
         <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/prototype.js"/>"></script>
 
         <script type="text/javascript" language="javascript">
             function enableLastFmFields() {
@@ -34,6 +33,7 @@
         <fmt:message key="common.default" var="default"/>
         <fmt:message key="common.rows" var="rows"/>
         <fmt:message key="common.columns" var="columns"/>
+        <fmt:message key="common.pluralizer" var="pluralizer"/>
 
         <form:form method="post" action="personalSettings.view" commandName="command">
 
@@ -69,6 +69,57 @@
                             </c:forEach>
                         </form:select>
                         <c:import url="helpToolTip.jsp"><c:param name="topic" value="theme"/></c:import>
+                    </td>
+                </tr>
+                <tr>
+                    <td><fmt:message key="generalsettings.webfont"/></td>
+                    <td>
+                        <form:input path="webFont" cssStyle="width:15em"/>
+                        <c:import url="helpToolTip.jsp"><c:param name="topic" value="webfont"/></c:import>
+                    </td>
+                </tr>
+            </table>
+
+            <h2><fmt:message key="personalsettings.home"/>:</h2>
+
+            <table>
+
+                <tr>
+                    <td><fmt:message key="personalsettings.listtype"/></td>
+                    <td>
+                        <form:select path="listType">
+                            <c:forTokens items="newest highest frequent recent random" delims=" " var="cat" varStatus="loopStatus">
+                                <form:option value="${cat}"><fmt:message key="home.${cat}.title"/></form:option>
+                            </c:forTokens>
+                        </form:select>
+                        <c:import url="helpToolTip.jsp"><c:param name="topic" value="listtype"/></c:import>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><fmt:message key="common.rows"/></td>
+                    <td>
+                        <form:select path="listRows">
+                            <c:forTokens items="1 2 3 4 5 6 7 8 9 10 15 20 25 30 40 50 75 100" delims=" " var="listrows">
+                                <form:option value="${listrows}"><fmt:message key="home.listrows"><fmt:param value="${listrows}"/></fmt:message>${listrows gt 1 ? pluralizer : ""}</form:option>
+                            </c:forTokens>
+                        </form:select>
+                        <c:import url="helpToolTip.jsp"><c:param name="topic" value="listrows"/></c:import>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><fmt:message key="common.columns"/></td>
+                    <td>
+                        <form:select path="listColumns">
+                            <c:forEach begin="1" end="18" var="listcolumns">
+                                <c:if test="${listcolumns gt 10}">
+                                    <c:set var="listcolumns" value="${((listcolumns - 10) * 5) + 10}"/>
+                                </c:if>
+                                <form:option value="${listcolumns}"><fmt:message key="home.listcolumns"><fmt:param value="${listcolumns}"/></fmt:message>${listcolumns gt 1 ? pluralizer : ""}</form:option>
+                            </c:forEach>
+                        </form:select>
+                        <c:import url="helpToolTip.jsp"><c:param name="topic" value="listcolumns"/></c:import>
                     </td>
                 </tr>
             </table>
@@ -182,30 +233,12 @@
                 </tr>
             </table>
 
-            <p>
-                <h2><fmt:message key="personalsettings.home"/>:</h2><br>
-
-                <form:select path="listType">
-                    <c:forTokens items="newest highest frequent recent random" delims=" " var="cat" varStatus="loopStatus">
-                        <form:option value="${cat}"><fmt:message key="home.${cat}.title"/></form:option>
-                    </c:forTokens>
-                </form:select>
-
-                <form:select path="listRows">
-                    <c:forTokens items="1 2 3 4 5 6 7 8 9 10 15 20 25 30 40 50 75 100" delims=" " var="listrows">
-                        <form:option value="${listrows}"><fmt:message key="home.listrows"><fmt:param value="${listrows}"/></fmt:message>${listrows gt 1 ? pluralizer : ""}</form:option>
-                    </c:forTokens>
-                </form:select>
-
-                <form:select path="listColumns">
-                    <c:forEach begin="1" end="18" var="listcolumns">
-                        <c:if test="${listcolumns gt 10}">
-                            <c:set var="listcolumns" value="${((listcolumns - 10) * 5) + 10}"/>
-                        </c:if>
-                        <form:option value="${listcolumns}"><fmt:message key="home.listcolumns"><fmt:param value="${listcolumns}"/></fmt:message>${listcolumns gt 1 ? pluralizer : ""}</form:option>
-                    </c:forEach>
-                </form:select>
-            </p>
+            <table id="desktopnotifications" style="display:none">
+                <tr>
+                    <td><fmt:message key="personalsettings.desktopnotifications"/></td>
+                    <td><input type="button" id="request_permission" value="<fmt:message key='common.enable'/>"></input></td>
+                </tr>
+            </table>
 
             <h2><fmt:message key="personalsettings.avatar.title"/></h2>
 
@@ -253,11 +286,27 @@
             <fmt:message key="personalsettings.avatar.courtesy"/>
         </p>
 
-        <c:if test="${command.reloadNeeded}">
-            <script language="javascript" type="text/javascript">
+        <script type="text/javascript">
+        jQueryLoad.wait(function() {
+            if (window.webkitNotifications) {
+                if (window.webkitNotifications.checkPermission() != 0) {
+                    jQuery("#desktopnotifications").show()
+                    document.querySelector('#request_permission').addEventListener('click', function() {
+                        window.webkitNotifications.requestPermission();
+                        debug.log("Requesting permission for Desktop Notifications");
+                    }, false);
+                }
+            }
+            else {
+                jQuery("#desktopnotifications").hide()
+                debug.log("Desktop Notifications are not supported for this Browser/OS version yet.");
+            }
+            
+            if (${command.reloadNeeded}) {
                 parent.location.href="index.view?";
-            </script>
-        </c:if>
+            }
+        });
+        </script>
 
     </blockquote>
     </div>

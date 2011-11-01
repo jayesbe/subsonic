@@ -3,87 +3,105 @@
  *
  * Author: Jeebs (Fisher Evans)
  */
-@import "accordion-darkness.css";
 @import "default.css";
-@import "playermod-a3a3a3.css";
+@import "accordion/darkness.css";
+@import "playermod/fg/a3a3a3.css";
+@import "playermod/bg/000000.css";
 
-table {
-    color: #a3a3a3;
-}
+/*
+ * Background colors
+ */
 
-/* The primary background color. */
-.bgcolor1 {
-    background-color: black;
-}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: black;
+    }
 
-/* The secondary background color. */
-.bgcolor2, .ruleTableHeader, .log {
-    background-color: black;
-}
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: black;
+    }
 
-body.bgcolor2 {
-    border-bottom: 1px solid #a3a3a3;
-}
+/*
+ * Border settings for main frames
+ */
 
-/* Background color for selected header, log etc. */
-.headerSelected {
-    color: #a3a3a3;
-    background-color: black;
-}
+    /*
+     * Border settings for other targets
+     */
 
-/* The primary foreground color. */
-body {
-    color: #a3a3a3;
-}
+        .border1, .ruleTableHeader, .ruleTableCell, .headerSelected, .log {
+        /* Simple dark border. */
+        border: 1px solid #a3a3a3;
+        }
 
-/* The secondary foreground color used for h1, details etc. */
-h1, .detail, .albumComment {
-    color: #a3a3a3;
-}
+/*
+ * Miscellaneous style settings and helpers
+ */
 
-/* Foreground color used for h2, bold and tr. */
-h2, b, tr {
-    color: #a3a3a3;
-}
+    body {
+    /* Primary foreground (font) color. (black) */
+        color: #a3a3a3;
 
-/* Link color */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: white
-}
+    /* Scrollbar colors (supported on IE and Opera) */
+        scrollbar-face-color: black;
+        scrollbar-highlight-color: #a3a3a3;
+        scrollbar-shadow-color: black;
+        scrollbar-3dlight-color: black;
+        scrollbar-arrow-color: #a3a3a3;
+        scrollbar-track-color: #a3a3a3;
+        scrollbar-darkshadow-color: #a3a3a3;
+    }
 
-/* Link hover color */
-a:hover, a:hover * {
-    text-decoration: underline;
-    color: #a3a3a3;
-}
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: white
+    }
 
-/* Color for warning messages. */
-.warning {
-    color: red;
-}
+    a:hover, a:hover * {
+    /* Link hover style */
+        text-decoration: underline;
+        color: #a3a3a3;
+    }
 
-/* Simple border. */
-.border1, .ruleTableHeader, .ruleTableCell, .headerSelected, .log {
-    border: 1px solid #a3a3a3;
-}
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+        color: #a3a3a3;
+    }
 
-/* Scrollbar colors (supported on IE and Opera) */
-body {
-    scrollbar-face-color: black;
-    scrollbar-highlight-color: #a3a3a3;
-    scrollbar-shadow-color: black;
-    scrollbar-3dlight-color: black;
-    scrollbar-arrow-color: #a3a3a3;
-    scrollbar-track-color: #a3a3a3;
-    scrollbar-darkshadow-color: #a3a3a3;
-}
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+        color: #a3a3a3;
+    }
 
-.back {background-image:url("../icons/midnight/back.png");background-position: 0px 3px; background-repeat:no-repeat; padding-left: 16px; line-height: 16px;}
-.forward {background-image:url("../icons/midnight/forward.png");background-position: 0px 3px; background-repeat:no-repeat; padding-left: 16px; line-height: 16px;}
+    .headerSelected {
+    /* Background color for selected header. */
+        color: #a3a3a3;
+        background-color: black;
+    }
 
+/*
+ * Main frame menu images
+ */
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/hiconi/player_back.png") center center repeat;}
-.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #fff solid 1px;}
+    .back {
+        background-image: url("../icons/midnight/back.png");
+    }
+
+    .forward {
+        background-image: url("../icons/midnight/forward.png");
+    }
+
+/*
+ * Player style
+ */
+
+    .solidblockmenu li a:hover, .solidblockmenu li .current {
+    /* Player control hover style */
+        background-color: #ffffff;
+    }
+
+    .solidblockmenu select:hover {
+    /* Player select hover style */
+        background-color: #ffffff;
+    }

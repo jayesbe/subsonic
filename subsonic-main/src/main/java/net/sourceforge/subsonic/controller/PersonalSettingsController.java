@@ -64,6 +64,7 @@ public class PersonalSettingsController extends SimpleFormController {
         command.setListType(userSettings.getListType());
         command.setListRows(userSettings.getListRows());
         command.setListColumns(userSettings.getListColumns());
+        command.setWebFont(userSettings.getWebFont());
 
         Locale currentLocale = userSettings.getLocale();
         Locale[] locales = settingsService.getAvailableLocales();
@@ -125,6 +126,7 @@ public class PersonalSettingsController extends SimpleFormController {
         settings.setListType(command.getListType());
         settings.setListRows(command.getListRows());
         settings.setListColumns(command.getListColumns());
+        settings.setWebFont(command.getWebFont());
 
         if (StringUtils.isNotBlank(command.getLastFmPassword())) {
             settings.setLastFmPassword(command.getLastFmPassword());

@@ -3,144 +3,13 @@
  *
  * Author: Don Pearson
  */
-@import "accordion-darkness.css";
 @import "default.css";
-@import "playermod-ffffff.css";
+@import "accordion/darkness.css";
+@import "playermod/fg/ffffff.css";
+@import "playermod/bg/aaaaaa.css";
 
-/* The primary background colour. */
-.bgcolor1 {
-    background-image:url('../icons/midnightfun/midnightfun_text_back.jpg');
-    background-repeat:repeat;
-    background-color: #AAAAAA;
-}
-
-/* The secondary background colour. */
-.bgcolor2, .ruleTableHeader, .log {
-    background-image:url('../icons/midnightfun/midnightfun_background.gif');
-    background-repeat:repeat;
-    background-attachment:fixed;
-    background-color: #C0C0C0;
-}
-
-/* Background colour for selected header, log etc. */
-.headerSelected {
-    background-image:url('../icons/midnightfun/midnightfun_home_hover.jpg');
-    background-repeat:repeat;
-    color: #000000;
-    background-color: #C0C0C0;
-}
-
-
-/* The secondary foreground colour used for h1, details etc. */
-h1, .detail, .albumComment {
-    color: #333333;
-}
-
-/* Foreground colour used for h2, bold and tr. */
-h2, b, tr {
-    color: #000000;
-}
-
-/* Main frame image & colour */
-.mainframe, .rightframe {
-    background-image:url('../icons/midnightfun/midnightfun_background.gif');
-    background-repeat:repeat;
-    background-attachment:fixed;
-    background-color: #C0C0C0;
-}
-
-/* Back image */
-.back {
-    background-image:url("../icons/midnightfun/midnightfun_back.png");
-}
-
-/* Forward image */
-.forward {
-    background-image:url("../icons/midnightfun/midnightfun_forward.png");
-}
-
-/* Link colour */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #656569;
-}
-
-/* Link hover colour */
-a:hover, a:hover * {
-    text-decoration: underline;
-    color: #000000;
-}
-
-/* Colour for warning messages. */
-.warning {
-    color: #990099;
-}
-
-/* Background colour for form controls. */
-input, select {
-    background-image:url('../icons/midnightfun/midnightfun_form_controls.jpg');
-    background-repeat:repeat;
-    color: #FFFFFF;
-    background-color: #AAAAAA;
-}
-
-/* Hover colour for form controls. */
-input:hover, select:hover {
-    background-image:url('../icons/midnightfun/midnightfun_form_controls_hover.jpg');
-    background-repeat:repeat;
-    color: #000000;
-    background-color: #C0C0C0;
-}
-
-/* Background colour for option controls. */
-option {
-    font-weight: bold;
-    background-color: #666666;
-    color: #FFFFFF;
-}
-
-/* Background colour for option comments. */
-textarea {
-    background-image:url('../icons/midnightfun/midnightfun_form_controls.jpg');
-    background-repeat:repeat;
-    background-color: #AAAAAA;
-    color: #FFFFFF;
-}
-
-/* The primary foreground colour. */
-body {
-    background-color: #C0C0C0;
-    scrollbar-face-color: #CCCCCC;
-    scrollbar-highlight-color: #FFFFFF;
-    scrollbar-shadow-color: #CCCCCC;
-    scrollbar-3dlight-color: #D1D7DC;
-    scrollbar-arrow-color: #000000;
-    scrollbar-track-color: #C0C0C0;
-    scrollbar-darkshadow-color: #98AAB1;
-}
-
-/* The album comments. */
-.albumComment {
-    width: 50em;
-    font-size: 8pt;
-    line-height: 1.4em;
-    padding-top: 0.25em;
-    color: #000000;
-}
-
-/* The log. */
-.log {
-    font-weight: bold;
-    white-space: nowrap;
-    font-size: 8pt;
-    line-height: 1em;
-    background-image:url('../icons/midnightfun/midnightfun_table.jpg');
-    background-repeat:repeat;
-    color: #000000;
-    background-color: #C0C0C0;
-}
-
-/* The help, status & web payer settings tables. */
 .ruleTableHeader, .ruleTableCell {
+/* The help, status & web player settings tables. */
     margin: 5px;
     padding: 5px;
     background-image:url('../icons/midnightfun/midnightfun_table.jpg');
@@ -150,12 +19,154 @@ body {
     background-color: #C0C0C0;
 }
 
-.logo {
-    margin-top: 15px;
-}
+/*
+ * Background colors
+ */
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/midnightfun/player_back.png") center center repeat;}
-.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #000 solid 1px;}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-image:url('../icons/midnightfun/midnightfun_text_back.jpg');
+        background-repeat:repeat;
+        background-color: #AAAAAA;
+    }
+
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-image:url('../icons/midnightfun/midnightfun_background.gif');
+        background-repeat:repeat;
+        background-attachment:fixed;
+        background-color: #C0C0C0;
+    }
+
+/*
+ * Border settings for main frames
+ */
+
+    .mainframe, .rightframe {
+    /* Main frame border style */
+        background-image:url('../icons/midnightfun/midnightfun_background.gif');
+        background-repeat:repeat;
+        background-attachment:fixed;
+        background-color: #C0C0C0;
+    }
+
+/*
+ * Miscellaneous style settings and helpers
+ */
+
+    body {
+    /* Primary foreground (font) color. (black) */
+        background-color: #C0C0C0;
+
+    /* Scrollbar colors (supported on IE and Opera) */
+        scrollbar-face-color: #CCCCCC;
+        scrollbar-highlight-color: #FFFFFF;
+        scrollbar-shadow-color: #CCCCCC;
+        scrollbar-3dlight-color: #D1D7DC;
+        scrollbar-arrow-color: #000000;
+        scrollbar-track-color: #C0C0C0;
+        scrollbar-darkshadow-color: #98AAB1;
+    }
+
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #656569;
+    }
+
+    a:hover, a:hover * {
+    /* Link hover style */
+        text-decoration: underline;
+        color: #000000;
+    }
+
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+        color: #333333;
+    }
+
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+        color: #000000;
+    }
+
+    input, select, textarea {
+    /* Input form control font style */
+        background-image:url('../icons/midnightfun/midnightfun_form_controls.jpg');
+        background-repeat:repeat;
+        background-color: #AAAAAA;
+        color: #FFFFFF;
+    }
+
+    input:hover, select:hover {
+    /* Form control hover color. (default) */
+        background-image:url('../icons/midnightfun/midnightfun_form_controls_hover.jpg');
+        background-repeat:repeat;
+        background-color: #C0C0C0;
+        color: #000000;
+    }
+
+    .headerSelected {
+    /* Background color for selected header. */
+        background-image:url('../icons/midnightfun/midnightfun_home_hover.jpg');
+        background-repeat:repeat;
+        background-color: #C0C0C0;
+        color: #000000;
+    }
+
+    .warning {
+    /* Color for warning messages. */
+        color: #990099;
+    }
+
+    .log {
+    /* Log file font size */
+        font-weight: bold;
+        background-image:url('../icons/midnightfun/midnightfun_table.jpg');
+        background-repeat:repeat;
+        background-color: #C0C0C0;
+        color: #000000;
+    }
+
+    .logo {
+        margin-top: 15px;
+    }
+
+/*
+ * Main frame menu images
+ */
+
+    .back {
+        background-image: url("../icons/midnightfun/back.png");
+    }
+
+    .forward {
+        background-image: url("../icons/midnightfun/forward.png");
+    }
+
+    .refresh {
+        background-image: url("../icons/midnightfun/refresh.png");
+    }
+
+    .download {
+        background-image: url("../icons/midnightfun/download.png");
+    }
+
+    .delete {
+        background-image: url("../icons/midnightfun/remove.png");
+    }
+
+    .up{
+        background-image: url("../icons/midnightfun/up.png");
+    }
+
+    .down {
+        background-image: url("../icons/midnightfun/down.png");
+    }
+
+    .addFromURI {
+        background-image: url("../icons/midnightfun/add.png");
+    }
+
+    .logfile {
+        background-image: url("../icons/midnightfun/log_small.png");
+    }

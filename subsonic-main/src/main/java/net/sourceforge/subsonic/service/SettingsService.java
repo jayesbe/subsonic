@@ -96,6 +96,7 @@ public class SettingsService {
     private static final String KEY_LICENSE_CODE = "LicenseCode";
     private static final String KEY_LICENSE_DATE = "LicenseDate";
     private static final String KEY_DOWNSAMPLING_COMMAND = "DownsamplingCommand2";
+    private static final String KEY_JUKEBOX_COMMAND = "JukeboxCommand";
     private static final String KEY_REWRITE_URL = "RewriteUrl";
     private static final String KEY_LDAP_ENABLED = "LdapEnabled";
     private static final String KEY_LDAP_URL = "LdapUrl";
@@ -115,6 +116,9 @@ public class SettingsService {
     private static final String KEY_VIDEO_TRIAL_EXPIRES = "VideoTrialExpires";
     private static final String KEY_SERVER_ID = "ServerId";
     private static final String KEY_SETTINGS_CHANGED = "SettingsChanged";
+    private static final String KEY_WEB_FONT = "WebFont";
+    private static final String KEY_MM_API_KEY = "musiXmatch";
+    
 
     // Default values.
     private static final String DEFAULT_INDEX_STRING = "# A B C D E F G H I J K L M N O P Q R S T U V W X-Z(XYZ)";
@@ -153,6 +157,7 @@ public class SettingsService {
     private static final String DEFAULT_LICENSE_CODE = null;
     private static final String DEFAULT_LICENSE_DATE = null;
     private static final String DEFAULT_DOWNSAMPLING_COMMAND = "lame -S -h --resample 44.1 -b %b --tt %t --ta %a --tl %l %s -";
+    private static final String DEFAULT_JUKEBOX_COMMAND = "ffmpeg -ss %o -i %s -v 0 -f au -";
     private static final boolean DEFAULT_REWRITE_URL = true;
     private static final boolean DEFAULT_LDAP_ENABLED = false;
     private static final String DEFAULT_LDAP_URL = "ldap://host.domain.com:389/cn=Users,dc=domain,dc=com";
@@ -172,6 +177,8 @@ public class SettingsService {
     private static final String DEFAULT_VIDEO_TRIAL_EXPIRES = null;
     private static final String DEFAULT_SERVER_ID = null;
     private static final long DEFAULT_SETTINGS_CHANGED = 0L;
+    private static final String DEFAULT_WEB_FONT = null;
+    private static final String DEFAULT_MM_API_KEY = null;
 
     // Array of obsolete keys.  Used to clean property file.
     private static final List<String> OBSOLETE_KEYS = Arrays.asList("PortForwardingPublicPort", "PortForwardingLocalPort", "DownsamplingCommand",
@@ -587,7 +594,10 @@ public class SettingsService {
     }
 
     public boolean isLicenseValid(String email, String license) {
-        return !(email == null || license == null) && license.equalsIgnoreCase(StringUtil.md5Hex(email.toLowerCase()));
+        if (email == null || license == null) {
+            return false;
+        }
+        return license.equalsIgnoreCase(StringUtil.md5Hex(email.toLowerCase()));
     }
 
     public String getDownsamplingCommand() {
@@ -596,6 +606,10 @@ public class SettingsService {
 
     public void setDownsamplingCommand(String command) {
         setProperty(KEY_DOWNSAMPLING_COMMAND, command);
+    }
+
+    public String getJukeboxCommand() {
+        return properties.getProperty(KEY_JUKEBOX_COMMAND, DEFAULT_JUKEBOX_COMMAND);
     }
 
     public boolean isRewriteUrlEnabled() {
@@ -871,6 +885,22 @@ public class SettingsService {
         return new Locale(language, country, variant);
     }
 
+    public String getWebFont() {
+        return properties.getProperty(KEY_WEB_FONT, DEFAULT_WEB_FONT);
+    }
+
+    public void setWebFont(String webFont) {
+        setProperty(KEY_WEB_FONT, webFont);
+    }
+
+    public String getMMAPIKey() {
+        return properties.getProperty(KEY_MM_API_KEY, DEFAULT_MM_API_KEY);
+    }
+
+    public void setMMAPIKey(String mmApiKey) {
+        setProperty(KEY_MM_API_KEY, mmApiKey);
+    }
+
     /**
      * Returns the "brand" name. Normally, this is just "Subsonic".
      *
@@ -1043,6 +1073,7 @@ public class SettingsService {
         settings.setListType("newest");
         settings.setListRows(2);
         settings.setListColumns(5);
+        settings.setWebFont(null);
 
         UserSettings.Visibility playlist = settings.getPlaylistVisibility();
         playlist.setCaptionCutoff(35);
@@ -1149,7 +1180,9 @@ public class SettingsService {
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             String content = client.execute(method, responseHandler);
             licenseValidated = content != null && content.contains("true");
-            LOG.debug("License validated: " + licenseValidated);
+            if (!licenseValidated) {
+                LOG.warn("License key is not valid.");
+            }
         } catch (Throwable x) {
             LOG.warn("Failed to validate license.", x);
         } finally {

@@ -3,43 +3,47 @@
  *
  * Author: Sindre Mehus
  */
-@import "accordion-humanity.css";
 @import "default.css";
+@import "accordion/humanity.css";
+@import "playermod/bg/f5f5d0.css";
 
-/* The primary background color. */
-.bgcolor1 {
-    background-color: #F5F5D0
-}
+/*
+ * Background colors
+ */
 
-/* The secondary background color. */
-.bgcolor2, .ruleTableHeader, .log  {
-    background-color: #CCCC99
-}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: #F5F5D0
+    }
 
-/* Link color */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #057368
-}
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: #CCCC99
+    }
 
-/* Link hover color */
-a:hover, a:hover * {
-    text-decoration: underline;
-    color: #DD6900
-}
+/*
+ * Miscellaneous style settings and helpers
+ */
 
-/* Scrollbar colors (supported on IE and Opera) */
-body {
-    scrollbar-face-color: #CCCC99;
-    scrollbar-highlight-color: #F5F5D0;
-    scrollbar-shadow-color: #CCCC99;
-    scrollbar-3dlight-color: #CCCC99;
-    scrollbar-arrow-color: #F5F5D0;
-    scrollbar-track-color: #F5F5D0;
-    scrollbar-darkshadow-color: #F5F5D0;
-}
+    body {
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/sandstorm/player_back.png") center center repeat;}
-.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #057368 solid 1px;}
+    /* Scrollbar colors (supported on IE and Opera) */
+        scrollbar-face-color: #CCCC99;
+        scrollbar-highlight-color: #F5F5D0;
+        scrollbar-shadow-color: #CCCC99;
+        scrollbar-3dlight-color: #CCCC99;
+        scrollbar-arrow-color: #F5F5D0;
+        scrollbar-track-color: #F5F5D0;
+        scrollbar-darkshadow-color: #F5F5D0;
+    }
+
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #057368
+    }
+
+    a:hover, a:hover * {
+    /* Link hover style */
+        text-decoration: underline;
+        color: #DD6900
+    }

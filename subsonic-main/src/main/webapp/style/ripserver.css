@@ -3,52 +3,118 @@
  *
  * Author: Ralph Hill
  */
-@import "accordion-redmond.css";
 @import "default.css";
+@import "accordion/redmond.css";
+@import "playermod/bg/ffffff.css";
 
-/* The primary background color (light blue). */
-.bgcolor1 {
-    background-color: #FFFFFF;
-}
+/*
+ * Background colors
+ */
 
-/* The secondary background color (darker blue). */
-.bgcolor2, .ruleTableHeader, .log {
-    background-color: #EBEFF9
-}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: #FFFFFF;
+    }
 
-.mainframe {
-    background-image:url('../icons/ripserver/background.png');
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-    background-color: #FFFFFF
-}
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: #EBEFF9
+    }
 
-/* Link color */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #0076B6;
-}
+/*
+ * Border settings for main frames
+ */
 
-/* Link hover color */
-a:hover, a:hover * {
-    color: orange
-}
+    .mainframe {
+    /* Main frame border style */
+        background-image:url('../icons/ripserver/background.png');
+        background-repeat:no-repeat;
+        background-attachment:fixed;
+        background-color: #FFFFFF
+    }
 
-body {
-    scrollbar-face-color: #DEE3E7;
-    scrollbar-highlight-color: #FFFFFF;
-    scrollbar-shadow-color: #DEE3E7;
-    scrollbar-3dlight-color: #D1D7DC;
-    scrollbar-arrow-color: #006699;
-    scrollbar-track-color: #EFEFEF;
-    scrollbar-darkshadow-color: #98AAB1;
-}
+/*
+ * Miscellaneous style settings and helpers
+ */
 
-.logo {
-    margin-top: 15px;
-}
+    body {
+    /* Primary foreground (font) color. (black) */
+        color: #0076B6;
+        background-color: #DDDDDD;
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/ripserver/player_back.png") center center repeat;}
-.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #0076B6 solid 1px;}
+        scrollbar-face-color: #DEE3E7;
+        scrollbar-highlight-color: #FFFFFF;
+        scrollbar-shadow-color: #DEE3E7;
+        scrollbar-3dlight-color: #D1D7DC;
+        scrollbar-arrow-color: #006699;
+        scrollbar-track-color: #EFEFEF;
+        scrollbar-darkshadow-color: #98AAB1;
+    }
+
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #0076B6;
+    }
+
+    a:hover, a:hover * {
+    /* Link hover style */
+        color: orange
+    }
+
+    .logo {
+        margin-top: 15px;
+    }
+
+/*
+ * Main frame menu images
+ */
+
+    .back {
+        background-image: url("../icons/ripserver/back.png");
+    }
+
+    .forward {
+        background-image: url("../icons/ripserver/forward.png");
+    }
+
+    .refresh {
+        background-image: url("../icons/ripserver/refresh.png");
+    }
+
+    .download {
+        background-image: url("../icons/ripserver/download.png");
+    }
+
+    .delete {
+        background-image: url("../icons/ripserver/remove.png");
+    }
+
+    .up{
+        background-image: url("../icons/ripserver/up.png");
+    }
+
+    .down {
+        background-image: url("../icons/ripserver/down.png");
+    }
+
+    .addFromURI {
+        background-image: url("../icons/ripserver/add.png");
+    }
+
+    .logfile {
+        background-image: url("../icons/ripserver/log_small.png");
+    }
+
+/*
+ * Player style
+ */
+
+    .solidblockmenu li a:hover, .solidblockmenu li .current {
+    /* Player control hover style */
+        background-color: #0076B6;
+    }
+
+    .solidblockmenu select:hover {
+    /* Player select hover style */
+        background-color: #0076B6;
+    }

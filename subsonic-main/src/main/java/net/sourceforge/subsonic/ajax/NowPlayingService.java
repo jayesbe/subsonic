@@ -101,8 +101,10 @@ public class NowPlayingService {
                                                               StringUtil.utf8HexEncode(musicFile.getParent().getPath()));
                 String lyricsUrl = url.replaceFirst("/dwr/.*", "/lyrics.view?artistUtf8Hex=" +
                                                                StringUtil.utf8HexEncode(musicFile.getMetaData().getArtist()) +
-                                                               "&songUtf8Hex=" +
-                                                               StringUtil.utf8HexEncode(musicFile.getMetaData().getTitle()));
+                                                               "&trackUtf8Hex=" +
+                                                               StringUtil.utf8HexEncode(musicFile.getMetaData().getTitle()));// +
+                                                               //"&apikeyUtf8Hex=" +
+                                                               //StringUtil.utf8HexEncode(settingsService.getMMAPIKey));
                 String coverArtUrl = coverArt == null ? null :
                                      url.replaceFirst("/dwr/.*", "/coverArt.view?size=48&pathUtf8Hex=" + StringUtil.utf8HexEncode(coverArt.getPath()));
                 String coverArtZoomUrl = coverArt == null ? null :

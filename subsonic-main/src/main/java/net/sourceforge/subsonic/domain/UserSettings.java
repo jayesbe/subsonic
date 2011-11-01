@@ -49,6 +49,7 @@ public class UserSettings {
     private String listType = "newest";
     private int listRows = 2;
     private int listColumns = 5;
+    private String webFont;
 
     public UserSettings(String username) {
         this.username = username;
@@ -204,6 +205,14 @@ public class UserSettings {
 
     public void setListType(String listType) {
         this.listType = listType;
+    }
+
+    public String getWebFont() {
+        return webFont;
+    }
+
+    public void setWebFont(String webFont) {
+        this.webFont = webFont;
     }
 
     public int getListRows() {

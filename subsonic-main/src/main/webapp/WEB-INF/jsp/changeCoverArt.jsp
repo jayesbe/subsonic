@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
 <%@ include file="doctype.jsp" %>
 <% 
     int imagesPerPage = 8;
@@ -13,23 +13,17 @@
         <script type="text/javascript" src="<c:url value="/dwr/engine.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/dwr/util.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/dwr/interface/coverArtService.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/prototype.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
+
         <script type="text/javascript" src="<c:url value="/script/fancyzoom/FancyZoom.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/script/fancyzoom/FancyZoomHTML.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/niceforms2.js"/>"></script>
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
+        <script type="text/javascript" src="http://www.google.com/jsapi"></script>
         <script type="text/javascript" language="javascript">
 
+            var imageSearch;
             dwr.engine.setErrorHandler(null);
             google.load('search', '1');
-            var imageSearch;
-
-            function init() {
-                //setupZoom('<c:url value="/"/>');
-                    setupZoom('<c:url value="/"/>');
-            }
 
             function onLoad() {
                 imageSearch = new google.search.ImageSearch();
@@ -37,19 +31,20 @@
                 imageSearch.setNoHtmlGeneration();
                 imageSearch.setResultSetSize(${imagesPerPage});
                 google.search.Search.getBranding("branding");
-                $("coverarttemplate").hide();
                 doSearch();
             }
 
-            google.setOnLoadCallback(onLoad);
+            jQueryLoad.wait(function() {
+                google.setOnLoadCallback(onLoad);
+            });
 
             function doSearch() {
                 $("wait").show();
-                $("result").hide();
                 $("success").hide();
                 $("error").hide();
                 $("errorDetails").hide();
                 $("noImagesFound").hide();
+                $("imagesearchresults").hide();
                 var query = dwr.util.getValue("query");
                 imageSearch.execute(query);
             }
@@ -62,8 +57,9 @@
                     var images = $("images");
                     images.innerHTML = "";
                     $("imagesearchresultcontainer").style.maxWidth = 240 * (imageSearch.results.length / 2) + "px";
-                    init();
+                    setupZoom('<c:url value="/"/>');
 
+                    $("imagesearchresults").show();
                     var results = imageSearch.results;
                     for (var i = 0; i < results.length; i++) {
                         var result = results[i];
@@ -87,13 +83,11 @@
                         var url = node.getElementsByClassName("search-result-url")[0];
                         url.innerHTML = result.visibleUrl;
 
-                        node.show();
                         images.appendChild(node);
+                        jQuery(node).css({ 'visibility' : 'visible', "display" : "none" });
+                        jQuery(node).delay(30).fadeIn(600);
                     }
-
-                    $("result").show();
                     prepZooms();
-
                     addPaginationLinks(imageSearch);
 
                 } else {
@@ -145,7 +139,6 @@
 
             function setImage(imageUrl) {
                 $("wait").show();
-                $("result").hide();
                 $("success").hide();
                 $("error").hide();
                 $("errorDetails").hide();
@@ -153,6 +146,7 @@
                 $("pages").hide();
                 $("backlink").hide();
                 $("addFromURILink").hide();
+                $("imagesearchresults").hide();
                 var path = dwr.util.getValue("path");
                 coverArtService.setCoverArtImage(path, imageUrl, setImageComplete);
             }
@@ -174,7 +168,7 @@
         </script>
         <script type="text/javascript">
             function toggleAddFromURI() {
-                $("addFromURI").toggle();
+                jQuery("#addCoverArtFormContainer").toggle("blind");
             }
             
             function verifyImageURI() {
@@ -192,25 +186,42 @@
                 
                 // Checks passed: submit
                 document.addFromURIForm.submit();
-                $("addFromURI").toggle();
+                jQuery("addCoverArtFormContainer").toggle();
             }
         </script>
 
         <style type="text/css">
-        /*Google powered by branding*/
-        td.gsc-branding-text div.gsc-branding-text, td.gcsc-branding-text div.gcsc-branding-text { display:none; }
-        td.gsc-branding-img-noclear, td.gcsc-branding-img-noclear { display:none;}
+            /*Google powered by branding*/
+            td.gsc-branding-text div.gsc-branding-text, td.gcsc-branding-text div.gcsc-branding-text { display: none; }
+            td.gsc-branding-img-noclear, td.gcsc-branding-img-noclear { display: none; }
         </style>
     </head>
     <body class="mainframe bgcolor1">
+
+        <div id="addCoverArtFormContainer" class="bgcolor1" style="display:none">
+            <div style="width:50%;margin:2px auto;">
+                <form name="addCoverArtForm" method="post" action="javascript:setImage(dwr.util.getValue('url'))">
+                    <input id="path" type="hidden" name="path" value="${model.path}"/>
+                    <table>
+                        <tr>
+                            <td><label for="url"><fmt:message key="changecoverart.address"/></label></td>
+                            <td><input type="text" name="url" value="" style="width:30em" onclick="select()"/></td>
+                            <td><input type="button" value="<fmt:message key='common.ok'/>" onClick="verifyImageURI()"/></td>
+                            <td><input type="reset" value="<fmt:message key='common.cancel'/>" onClick="toggleAddFromURI()"/></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+
         <div id="mainframecontainer">
-            <div id="mainframemenucontainer" class="bgcolor1">
+            <div id="mainframemenucontainer" class="bgcolor1 fade">
                 <span id="mainframemenuleft">
                     <sub:url value="main.view" var="backUrl"><sub:param name="path" value="${model.path}"/></sub:url>
                     <span class="back cancel"><a href="${backUrl}" id="backlink"><fmt:message key="common.cancel"/></a></span>
                 </span>
                 <span id="mainframemenucenter">
-                    <span id="addFromURILink" class="mainframemenuitem addFromURI" style="background-image: url(<spring:theme code='addImage'/>)"><a href="#" onClick="toggleAddFromURI()">Add from URI</a></span>
+                    <span id="addFromURILink" class="mainframemenuitem addFromURI" style="background-image: url(<spring:theme code='addImage'/>)"><a href="#" onClick="toggleAddFromURI()"><fmt:message key="changecoverart.addfromuri"/></a></span>
                 </span>
                 <span id="mainframemenucenter">
                     <div class="pagination">
@@ -219,9 +230,11 @@
                 </span>
                 <span id="mainframemenuright">
                     <span class="right">
-                        <!--<select name="imageSearchProvider" id="imageSearchProvider" onChange="" disabled="disabled" title="Sorry this function is currently disabled!">
-                            <option value="google" selected>Google Images</option>
-                        </select>-->
+                        <!-- TODO Add ability to choose cover art search provider.
+                        <select name="imageSearchProvider" id="imageSearchProvider" onChange="" disabled="disabled">
+                            <option value="google" selected><fmt:message key="changecoverart.search"/></option>
+                        </select>
+                        -->
                         <form name="searchForm" id="searchForm" method="post" action="javascript:doSearch()">
                             <table bgcolor="#ffffff" cellpadding="0px" cellspacing="0px" align="right" width="300px" style="margin-top:1px">
                                 <tr>
@@ -243,23 +256,7 @@
             <div id="mainframecontentcontainer">
                 <div id="mainframecontent">
 
-                    <h1><fmt:message key="changecoverart.title"/></h1> 
-
-                    <div class="bgcolor1" id="addFromURI" style="position:fixed;top:35px;width:100%;display:none;text-align:center;">
-                        <div style="width:50%;margin:2px auto;">
-                            <form name="addFromURIForm" method="post" action="javascript:setImage(dwr.util.getValue('url'))">
-                                <input id="path" type="hidden" name="path" value="${model.path}"/>
-                                <table>
-                                    <tr>
-                                        <td><label for="url"><fmt:message key="changecoverart.address"/></label></td>
-                                        <td><input type="text" name="url" value="" style="width:30em" onclick="select()"/></td>
-                                        <td><input type="button" value="<fmt:message key='common.ok'/>" onClick="verifyImageURI()"/></td>
-                                        <td><input type="reset" value="<fmt:message key='common.cancel'/>" onClick="toggleAddFromURI()"/></td>
-                                    </tr>
-                                </table>
-                            </form>
-                        </div>
-                    </div>
+                    <h1><fmt:message key="changecoverart.title"/></h1>
 
                     <h2 id="wait" style="display:none"><fmt:message key="changecoverart.wait"/></h2>
                     <h2 id="noImagesFound" style="display:none"><fmt:message key="changecoverart.noimagesfound"/></h2>
@@ -268,8 +265,8 @@
                     <div id="errorDetails" class="warning" style="display:none">
                     </div>
 
-                    <div id="imagesearchresultcontainer">
-                        <div id="result">
+                    <div id="imagesearchresultcontainer" class="center">
+                        <div id="imagesearchresults">
 
                             <div id="branding" style="float:right;padding-right:1em;padding-top:0.5em">
                             </div>
@@ -286,7 +283,7 @@
                         </div>
                     </div>
 
-                    <div id="coverarttemplate" style="float:left; height:190px; width:220px;padding:10px;text-align:center;position:relative;vertical-align:bottom;">
+                    <div id="coverarttemplate" class="left" style="visibility:hidden;height:190px; width:220px;padding:10px;text-align:center;position:relative;vertical-align:bottom;">
                         <div style="position: absolute;bottom:0;margin:0px auto">
                             <div class="search-result-thumb">&nbsp;</div>
                             <a class="search-result-thumbnail-zoom" rel="zoom"><img class="search-result-thumbnail" style="padding:1px; border:1px solid #021a40; background-color:white;"></a>

@@ -4,88 +4,115 @@
  * Author: Thomas Bruce Dyrud (thomasbrucedyrud[at]gmail.com)
  *
  */
-@import "accordion-darkness.css";
 @import "default.css";
-@import "playermod-cccccc.css";
+@import "accordion/darkness.css";
+@import "playermod/fg/cccccc.css";
+@import "playermod/bg/1b1b1b.css";
 
-/* The primary background colour. */
-.bgcolor1 {
-    background-color: #1b1b1b;
-}
+/*
+ * Background colors
+ */
 
-/* The secondary background colour, light blue, primary theme colour. */
-.bgcolor2, .ruleTableHeader, .log {
-    background-color: #1b1b1b;
-    color: #FFFFFF;
-}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: #1b1b1b;
+    }
 
-/* Background colour for selected header, log etc. */
-.headerSelected {
-    color: #FFFFFF;
-    background-color: #1b1b1b;
-    border: 1px solid #FFFFFF;
-}
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: #1b1b1b;
+        color: #FFFFFF;
+    }
 
+/*
+ * Border settings for main frames
+ */
 
-/* The secondary foreground colour used for h1, details etc. */
-h1, .detail, .albumComment {
-    color: #FFFFFF;
-}
+    .mainframe {
+    /* Main frame border style */
+        background-color: #1b1b1b;
+        background-position:right;
+    }
 
-/* Foreground colour used for h2, bold and tr. */
-h2, b, tr {
-    color: #FFFFFF;
-}
+/*
+ * Miscellaneous style settings and helpers
+ */
 
-/* Main frame image & colour */
-.mainframe {
-    background-color: #1b1b1b;
-    background-position:right;
-}
+    body {
+    /* Primary foreground (font) color. (black) */
+        color: #FFFFFF;
+        background-color: #DDDDDD;
+    }
 
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #FFFFFF;
+    }
 
-/* Back image */
-.back {
-    background-image:url( "../icons/simplify/back.png" );
-}
+    a:hover, a:hover * {
+    /* Link hover style */
+        text-decoration: underline;
+        color: #FFFFFF;
+    }
 
-/* Forward image */
-.forward {
-    background-image:url( "../icons/simplify/forward.png" );
-}
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+        color: #FFFFFF;
+    }
 
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+        color: #FFFFFF;
+    }
 
-/* Link colour */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #FFFFFF;
-}
+    .headerSelected {
+    /* Background color for selected header. */
+        color: #FFFFFF;
+        background-color: #1b1b1b;
+        border: 1px solid #FFFFFF;
+    }
 
-/* Link hover colour */
-a:hover, a:hover * {
-    text-decoration: underline;
-    color: #FFFFFF;
-}
+    .warning {
+    /* Color for warning messages. */
+        color: #e7238b;
+    }
 
-/* Colour for warning messages. */
-.warning {
-    color: #e7238b;
-}
+/*
+ * Main frame menu images
+ */
 
-/* The primary foreground colour. */
-body {
-    color: #FFFFFF;
-    background-color: #DDDDDD;
-}
+    .back {
+        background-image: url("../icons/simplify/back.png");
+    }
 
-html {
-    background-color: transparent;
-}
+    .forward {
+        background-image: url("../icons/simplify/forward.png");
+    }
 
-label, p {
-    color: #CCC;
-}
+    .refresh {
+        background-image: url("../icons/simplify/refresh.png");
+    }
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/simplify/player_back.png") center center repeat;}
+    .download {
+        background-image: url("../icons/simplify/download.png");
+    }
+
+    .delete {
+        background-image: url("../icons/simplify/remove.png");
+    }
+
+    .up{
+        background-image: url("../icons/simplify/up.png");
+    }
+
+    .down {
+        background-image: url("../icons/simplify/down.png");
+    }
+
+    .addFromURI {
+        background-image: url("../icons/simplify/add.png");
+    }
+
+    .logfile {
+        background-image: url("../icons/simplify/log_small.png");
+    }

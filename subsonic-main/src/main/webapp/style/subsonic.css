@@ -1,6 +1,19 @@
-@import "accordion-smoothness.css";
-@import "playermod-000000.css";
 @import "default.css";
+
+/*
+ * CSS styleshet for default (Subsonic) theme.
+ *
+ * Note that attributes that are typically changed
+ * by theme authors are placed at the top.
+ *
+ * Original Author: Sindre Mehus
+ *
+ */
+ 
+/*
+ * Stuff that is safe to change
+ * has been moved to the top.
+ */
 
 /*
  * Background colors
@@ -71,7 +84,7 @@
             border-bottom: 1px transparent;
         }
 
-        #uploadFile, #addPodcast {
+        #uploadFile, #addPodcastFormContainer, #addCoverArtFormContainer {
             border-bottom: 1px transparent;
         }
 
@@ -80,7 +93,7 @@
             border-right: 1px transparent;
         }
 
-        .welcomeMessage {
+        #welcomemessage {
             border-left: 1px solid black;
         }
      
@@ -115,7 +128,6 @@
 
     body, h2, form, label, table, a {
     /* Font 1 */
-        font-family: verdana, arial, sans-serif;
     }
 
     a {
@@ -137,7 +149,6 @@
 
     h1, h1 a, .logo {
     /* Font 2 */
-        font-family: arial, sans-serif;
     }
 
     h1 {
@@ -159,12 +170,12 @@
     /* Foreground color for h2, bold and tr. */
         color: #333333;
     }
-    
+
     table {
     /* Table font size */
         font-size: 100%;
     }
-    
+
     label {
     /* Label font size */
         font-size: 100%;
@@ -179,7 +190,7 @@
     /* Input form control font style */
         font-size: 9pt;
     }
-    
+
     img {
     /* Img border style */
         border: 0px;
@@ -196,7 +207,7 @@
         -webkit-border-radius: 1px;
     }
 
-    select, #musicFolder, #listSize, #listSizeRow, #imageSearchProvider, #playerSelect, #moreActions {
+    select, #musicFolder, #listSize, #listSizeRow, #imageSearchProvider {
     /* Dropdown form control style */
         margin: 0;
         padding: 2px;
@@ -212,9 +223,9 @@
 
     #pageimage {
     /* Top left image for each page */
-        display:;
+        visibility:;
     }
-    
+
     #imageSearchProvider {
         max-width: 10em;
         position: absolute;
@@ -249,7 +260,7 @@
     /* Main frame menu pagination current item width. (10em minimum recommended) */
         min-width: 10em;
     }
-    
+
     .detail {
     /* Detail font style */
         font-size: 8pt;
@@ -272,7 +283,7 @@
     /* Color for warning messages. */
         color: red;
     }
-    
+
     .log {
     /* Log file font size */
         font-size: 8pt;
@@ -319,33 +330,51 @@
  */
 
     .back {
-        background-image: url("../icons/back.gif");
+        background-image: url("../icons/back.png");
     }
 
     .forward {
-        background-image: url("../icons/forward.gif");
+        background-image: url("../icons/forward.png");
+    }
+
+    .refresh {
+        background-image: url("../icons/refresh.png");
+    }
+
+    .download {
+        background-image: url("../icons/download.png");
+    }
+
+    .delete {
+        background-image: url("../icons/remove.png");
+    }
+
+    .up{
+        background-image: url("../icons/up.png");
+    }
+
+    .down {
+        background-image: url("../icons/down.png");
+    }
+
+    .addFromURI {
+        background-image: url("../icons/add.png");
+    }
+
+    .logfile {
+        background-image: url("../icons/log_small.png");
     }
 
 /*
- * Player images
+ * Player style
  */
- 
-    .solidblockmenu {
-    /* Background repeating image */
-        background: black url("../icons/player_back.png") center center repeat;
-    }
-
-    .playerleftround {
-    /* Left side */
-        /* background-image:url("../icons/player_leftround.png"); */
-    }
-
-    .playerrightround {
-    /* Right side */
-        /* background-image:url("../icons/player_rightround.png"); */
-    }
 
     .solidblockmenu li a:hover, .solidblockmenu li .current {
     /* Player control hover style */
+        background-color: #8a8a8a;
+    }
+
+    .solidblockmenu select:hover {
+    /* Player select hover style */
         background-color: #8a8a8a;
     }

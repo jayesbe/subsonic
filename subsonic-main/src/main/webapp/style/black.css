@@ -3,16 +3,16 @@
  *
  * Author: Sindre Mehus
  */
-@import "accordion-vader.css";
 @import "midnight.css";
+@import "accordion/vader.css";
+@import "playermod/bg/333333.css";
 
-/* The primary background color. */
 .bgcolor1 {
+/* The primary background color. */
     background-color: #333333
 }
 
-/* The secondary background color. */
 .bgcolor2, .ruleTableHeader, .log  {
+/* The secondary background color. */
     background-color: black
 }
-.solidblockmenu{background: black url("../icons/black/player_back.png") center center repeat;}

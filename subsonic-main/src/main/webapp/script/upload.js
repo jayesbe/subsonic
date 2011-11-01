@@ -2,7 +2,7 @@ var zipfile = false;
 var uploadstep = 1;
 
 function toggleUploadFile() {
-    $("uploadFile").toggle();
+    jQuery("#uploadFile").toggle("blind");
 }
 
 function displayUploadResults() {

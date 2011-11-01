@@ -3,115 +3,120 @@
  *
  * Author: David D ddavis1@gmail.com
  */
-@import "accordion-darkness.css";
 @import "default.css";
-@import "playermod-cccccc.css";
+@import "accordion/darkness.css";
+@import "playermod/fg/cccccc.css";
+@import "playermod/bg/333333.css";
 
-/* The primary background colour. */
-.bgcolor1 {
-    background-color: #222;
-}
-
-/* The secondary background colour, light blue, primary theme colour. */
-.bgcolor2, .ruleTableHeader, .log {
-    background-color: #000000;
-}
-
-/* Background colour for selected header, log etc. */
-.headerSelected {
-    color: #FFFFFF;
-    background-color: #333333;
-}
-
-
-/* The secondary foreground colour used for h1, details etc. */
-h1, .detail, .albumComment {
-    color: #FFFFFF;
-}
-
-/* Foreground colour used for h2, bold and tr. */
-h2, b, tr {
-    color: #FFFFFF;
-}
-
-/* Main frame image & colour */
-.mainframe, .rightframe {
-    background-color: #222;
-}
-
-/* Link colour */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #FFFFFF;
-}
-
-/* Link hover colour */
-a:hover, a:hover * {
-    text-decoration: underline;
-    color: #FFFFFF;
-}
-
-/* Colour for warning messages. */
-.warning {
-    color: #990099;
-}
-
-/* Background colour for form controls. */
-input, select {
-    color: #000;
-    background-color: #EEE;
-}
-
-/* Hover colour for form controls. */
-input:hover, select:hover {
-    color: #000000;
-    background-color: #FFF;
-}
-
-/* Background colour for option controls. */
-option {
-    font-weight: bold;
-    background-color: #666666;
-    color: #FFFFFF;
-}
-
-/* The primary foreground colour. */
-body {
-    background-color: #DDDDDD;
-}
-
-/* The album comments. */
-.albumComment {
-    width: 50em;
-    font-size: 8pt;
-    line-height: 1.4em;
-    padding-top: 0.25em;
-    color: #000000;
-}
-
-/* The log. */
-.log {
-    font-weight: bold;
-    white-space: nowrap;
-    font-size: 8pt;
-    line-height: 1em;
-    color: #000000;
-    background-color: #C0C0C0;
-}
-
-/* The help, status & web payer settings tables. */
 .ruleTableHeader, .ruleTableCell {
+/* The help, status & web player settings tables. */
     margin: 5px;
     padding: 5px;
     color: #FFFFFF;
     background-color: #C0C0C0;
 }
 
-label, p {
-    color: #CCC;
-}
+/*
+ * Background colors
+ */
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/monochrome_black/player_back.png") center center repeat;}
-.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #fff solid 1px;}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: #222;
+    }
+
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: #000000;
+    }
+
+/*
+ * Border settings for main frames
+ */
+
+    .mainframe, .rightframe {
+    /* Main frame border style */
+        background-color: #222;
+    }
+
+/*
+ * Miscellaneous style settings and helpers
+ */
+
+    body {
+    /* Primary foreground (font) color. (black) */
+        color: #FFFFFF;
+        background-color: #DDDDDD;
+    }
+
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #FFFFFF;
+    }
+
+    a:hover, a:hover * {
+    /* Link hover style */
+        text-decoration: underline;
+        color: #FFFFFF;
+    }
+
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+        color: #FFFFFF;
+    }
+
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+        color: #FFFFFF;
+    }
+
+    input, select, textarea {
+    /* Input form control font style */
+        color: #000;
+        background-color: #EEE;
+    }
+
+    option, #playerSelect option, #moreActions option, #sortActions option {
+    /* Background colour for option controls. */
+        font-weight: bold;
+        background-color: #666666;
+        color: #FFFFFF;
+    }
+
+    input:hover, select:hover {
+    /* Form control hover color. (default) */
+        color: #000000;
+        background-color: #FFF;
+    }
+
+    .headerSelected {
+    /* Background color for selected header. */
+        color: #FFFFFF;
+        background-color: #333333;
+    }
+
+    .warning {
+    /* Color for warning messages. */
+        color: #990099;
+    }
+
+    .log {
+    /* Log file font size */
+        font-weight: bold;
+        color: #000000;
+        background-color: #C0C0C0;
+    }
+
+/*
+ * Player style
+ */
+
+    .solidblockmenu li a:hover, .solidblockmenu li .current {
+    /* Player control hover style */
+        background-color: #fff;
+    }
+
+    .solidblockmenu select:hover {
+    /* Player select hover style */
+        background-color: #fff;
+    }

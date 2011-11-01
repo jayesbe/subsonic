@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
 <%@ include file="doctype.jsp" %>
 
 <html>
@@ -7,7 +7,6 @@
         <%@ include file="head.jsp" %>
         <!--[if IE 7]>
         <![endif]-->
-        <script type='text/javascript' src="<c:url value="/script/jquery-1.6.4.js"/>"></script>
     </head>
     <body class="bgcolor2 topframe">
         <fmt:message key="top.home" var="home"/>
@@ -21,6 +20,7 @@
         <fmt:message key="top.about" var="about"/>
         <fmt:message key="top.donate" var="donate"/>
         <fmt:message key="top.search" var="search"/>
+        <fmt:message key="top.upload" var="upload"/>
         
         <div id="topframecontainer">
 
@@ -62,7 +62,7 @@
                 <div class="topimgcontainer">
                     <div class="topimg">
                      <a href="podcastReceiver.view?" target="main" id="podcastLink">
-                        <img id="MenuImg" src="<spring:theme code='podcastLargeImage'/>" title="${podcast}" alt="${podcast}">
+                        <img id="MenuImg" src="<spring:theme code='podcastImage'/>" title="${podcast}" alt="${podcast}">
                      </a>
                      <div class="desc"><a href="podcastReceiver.view?" target="main" id="podcastLinkDesc">${podcast}</a></div>
                     </div>
@@ -82,10 +82,10 @@
                 <c:if test="${model.user.adminRole}">
                 <div class="topimgcontainer">
                     <div class="topimg">
-                     <a href="status.view?" target="main">
+                     <a href="status.view?" target="main" id="statusLink">
                         <img id="MenuImg" src="<spring:theme code='statusImage'/>" title="${status}" alt="${status}">
                      </a>
-                     <div class="desc"><a href="status.view?" target="main">${status}</a></div>
+                     <div class="desc"><a href="status.view?" target="main" id="statusLinkDesc">${status}</a></div>
                     </div>
                 </div>
                 </c:if>
@@ -126,34 +126,39 @@
                 <div class="topimgcontainer">
                     <div class="topimg">
                      <a href="javascript:newwindow()">
-                        <img id="MenuImg" src="<spring:theme code='uploadImage'/>" title="Upload"/>
+                        <img id="MenuImg" src="<spring:theme code='uploadImage'/>" title="${upload}" alt="${upload}"/>
                      </a>
-                     <div class="desc"><a href="javascript:newwindow()">Upload</a></div>
+                     <div class="desc"><a href="javascript:newwindow()">${upload}</a></div>
                     </div>
                 </div>
                 </c:if>
-                -->
 
                 <c:if test="not ${model.user.adminRole}">
                 <div class="topimgcontainer">
                     <div class="topimg">
                      <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ZTB47DYWFS64" target="_blank"><SPAN></SPAN>
-                        <img id="MenuImg" src="<spring:theme code='donateLargeImage'/>" title="${donate}" alt="${donate}">
+                        <img id="MenuImg" src="<spring:theme code='donateImage'/>" title="${donate}" alt="${donate}">
                      </a>
                      <div class="desc"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=A8EU47TDXU3YA" target="_blank">${donate}</a></div>
                     </div>
                 </div>
                 </c:if>
+                -->
+            </div>
+            <div id="topframemenucontainer">
+                <span class="right">
+                    <%@ include file="searchbox.jsp" %>
+                </span>
             </div>
 
             <div id="topframerightmenucontainer">
                 <div id="topframerightmenu">
                     <c:if test="${model.newVersionAvailable}">
-                        <p class="warning">
+                        <p class="warning center">
                         <fmt:message key="top.upgrade"><fmt:param value="${model.brand}"/><fmt:param value="${model.latestVersion}"/></fmt:message>
                         </p>
                     </c:if>
-                    <p>
+                    <p class="center">
                         <a href="j_acegi_logout" target="_top"><fmt:message key="top.logout"><fmt:param value="${model.user.username}"/></fmt:message></a>
                         <c:if test="${not model.licensed}">
                             <br><br>

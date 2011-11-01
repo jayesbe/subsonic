@@ -13,19 +13,19 @@
         <c:param name="id" value="${model.id}"/>
     </c:url>
 
-    <script type="text/javascript" src="<c:url value="/script/swfobject.js"/>"></script>
-    <script type="text/javascript" src="<c:url value="/script/prototype.js"/>"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
     <script type="text/javascript" language="javascript">
 
         var player;
         var position;
         var maxBitRate = ${model.maxBitRate};
         var timeOffset = ${model.timeOffset};
+        var jwplayerskin = "/flash/skins/<spring:theme code='jwPlayerVideoSkin'/>.zip"
 
         function init() {
             var flashvars = {
                 id:"player1",
-                skin:"<c:url value="/flash/whotube.zip"/>",
+                skin: jwplayerskin,
                 screencolor:"000000",
                 autostart:false,
                 bufferlength:4,
@@ -42,7 +42,7 @@
                 name:"player1"
             };
 
-            swfobject.embedSWF("<c:url value="/flash/jw-player-5.6.swf"/>", "placeholder1", "360", "240", "9.0.0", false, flashvars, params, attributes);
+            swfobject.embedSWF("<c:url value="/flash/jw-player-5.8.swf"/>", "videoplaceholder", "360", "240", "9", false, flashvars, params, attributes);
         }
 
         function playerReady(thePlayer) {
@@ -105,7 +105,7 @@
 <h1>${model.video.title}</h1>
 
 <div id="wrapper" style="padding-top:1em">
-    <div id="placeholder1"><span class="warning"><a href="http://www.adobe.com/go/getflashplayer"><fmt:message key="playlist.getflash"/></a></span></div>
+    <div id="videoplaceholder"><span class="warning"><a href="http://www.adobe.com/go/getflashplayer"><fmt:message key="playlist.getflash"/></a></span></div>
 </div>
 
 <div style="padding-top:1.3em;padding-bottom:0.7em;font-size:16px">

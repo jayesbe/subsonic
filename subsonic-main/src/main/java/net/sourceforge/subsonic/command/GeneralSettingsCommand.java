@@ -44,6 +44,8 @@ public class GeneralSettingsCommand {
     private String[] locales;
     private String themeIndex;
     private Theme[] themes;
+    private String webFont;
+    private String mmApiKey;
     private boolean isReloadNeeded;
 
     public String getPlaylistFolder() {
@@ -164,6 +166,22 @@ public class GeneralSettingsCommand {
 
     public void setThemes(Theme[] themes) {
         this.themes = themes;
+    }
+
+    public String getWebFont() {
+        return webFont;
+    }
+
+    public void setWebFont(String webFont) {
+        this.webFont = webFont;
+    }
+
+    public String getMMAPIKey() {
+        return mmApiKey;
+    }
+
+    public void setMMAPIKey(String mmApiKey) {
+        this.mmApiKey = mmApiKey;
     }
 
     public boolean isReloadNeeded() {

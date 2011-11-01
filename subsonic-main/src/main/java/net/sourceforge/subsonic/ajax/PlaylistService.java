@@ -95,14 +95,14 @@ public class PlaylistService {
     public PlaylistInfo skip(int index) throws Exception {
         HttpServletRequest request = WebContextFactory.get().getHttpServletRequest();
         HttpServletResponse response = WebContextFactory.get().getHttpServletResponse();
-        return doSkip(request, response, index);
+        return doSkip(request, response, index, 0);
     }
 
-    public PlaylistInfo doSkip(HttpServletRequest request, HttpServletResponse response, int index) throws Exception {
+    public PlaylistInfo doSkip(HttpServletRequest request, HttpServletResponse response, int index, int offset) throws Exception {
         Player player = getCurrentPlayer(request, response);
         player.getPlaylist().setIndex(index);
         boolean serverSidePlaylist = !player.isExternalWithPlaylist();
-        return convert(request, player, serverSidePlaylist);
+        return convert(request, player, serverSidePlaylist, offset);
     }
 
     public PlaylistInfo play(String path) throws Exception {
@@ -150,6 +150,20 @@ public class PlaylistService {
         player.getPlaylist().addFiles(true, files);
         player.getPlaylist().setRandomSearchCriteria(null);
         return convert(request, player, false);
+    }
+    
+    public PlaylistInfo doSet(HttpServletRequest request, HttpServletResponse response, List<String> paths) throws Exception {
+        Player player = getCurrentPlayer(request, response);
+        Playlist playlist = player.getPlaylist();
+        int index = playlist.getIndex();
+        Playlist.Status status = playlist.getStatus();
+
+        playlist.clear();
+        PlaylistInfo result = doAdd(request, response, paths);
+
+        playlist.setIndex(index);
+        playlist.setStatus(status);
+        return result;
     }
 
     public PlaylistInfo clear() throws Exception {
@@ -282,10 +296,14 @@ public class PlaylistService {
     }
 
     private PlaylistInfo convert(HttpServletRequest request, Player player, boolean sendM3U) throws Exception {
+        return convert(request, player, sendM3U, 0);
+    }
+
+    private PlaylistInfo convert(HttpServletRequest request, Player player, boolean sendM3U, int offset) throws Exception {
         String url = request.getRequestURL().toString();
 
         if (sendM3U && player.isJukebox()) {
-            jukeboxService.play(player);
+            jukeboxService.updateJukebox(player, offset);
         }
         boolean isCurrentPlayer = player.getIpAddress() != null && player.getIpAddress().equals(request.getRemoteAddr());
 

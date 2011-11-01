@@ -1,59 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
 <%@ include file="doctype.jsp" %>
 
 <html>
     <head>
         <%@ include file="head.jsp" %>
-        <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
-        <meta http-equiv="REFRESH" content="20;URL=status.view">
-        <script type="text/javascript" src="<c:url value="/script/prototype.js"/>"></script>
-        <script type="text/javascript">
-            function viewStatus(id) {
-                switch (id) {
-                    case 0:
-                        $("userstatistics").hide();
-                        $("playerstatus").show();
-                        $("playerstatuslink").className = "mainframemenuitem forward";
-                        $("userstatisticslink").className = "mainframemenuitem";
-                        break;
-                    case 1:
-                        $("playerstatus").hide();
-                        $("userstatistics").show();
-                        $("userstatisticslink").className = "mainframemenuitem forward";
-                        $("playerstatuslink").className = "mainframemenuitem";
-                        break;
-                    default:
-                        $("userstatistics").hide();
-                        $("playerstatus").show();
-                        $("playerstatuslink").className = "mainframemenuitem forward";
-                        $("userstatisticslink").className = "mainframemenuitem";
-                }
-            }
-        </script>        
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="refresh" content="20">
+        <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
     </head>
     <body class="bgcolor1 mainframe">
 
         <div id="mainframecontainer">
 
-            <div id="mainframemenucontainer" class="bgcolor1">
+            <div id="mainframemenucontainer" class="bgcolor1 fade">
                 <span id="mainframemenuleft">
-                    <span class="mainframemenuitem logfile" style="background-image: url('<spring:theme code='logSmallImage'/>')"><a href="logfile.view?">Log File</a></span>
-                    <span class="mainframemenuitem forward" id="playerstatuslink"><a href="#" onClick="viewStatus(0);">Player Status</a></span>
-                    <span class="mainframemenuitem" id="userstatisticslink"><a href="#" onClick="viewStatus(1);">User Statistics</a></span>
+                    <span class="mainframemenuitem logfile"><a href="logfile.view?" onClick="persistentTopLinks('logfile.view?')"><fmt:message key="logfile.logfile"/></a></span>
+                    <span class="mainframemenuitem" id="playerstatuslink"><a href="#" onClick="persistentTopLinks('status.view?display=player')"><fmt:message key="status.playerstatus"/></a></span>
+                    <span class="mainframemenuitem" id="userstatisticslink"><a href="#" onClick="persistentTopLinks('status.view?display=user')"><fmt:message key="status.userstatistics"/></a></span>
                 </span>
                 <span id="mainframemenuright">
-                    <span class="mainframemenuitem refresh right" style="background-image: url('<spring:theme code='refreshImage'/>')"><a href="status.view?"><fmt:message key="common.refresh"/></a></span>
+                    <span class="mainframemenuitem refresh right"><a href="#" onClick="javascript: refreshPage()"><fmt:message key="common.refresh"/></a></span>
                 </span>
             </div>
 
             <div id="mainframecontentcontainer">
                 <div id="mainframecontent">
-                    <h1>
-                        <img id="pageimage" src="<spring:theme code="statusImage"/>" alt="">
-                        <span class="desc"><fmt:message key="status.title"/></span>
-                    </h1>
-
-                    <div id="playerstatus" style="width:100%">
+                    <div id="mainframecontentheader" class="fade">
+                        <h1>
+                            <img id="pageimage" src="<spring:theme code="statusImage"/>" alt="">
+                            <span class="desc"><fmt:message key="status.title"/></span>
+                        </h1>
+                    </div>
+    
+                    <div id="playerstatus" style="width:100%;display:none">
                         <c:set var="pslen" value="<c:out value='${model.transferStatuses}'/>"/>
                         <table class="ruleTable" style="width:95%;margin:2px auto;">
                             <tr>
@@ -161,6 +140,32 @@
                     </div>
                 </div>
             </div>
-        </div>            
+        </div>
+        <script type="text/javascript">
+            function refreshPage() {
+                location.href = "status.view?display=${model.statusView}";
+            }
+
+            jQueryLoad.wait(function() {
+                jQueryUILoad.wait(function() {
+                    switch ("${model.statusView}") {
+                        case "player":
+                            jQuery("#playerstatus").delay(30).fadeIn(600);
+                            jQuery("#playerstatuslink").addClass("forward");
+                            jQuery("#userstatisticslink").removeClass("forward");
+                            break;
+                        case "user":
+                            jQuery("#userstatistics").delay(30).fadeIn(600);
+                            jQuery("#userstatisticslink").addClass("forward");
+                            jQuery("#playerstatuslink").removeClass("forward");
+                            break;
+                        default:
+                            jQuery("#playerstatus").delay(30).fadeIn(600);
+                            jQuery("#playerstatuslink").addClass("forward");
+                            jQuery("#userstatisticslink").removeClass("forward");
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

@@ -46,7 +46,7 @@ public class UserDao extends AbstractDao {
             "playlist_caption_cutoff, playlist_track_number, playlist_artist, playlist_album, playlist_genre, " +
             "playlist_year, playlist_bit_rate, playlist_duration, playlist_format, playlist_file_size, " +
             "last_fm_enabled, last_fm_username, last_fm_password, transcode_scheme, show_now_playing, selected_music_folder_id, " +
-            "party_mode_enabled, now_playing_allowed, avatar_scheme, system_avatar_id, changed, show_chat, list_type, list_rows, list_columns";
+            "party_mode_enabled, now_playing_allowed, avatar_scheme, system_avatar_id, changed, show_chat, list_type, list_rows, list_columns, web_font";
 
     private static final Integer ROLE_ID_ADMIN = 1;
     private static final Integer ROLE_ID_DOWNLOAD = 2;
@@ -178,7 +178,7 @@ public class UserDao extends AbstractDao {
                 settings.isLastFmEnabled(), settings.getLastFmUsername(), encrypt(settings.getLastFmPassword()),
                 settings.getTranscodeScheme().name(), settings.isShowNowPlayingEnabled(),
                 settings.getSelectedMusicFolderId(), settings.isPartyModeEnabled(), settings.isNowPlayingAllowed(),
-                settings.getAvatarScheme().name(), settings.getSystemAvatarId(), settings.getChanged(), settings.isShowChatEnabled(), settings.getListType(), settings.getListRows(), settings.getListColumns()});
+                settings.getAvatarScheme().name(), settings.getSystemAvatarId(), settings.getChanged(), settings.isShowChatEnabled(), settings.getListType(), settings.getListRows(), settings.getListColumns(), settings.getWebFont()});
     }
 
     private static String encrypt(String s) {
@@ -337,6 +337,7 @@ public class UserDao extends AbstractDao {
             settings.setListType(rs.getString(col++));
             settings.setListRows(rs.getInt(col++));
             settings.setListColumns(rs.getInt(col++));
+            settings.setWebFont(rs.getString(col++));
 
             return settings;
         }

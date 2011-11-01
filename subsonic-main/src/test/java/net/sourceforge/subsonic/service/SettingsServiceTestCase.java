@@ -51,6 +51,8 @@ public class SettingsServiceTestCase extends TestCase {
         assertEquals("Wrong default index creation hour.", 3, settingsService.getIndexCreationHour());
         assertTrue("Wrong default playlist folder.", settingsService.getPlaylistFolder().endsWith("playlists"));
         assertEquals("Wrong default theme.", "default", settingsService.getThemeId());
+        assertNull("Wrong default webfont.", settingsService.getWebFont());
+        assertNull("Wrong default musiXmatch API key.", settingsService.getMMAPIKey());
         assertEquals("Wrong default stream port.", 0, settingsService.getStreamPort());
         assertNull("Wrong default license email.", settingsService.getLicenseEmail());
         assertNull("Wrong default license code.", settingsService.getLicenseCode());
@@ -80,6 +82,8 @@ public class SettingsServiceTestCase extends TestCase {
         settingsService.setLoginMessage("loginMessage");
         settingsService.setLocale(Locale.CANADA_FRENCH);
         settingsService.setThemeId("dark");
+        settingsService.setWebFont("Open Sans:600");
+        settingsService.setMMAPIKey(null);
         settingsService.setIndexCreationInterval(4);
         settingsService.setIndexCreationHour(9);
         settingsService.setStreamPort(8080);
@@ -122,6 +126,8 @@ public class SettingsServiceTestCase extends TestCase {
         assertEquals("Wrong login message.", "loginMessage", ss.getLoginMessage());
         assertEquals("Wrong locale.", Locale.CANADA_FRENCH, ss.getLocale());
         assertEquals("Wrong theme.", "dark", ss.getThemeId());
+        assertEquals("Wrong webfont.", "Open Sans:600", ss.getWebFont());
+        assertEquals("Wrong musiXmatch API key.", null, ss.getMMAPIKey());
         assertEquals("Wrong index creation interval.", 4, ss.getIndexCreationInterval());
         assertEquals("Wrong index creation hour.", 9, ss.getIndexCreationHour());
         assertEquals("Wrong stream port.", 8080, ss.getStreamPort());

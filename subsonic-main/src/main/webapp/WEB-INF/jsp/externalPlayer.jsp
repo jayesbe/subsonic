@@ -5,8 +5,6 @@
 <html>
 <head>
     <%@ include file="head.jsp" %>
-    <script type="text/javascript" src="<c:url value="/script/swfobject.js"/>"></script>
-    <script type="text/javascript" src="<c:url value="/script/prototype.js"/>"></script>
 
     <sub:url value="/coverArt.view" var="coverArtUrl">
         <c:if test="${not empty model.coverArt}">
@@ -17,9 +15,9 @@
 
     <meta name="og:title" content="${fn:escapeXml(model.songs[0].metaData.artist)} &mdash; ${fn:escapeXml(model.songs[0].metaData.album)}"/>
     <meta name="og:type" content="album"/>
-    <!--<meta name="og:image" content="http://${model.redirectFrom}.subsonic.org${coverArtUrl}"/>-->
-    <meta name="og:image" content="http://www.trickysworld.com${coverArtUrl}"/>
+    <meta name="og:image" content="http://${model.redirectFrom}.subsonic.org${coverArtUrl}"/>
 
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
     <script type="text/javascript">
         function init() {
             var flashvars = {
@@ -39,7 +37,7 @@
                 id:"player1",
                 name:"player1"
             };
-            swfobject.embedSWF("<c:url value="/flash/jw-player-5.6.swf"/>", "placeholder", "500", "500", "9.0.0", false, flashvars, params, attributes);
+            swfobject.embedSWF("<c:url value="/flash/jw-player-5.8.swf"/>", "videoplaceholder", "500", "500", "9", false, flashvars, params, attributes);
         }
 
         function playerReady(thePlayer) {
@@ -90,7 +88,7 @@
     <div class="detail" style="float:right">Streaming by <a href="http://subsonic.org/" target="_blank"><b>Subsonic</b></a></div>
 
     <div style="clear:both;padding-top:1em">
-        <div id="placeholder">
+        <div id="videoplaceholder">
             <a href="http://www.adobe.com/go/getflashplayer" target="_blank"><fmt:message key="playlist.getflash"/></a>
         </div>
     </div>

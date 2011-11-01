@@ -65,6 +65,7 @@
     </bean>
     <bean id="lyricsController" class="net.sourceforge.subsonic.controller.LyricsController">
         <property name="viewName" value="lyrics"/>
+        <property name="settingsService" ref="settingsService"/>
     </bean>
     <bean id="allmusicController" class="net.sourceforge.subsonic.controller.AllmusicController">
         <property name="viewName" value="allmusic"/>

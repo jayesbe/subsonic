@@ -1,5 +1,5 @@
 /*
- * CSS styleshet for the "Cool and Clean" theme.
+ * CSS styleshet for the "BUUF" theme.
  *
  * Author: Dan Eriksen (dan.o.eriksen[at]gmail.com)
  *
@@ -11,96 +11,147 @@
  * Edited for BUUF Theme by Fractal Systems
  * BUUF artwork: Based on icons by Paul Davey aka Mattahan. All rights reserved.
  */
-@import "accordion-humanity.css";
 @import "default.css";
+@import "accordion/humanity.css";
+@import "playermod/bg/ad845a.css";
+ 
+/*
+ * Background colors
+ */
 
-/* The primary background colour, light gray. Images used to force background on left frame headings and playlist. */
-.bgcolor1 {
-    background-color: #3C2D22;
-}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+		background-color: #3C2D22;
+    }
 
-/* The secondary background colour, light blue, primary theme colour. */
-.bgcolor2, .ruleTableHeader, .log {
-    background-color: #4C4039;
-}
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+		background-color: #4C4039;
+    }
 
-/* Background for selected headers. */
-.headerSelected {
-    background-image:url( "../icons/buuftheme/home_hover.png" );
-    background-repeat:repeat;
-    color: #333333;
-}
+/*
+ * Border settings for main frames
+ */
 
+    .mainframe {
+    /* Main frame border style */
+        border-top: 1px transparent;
+		background-image:url( "../icons/buuftheme/background_main.png" );
+		background-repeat:no-repeat;
+		background-attachment:fixed;
+		background-color: #4C4039;
+		background-position:right;
+    }
 
-/* Foreground colour used for h1, h2, b, tr, details and albumcomments. */
-h1, h2, b, tr, .detail, .albumComment {
-    color: #ffAE00;
-}
+    .rightframe {
+    /* Right frame border style */
+        border-left: 1px transparent;
+        border-top: 1px transparent;
+		background-color: #4C4039;
+    }
 
-/* Main frame image & colour */
-.mainframe {
-    background-image:url( "../icons/buuftheme/background_main.png" );
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-    background-color: #4C4039;
-    background-position:right;
-}
+/*
+ * Miscellaneous style settings and helpers
+ */
 
-/* Right frame background. */
-.rightframe {
-    background-color: #4C4039;
-    background-image:none;
-}
+    body {
+    /* Primary foreground (font) color. (black) */
+		color: #ffAE00;
+		background-color: #D1D9E1;
 
-/* Back image */
-.back {
-    background-image:url( "../icons/buuftheme/back.png" );
-}
+    /* Scrollbar colors (supported on IE and Opera) */
+		scrollbar-arrow-color: #636363;
+		scrollbar-track-color: #D1D9E1;
+    }
 
-/* Forward image */
-.forward {
-    background-image:url( "../icons/buuftheme/forward.png" );
-}
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+		color: #ffAE00;
+    }
 
-/* Link colour */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #ffAE00;
-}
+    a:hover, a:hover * {
+    /* Link hover style */
+		color: #169F30;
+    }
 
-/* Link hover colour */
-a:hover, a:hover * {
-    text-decoration: none;
-    color: #169F30;
-}
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+		color: #ffAE00;
+    }
 
-/* Colour for warning messages. */
-.warning {
-    color: #AA1F15;
-}
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+		color: #ffAE00;
+    }
 
-/* The primary foreground colour. */
-body {
-    background-color: #D1D9E1;
-    scrollbar-arrow-color: #636363;
-    scrollbar-track-color: #D1D9E1;
-}
+    .headerSelected {
+    /* Background color for selected header. */
+		background-image:url( "../icons/buuftheme/home_hover.png" );
+		background-repeat:repeat;
+		color: #333333;
+    }
 
-/* The album comments. */
-.albumComment {
-    width: 50em;
-    font-size: 8pt;
-    line-height: 1.4em;
-    padding-top: 0.25em;
-}
+    .warning {
+    /* Color for warning messages. */
+		color: #AA1F15;
+    }
+    
+    .log {
+    /* Log file font size */
+        font-size: 8pt;
+		font-weight: bold;
+    }
 
-/* The log. */
-.log {
-    font-weight: bold;
-    font-size: 8pt;
-}
+/*
+ * Main frame menu images
+ */
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/buuftheme/player_back.png") center center repeat;}
-.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #ffAE00 solid 1px;}
+    .back {
+        background-image: url("../icons/buuftheme/back.png");
+    }
+
+    .forward {
+        background-image: url("../icons/buuftheme/forward.png");
+    }
+
+    .refresh {
+        background-image: url("../icons/buuftheme/refresh.png");
+    }
+
+    .download {
+        background-image: url("../icons/buuftheme/download.png");
+    }
+
+    .delete {
+        background-image: url("../icons/buuftheme/remove.png");
+    }
+
+    .up{
+        background-image: url("../icons/buuftheme/up.png");
+    }
+
+    .down {
+        background-image: url("../icons/buuftheme/down.png");
+    }
+
+    .addFromURI {
+        background-image: url("../icons/buuftheme/add.png");
+    }
+
+    .logfile {
+        background-image: url("../icons/buuftheme/log_small.png");
+    }
+
+/*
+ * Player style
+ */
+
+    .solidblockmenu li a:hover, .solidblockmenu li .current {
+    /* Player control hover style */
+        background-color: #ffAE00;
+    }
+
+    .solidblockmenu select:hover {
+    /* Player select hover style */
+        background-color: #ffAE00;
+    }

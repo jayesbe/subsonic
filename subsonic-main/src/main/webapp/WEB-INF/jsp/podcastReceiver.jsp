@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
 <%@ include file="doctype.jsp" %>
 
 <html>
     <head>
         <%@ include file="head.jsp" %>
         <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/prototype.js"/>"></script>
 
         <script type="text/javascript">
             var channelCount;
+            var playing = false;
             
             function itemSelected() {
             }
@@ -46,8 +46,7 @@
                 (expandedChannelCount == channelCount) ? $("showEpisodes").hide() : $("showEpisodes").show();
 
                 var newURI = "podcastReceiver.view?" + ((expandedChannelCount > 0) ? "expandedChannels=" + getExpandedChannels() : "");
-                parent.upper.document.getElementById("podcastLink").href = newURI;
-                parent.upper.document.getElementById("podcastLinkDesc").href = newURI;
+                persistentTopLinks(newURI, false);
             }
 
             function selectionUpdate() {
@@ -59,26 +58,34 @@
                 if (selectedChannelCount > 0 || selectedEpisodeCount > 0) {$("downloadSelected").show(); $("deleteSelected").show()} else {$("downloadSelected").hide(); $("deleteSelected").hide();}
             }
 
-            function toggleEpisodes(channelIndex) {    
+            function toggleEpisodes(channelIndex) {
+                
                 for (var i = 0; i < episodeCount; i++) {
                     var row = $("episodeRow" + i);
                     if (row.title == "channel" + channelIndex) {
-                        row.toggle();
-                        $("channelExpanded" + channelIndex).checked = row.visible() ? "checked" : "";
+                        jQuery(row).delay(i * 10).fadeToggle(100);
+                        $("channelExpanded" + channelIndex).checked = !jQuery(row).is(':visible') ? "checked" : "";
                     }
                 }
                 toggleEpisodesUpdate();
             }
 
             function toggleAllEpisodes(visible) {
-                for (var i = 0; i < episodeCount; i++) {
-                    var row = $("episodeRow" + i);
-                    if (visible) {
-                        row.show();
-                    } else {
-                        row.hide();
-                    }
+                if (playing) return;
+                playing = true;
+                if (visible) {
+                    jQuery('tr[id^="episodeRow"]').each(function(i) {
+                        jQuery(this).css({ 'visibility' : 'visible', "display" : "none" });
+                        jQuery(this).delay(i * 10).fadeIn(400);
+                    })
+                } else {
+                    jQuery('tr[id^="episodeRow"]').each(function(i) {
+                        jQuery(this).delay(i * 10).fadeOut(200);
+                    });
                 }
+                jQuery('tr[id^="episodeRow"]').promise().done(function() {
+                    playing = false;
+                });
                 for (i = 0; i < channelCount; i++) {
                     $("channelExpanded" + i).checked = visible ? "checked" : "";
                 }
@@ -119,7 +126,7 @@
             }
 
             function toggleAddPodcast() {
-                $("addPodcast").toggle();
+                jQuery("#addPodcastFormContainer").toggle("blind");
             }
             
             function verifyPodcastURI() {
@@ -139,14 +146,23 @@
                 
                 // Checks passed: submit
                 document.addPodcastForm.submit();
-                $("addPodcast").toggle();
+                toggleAddPodcast();
             }
+            
+            jQueryLoad.wait(function() {
+                jQueryUILoad.wait(function() {
+                    jQuery("#podcastcontainer").css({ 'visibility' : 'visible', "display" : "none" });
+                    jQuery("#podcastcontainer").delay(30).fadeIn(600);
+                });
+                prototypeLoad.wait(function() { jQuery(toggleEpisodesUpdate)
+                });
+            });
         </script>
     </head>
-    <body class="mainframe bgcolor1" onLoad="toggleEpisodesUpdate()">
+    <body class="mainframe bgcolor1">
 
         <c:if test="${model.user.podcastRole}">
-            <div id="addPodcast" class="bgcolor1" style="display:none">
+            <div id="addPodcastFormContainer" class="bgcolor1" style="display:none">
                 <div style="width:50%;margin:2px auto;">
                     <form name="addPodcastForm" method="post" action="podcastReceiverAdmin.view?">
                         <input type="hidden" name="expandedChannels" value=""/>
@@ -155,7 +171,7 @@
                                 <td><fmt:message key="podcastreceiver.address"/></td>
                                 <td><input type="text" name="add" value="" style="width:30em" onclick="select()"/></td>
                                 <td><input type="button" value="<fmt:message key='common.ok'/>" onClick="verifyPodcastURI()"/></td>
-                                <td><input type="reset" value="<fmt:message key='common.cancel'/>" onClick="document.getElementById('addPodcast').style.display='none'"/></td>
+                                <td><input type="reset" value="<fmt:message key='common.cancel'/>" onClick="toggleAddPodcast()"/></td>
                             </tr>
                         </table>
                     </form>
@@ -165,21 +181,21 @@
 
         <div id="mainframecontainer">
 
-            <div id="mainframemenucontainer" class="bgcolor1">
+            <div id="mainframemenucontainer" class="bgcolor1 fade">
                 <span id="mainframemenuleft">
                     <c:if test="${model.user.podcastRole}">
-                        <span class="mainframemenuitem refresh" style="background-image: url('<spring:theme code='refreshImage'/>')"><a href="javascript:refreshChannels()"><fmt:message key="podcastreceiver.check"/></a></span>
-                        <span class="mainframemenuitem addFromURI" style="background-image: url(<spring:theme code='addImage'/>)"><a href="#" onClick="javascript:toggleAddPodcast()"><fmt:message key="podcastreceiver.subscribe"/></a></span>
-                        <span id="downloadSelected" class="mainframemenuitem" style="display:none;background-image: url(<spring:theme code='downloadImage'/>)"><a href="javascript:downloadSelected()"><fmt:message key="podcastreceiver.downloadselected"/></a></span>
-                        <span id="deleteSelected" class="mainframemenuitem" style="display:none;background-image: url(<spring:theme code='removeImage'/>)"><a href="javascript:deleteSelected()"><fmt:message key="podcastreceiver.deleteselected"/></a></span>
+                        <span class="mainframemenuitem refresh"><a href="javascript:refreshChannels()"><fmt:message key="podcastreceiver.check"/></a></span>
+                        <span id="addPodcast" class="mainframemenuitem addFromURI"><a href="#" onClick="javascript:toggleAddPodcast()"><fmt:message key="podcastreceiver.subscribe"/></a></span>
+                        <span id="downloadSelected" class="mainframemenuitem download" style="display:none"><a href="javascript:downloadSelected()"><fmt:message key="podcastreceiver.downloadselected"/></a></span>
+                        <span id="deleteSelected" class="mainframemenuitem delete" style="display:none"><a href="javascript:deleteSelected()"><fmt:message key="podcastreceiver.deleteselected"/></a></span>
                     </c:if>
                 </span>
                 <span id="mainframemenucenter">
-                    <span id="hideEpisodes" class="mainframemenuitem" style="display:none;background-image: url(<spring:theme code='upImage'/>)"><a href="javascript:toggleAllEpisodes(false)"><fmt:message key="podcastreceiver.collapseall"/></a></span>
-                    <span id="showEpisodes" class="mainframemenuitem" style="display:none;background-image: url(<spring:theme code='downImage'/>)"><a href="javascript:toggleAllEpisodes(true)"><fmt:message key="podcastreceiver.expandall"/></a></span>
+                    <span id="hideEpisodes" class="mainframemenuitem up" style="display:none"><a href="javascript:toggleAllEpisodes(false)"><fmt:message key="podcastreceiver.collapseall"/></a></span>
+                    <span id="showEpisodes" class="mainframemenuitem down" style="display:none"><a href="javascript:toggleAllEpisodes(true)"><fmt:message key="podcastreceiver.expandall"/></a></span>
                 </span>
                 <span id="mainframemenuright">
-                    <span class="mainframemenuitem refresh right" style="background-image: url('<spring:theme code='refreshImage'/>')"><a href="javascript:refreshPage()"><fmt:message key="podcastreceiver.refresh"/></a></span>
+                    <span class="mainframemenuitem refresh right"><a href="javascript:refreshPage()"><fmt:message key="podcastreceiver.refresh"/></a></span>
                     <c:if test="${model.user.adminRole}">
                         <span class="mainframemenuitem forward right"><a href="podcastSettings.view?"><fmt:message key="podcastreceiver.settings"/></a></span>
                     </c:if>
@@ -188,13 +204,14 @@
 
             <div id="mainframecontentcontainer">
                 <div id="mainframecontent">
+                    <div id="mainframecontentheader" class="fade">
+                        <h1>
+                            <img id="pageimage" src="<spring:theme code="podcastImage"/>" alt=""/>
+                            <span class="desc"><fmt:message key="podcastreceiver.title"/></span>
+                        </h1>
+                    </div>
 
-                <h1>
-                    <img id="pageimage" src="<spring:theme code="podcastLargeImage"/>" alt=""/>
-                    <span class="desc"><fmt:message key="podcastreceiver.title"/></span>
-                </h1>
-
-                    <table style="border-collapse:collapse;white-space:nowrap">
+                    <table id="podcastcontainer" style="border-collapse:collapse;white-space:nowrap">
                         <tr style="margin:0;padding:0;border:0">
                             <td style="padding-left:0.25em;padding-top:1em" colspan="7">Podcast Name</td>
                             <td style="padding-left:1.5em;padding-top:1em;text-align:center;" align="center">Status</td>

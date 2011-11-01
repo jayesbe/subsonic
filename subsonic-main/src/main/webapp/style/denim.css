@@ -4,89 +4,119 @@
  * Author: Thomas Bruce Dyrud (thomasbrucedyrud[at]gmail.com)
  *
  */
-@import "accordion-redmond.css";
 @import "default.css";
-@import "playermod-cccccc.css";
+@import "accordion/redmond.css";
+@import "playermod/fg/cccccc.css";
+@import "playermod/bg/456993.css";
 
-/* The primary background colour. */
-.bgcolor1 {
-    background-color: #456993;
-}
+/*
+ * Background colors
+ */
 
-/* The secondary background colour, light blue, primary theme colour. */
-.bgcolor2, .ruleTableHeader, .log {
-    background-color: #456993;
-    color: #EFE9D9;
-}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: #456993;
+    }
 
-/* Background colour for selected header, log etc. */
-.headerSelected {
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: #456993;
+        color: #EFE9D9;
+    }
+
+/*
+ * Border settings for main frames
+ */
+
+    .mainframe {
+    /* Main frame border style */
+        background-color: #456993;
+    }
+
+/*
+ * Miscellaneous style settings and helpers
+ */
+
+    body {
+    /* Primary foreground (font) color. (black) */
+        color: #EFE9D9;
+        background-color: #DDDDDD;
+    }
+
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #B6BEC2;
+    }
+
+    a:hover, a:hover * {
+    /* Link hover style */
+        text-decoration: underline;
+        color: #B6BEC2;
+    }
+
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+        color: #EFE9D9;
+    }
+
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+        color: #EFE9D9;
+    }
+
+    label, p {
+    /* Label font size */
+        color: #CCC;
+    }
+
+    .headerSelected {
+    /* Background color for selected header. */
     color: #EFE9D9;
     background-color: #456993;
     border: 1px solid #EFE9D9;
-}
+    }
 
-
-/* The secondary foreground colour used for h1, details etc. */
-h1, .detail, .albumComment {
-    color: #EFE9D9;
-}
-
-/* Foreground colour used for h2, bold and tr. */
-h2, b, tr {
-    color: #EFE9D9;
-}
-
-/* Main frame image & colour */
-.mainframe {
-    background-color: #456993;
-    background-position:right;
-}
-
-
-/* Back image */
-.back {
-    background-image:url( "../icons/denim/back.png" );
-}
-
-/* Forward image */
-.forward {
-    background-image:url( "../icons/denim/forward.png" );
-}
-
-
-/* Link colour */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #B6BEC2;
-}
-
-/* Link hover colour */
-a:hover, a:hover * {
-    text-decoration: underline;
-    color: #B6BEC2;
-}
-
-/* Colour for warning messages. */
-.warning {
+    .warning {
+    /* Color for warning messages. */
     color: #990099;
-}
+    }
 
-/* The primary foreground colour. */
-body {
-    color: #EFE9D9;
-    background-color: #DDDDDD;
-}
+/*
+ * Main frame menu images
+ */
 
-html {
-    background-color: transparent;
-}
+    .back {
+        background-image: url("../icons/denim/back.png");
+    }
 
-label, p {
-    color: #CCC;
-}
+    .forward {
+        background-image: url("../icons/denim/forward.png");
+    }
 
+    .refresh {
+        background-image: url("../icons/denim/refresh.png");
+    }
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/denim/player_back.png") center center repeat;}
+    .download {
+        background-image: url("../icons/denim/download.png");
+    }
+
+    .delete {
+        background-image: url("../icons/denim/remove.png");
+    }
+
+    .up{
+        background-image: url("../icons/denim/up.png");
+    }
+
+    .down {
+        background-image: url("../icons/denim/down.png");
+    }
+
+    .addFromURI {
+        background-image: url("../icons/denim/add.png");
+    }
+
+    .logfile {
+        background-image: url("../icons/denim/log_small.png");
+    }

@@ -71,7 +71,8 @@ public class GeneralSettingsController extends SimpleFormController {
             }
         }
         command.setLocales(localeStrings);
-
+        command.setWebFont(settingsService.getWebFont());
+        command.setMMAPIKey(settingsService.getMMAPIKey());
         return command;
 
     }
@@ -89,7 +90,8 @@ public class GeneralSettingsController extends SimpleFormController {
                                 !settingsService.getIgnoredArticles().equals(command.getIgnoredArticles()) ||
                                 !settingsService.getShortcuts().equals(command.getShortcuts()) ||
                                 !settingsService.getThemeId().equals(theme.getId()) ||
-                                !settingsService.getLocale().equals(locale));
+                                !settingsService.getLocale().equals(locale) ||
+                                !settingsService.getWebFont().equals(command.getWebFont()));
 
         settingsService.setIndexString(command.getIndex());
         settingsService.setIgnoredArticles(command.getIgnoredArticles());
@@ -105,6 +107,8 @@ public class GeneralSettingsController extends SimpleFormController {
         settingsService.setLoginMessage(command.getLoginMessage());
         settingsService.setThemeId(theme.getId());
         settingsService.setLocale(locale);
+        settingsService.setWebFont(command.getWebFont());
+        settingsService.setMMAPIKey(command.getMMAPIKey());
         settingsService.save();
     }
 

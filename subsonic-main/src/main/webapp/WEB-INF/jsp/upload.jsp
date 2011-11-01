@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"% >
 <%@ include file="doctype.jsp" %>
 
 <html>
@@ -11,8 +11,10 @@
         <script type="text/javascript" src="<c:url value="/dwr/interface/transferService.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/dwr/engine.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/dwr/util.js"/>"></script>
+
         <script type="text/javascript" src="<c:url value="/script/niceforms2.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/prototype.js"/>"></script>
+        <link type="text/css" rel="stylesheet" href="<c:url value="/style/niceforms2/niceforms-default.css" />"/>
+
         <script type="text/javascript" src="<c:url value="/script/upload.js"/>"></script>
     </head>
     <body class="mainframe bgcolor1">
@@ -23,7 +25,7 @@
             <div id="mainframemenucontainer" class="bgcolor1">
                 <span id="mainframemenuleft">
                     <span class="back cancel"><a href="more.view?" id="backlink"><fmt:message key="common.back"/></a></span>
-                    <span id="upload" class="mainframemenuitem" style="background-image: url('<spring:theme code='uploadImage'/>')"><a href="#" onClick="javascript:toggleUploadFile()">Upload File</a></span>
+                    <span id="upload" class="mainframemenuitem" style="background-image: url('<spring:theme code='uploadImage'/>')"><a href="#" onClick="javascript:toggleUploadFile()"><fmt:message key="upload.uploadfile"/></a></span>
                 </span>
             </div>
 

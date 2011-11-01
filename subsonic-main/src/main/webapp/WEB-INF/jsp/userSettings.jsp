@@ -1,21 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
 <%@ include file="doctype.jsp" %>
 
 <html>
     <head>
         <%@ include file="head.jsp" %>
-        <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/prototype.js"/>"></script>
-    </head>
-
-    <body class="mainframe bgcolor1" onload="enablePasswordChangeFields();">
-        <script type="text/javascript" src="<c:url value="/script/wz_tooltip.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/tip_balloon.js"/>"></script>
-
-        <c:import url="settingsHeader.jsp">
-            <c:param name="cat" value="user"/>
-        </c:import>
-
         <script type="text/javascript" language="javascript">
             function enablePasswordChangeFields() {
                 var changePasswordCheckbox = $("passwordChange");
@@ -38,6 +26,15 @@
                 }
             }
         </script>
+    </head>
+
+    <body class="mainframe bgcolor1">
+        <script type="text/javascript" src="<c:url value="/script/wz_tooltip.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/script/tip_balloon.js"/>"></script>
+
+        <c:import url="settingsHeader.jsp">
+            <c:param name="cat" value="user"/>
+        </c:import>
 
         <form:form method="post" action="userSettings.view" commandName="command">
 
@@ -53,8 +50,7 @@
                         <select name="username" onchange="location='userSettings.view?userIndex=' + (selectedIndex - 1);">
                             <option value="">-- <fmt:message key="usersettings.newuser"/> --</option>
                             <c:forEach items="${command.users}" var="user">
-                                <option ${user.username eq command.username ? "selected" : ""}
-                                        value="${user.username}">${user.username}</option>
+                                <option ${user.username eq command.username ? "selected" : ""} value="${user.username}">${user.username}</option>
                             </c:forEach>
                         </select>
                     </td>
@@ -180,7 +176,7 @@
                         </tr>
                     </table>
 
-                    <table id="passwordChangeTable" style="display:none">
+                    <table id="passwordChangeTable">
                         <tr>
                             <td><fmt:message key="usersettings.newpassword"/></td>
                             <td><form:password path="password" id="path"/></td>
@@ -200,6 +196,7 @@
                             <td class="warning"><form:errors path="email"/></td>
                         </tr>
                     </table>
+                    <script>enablePasswordChangeFields();</script>
                 </c:otherwise>
             </c:choose>
         </form:form>

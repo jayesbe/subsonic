@@ -163,6 +163,7 @@ public class UserDaoTestCase extends DaoTestCaseBase {
         assertNotNull("Error in getUserSettings().", userSettings.getListType());
         assertEquals("Error in getUserSettings().", 2, userSettings.getListRows());
         assertEquals("Error in getUserSettings().", 5, userSettings.getListColumns());
+        assertNull("Error in getUserSettings().", userSettings.getWebFont());
 
         UserSettings settings = new UserSettings("sindre");
         settings.setLocale(Locale.SIMPLIFIED_CHINESE);
@@ -186,6 +187,7 @@ public class UserDaoTestCase extends DaoTestCaseBase {
         settings.setListType("random");
         settings.setListRows(3);
         settings.setListColumns(7);
+        settings.setWebFont("webfont");
 
         userDao.updateUserSettings(settings);
         userSettings = userDao.getUserSettings("sindre");
@@ -212,6 +214,7 @@ public class UserDaoTestCase extends DaoTestCaseBase {
         assertEquals("Error in getUserSettings().", "random", userSettings.getListType());
         assertEquals("Error in getUserSettings().", 3, userSettings.getListRows());
         assertEquals("Error in getUserSettings().", 7, userSettings.getListColumns());
+        assertEquals("Error in getUserSettings().", "webfont", userSettings.getWebFont());
 
         userDao.deleteUser("sindre");
         assertNull("Error in cascading delete.", userDao.getUserSettings("sindre"));

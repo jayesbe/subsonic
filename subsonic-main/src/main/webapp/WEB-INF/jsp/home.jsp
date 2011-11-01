@@ -1,15 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
 <%@ include file="doctype.jsp" %>
 
 <html>
     <head>
         <%@ include file="head.jsp" %>
-        <link href="<c:url value="/style/shadow.css"/>" rel="stylesheet">
         <c:if test="${model.listType eq 'random'}">
             <meta http-equiv="refresh" content="2000">
         </c:if>
-        <script type="text/javascript" src="<c:url value="/script/prototype.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/scriptaculous.js?load=effects"/>"></script>
+        <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
         <script type="text/javascript">        
             function updateListOption(opt, val) {
                 var newURI = 'home.view?listType='
@@ -19,36 +17,41 @@
                     case ("columns"): newURI += '${model.listType}&listRows=${model.listRows}&listColumns=' + val + '&listOffset=${model.listOffset}'; break;
                     case ("offset"):  newURI += '${model.listType}&listRows=${model.listRows}&listColumns=${model.listColumns}&listOffset=' + val; break;
                 }
-                parent.upper.document.getElementById("homeLink").href = newURI;
-                parent.upper.document.getElementById("homeLinkDesc").href = newURI;
-                parent.main.src = newURI;
-                location =  newURI;
+                persistentTopLinks(newURI);
             }
+            
+            jQueryLoad.wait(function() {
+                jQueryUILoad.wait(function() {
+                    jQuery("#welcomemessage").css({ 'visibility' : 'visible', "display" : "none" });
+                    jQuery("#welcomemessage").delay(30 * ${model.listColumns}).fadeIn(600);
+                    //jQuery("#mainframecontentheader").css({ 'visibility' : 'visible', "display" : "none" });
+                    //jQuery("#mainframecontentheader").show("slide", 300);
+                });
+            });
         </script>
     </head>
     <body class="mainframe bgcolor1">
         <fmt:message key='common.pluralizer' var="pluralizer"/>
         <div id="mainframecontainer">
 
-            <div id="mainframemenucontainer" class="bgcolor1">
+            <div id="mainframemenucontainer" class="bgcolor1 fade">
                 <span id="mainframemenuleft">
                     <select name="listRows" id="listRows" onChange="updateListOption('rows', options[selectedIndex].value);">
                     <c:forTokens items="1 2 3 4 5 6 7 8 9 10 15 20 25 30 40 50 75 100" delims=" " var="listrows">
-                            <option ${listrows eq model.listRows ? "selected" : ""} value="${listrows}"><fmt:message key="home.listrows"><fmt:param value="${listrows}"/></fmt:message>${listrows gt 1 ? pluralizer : ""}</option>
+                        <option ${listrows eq model.listRows ? "selected" : ""} value="${listrows}"><fmt:message key="home.listrows"><fmt:param value="${listrows}"/></fmt:message>${listrows gt 1 ? pluralizer : ""}</option>
                     </c:forTokens>
                     </select>
 
                     <select name="listColumns" id="listColumns" onChange="updateListOption('columns', options[selectedIndex].value);">
                     <c:forEach begin="1" end="18" var="listcolumns">
-                            <c:if test="${listcolumns gt 10}">
-
-                                    <c:set var="listcolumns" value="${((listcolumns - 10) * 5) + 10}"/>
-                            </c:if>
-                            <option ${listcolumns eq model.listColumns ? "selected" : ""} value="${listcolumns}"><fmt:message key="home.listcolumns"><fmt:param value="${listcolumns}"/></fmt:message>${listcolumns gt 1 ? pluralizer : ""}</option>
+                        <c:if test="${listcolumns gt 10}">
+                            <c:set var="listcolumns" value="${((listcolumns - 10) * 5) + 10}"/>
+                        </c:if>
+                        <option ${listcolumns eq model.listColumns ? "selected" : ""} value="${listcolumns}"><fmt:message key="home.listcolumns"><fmt:param value="${listcolumns}"/></fmt:message>${listcolumns gt 1 ? pluralizer : ""}</option>
                     </c:forEach>
                     </select>
                 </span>
-                <span id="mainframemenucenter">
+                <span id="mainframemenuleft">
                     <c:choose>
                         <c:when test="${model.listType eq 'random'}">
                             <sub:url value="home.view" var="moreUrl">
@@ -56,7 +59,7 @@
                                 <sub:param name="listRows" value="${model.listRows}"/>
                                 <sub:param name="listColumns" value="${model.listColumns}"/>
                             </sub:url>
-                            <span class="mainframemenuitem"><a href="${moreUrl}" style="width:5em;"><fmt:message key="common.more"/></a></span>
+                            <span class="mainframemenuitem"><a href="${moreUrl}"><fmt:message key="common.more"/></a></span>
                         </c:when>
                         <c:otherwise>
                             <sub:url value="home.view" var="previousUrl">
@@ -77,52 +80,50 @@
                         </c:otherwise>
                     </c:choose>
                 </span>
-
-                <span id="mainframemenuright">
-                        <%@ include file="searchbox.jsp" %>
-                </span>
             </div>
 
             <div id="mainframecontentcontainer">
                 <div id="mainframecontent">
-                    <h1>
+                    <div id="mainframecontentheader" class="fade">
+                        <h1>
                             <img id="pageimage" src="<spring:theme code="homeImage"/>" alt="" />
                             <span class="desc">${model.welcomeTitle}</span>
-                    </h1>
+                        </h1>
 
-                    <c:if test="${not empty model.welcomeSubtitle}">
+                        <c:if test="${not empty model.welcomeSubtitle}">
                             <h2>${model.welcomeSubtitle}</h2>
-                    </c:if>
+                        </c:if>
 
-                    <h2 class="homecategories">
-                        <c:set var="listTypeEnum" value="newest highest frequent recent random"/>
-                        <c:set var="listTypeEnum">${model.listType} <str:replace replace="${model.listType}" with="">${listTypeEnum}</str:replace></c:set>
-                        <c:forTokens items="${listTypeEnum}" delims=" " var="cat" varStatus="loopStatus">
-                            ${loopStatus.count gt 1 ? "&nbsp;|&nbsp;" : ""}
-                            <sub:url var="url" value="home.view">
-                                <sub:param name="listType" value="${cat}"/>
-                                <sub:param name="listRows" value="${model.listRows}"/>
-                                <sub:param name="listColumns" value="${model.listColumns}"/>
-                            </sub:url>
+                        <h2 class="homecategories">
+                            <c:set var="listTypeEnum" value="newest highest frequent recent random"/>
+                            <c:set var="listTypeEnum">${model.listType} <str:replace replace="${model.listType}" with="">${listTypeEnum}</str:replace></c:set>
+                            <c:forTokens items="${listTypeEnum}" delims=" " var="cat" varStatus="loopStatus">
+                                ${loopStatus.count gt 1 ? "&nbsp;|&nbsp;" : ""}
+                                <sub:url var="url" value="home.view">
+                                    <sub:param name="listType" value="${cat}"/>
+                                    <sub:param name="listRows" value="${model.listRows}"/>
+                                    <sub:param name="listColumns" value="${model.listColumns}"/>
+                                </sub:url>
 
-                            <c:choose>
-                                <c:when test="${model.listType eq cat}">
-                                    <span class="headerSelected"><fmt:message key="home.${cat}.title"/></span>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="${url}" onclick="updateListOption('type','${cat}');"><fmt:message key="home.${cat}.title"/></a>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forTokens>
-                    </h2>
+                                <c:choose>
+                                    <c:when test="${model.listType eq cat}">
+                                        <span class="headerSelected"><fmt:message key="home.${cat}.title"/></span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="${url}" onclick="updateListOption('type','${cat}');"><fmt:message key="home.${cat}.title"/></a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forTokens>
+                        </h2>
 
-                    <div id="longbar"></div>
+                        <div id="longbar"></div>
 
-                    <c:if test="${model.isIndexBeingCreated}">
-                        <p class="warning"><fmt:message key="home.scan"/></p>
-                    </c:if>
+                        <c:if test="${model.isIndexBeingCreated}">
+                            <p class="warning"><fmt:message key="home.scan"/></p>
+                        </c:if>
 
-                    <h2 id="pageimage"><fmt:message key="home.${model.listType}.text"/></h2>
+                        <h2 id="pageimage"><fmt:message key="home.${model.listType}.text"/></h2>
+                    </div>
 
                     <div id="homeContent" style="vertical-align:top;float:left;width:100%">
                         <div id="categoryContent">
@@ -137,7 +138,7 @@
                                                 <tr>
                                             </c:if>
                                             <td style="vertical-align:top">
-                                                <table>
+                                                <table class="fade">
                                                     <tr>
                                                         <td>
                                                             <c:import url="coverArt.jsp">
@@ -148,7 +149,6 @@
                                                                 <c:param name="showLink" value="true"/>
                                                                 <c:param name="showZoom" value="false"/>
                                                                 <c:param name="showChange" value="false"/>
-                                                                <c:param name="appearAfter" value="${loopStatus.count * 30}"/>
                                                             </c:import>
 
                                                             <div class="detail">
@@ -191,7 +191,7 @@
                                     </table>
                                     <c:if test="${not empty model.welcomeMessage}">
                                         </td><td style="vertical-align:top;">
-                                            <div class="welcomeMessage">
+                                            <div id="welcomemessage">
                                                 <sub:wiki text="${model.welcomeMessage}"/>
                                                 <span>${model.welcomeSubtitle}</span>
                                             </div>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
 <%@ include file="doctype.jsp" %>
 
 <html>
@@ -107,7 +107,7 @@
 
         <div id="mainframecontainer">
 
-            <div id="mainframemenucontainer" class="bgcolor1">
+            <div id="mainframemenucontainer" class="bgcolor1 fade">
                 <span id="mainframemenuleft">
                         <sub:url value="main.view" var="backUrl"><sub:param name="path" value="${model.path}"/></sub:url>
                         <span class="mainframemenuitem back cancel"><a href="${backUrl}" id="backlink"><fmt:message key="common.cancel"/></a></span>
@@ -119,9 +119,11 @@
 
             <div id="mainframecontentcontainer">
                 <div id="mainframecontent">
-                    <h1><fmt:message key="edittags.title"/></h1>
+                    <div id="mainframecontentheader" class="fade">
+                        <h1><fmt:message key="edittags.title"/></h1>
+                    </div>
 
-                    <table class="ruleTable indent" style="margin: 2px auto">
+                    <table class="fade" class="ruleTable indent" style="margin: 2px auto">
                         <tr>
                             <th class="ruleTableHeader"><fmt:message key="edittags.file"/></th>
                             <th class="ruleTableHeader"><fmt:message key="edittags.track"/></th>

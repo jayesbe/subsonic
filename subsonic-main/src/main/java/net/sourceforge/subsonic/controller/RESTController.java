@@ -399,14 +399,22 @@ public class RESTController extends MultiActionController {
                 playlistControlService.doStop(request, response);
             } else if ("skip".equals(action)) {
                 int index = ServletRequestUtils.getRequiredIntParameter(request, "index");
-                playlistControlService.doSkip(request, response, index);
+                int offset = ServletRequestUtils.getIntParameter(request, "offset", 0);
+                playlistControlService.doSkip(request, response, index, offset);
             } else if ("add".equals(action)) {
-                String[] ids = ServletRequestUtils.getRequiredStringParameters(request, "id");
+                String[] ids = ServletRequestUtils.getStringParameters(request, "id");
                 List<String> paths = new ArrayList<String>(ids.length);
                 for (String id : ids) {
                     paths.add(StringUtil.utf8HexDecode(id));
                 }
                 playlistControlService.doAdd(request, response, paths);
+            } else if ("set".equals(action)) {
+                String[] ids = ServletRequestUtils.getStringParameters(request, "id");
+                List<String> paths = new ArrayList<String>(ids.length);
+                for (String id : ids) {
+                    paths.add(StringUtil.utf8HexDecode(id));
+                }
+                playlistControlService.doSet(request, response, paths);
             } else if ("clear".equals(action)) {
                 playlistControlService.doClear(request, response);
             } else if ("remove".equals(action)) {
@@ -426,10 +434,18 @@ public class RESTController extends MultiActionController {
             if (returnPlaylist) {
 
                 Player player = playerService.getPlayer(request, response);
+                Player jukeboxPlayer = jukeboxService.getPlayer();
+                boolean controlsJukebox = jukeboxPlayer != null && jukeboxPlayer.getId().equals(player.getId());
                 Playlist playlist = player.getPlaylist();
-                Iterable<Attribute> attrs = Arrays.asList(new Attribute("currentIndex", playlist.getIndex()),
-                        new Attribute("playing", playlist.getStatus() == Playlist.Status.PLAYING),
-                        new Attribute("gain", jukeboxService.getGain()));
+
+                List<Attribute> attrs = new ArrayList<Attribute>(Arrays.asList(
+                        new Attribute("currentIndex", controlsJukebox && !playlist.isEmpty() ? playlist.getIndex() : -1),
+                        new Attribute("playing", controlsJukebox && !playlist.isEmpty() && playlist.getStatus() == Playlist.Status.PLAYING),
+                        new Attribute("gain", jukeboxService.getGain())));
+                if (controlsJukebox) {
+                    attrs.add(new Attribute("position", jukeboxService.getPosition()));
+                }
+
                 builder.add("jukeboxPlaylist", attrs, false);
                 for (MusicFile musicFile : playlist.getFiles()) {
                     File coverArt = musicFileService.getCoverArt(musicFile.getParent());
@@ -1229,15 +1245,20 @@ public class RESTController extends MultiActionController {
         request = wrapRequest(request);
         String artist = request.getParameter("artist");
         String title = request.getParameter("title");
-        LyricsInfo lyrics = lyricsService.getLyrics(artist, title);
+        String apikey = settingsService.getMMAPIKey();
+        if (apikey == null) {
+            LOG.warn("No musiXmatch API key set. Sign up at https://developer.musixmatch.com/signup.");
+            return;
+        }
+        LyricsInfo lyrics = lyricsService.getLyrics(artist, title, apikey);
 
         XMLBuilder builder = createXMLBuilder(request, response, true);
         AttributeSet attributes = new AttributeSet();
         if (lyrics.getArtist() != null) {
             attributes.add("artist", lyrics.getArtist());
         }
-        if (lyrics.getTitle() != null) {
-            attributes.add("title", lyrics.getTitle());
+        if (lyrics.getTrack() != null) {
+            attributes.add("title", lyrics.getTrack());
         }
         builder.add("lyrics", attributes, lyrics.getLyrics(), true);
 
@@ -1325,7 +1346,7 @@ public class RESTController extends MultiActionController {
             builder = XMLBuilder.createJSONPBuilder(request.getParameter("callback"));
             response.setContentType("text/javascript");
         } else {
-            builder = XMLBuilder.createXMLBuilder();
+        	builder = XMLBuilder.createXMLBuilder();
             response.setContentType("text/xml");
         }
         

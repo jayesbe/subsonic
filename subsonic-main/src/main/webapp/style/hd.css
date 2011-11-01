@@ -4,95 +4,89 @@
  * Author: Sindre Mehus
  */
 @import "midnight.css";
-@import "playermod-cfd1d6";
+@import "playermod/fg/cfd1d6.css";
+@import "playermod/bg/000843.css";
 
-/* The primary background color. */
-.bgcolor1 {
-    background-color: #000843;
-}
+/*
+ * Background colors
+ */
 
-/* The secondary background color. */
-.bgcolor2, .ruleTableHeader, .log {
-    background-color: #00042E
-}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: #000843;
+    }
 
-/* Put stuff here if you need to customize the body of the main frame. */
-.mainframe {
-    background-image:url('../icons/hd/background.png');
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-    background-color: #00042E
-}
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: #00042E
+    }
 
-/* Background color for selected header, log etc. */
-.headerSelected {
-    background-color: #CFD1D6;
-}
+/*
+ * Border settings for main frames
+ */
 
-/* The primary foreground color. */
-body {
-    color: #CFD1D6;
-}
+    .mainframe {
+    /* Main frame border style */
+        background-image:url('../icons/hd/background.png');
+        background-repeat:no-repeat;
+        background-attachment:fixed;
+        background-color: #00042E
+    }
 
-/* The secondary foreground color used for h1, details etc. */
-h1, .detail, .albumComment {
-    color: #CFD1D6;
-}
+/*
+ * Miscellaneous style settings and helpers
+ */
 
-/* Foreground color used for h2, bold and tr. */
-h2, b, tr {
-    color: #CFD1D6;
-}
+    body {
+    /* Primary foreground (font) color. (black) */
+        color: #CFD1D6;
+        font-size: 14pt;
 
-/* Link color */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #97D9FF
-}
+    /* Scrollbar colors (supported on IE and Opera) */
+        scrollbar-face-color: #00042E;
+        scrollbar-highlight-color: #000843;
+        scrollbar-shadow-color: #00042E;
+        scrollbar-3dlight-color: #00042E;
+        scrollbar-arrow-color: #000843;
+        scrollbar-track-color: #000843;
+        scrollbar-darkshadow-color: #000843;
+    }
 
-/* Link hover color */
-a:hover, a:hover * {
-    color: orange;
-}
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #97D9FF
+    }
 
-/* Scrollbar colors (supported on IE and Opera) */
-body {
-    scrollbar-face-color: #00042E;
-    scrollbar-highlight-color: #000843;
-    scrollbar-shadow-color: #00042E;
-    scrollbar-3dlight-color: #00042E;
-    scrollbar-arrow-color: #000843;
-    scrollbar-track-color: #000843;
-    scrollbar-darkshadow-color: #000843;
-}
+    a:hover, a:hover * {
+    /* Link hover style */
+        color: orange;
+    }
 
-/* Font 1 */
-body, h2, form, input, select, label, table, a, h1, h1 a, .logo {
-    font-family: calibri, arial, sans-serif;
-}
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+        color: #CFD1D6;
+    }
 
-body {
-    margin:1.5em;
-    font-size: 14pt;
-}
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+        color: #CFD1D6;
+    }
 
-h1, h2, th {
-    font-weight:normal;
-}
+    .albumComment {
+        font-size: 12pt;
+    }
 
-input, select {
-    font-size: 100%;
-}
+    .detail {
+    /* Detail font style */
+        font-size: 12pt;
+    }
 
-.detail {
-    font-size: 12pt;
-}
+    .headerSelected {
+    /* Background color for selected header. */
+        background-color: #CFD1D6;
+    }
 
-.albumComment, .log {
-    font-size: 12pt;
-}
-
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/hd/player_back.png") center center repeat;}
-.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #97D9FF solid 1px;}
+    .log {
+    /* Log file font size */
+        font-size: 12pt;
+    }

@@ -18,7 +18,7 @@
  */
 package net.sourceforge.subsonic.controller;
 
-import java.io.File;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +64,7 @@ public class MoreController extends ParameterizableViewController {
         map.put("user", securityService.getCurrentUser(request));
         map.put("uploadDirectory", uploadDirectory);
         map.put("genres", searchService.getGenres());
+        map.put("miniSubInstalled", checkMinisub());
         map.put("currentYear", Calendar.getInstance().get(Calendar.YEAR));
         map.put("musicFolders", settingsService.getAllMusicFolders());
         map.put("clientSidePlaylist", player.isExternalWithPlaylist() || player.isWeb());
@@ -74,6 +75,11 @@ public class MoreController extends ParameterizableViewController {
         result.addObject("model", map);
  
         return result;
+    }
+
+    public boolean checkMinisub() {
+        File minisub = new File("minisub/index.html");
+        return minisub.exists();
     }
 
     public void setSettingsService(SettingsService settingsService) {

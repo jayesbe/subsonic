@@ -11,7 +11,6 @@ PARAMETERS
   showZoom: Whether to display a link for zooming the cover art.
   showChange: Whether to display a link for changing the cover art.
   showCaption: Whether to display the album name as a caption below the image.
-  appearAfter: Fade in after this many milliseconds, or nil if no fading in should happen.
 --%>
 <c:choose>
     <c:when test="${empty param.coverArtSize}">
@@ -58,15 +57,6 @@ PARAMETERS
             </div>
         </div>
     </div>
-    <c:if test="${not empty param.appearAfter}">
-        <script type="text/javascript">
-            if (window.addEventListener) {
-                window.addEventListener('load', function() {
-                    setTimeout("new Effect.Opacity('${divId}', { from: 0.0, to: 1.0, duration: 0.5 })", ${param.appearAfter});
-                }, false);
-            }
-        </script>
-    </c:if>
 </div>
 
 <div style="text-align:center; padding-right: 8px;">

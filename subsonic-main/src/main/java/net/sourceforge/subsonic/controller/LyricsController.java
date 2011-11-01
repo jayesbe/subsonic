@@ -26,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.HashMap;
 
+import net.sourceforge.subsonic.service.SettingsService;
+
 /**
  * Controller for the lyrics popup.
  *
@@ -33,14 +35,21 @@ import java.util.HashMap;
  */
 public class LyricsController extends ParameterizableViewController {
 
+    private SettingsService settingsService;
+
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
 
         map.put("artist", request.getParameter("artist"));
-        map.put("song", request.getParameter("song"));
+        map.put("track", request.getParameter("track"));
+        map.put("apikey", settingsService.getMMAPIKey());
 
         ModelAndView result = super.handleRequestInternal(request, response);
         result.addObject("model", map);
         return result;
+    }
+
+    public void setSettingsService(SettingsService settingsService) {
+        this.settingsService = settingsService;
     }
 }

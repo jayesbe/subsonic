@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
 <%@ include file="include.jsp" %>
 
 <%--
@@ -40,12 +40,12 @@ PARAMETERS
 
 </c:forEach>
 
-<sub:url value="setRating.view" var="clearRatingUrl">
+<sub:url value="setRating.view" var="ratingClearUrl">
     <sub:param name="path" value="${param.path}"/>
     <sub:param name="action" value="rating"/>
     <sub:param name="rating" value="0"/>
 </sub:url>
 
 <c:if test="${not param.readonly}">
-    | <a href="${clearRatingUrl}"><img src="<spring:theme code='clearRatingImage'/>" alt="" title="<fmt:message key='rating.clearrating'/>" style="margin-left:-3px; margin-right:5px"></a>
+    | <a href="${ratingClearUrl}"><img src="<spring:theme code='ratingClearImage'/>" alt="" title="<fmt:message key='rating.clearrating'/>" style="margin-left:-3px; margin-right:5px"></a>
 </c:if>

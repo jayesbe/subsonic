@@ -26,28 +26,52 @@ package net.sourceforge.subsonic.ajax;
 public class LyricsInfo {
 
     private final String lyrics;
+    private final String mmid;
+    private final String mbid;
     private final String artist;
-    private final String title;
+    private final String track;
+    private final String tracker;
+    private final String copyright;
 
     public LyricsInfo() {
-        this(null, null, null);
+        this(null, null, null, null, null, null, null);
     }
 
-    public LyricsInfo(String lyrics, String artist, String title) {
+    public LyricsInfo(String lyrics, String mmid, String mbid, String artist, String track, String tracker, String copyright) {
         this.lyrics = lyrics;
+        this.mmid = mmid;
+        this.mbid = mbid;
         this.artist = artist;
-        this.title = title;
+        this.track = track;
+        this.tracker = tracker;
+        this.copyright = copyright;
     }
 
     public String getLyrics() {
         return lyrics;
     }
 
+    public String getMMID() {
+        return mmid;
+    }
+
+    public String getMBID() {
+        return mbid;
+    }
+
     public String getArtist() {
         return artist;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTrack() {
+        return track;
+    }
+
+    public String getTracker() {
+        return tracker;
+    }
+
+    public String getCopyright() {
+        return copyright;
     }
 }

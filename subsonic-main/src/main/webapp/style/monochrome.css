@@ -3,110 +3,104 @@
  *
  * Author: David D ddavis1@gmail.com
  */
-@import "accordion-smoothness.css";
 @import "default.css";
-@import "playermod-333333.css";
+@import "playermod/fg/333333.css";
+@import "playermod/bg/eeeeee.css";
 
-/* highlights to contrast with bgcolor2. */
-.bgcolor1 {
-  background-color: #EEE;
-}
-
-/* The primary background colour, light blue, primary theme colour. */
-.bgcolor2, .ruleTableHeader, .log {
-    background-color: #CCC;
-}
-
-/* Background colour for selected header, log etc. */
-.headerSelected {
-    color: #000000;
-    background-color: #AAAAAA;
-}
-
-
-/* The secondary foreground colour used for h1, details etc. */
-h1, .detail, .albumComment {
-    color: #000000;
-}
-
-/* Foreground colour used for h2, bold and tr. */
-h2, b, tr {
-    color: #000000;
-}
-
-/* Main frame image & colour */
-.mainframe, .rightframe {
-    background-color: #EEE;
-}
-
-/* Link colour */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #000000;
-}
-
-/* Link hover colour */
-a:hover, a:hover * {
-    text-decoration: underline;
-    color: #FFFFFF;
-}
-
-/* Colour for warning messages. */
-.warning {
-    color: #990099;
-}
-
-/* Background colour for form controls. */
-input, select {
-    color: #333;
-    background-color: #EEE;
-}
-
-/* Hover colour for form controls. */
-input:hover, select:hover {
-    color: #000000;
-    background-color: #FFF;
-}
-
-/* Background colour for option controls. */
-option {
-    font-weight: bold;
-    background-color: #666666;
-    color: #FFFFFF;
-}
-
-/* The primary foreground colour. */
-body {
-    background-color: #EEEEEE;
-}
-
-/* The album comments. */
-.albumComment {
-    width: 50em;
-    font-size: 8pt;
-    line-height: 1.4em;
-    padding-top: 0.25em;
-    color: #000000;
-}
-
-/* The log. */
-.log {
-    font-weight: bold;
-    white-space: nowrap;
-    font-size: 8pt;
-    line-height: 1em;
-    color: #000000;
-    background-color: #C0C0C0;
-}
-
-/* The help, status & web payer settings tables. */
 .ruleTableHeader, .ruleTableCell {
+/* The help, status & web player settings tables. */
     margin: 5px;
     padding: 5px;
     color: #FFFFFF;
     background-color: #C0C0C0;
 }
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/monochrome/player_back.png") center center repeat;}
+/*
+ * Background colors
+ */
+
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: #EEE;
+    }
+
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: #CCC;
+    }
+
+/*
+ * Border settings for main frames
+ */
+
+    .mainframe, .rightframe {
+    /* Main frame border style */
+        background-color: #EEE;
+    }
+
+/*
+ * Miscellaneous style settings and helpers
+ */
+
+    body {
+    /* Primary foreground (font) color. (black) */
+        background-color: #EEEEEE;
+    }
+
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #000000;
+    }
+
+    a:hover, a:hover * {
+    /* Link hover style */
+        text-decoration: underline;
+        color: #FFFFFF;
+    }
+
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+        color: #000000;
+    }
+
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+        color: #000000;
+    }
+
+    input, select, textarea {
+    /* Input form control font style */
+        color: #333;
+        background-color: #EEE;
+    }
+
+    option, #playerSelect option, #moreActions option, #sortActions option {
+    /* Background colour for option controls. */
+        font-weight: bold;
+        background-color: #666666;
+        color: #FFFFFF;
+    }
+
+    input:hover, select:hover {
+    /* Form control hover color. (default) */
+        color: #000000;
+        background-color: #FFF;
+    }
+
+    .headerSelected {
+    /* Background color for selected header. */
+        color: #000000;
+        background-color: #AAAAAA;
+    }
+
+    .warning {
+    /* Color for warning messages. */
+        color: #990099;
+    }
+
+    .log {
+    /* Log file font size */
+        font-weight: bold;
+        color: #000000;
+        background-color: #C0C0C0;
+    }

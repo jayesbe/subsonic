@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import net.sourceforge.subsonic.Logger;
 import net.sourceforge.subsonic.domain.User;
 import net.sourceforge.subsonic.domain.UserSettings;
 import net.sourceforge.subsonic.service.SecurityService;
@@ -43,10 +44,19 @@ import net.sourceforge.subsonic.util.StringUtil;
  */
 public class MultiController extends MultiActionController {
 
+    private static final Logger LOG = Logger.getLogger(MultiController.class);
+
     private SecurityService securityService;
     private SettingsService settingsService;
 
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        if (request.getParameter("error") != null) {
+            String ipAddress  = request.getHeader("X-FORWARDED-FOR");  
+            if (ipAddress == null) {
+                ipAddress = request.getRemoteAddr();  
+            }
+            LOG.warn("Failed login attempt captured from " + ipAddress);
+        }
 
         // Auto-login if "user" and "password" parameters are given.
         String username = request.getParameter("user");
@@ -63,6 +73,7 @@ public class MultiController extends MultiActionController {
         map.put("error", request.getParameter("error") != null);
         map.put("brand", settingsService.getBrand());
         map.put("loginMessage", settingsService.getLoginMessage());
+        map.put("systemWebFont", settingsService.getWebFont());
 
         User admin = securityService.getUserByName(User.USERNAME_ADMIN);
         if (User.USERNAME_ADMIN.equals(admin.getPassword())) {
@@ -99,6 +110,8 @@ public class MultiController extends MultiActionController {
         map.put("listType", userSettings.getListType());
         map.put("listRows", userSettings.getListRows());
         map.put("listColumns", userSettings.getListColumns());
+        map.put("userWebFont", userSettings.getWebFont());
+        map.put("systemWebFont", settingsService.getWebFont());
         return new ModelAndView("index", "model", map);
     }
 

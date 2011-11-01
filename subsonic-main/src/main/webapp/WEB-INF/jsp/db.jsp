@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
 <%@ include file="doctype.jsp" %>
 
 <html>
     <head>
         <%@ include file="head.jsp" %>
         <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/prototype.js"/>"></script>
         <script type="text/javascript">
             function fillBox(what) {
                 document.forms[0].query.value = what.value;
@@ -48,9 +47,9 @@
 
         <div id="mainframecontainer">
 
-            <div id="mainframemenucontainer" class="bgcolor1">
+            <div id="mainframemenucontainer" class="bgcolor1 fade">
                 <span id="mainframemenuleft">
-                    <span class="mainframemenuitem back cancel"><a href="more.view?">Back</a></span>
+                    <span class="mainframemenuitem back cancel"><a href="more.view?"><fmt:message key="common.back"/></a></span>
                 </span>
                 <span id="mainframemenucenter">
                             <select id="dbQueryAction" onChange="dbQueryBuilder()">
@@ -70,8 +69,10 @@
 
             <div id="mainframecontentcontainer">
                 <div id="mainframecontent">
+                    <div id="mainframecontentheader">
+                    </div>
 
-                    <div id="dbQueryBuilder" style="width:50%;margin: 0px auto; ">
+                    <div id="dbQueryBuilder" class="fade" style="width:50%;margin: 0px auto; ">
 
                         <div>
                             <form name="dbQueryForm" method="post" action="db.view" name="query">
@@ -83,7 +84,7 @@
                             ${samples}
                     </div>
 
-                    <div id="dbQueryResults" style="width:100%;margin:0px auto; overflow:auto; display: inline-block;">
+                    <div id="dbQueryResults" class="fade" style="width:100%;margin:0px auto; overflow:auto; display: inline-block;">
                         <c:if test="${not empty model.result}">
                             <h1 style="margin-top:2em">Result</h1>
 

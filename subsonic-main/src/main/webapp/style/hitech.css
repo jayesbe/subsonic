@@ -3,102 +3,120 @@
  *
  * Author: Jeebs (Fisher Evans)
  */
-@import "accordion-lefrog.css";
 @import "default.css";
-@import "playermod-d2f1d5.css";
+@import "accordion/lefrog.css";
+@import "playermod/fg/d2f1d5.css";
+@import "playermod/bg/090a09.css";
 
-table {
-    color: #d2f1d5;
-}
+/*
+ * Background colors
+ */
 
-/* The primary background color. */
-.bgcolor1 {
-    background-color: #090a09;
-}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: #090a09;
+    }
 
-/* The secondary background color. */
-.bgcolor2, .ruleTableHeader, .log {
-    background-color: #090a09;
-}
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: #090a09;
+        background-image:url("../icons/hitech/bg_dn.png");
+    }
 
-body.bgcolor2 {
-    border-bottom: 1px solid #272727;
-}
+/*
+ * Border settings for main frames
+ */
 
-.bgcolor2 {
-    background-image:url("../icons/hitech/bg_dn.png");
-}
+    .mainframe {
+    /* Main frame border style */
+        background-image:url( "../icons/hitech/bg_dn.png" );
+        background-repeat:repeat;
+        background-attachment:fixed;
+        background-position:top left;
+    }
 
-/* Background color for selected header, log etc. */
-.headerSelected {
-    color: #d2f1d5;
-    background-color: #090a09;
-}
+    /*
+     * Border settings for other targets
+     */
+ 
+        .border1, .ruleTableHeader, .ruleTableCell, .headerSelected, .log {
+        /* Simple dark border. */
+            border: 1px solid #272727;
+        }
 
-/* The primary foreground color. */
-body {
-    color: #d2f1d5;
-    background-image:url("../icons/hitech/bg_dn.png");
-}
+/*
+ * Miscellaneous style settings and helpers
+ */
 
-/* The secondary foreground color used for h1, details etc. */
-h1, .detail, .albumComment {
-    color: #d2f1d5;
-}
+    body {
+    /* Primary foreground (font) color. (black) */
+        color: #d2f1d5;
+        background-image:url("../icons/hitech/bg_dn.png");
 
-/* Foreground color used for h2, bold and tr. */
-h2, b, tr {
-    color: #d2f1d5;
-}
+    /* Scrollbar colors (supported on IE and Opera) */
+        scrollbar-face-color: #253126;
+        scrollbar-highlight-color: #00c52c;
+        scrollbar-shadow-color: #253126;
+        scrollbar-3dlight-color: #253126;
+        scrollbar-arrow-color: #00c52c;
+        scrollbar-track-color: #00c52c;
+        scrollbar-darkshadow-color: #00c52c;
+    }
 
-/* Link color */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #00d61b;
-}
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #00d61b;
+    }
 
-/* Link hover color */
-a:hover, a:hover * {
-    text-decoration: underline;
-    color: #ffffff;
-}
+    a:hover, a:hover * {
+    /* Link hover style */
+        text-decoration: underline;
+        color: #ffffff;
+    }
 
-/* Color for warning messages. */
-.warning {
-    color: white;
-}
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+        color: #d2f1d5;
+    }
 
-/* Simple border. */
-.border1, .ruleTableHeader, .ruleTableCell, .headerSelected, .log {
-    border: 1px solid #272727;
-}
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+        color: #d2f1d5;
+    }
 
-/* Scrollbar colors (supported on IE and Opera) */
-body {
-    scrollbar-face-color: #253126;
-    scrollbar-highlight-color: #00c52c;
-    scrollbar-shadow-color: #253126;
-    scrollbar-3dlight-color: #253126;
-    scrollbar-arrow-color: #00c52c;
-    scrollbar-track-color: #00c52c;
-    scrollbar-darkshadow-color: #00c52c;
-}
+    .headerSelected {
+    /* Background color for selected header. */
+        color: #d2f1d5;
+        background-color: #090a09;
+    }
 
-.back {
-    background-image:url("../icons/midnight/back.png");background-position: 0px 3px; background-repeat:no-repeat; padding-left: 16px; line-height: 16px;
-}
-.forward {
-    background-image:url("../icons/midnight/forward.png");background-position: 0px 3px; background-repeat:no-repeat; padding-left: 16px; line-height: 16px;
-}
+    .warning {
+    /* Color for warning messages. */
+        color: white;
+    }
 
-.mainframe {
-    background-image:url( "../icons/hitech/bg_dn.png" );
-    background-repeat:repeat;
-    background-attachment:fixed;
-    background-position:top left;
-}
+/*
+ * Main frame menu images
+ */
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/hitech/player_back.png") center center repeat;}
-.solidblockmenu li a:hover, .solidblockmenu li .current{ border-top: #00d61b solid 1px;}
+    .back {
+        background-image: url("../icons/midnight/back.png");
+    }
+
+    .forward {
+        background-image: url("../icons/midnight/forward.png");
+    }
+
+/*
+ * Player style
+ */
+
+    .solidblockmenu li a:hover, .solidblockmenu li .current {
+    /* Player control hover style */
+        background-color: #00d61b;
+    }
+
+    .solidblockmenu select:hover {
+    /* Player select hover style */
+        background-color: #00d61b;
+    }

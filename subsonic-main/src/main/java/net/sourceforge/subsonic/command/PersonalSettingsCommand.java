@@ -55,6 +55,7 @@ public class PersonalSettingsCommand {
     private String listType;
     private int listRows;
     private int listColumns;
+    private String webFont;
 
     public User getUser() {
         return user;
@@ -238,5 +239,13 @@ public class PersonalSettingsCommand {
 
     public void setListColumns(int listColumns) {
         this.listColumns = listColumns;
+    }
+
+    public String getWebFont() {
+        return webFont;
+    }
+
+    public void setWebFont(String webFont) {
+        this.webFont = webFont;
     }
 }

@@ -3,90 +3,91 @@
  *
  * Author: Jeebs (Fisher Evans)
  */
-@import "accordion-smoothness.css";
 @import "default.css";
-@import "playermod-5c5c5c";
+@import "accordion/smoothness.css";
+@import "playermod/fg/5c5c5c.css";
+@import "playermod/bg/ffffff.css";
 
-table {
-    color: #5c5c5c;
-}
+/*
+ * Background colors
+ */
 
-/* The primary background color. */
-.bgcolor1 {
-    background-color: white;
-}
+    .bgcolor1 {
+    /* Primary background color. (lightgray) */
+        background-color: white;
+    }
 
-/* The secondary background color. */
-.bgcolor2, .ruleTableHeader, .log {
-    background-color: white;
-}
+    .bgcolor2, .ruleTableHeader, .log {
+    /* Secondary background color. (darker blue) */
+        background-color: white;
+    }
 
-body.bgcolor2 {
-    border-bottom: 1px solid #5c5c5c;
-}
+/*
+ * Border settings for main frames
+ */
 
-/* Background color for selected header, log etc. */
-.headerSelected {
-    color: #5c5c5c;
-    background-color: white;
-}
+    /*
+     * Border settings for other targets
+     */
 
-/* The primary foreground color. */
-body {
-    color: #5c5c5c;
-}
+        .border1, .ruleTableHeader, .ruleTableCell, .headerSelected, .log {
+        /* Simple dark border. */
+            border: 1px solid #5c5c5c;
+        }
 
-/* The secondary foreground color used for h1, details etc. */
-h1, .detail, .albumComment {
-    color: #5c5c5c;
-}
+/*
+ * Miscellaneous style settings and helpers
+ */
 
-/* Foreground color used for h2, bold and tr. */
-h2, b, tr {
-    color: #5c5c5c;
-}
+    body {
+    /* Primary foreground (font) color. (black) */
+        color: #5c5c5c;
 
-/* Link color */
-a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
-    color: #000000;
-}
+    /* Scrollbar colors (supported on IE and Opera) */
+        scrollbar-face-color: white;
+        scrollbar-highlight-color: #5c5c5c;
+        scrollbar-shadow-color: white;
+        scrollbar-3dlight-color: white;
+        scrollbar-arrow-color: #5c5c5c;
+        scrollbar-track-color: #5c5c5c;
+        scrollbar-darkshadow-color: #5c5c5c;
+    }
 
-/* Link hover color */
-a:hover, a:hover * {
-    text-decoration: underline;
-    color: #5c5c5c;
-}
+    a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    /* Link color */
+        color: #000000;
+    }
 
-/* Color for warning messages. */
-.warning {
-    color: red;
-}
+    a:hover, a:hover * {
+    /* Link hover style */
+        text-decoration: underline;
+        color: #5c5c5c;
+    }
 
-/* Simple border. */
-.border1, .ruleTableHeader, .ruleTableCell, .headerSelected, .log {
-    border: 1px solid #5c5c5c;
-}
+    h1, .detail, .albumComment {
+    /* Secondary foreground color for h1, details etc. (gray) */
+        color: #5c5c5c;
+    }
 
-/* Scrollbar colors (supported on IE and Opera) */
-body {
-    scrollbar-face-color: white;
-    scrollbar-highlight-color: #5c5c5c;
-    scrollbar-shadow-color: white;
-    scrollbar-3dlight-color: white;
-    scrollbar-arrow-color: #5c5c5c;
-    scrollbar-track-color: #5c5c5c;
-    scrollbar-darkshadow-color: #5c5c5c;
-}
+    h2, b, tr {
+    /* Foreground color for h2, bold and tr. */
+        color: #5c5c5c;
+    }
 
-.back {
-    background-image:url("../icons/midnight/back.png");background-position: 0px 3px; background-repeat:no-repeat; padding-left: 16px; line-height: 16px;
-}
-.forward {
-    background-image:url("../icons/midnight/forward.png");background-position: 0px 3px; background-repeat:no-repeat; padding-left: 16px; line-height: 16px;
-}
+    .headerSelected {
+    /* Background color for selected header. */
+        color: #5c5c5c;
+        background-color: white;
+    }
 
+/*
+ * Main frame menu images
+ */
 
-/***************************************************************************************
- * player images and control dropdown *
- ***************************************************************************************/
-.solidblockmenu{background: black url("../icons/hicon/player_back.png") center center repeat;}
+    .back {
+        background-image: url("../icons/midnight/back.png");
+    }
+
+    .forward {
+        background-image: url("../icons/midnight/forward.png");
+    }
