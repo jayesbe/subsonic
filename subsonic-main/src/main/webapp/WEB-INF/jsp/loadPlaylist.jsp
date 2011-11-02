@@ -18,7 +18,7 @@
     </head>
     <body class="mainframe bgcolor1">
         <div id="mainframecontainer">
-            <div id="mainframemenucontainer" class="bgcolor1">
+            <div id="mainframemenucontainer" class="bgcolor1 fade">
                 <span id="mainframemenuleft">
                     <select id="playlists" name="playlists">
                         <c:forEach items="${model.playlists}" var="playlist">

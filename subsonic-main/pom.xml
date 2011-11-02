@@ -10,7 +10,7 @@
     <parent>
         <groupId>net.sourceforge.subsonic</groupId>
         <artifactId>subsonic</artifactId>
-        <version>4.5</version>
+        <version>4.6.beta1</version>
     </parent>
 
     <dependencies>
@@ -240,33 +240,6 @@
             <groupId>taglibs</groupId>
             <artifactId>string</artifactId>
             <version>1.1.0</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>net.javazoom</groupId>
-            <artifactId>jlayer</artifactId>
-            <version>1.0.1</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>net.javazoom</groupId>
-            <artifactId>basicplayer</artifactId>
-            <version>3.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>net.javazoom</groupId>
-            <artifactId>mp3spi</artifactId>
-            <version>1.9.4</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.tritonus</groupId>
-            <artifactId>tritonus_share</artifactId>
-            <version>0.3.6</version>
             <scope>runtime</scope>
         </dependency>
 

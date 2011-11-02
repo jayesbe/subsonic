@@ -129,7 +129,7 @@
     </c:choose>
 
         <div id="mainframecontainer">
-            <div id="mainframemenucontainer" class="bgcolor1 searchbox" style="margin-left:-5px; padding: 10px 0px 0px 10px; border-width:1px; width: 100%; height: 30px;">
+            <div id="mainframemenucontainer" class="bgcolor1 fade" style="margin-left:-5px; padding: 10px 0px 0px 10px; border-width:1px; width: 100%; height: 30px;">
                 <div class="mainframemenuleft">
                     <span id="position" style="padding-right:0.5em">0:00</span>
                     <select id="timeOffset" onChange="changeTimeOffset();" style="">

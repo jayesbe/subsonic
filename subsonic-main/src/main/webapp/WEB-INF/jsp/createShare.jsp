@@ -8,7 +8,7 @@
     </head>
     <body class="mainframe bgcolor1">
         <div id="mainframecontainer">
-            <div id="mainframemenucontainer" class="bgcolor1">
+            <div id="mainframemenucontainer" class="bgcolor1 fade">
                 <span id="mainframemenuleft">
                     <c:if test="${not empty model.dir}">
                         <sub:url value="main.view" var="backUrl"><sub:param name="path" value="${model.dir.path}"/></sub:url>

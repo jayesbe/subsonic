@@ -18,7 +18,9 @@ function popupSize(mylink, windowname, width, height) {
     w.moveTo(300, 200);
     return false;
 }
-function persistentTopLinks(newURI) {
+function persistentTopLinks(newURI, follow) {
+    var id;
+    var follow = (typeof(follow)=="undefined") ? true : follow;
     var url = this.location;
     var m = url.toString().match(/.*\/(.+?)\./);
     if (m[1].match(/^.*Settings$/)) {
@@ -26,12 +28,15 @@ function persistentTopLinks(newURI) {
     }
     switch (m[1]) {
         case "home": id = "homeLink"; break
+        case "podcastReceiver": id = "podcastLink"; break
         case "status": id = "statusLink"; break
         case "logfile": id = "statusLink"; break
         case "settings": id = "settingsLink"; break
     }
     parent.upper.document.getElementById(id).href = newURI;
     parent.upper.document.getElementById(id + "Desc").href = newURI;
-    parent.main.src = newURI;
-    location = newURI;
+    if (follow) {
+        parent.main.src = newURI;
+        location = newURI;
+    }
 }

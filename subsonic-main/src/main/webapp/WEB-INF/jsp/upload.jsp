@@ -22,7 +22,7 @@
         <%@ include file="uploadForm.jsp" %>
 
         <div id="mainframecontainer">
-            <div id="mainframemenucontainer" class="bgcolor1">
+            <div id="mainframemenucontainer" class="bgcolor1 fade">
                 <span id="mainframemenuleft">
                     <span class="back cancel"><a href="more.view?" id="backlink"><fmt:message key="common.back"/></a></span>
                     <span id="upload" class="mainframemenuitem" style="background-image: url('<spring:theme code='uploadImage'/>')"><a href="#" onClick="javascript:toggleUploadFile()"><fmt:message key="upload.uploadfile"/></a></span>

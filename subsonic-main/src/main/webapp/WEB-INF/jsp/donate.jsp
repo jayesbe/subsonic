@@ -7,7 +7,7 @@
         <%@ include file="head.jsp" %>
     </head>
     <body class="mainframe bgcolor1">
-        <div id="mainframemenucontainer" class="bgcolor1">
+        <div id="mainframemenucontainer" class="bgcolor1 fade">
             <div id="mainframemenu">
                 <div class="mainframemenuleft">
                 </div>

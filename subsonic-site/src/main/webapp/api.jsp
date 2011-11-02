@@ -176,33 +176,37 @@
         <th class="param-heading">Subsonic version</th>
         <th class="param-heading">REST API version</th>
     </tr>
-    <tr class="table-altrow">
-        <td>3.8</td>
-        <td>1.0.0</td>
-    </tr>
     <tr>
-        <td>3.9</td>
-        <td>1.1.1</td>
+        <td>4.6</td>
+        <td>1.7.0</td>
     </tr>
     <tr class="table-altrow">
-        <td>4.0</td>
-        <td>1.2.0</td>
-    </tr>
-    <tr>
-        <td>4.1</td>
-        <td>1.3.0</td>
-    </tr>
-    <tr class="table-altrow">
-        <td>4.2</td>
-        <td>1.4.0</td>
+        <td>4.5</td>
+        <td>1.6.0</td>
     </tr>
     <tr>
         <td>4.3.1</td>
         <td>1.5.0</td>
     </tr>
     <tr class="table-altrow">
-        <td>4.5</td>
-        <td>1.6.0</td>
+        <td>4.2</td>
+        <td>1.4.0</td>
+    </tr>
+    <tr>
+        <td>4.1</td>
+        <td>1.3.0</td>
+    </tr>
+    <tr class="table-altrow">
+        <td>4.0</td>
+        <td>1.2.0</td>
+    </tr>
+    <tr>
+        <td>3.9</td>
+        <td>1.1.1</td>
+    </tr>
+    <tr class="table-altrow">
+        <td>3.8</td>
+        <td>1.0.0</td>
     </tr>
 </table>
 <p>
@@ -1154,8 +1158,8 @@
         <td><code>action</code></td>
         <td>Yes</td>
         <td></td>
-        <td>The operation to perform. Must be one of: <code>get</code>, <code>start</code>, <code>stop</code>,
-            <code>skip</code>, <code>add</code>, <code>clear</code>, <code>remove</code>, <code>shuffle</code>, <code>setGain</code>
+        <td>The operation to perform. Must be one of: <code>get</code>, <code>status</code> (since <a href="#versions">1.7.0</a>), <code>set</code> (since <a href="#versions">1.7.0</a>),
+            <code>start</code>, <code>stop</code>, <code>skip</code>, <code>add</code>, <code>clear</code>, <code>remove</code>, <code>shuffle</code>, <code>setGain</code>
         </td>
     </tr>
     <tr>
@@ -1165,14 +1169,21 @@
         <td>Used by <code>skip</code> and <code>remove</code>. Zero-based index of the song to skip to or remove.</td>
     </tr>
     <tr class="table-altrow">
+        <td><code>offset</code></td>
+        <td>No</td>
+        <td></td>
+        <td>(Since <a href="#versions">1.7.0</a>) Used by <code>skip</code>. Start playing this many seconds into the track.</td>
+    </tr>
+    <tr>
         <td><code>id</code></td>
         <td>No</td>
         <td></td>
-        <td>Used by <code>add</code>. ID of song to add to the jukebox playlist. Use multiple <code>id</code> parameters
-            to add many songs in the same request.
+        <td>Used by <code>add</code> and <code>set</code>. ID of song to add to the jukebox playlist. Use multiple <code>id</code> parameters
+            to add many songs in the same request. (<code>set</code> is similar to a <code>clear</code> followed by a <code>add</code>, but
+            will not change the currently playing track.)
         </td>
     </tr>
-    <tr>
+    <tr class="table-altrow">
         <td><code>gain</code></td>
         <td>No</td>
         <td></td>
@@ -1180,9 +1191,10 @@
     </tr>
 </table>
 <p>
-    Returns an empty <code>&lt;subsonic-response&gt;</code> element on success, unless the <code>get</code>
+    Returns a <code>&lt;jukeboxStatus&gt;</code> element on success, unless the <code>get</code>
     action is used, in which case a nested <code>&lt;jukeboxPlaylist&gt;</code> element is returned.
-    <a href="http://subsonic.svn.sourceforge.net/viewvc/subsonic/trunk/subsonic-main/src/main/webapp/xsd/jukeboxPlaylist_example_1.xml?view=markup">Example</a>.
+    <a href="http://subsonic.svn.sourceforge.net/viewvc/subsonic/trunk/subsonic-main/src/main/webapp/xsd/jukeboxStatus_example_1.xml?view=markup">Example 1</a>.
+    <a href="http://subsonic.svn.sourceforge.net/viewvc/subsonic/trunk/subsonic-main/src/main/webapp/xsd/jukeboxPlaylist_example_1.xml?view=markup">Example 2</a>.
 </p>
 
 <h2 class="div">getPodcasts</h2>

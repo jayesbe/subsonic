@@ -7,6 +7,13 @@
         <%@ include file="head.jsp" %>
         <!--[if IE 7]>
         <![endif]-->
+        <script type="text/javascript">
+            jQueryLoad.wait(function() {
+                jQueryUILoad.wait(function() {
+                        jQuery("#topframecontainer").show("drop", 600);
+                });
+            });
+        </script>
     </head>
     <body class="bgcolor2 topframe">
         <fmt:message key="top.home" var="home"/>
@@ -22,7 +29,7 @@
         <fmt:message key="top.search" var="search"/>
         <fmt:message key="top.upload" var="upload"/>
         
-        <div id="topframecontainer">
+        <div id="topframecontainer" style="display:none">
 
             <div id="logocontainer">
                 <div id="logo"><img src="<spring:theme code='logoImage'/>"></div>
