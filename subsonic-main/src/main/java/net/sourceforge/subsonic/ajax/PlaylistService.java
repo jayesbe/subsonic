@@ -229,6 +229,14 @@ public class PlaylistService {
         return convert(request, player, false);
     }
 
+    public PlaylistInfo move(int index, int indexto) throws Exception {
+        HttpServletRequest request = WebContextFactory.get().getHttpServletRequest();
+        HttpServletResponse response = WebContextFactory.get().getHttpServletResponse();
+        Player player = getCurrentPlayer(request, response);
+        player.getPlaylist().moveIndex(index, indexto);
+        return convert(request, player, false);
+    }
+
     public PlaylistInfo toggleRepeat() throws Exception {
         HttpServletRequest request = WebContextFactory.get().getHttpServletRequest();
         HttpServletResponse response = WebContextFactory.get().getHttpServletResponse();

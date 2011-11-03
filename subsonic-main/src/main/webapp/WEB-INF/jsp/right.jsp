@@ -73,7 +73,7 @@
                     }
 
                     function addMessage() {
-                        chatService.addMessage($("message").value);
+                        chatService.addMessage($("#message")[0].value);
                         dwr.util.setValue("message", null);
                         setTimeout("startGetMessagesTimer()", 500);
                     }
@@ -101,10 +101,10 @@
                             dwr.util.setValue("user" + id, message.username);
                             dwr.util.setValue("date" + id, " [" + formatDate(message.date) + "]");
                             dwr.util.setValue("content" + id, split_long_word(message.content, 25));
-                            $("pattern" + id).show();
+                            $("#pattern" + id).show();
                         }
 
-                        var clearDiv = $("clearDiv");
+                        var clearDiv = $("#clearDiv");
                         if (clearDiv) {
                             if (messages.messages.length == 0) {
                                 clearDiv.hide();
@@ -127,21 +127,14 @@
                     }
 
                     function init() {
+                        jsClock();
+                        setupZoom('<c:url value="/"/>');
                         dwr.engine.setErrorHandler(null);
                         if (${model.showChat}) {
                             chatService.addMessage(null);
                         }
                     }
-                    
-                    jQueryLoad.wait(function() {
-                        jsClock();
-                        setupZoom('<c:url value="/"/>');
-                        prototypeLoad.wait(function() {
-                            jQuery(init);
-                            jQuery(startGetMessagesTimer);
-                            jQuery(getMusicBrainz)
-                        });
-                    });
+                    init();
                 </script>
 
                 <div class="rightframespacebar fade"></div>
@@ -170,15 +163,8 @@
             <c:if test="${model.showNowPlaying}">
                 <!-- This script uses AJAX to periodically retrieve what all users are playing. -->
                 <script type="text/javascript" language="javascript">
-
-                    startGetNowPlayingTimer();
-
                     function startGetNowPlayingTimer() {
                         nowPlayingService.getNowPlaying(getNowPlayingCallback);
-                        // the above line randomly causes a javascript error
-                        // which requires subsonic restart for it to go away.
-                        // maybe an issue parsing 'stale' now playing info?
-                        
                         setTimeout("startGetNowPlayingTimer()", 10000);
                     }
 
@@ -276,23 +262,29 @@
                                 }
                             }
                         }
-                        $('nowPlaying').innerHTML = html;
-                        //alert(artistTitleInfo);
-                        updateTitle(artistTitleInfo.length == 0 ? "Subsonic" : artistTitleInfo);
+                        $('#nowPlaying').html(html);
+                        //debug.log(artistTitleInfo);
                         prepZooms();
+                        updateTitle(artistTitleInfo.length == 0 ? "Subsonic" : artistTitleInfo);
                     }
                 </script>
                 <div id="nowPlaying" class="fade"></div>
             </c:if>
         </div>
+        <script type="text/javascript">
+            jQueryLoad.wait(function() {
+                if (${model.showChat}) $(startGetMessagesTimer);
+                if (${model.showNowPlaying}) { $(startGetNowPlayingTimer); $(getMusicBrainz); }
+            });
+        </script>
         
         <script>
             if (window.webkitNotifications) {
 
                 if (window.webkitNotifications.checkPermission() == 0) {
-                    debug.log("Desktop notifications are supported and enabled.");
+                    //debug.log("Desktop notifications are supported and enabled.");
                 } else {
-                    debug.warn("Desktop notifications are supported but not enabled.");
+                    //debug.warn("Desktop notifications are supported but not enabled.");
                 }
 
                 function createNotificationInstance(options) {

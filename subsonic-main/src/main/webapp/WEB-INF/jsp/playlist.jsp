@@ -9,9 +9,9 @@
         <script type="text/javascript" src="<c:url value="/dwr/engine.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/dwr/util.js"/>"></script>
 
-        <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
-
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+
+        <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
 
         <script type="text/javascript" src="<c:url value="/script/webfx/range.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/script/webfx/timer.js"/>"></script>
@@ -27,8 +27,7 @@
     </head>
 
     <body class="bgcolor2 playlistframe">
-
-        <script type="text/javascript" language="javascript">
+        <script type="text/javascript">
             var player = null;
             var songs = null;
             var currentAlbumUrl = null;
@@ -40,12 +39,7 @@
             function init() {
                 dwr.engine.setErrorHandler(null);
                 startTimer();
-                if (${model.player.web}) { createPlayer(); } else { getPlaylist(); }
             }
-
-            jQueryLoad.wait(function() {
-                prototypeLoad.wait(function() { jQuery(init) });
-            });
 
             function startTimer() {
                 <!-- Periodically check if the current song has changed. -->
@@ -86,7 +80,7 @@
             }
 
             function playerReady(thePlayer) {
-                player = $("player1");
+                player = document.getElementById("player1");
                 player.addModelListener("STATE", "stateListener");
                 getPlaylist();
             }
@@ -160,7 +154,7 @@
                 var counter = 0;
                 for (var i = 0; i < songs.length; i++) {
                     var index = i + 1;
-                    if ($("songIndex" + index).checked) {
+                    if ($("#songIndex" + index)[0].checked) {
                         indexes[counter++] = i;
                     }
                 }
@@ -172,6 +166,27 @@
             }
             function onDown(index) {
                 playlistService.down(index, playlistCallback);
+            }
+            function onSort(index, indexto) {
+                //direction = (index - indexto > 0 ? "up" : "down")
+                //debug.log("moving song " + index + " to " + indexto);
+                playlistService.move(index - 1, indexto - 1, playlistCallback);
+                /*switch (direction) {
+                    case "up":
+                        setTimeout(function() {
+                            for (i = index; i > indexto; i--) {
+                                //debug.log("moving song " + index + " to " + indexto + " [" + i + " -> " + (i - 1) + "]");
+                                playlistService.up(i - 1, playlistCallback);
+                            }
+                        }, 100)
+                    case "down": 
+                        setTimeout(function() {
+                            for (i = index; i < indexto; i++) {
+                                //debug.log("moving song " + index + " to " + indexto + " [" + i + " -> " + (i + 1) + "]");
+                                playlistService.down(i - 1, playlistCallback);
+                            }
+                        }, 100)
+                }*/
             }
             function onToggleRepeat() {
                 playlistService.toggleRepeat(playlistCallback);
@@ -190,90 +205,82 @@
                         default:
                     }
                 }
-                $("sortActions").selectedIndex = 0;
+                $("#sortActions")[0].selectedIndex = 0;
             }
 
             function playlistCallback(playlist) {
                 songs = playlist.entries;
                 repeatEnabled = playlist.repeatEnabled;
 
-                if ($("start")) {
+                if ($("#start")) {
                     if (playlist.stopEnabled) {
-                        $("start").hide();
-                        $("stop").show();
+                        $("#start").hide();
+                        $("#stop").show();
                     } else {
-                        $("start").show();
-                        $("stop").hide();
+                        $("#start").show();
+                        $("#stop").hide();
+                    }
+                }
+                
+                if (${model.player.web or model.player.jukebox}) {
+                    if ($("#toggleRepeat")) {
+                        var text = repeatEnabled ? "<fmt:message key='playlist.repeat_on'/>" : "<fmt:message key='playlist.repeat_off'/>";
+                        $("#toggleRepeat").html(text);
                     }
                 }
 
-                if ($("toggleRepeat")) {
-                    var text = repeatEnabled ? "<fmt:message key='playlist.repeat_on'/>" : "<fmt:message key='playlist.repeat_off'/>";
-                    dwr.util.setValue("toggleRepeat", text);
-                }
-
-                if (songs.length == 0) {
-                    $("empty").show();
-                } else {
-                    $("empty").hide();
-                }
-
                 // Delete all the rows except for the "pattern" row
-                dwr.util.removeAllRows("playlistBody", { filter:function(tr) {
-                    return (tr.id != "pattern");
-                }});
+                $('#playlistBody tr').not('#pattern').remove();
+
+                $("#empty").toggle(songs.length == 0);
 
                 // Create a new set cloned from the pattern row
                 for (var i = 0; i < songs.length; i++) {
                     var song  = songs[i];
                     var id = i + 1;
-                    dwr.util.cloneNode("pattern", { idSuffix:id });
-                    if ($("trackNumber" + id)) {
-                        dwr.util.setValue("trackNumber" + id, song.trackNumber);
+
+                    var node = $("#pattern").clone();
+                    $(node).attr("id", $(node).attr("id") + id);
+                    $(node).find("*").filter('[id]').each(function() { this.id = this.id + id; });
+                    $(node).addClass((i % 2 == 0) ? "bgcolor1 loadedlist1" : "bgcolor2 loadedlist2");
+                    $(node).appendTo("#playlistBody");
+
+                    if (song.streamUrl == currentStreamUrl) {
+                        $("#currentImage" + id).show();
+                    }
+                    if (${model.player.externalWithPlaylist}) {
+                        $("#title" + id).html(truncate(song.title));
+                        $("#title" + id)[0].title = song.title;
+                    } else {
+                        $("#titleUrl" + id).html(truncate(song.title));
+                        $("#titleUrl" + id)[0].title = song.title;
+                        $("#titleUrl" + id)[0].onclick = function () {onSkip(this.id.substring(8) - 1)};
+                    }
+                    switch(true) {
+                        case ${model.visibility.trackNumberVisible}:        $("#trackNumber" + id).html(song.trackNumber);
+                        case ${model.visibility.artistVisible}:             $("#artist" + id).html(truncate(song.artist));
+                                                                            $("#artist" + id)[0].title = song.artist;
+                        case ${model.visibility.albumVisible}:              $("#album" + id).html(truncate(song.album));
+                                                                            $("#album" + id)[0].title = song.album;
+                                                                            $("#albumUrl" + id)[0].href = song.albumUrl;
+                        case ${model.visibility.genreVisible}:              $("#genre" + id).html(song.genre);
+                        case ${model.visibility.yearVisible}:               $("#year" + id).html(song.year);
+                        case ${model.visibility.bitRateVisible}:            $("#bitRate" + id).html(song.bitRate);
+                        case ${model.visibility.durationVisible}:           $("#duration" + id).html(song.durationAsString);
+                        case ${model.visibility.formatVisible}:             $("#format" + id).html(song.format);
+                        case ${model.visibility.fileSizeVisible}:           $("#fileSize" + id).html(song.fileSize);
                     }
 
-                    if ($("currentImage" + id) && song.streamUrl == currentStreamUrl) {
-                        $("currentImage" + id).show();
-                    }
-                    if ($("title" + id)) {
-                        dwr.util.setValue("title" + id, truncate(song.title));
-                        $("title" + id).title = song.title;
-                    }
-                    if ($("titleUrl" + id)) {
-                        dwr.util.setValue("titleUrl" + id, truncate(song.title));
-                        $("titleUrl" + id).title = song.title;
-                        $("titleUrl" + id).onclick = function () {onSkip(this.id.substring(8) - 1)};
-                    }
-                    if ($("album" + id)) {
-                        dwr.util.setValue("album" + id, truncate(song.album));
-                        $("album" + id).title = song.album;
-                        $("albumUrl" + id).href = song.albumUrl;
-                    }
-                    if ($("artist" + id)) {
-                        dwr.util.setValue("artist" + id, truncate(song.artist));
-                        $("artist" + id).title = song.artist;
-                    }
-                    if ($("genre" + id)) {
-                        dwr.util.setValue("genre" + id, song.genre);
-                    }
-                    if ($("year" + id)) {
-                        dwr.util.setValue("year" + id, song.year);
-                    }
-                    if ($("bitRate" + id)) {
-                        dwr.util.setValue("bitRate" + id, song.bitRate);
-                    }
-                    if ($("duration" + id)) {
-                        dwr.util.setValue("duration" + id, song.durationAsString);
-                    }
-                    if ($("format" + id)) {
-                        dwr.util.setValue("format" + id, song.format);
-                    }
-                    if ($("fileSize" + id)) {
-                        dwr.util.setValue("fileSize" + id, song.fileSize);
-                    }
-
-                    $("pattern" + id).show();
-                    $("pattern" + id).className = (i % 2 == 0) ? "bgcolor1 loadedlist1" : "bgcolor2 loadedlist2";
+                    $(node).show();
+                    $("#playlistBody").sortable({
+                        cursor: "move", 
+                        start: function(event, ui) {
+                            index = ui.item.prevAll().length;
+                        },
+                        update: function(event, ui) {
+                            onSort(index, ui.item.prevAll().length);
+                        }
+                    });
                 }
 
                 if (playlist.sendM3U) {
@@ -333,7 +340,7 @@
                 for (var i = 0; i < songs.length; i++) {
                     var song  = songs[i];
                     var id = i + 1;
-                    var image = $("currentImage" + id);
+                    var image = $("#currentImage" + id);
 
                     if (image) {
                         if (song.streamUrl == currentStreamUrl) {
@@ -371,9 +378,9 @@
                     case "savePlaylist":        parent.frames.main.location.href = "savePlaylist.view?"; break;
                     case "downloadPlaylist":    location.href = "download.view?player=${model.player.id}"; break;
                     case "sharePlaylist":       parent.frames.main.location.href = "createShare.view?player=${model.player.id}&" + getSelectedIndexes(); break;
-                    case "sortByTrack":         onSortBy(0); break;
-                    case "sortByArtist":        onSortBy(1); break;
-                    case "sortByAlbum":         onSortBy(2); break;
+                    case "sortByTrack":         onSortBy(1); break;
+                    case "sortByArtist":        onSortBy(2); break;
+                    case "sortByAlbum":         onSortBy(3); break;
                     case "selectAll":           selectAll(true); break;
                     case "selectNone":          selectAll(false); break;
                     case "removeSelected":      onRemoveSelected(); break;
@@ -381,13 +388,13 @@
                     case "appendPlaylist":      parent.frames.main.location.href = "appendPlaylist.view?player=${model.player.id}&" + getSelectedIndexes(); break;
                     default:
                 }
-                $("moreActions").selectedIndex = 0;
+                $("#moreActions")[0].selectedIndex = 0;
             }
 
             function getSelectedIndexes() {
                 var result = "";
                 for (var i = 0; i < songs.length; i++) {
-                    if ($("songIndex" + (i + 1)).checked) {
+                    if ($("#songIndex" + (i + 1))[0].checked) {
                         result += "i=" + i + "&";
                     }
                 }
@@ -396,9 +403,10 @@
 
             function selectAll(b) {
                 for (var i = 0; i < songs.length; i++) {
-                    $("songIndex" + (i + 1)).checked = b;
+                    $("#songIndex" + (i + 1))[0].checked = b;
                 }
             }
+            if (${model.player.web}) createPlayer();
         </script>
 
         <div id="playlistframecontainer">
@@ -425,8 +433,8 @@
                                                     <option id="sharePlaylist">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="main.more.share"/></option>
                                                 </c:if>
                                                 <option id="sortByTrack">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.sortbytrack"/></option>
-                                                <option id="sortByAlbum">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.sortbyalbum"/></option>
                                                 <option id="sortByArtist">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.sortbyartist"/></option>
+                                                <option id="sortByAlbum">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.sortbyalbum"/></option>
                                                 <option style="color:blue;"><fmt:message key="playlist.more.selection"/></option>
                                                 <option id="selectAll">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.selectall"/></option>
                                                 <option id="selectNone">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.selectnone"/></option>
@@ -558,11 +566,12 @@
 
             <div id="playlistcontainer" class="fade">
                 <div id="playlistcontent">
-                    <p id="empty"><em><fmt:message key="playlist.empty"/></em></p>
-                    <div id="text">
+                    <span id="empty"><p><em><fmt:message key="playlist.empty"/></em></p></span>
+                    <div id="tracklist">
                         <table border="0" cellspacing="10" cellpadding="0" width="100%">
                           <tr>
-                            <td width="100%"><table style="border-collapse:collapse;white-space:nowrap;width:100%">
+                            <td width="100%">
+                            <table style="border-collapse:collapse;white-space:nowrap;width:100%">
                             <tbody id="playlistBody">
                                 <tr id="pattern" style="display:none;margin:0;padding:0;border:0">
                                     <td class="bgcolor2 loadedlist2"><a href="javascript:noop()">
@@ -616,17 +625,23 @@
                                         <td style="padding-right:1.25em;text-align:right;"><span id="duration" class="detail">Duration</span></td>
                                     </c:if>
                                     <c:if test="${model.visibility.bitRateVisible}">
-                                        <td style="padding-right:0.25em"><span id="bitRate" class="detail">Bit Rate</span></td>
+                                        <td style="padding-right:0.25em"><span id="bitRate" class="detail">Bitrate</span></td>
                                     </c:if>
                                     <!--<td style="padding-right:1.25em"><a href="javascript:song.artist" onClick="javascript:return popupSize(this, 'lyrics', 430, 550)"><fmt:message key="main.lyrics"/></a></span></td>-->
                                 </tr>
                             </tbody>
-                            </td></table>
+                            </td>
+                            </table>
                           </tr>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            jQueryLoad.wait(function() {
+                $(init)
+            });
+        </script>
     </body>
 </html>

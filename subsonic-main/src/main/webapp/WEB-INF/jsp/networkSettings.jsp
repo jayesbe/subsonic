@@ -26,19 +26,24 @@
             }
 
             function enableUrlRedirectionFields() {
-                var checkbox = $("urlRedirectionEnabled");
-                var field = $("urlRedirectFrom");
+                var checkbox = $("#urlRedirectionEnabled")[0];
+                var field = $("#urlRedirectFrom")[0];
 
                 if (checkbox && checkbox.checked) {
-                    field.enable();
+                    //field.enable();
+                    $(field).removeAttr('disabled');
                 } else {
-                    field.disable();
+                    //field.disable();
+                    $(field).attr('disabled', 'disabled');
                 }
             }
 
+            jQueryLoad.wait(function() {
+                $(init);
+            });
         </script>
     </head>
-    <body class="mainframe bgcolor1" onload="init()">
+    <body class="mainframe bgcolor1">
         <script type="text/javascript" src="<c:url value="/script/wz_tooltip.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/script/tip_balloon.js"/>"></script>
 

@@ -81,13 +81,13 @@ public class JukeboxService implements AudioPlayer.Listener {
     }
 
     private synchronized void play(MusicFile file, int offset) {
-		InputStream in = null;
+        InputStream in = null;
         try {
 
             // Resume if possible.
             boolean sameFile = file != null && file.equals(currentPlayingFile);
             boolean paused = audioPlayer != null && audioPlayer.getState() == AudioPlayer.State.PAUSED;
-            if (sameFile && paused) {
+            if (sameFile && paused && offset == 0) {
                 audioPlayer.play();
             } else {
                 this.offset = offset;
@@ -114,7 +114,7 @@ public class JukeboxService implements AudioPlayer.Listener {
 
         } catch (Exception x) {
             LOG.error("Error in jukebox: " + x, x);
-			IOUtils.closeQuietly(in);
+            IOUtils.closeQuietly(in);
         }
     }
 

@@ -310,6 +310,23 @@ public class Playlist {
     }
 
     /**
+     * Moves the song at the given index to target index.
+     *
+     * @param index The playlist index.
+     * @param indexto The playlist index target.
+     */
+    public synchronized void moveIndex(int index, int indexto) {
+        makeBackup();
+        if ((index < 0 || index > size()) || (indexto < 0 || indexto > size())) {
+            return;
+        }
+
+        Collections.swap(files, index, indexto);
+
+        this.index = indexto;
+    }
+
+    /**
      * Returns whether the playlist is repeating.
      *
      * @return Whether the playlist is repeating.

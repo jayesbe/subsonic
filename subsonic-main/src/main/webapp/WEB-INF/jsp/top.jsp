@@ -7,13 +7,6 @@
         <%@ include file="head.jsp" %>
         <!--[if IE 7]>
         <![endif]-->
-        <script type="text/javascript">
-            jQueryLoad.wait(function() {
-                jQueryUILoad.wait(function() {
-                        jQuery("#topframecontainer").show("drop", 600);
-                });
-            });
-        </script>
     </head>
     <body class="bgcolor2 topframe">
         <fmt:message key="top.home" var="home"/>
@@ -176,5 +169,12 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            jQueryLoad.wait(function() {
+                jQueryUILoad.wait(function() {
+                        jQuery("#topframecontainer").show("drop", 600);
+                });
+            });
+        </script>
     </body>
 </html>

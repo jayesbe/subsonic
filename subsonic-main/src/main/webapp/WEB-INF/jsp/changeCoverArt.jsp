@@ -24,6 +24,7 @@
             var imageSearch;
             dwr.engine.setErrorHandler(null);
             google.load('search', '1');
+            google.setOnLoadCallback(onLoad);
 
             function onLoad() {
                 imageSearch = new google.search.ImageSearch();
@@ -34,69 +35,62 @@
                 doSearch();
             }
 
-            jQueryLoad.wait(function() {
-                google.setOnLoadCallback(onLoad);
-            });
-
             function doSearch() {
-                $("wait").show();
-                $("success").hide();
-                $("error").hide();
-                $("errorDetails").hide();
-                $("noImagesFound").hide();
-                $("imagesearchresults").hide();
+                $("#wait").show();
+                $("#success").hide();
+                $("#error").hide();
+                $("#errorDetails").hide();
+                $("#noImagesFound").hide();
+                $("#imagesearchresults").hide();
                 var query = dwr.util.getValue("query");
                 imageSearch.execute(query);
             }
 
             function searchComplete() {
 
-                $("wait").hide();
+                $("#wait").hide();
 
                 if (imageSearch.results && imageSearch.results.length > 0) {
-                    var images = $("images");
+                    var images = $("#images")[0];
                     images.innerHTML = "";
-                    $("imagesearchresultcontainer").style.maxWidth = 240 * (imageSearch.results.length / 2) + "px";
+                    $("#imagesearchresultcontainer").css({ "maxWidth" : 240 * (imageSearch.results.length / 2) + "px" });
                     setupZoom('<c:url value="/"/>');
 
-                    $("imagesearchresults").show();
+                    $("#imagesearchresults").show();
                     var results = imageSearch.results;
                     for (var i = 0; i < results.length; i++) {
                         var result = results[i];
-                        var node = $("coverarttemplate").cloneNode(true);
-
-                        var zoomlink = node.getElementsByClassName("search-result-thumbnail-zoom")[0];
+                        var node = $("#coverarttemplate").clone();
+                        var zoomlink = node.find(".search-result-thumbnail-zoom")[0];
                         zoomlink.href = result.url;
 
-                        var thumbnail = node.getElementsByClassName("search-result-thumbnail")[0];
+                        var thumbnail = node.find(".search-result-thumbnail")[0];
                         thumbnail.src = result.tbUrl;
 
-                        var setlink = node.getElementsByClassName("search-result-setimage")[0];
+                        var setlink = node.find(".search-result-setimage")[0];
                         setlink.href = "javascript:setImage('" + result.url + "');";
 
-                        var title = node.getElementsByClassName("search-result-title")[0];
-                        title.innerHTML = result.contentNoFormatting.truncate(30);
+                        var title = node.find(".search-result-title")[0];
+                        title.innerHTML = result.contentNoFormatting;
 
-                        var dimension = node.getElementsByClassName("search-result-dimension")[0];
+                        var dimension = node.find(".search-result-dimension")[0];
                         dimension.innerHTML = result.width + " &#215; " + result.height;
 
-                        var url = node.getElementsByClassName("search-result-url")[0];
+                        var url = node.find(".search-result-url")[0];
                         url.innerHTML = result.visibleUrl;
 
-                        images.appendChild(node);
-                        jQuery(node).css({ 'visibility' : 'visible', "display" : "none" });
-                        jQuery(node).delay(30).fadeIn(600);
+                        $('#images').append(node).end();
+                        $(node).css({ 'visibility' : 'visible', "display" : "none" });
+                        $(node).delay(30).fadeIn(600);
                     }
                     prepZooms();
-                    addPaginationLinks(imageSearch);
-
+                    addPaginationLinks();
                 } else {
-                    $("noImagesFound").show();
+                    $("#noImagesFound").show();
                 }
             }
 
             function addPaginationLinks() {
-
                 // To paginate search results, use the cursor function.
                 var cursor = imageSearch.cursor;
                 var curPage = cursor.currentPageIndex; // check what page the app is on
@@ -109,7 +103,7 @@
                 prev.innerHTML = "<fmt:message key='common.previous'/>";
                 prev.style.marginRight = "0.5em";
                 prev.className = "back"
-                pagesDiv.appendChild(prev);
+                $(prev).appendTo(pagesDiv);
                 
                 for (var i = 0; i < cursor.pages.length; i++) {
                     var page = cursor.pages[i];
@@ -121,7 +115,7 @@
                     label.style.padding = (curPage == i) ? "0.3em" : "0.2em";
                     label.style.paddingTop = "0.2em";
                     label.style.marginRight = "0.5em";
-                    pagesDiv.appendChild(label);
+                    $(label).appendTo(pagesDiv);
                 }
 
                 // Create link to next page.
@@ -130,45 +124,45 @@
                 next.innerHTML = "<fmt:message key='common.next'/>";
                 next.style.marginLeft = "0.5em";
                 next.className = "forward"
-                pagesDiv.appendChild(next);
+                $(next).appendTo(pagesDiv);
 
-                var pages = $("pages");
+                var pages = $("#pages")[0];
                 pages.innerHTML = "";
-                pages.appendChild(pagesDiv);
+                $(pagesDiv).appendTo(pages);
             }
 
             function setImage(imageUrl) {
-                $("wait").show();
-                $("success").hide();
-                $("error").hide();
-                $("errorDetails").hide();
-                $("noImagesFound").hide();
-                $("pages").hide();
-                $("backlink").hide();
-                $("addFromURILink").hide();
-                $("imagesearchresults").hide();
+                $("#wait").show();
+                $("#success").hide();
+                $("#error").hide();
+                $("#errorDetails").hide();
+                $("#noImagesFound").hide();
+                $("#pages").hide();
+                $("#backlink").hide();
+                $("#addFromURILink").hide();
+                $("#imagesearchresults").hide();
                 var path = dwr.util.getValue("path");
                 coverArtService.setCoverArtImage(path, imageUrl, setImageComplete);
             }
 
             function setImageComplete(errorDetails) {
-                $("wait").hide();
+                $("#wait").hide();
                 if (errorDetails != null) {
                     dwr.util.setValue("errorDetails", "<br/>" + errorDetails, { escapeHtml:false });
-                    $("error").show();
-                    $("errorDetails").show();
-                    $("pages").show();
-                    $("addFromURILink").show();
+                    $("#error").show();
+                    $("#errorDetails").show();
+                    $("#pages").show();
+                    $("#addFromURILink").show();
                 } else {
-                    $("success").show();
-                    $("backlink").show();
-                    $("backlink").innerHTML = "Back"
+                    $("#success").show();
+                    $("#backlink").show();
+                    $("#backlink").innerHTML = "Back"
                 }
             }
         </script>
         <script type="text/javascript">
             function toggleAddFromURI() {
-                jQuery("#addCoverArtFormContainer").toggle("blind");
+                $("#addCoverArtFormContainer").toggle("blind");
             }
             
             function verifyImageURI() {
@@ -186,7 +180,7 @@
                 
                 // Checks passed: submit
                 document.addFromURIForm.submit();
-                jQuery("addCoverArtFormContainer").toggle();
+                $("#addCoverArtFormContainer").toggle();
             }
         </script>
 

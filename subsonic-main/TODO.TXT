@@ -13,35 +13,28 @@ TRANSCODING
 
 /var/subsonic/transcode/ffmpeg -ss 0 -i /Users/sindre/Movies/Test/Sample.wtv -async 1 -b 1000k -s 480x360 -ar 44100 -ac 2 -f flv -scodec copy -vcodec libx264 -preset veryfast -threads 0 foo.flv
 
-
 DONE IN 4.6
 ----------------
-New transcoding framework.
-New video transcoding.
-Updated Dutch translation, courtesy of Muiz.
-Updated German translation, courtesy of deejay.
-Added UK English translation, courtesy of Brian Aust.
-REST: include files in root folders.
-Menu broken in "Settings > Shared media" when logged in as admin.
-Stronger license check.  Verify asynch with backend.
-Share on Google+
-Estimate content-length for transcoded audio.
-  https://mail.google.com/mail/?shva=1#inbox/132d043e46168fed
-Tighten security in Linux packages.
-Update screenshots for SonicAir
-Submariner
+Updated Slovenian translation, courtesy of Jan Jamšek.
 
 TODO IN 4.6
 -----------------
-License is for private non-commercial use.
+Add +1 button.
+Add Subsonic for Roku
+  http://www.randomwalking.com/project.php?project=roku_subsonic
+Audio problems on Linux.
+  https://mail.google.com/mail/?ui=2&shva=1#inbox/133318f313c0ffbd
+Coniq:
+  http://forum.subsonic.org/forum/viewtopic.php?f=4&t=8042
+subcl:
+  http://forum.subsonic.org/forum/viewtopic.php?f=4&t=7897
+Better video quality when sharing
+  http://forum.subsonic.org/forum/viewtopic.php?f=8&t=7646
 Show license details in About.
-Update list of premium features.
-Improve logging of license validation failure.
 Support custom domain name in sharing (Settings > Advanced)
 Fix permission issue on Win7.
 Rename "offsetSeconds" to "timeOffset" in StreamController, and update API doc.
 Add "byteOffset" parameter as well.
-Test with java 7.
 Add rating attributes to <directory> in getMusicDirectory.
 Update description of Thumper.
 minisub
@@ -51,6 +44,9 @@ Subsonic Chumby
   http://forum.chumby.com/viewtopic.php?id=6733
 REST: add method to get everything in search index (binary, compressed)?
 
+Favorite rather rating?
+Stream from devices
+  https://mail.google.com/mail/?shva=1#inbox/13352f77f870eba1
 Instant playlist
   https://mail.google.com/mail/?ui=2&shva=1#inbox/1323fe922bb985af
 Go through tracker.
@@ -102,6 +98,9 @@ Bugfix: Improve buffering of downsampled songs (don't buffer for too long)
 
 TODO IN ANDROID 3.3
 --------------------
+Jukebox (remote control) support
+Test BlackBerry runtime
+Android 4.0: Support Audio remote controls
 Handle files in root folder.
 Improve behavior on player error.
 EQ resets when switching between online/offline.
@@ -683,13 +682,13 @@ Commit
 svn up
 mvn clean -P full
 mvn install -P full
-cd ../subsonic-assembly; mvn assembly:assembly
+cd subsonic-assembly; mvn assembly:assembly; cd ..
 Deploy
 Check that correct local version is displayed.
 Upload files to SourceForge (in separate shell, REMEMBER TO CHANGE VERSION BELOW).
-  rsync -avP -e ssh subsonic-installer-windows/target/subsonic*-setup.exe  sindre_mehus,subsonic@frs.sourceforge.net:/home/frs/project/s/su/subsonic/subsonic/4.5/
-  rsync -avP -e ssh subsonic-assembly/target/subsonic* sindre_mehus,subsonic@frs.sourceforge.net:/home/frs/project/s/su/subsonic/subsonic/4.5.beta2/
-  rsync -avP -e ssh subsonic-installer-mac/target/subsonic*.pkg subsonic-installer-debian/target/subsonic*.deb subsonic-installer-rpm/target/subsonic*.rpm sindre_mehus,subsonic@frs.sourceforge.net:/home/frs/project/s/su/subsonic/subsonic/4.5.beta2/
+  rsync -avP -e ssh subsonic-installer-windows/target/subsonic*-setup.exe  sindre_mehus,subsonic@frs.sourceforge.net:/home/frs/project/s/su/subsonic/subsonic/4.6.beta1/
+  rsync -avP -e ssh subsonic-assembly/target/subsonic* sindre_mehus,subsonic@frs.sourceforge.net:/home/frs/project/s/su/subsonic/subsonic/4.6.beta1/
+  rsync -avP -e ssh subsonic-installer-mac/target/subsonic*.pkg subsonic-installer-debian/target/subsonic*.deb subsonic-installer-rpm/target/subsonic*.rpm sindre_mehus,subsonic@frs.sourceforge.net:/home/frs/project/s/su/subsonic/subsonic/4.6.beta1/
 
 Modify FRS properties
   https://sourceforge.net/projects/subsonic/files/subsonic/
@@ -700,7 +699,7 @@ Upload site (OLD):
 Upload site (NEW):
   rsync -avP -e ssh --exclude ".*" subsonic-site/src/main/webapp/  root@subsonic.org:/usr/local/jakarta/tomcat/webapps/pages/
 
-svn copy https://subsonic.svn.sourceforge.net/svnroot/subsonic/trunk https://subsonic.svn.sourceforge.net/svnroot/subsonic/tags/release-4.5 -m "Tagging 4.5."
+svn copy https://subsonic.svn.sourceforge.net/svnroot/subsonic/trunk https://subsonic.svn.sourceforge.net/svnroot/subsonic/tags/release-4.6.beta1 -m "Tagging 4.6.beta1"
 Register at freshmeat.
 Post message on forum.
 Update version number in pom.xml etc.
@@ -789,6 +788,13 @@ keytool -genkey -v -keystore subsonic.keystore -alias subsonic -storepass subson
 keytool -list -v -keystore subsonic.keystore -storepass subsonic
 
 wget -S  --tries=1 'http://localhost:8080/rest/stream.view?u=admin&p=admin&v=1.6&c=android&id=2f55736572732f73696e6472652f4d757369632f44696d6d7520426f726769722f41627261686164616272612f3036202d2052697475616c6973742e6d7033&maxBitRate=96'
+
+wget 'http://localhost:4040/rest/jukeboxControl.view?u=admin&p=admin&v=1.6&c=android&action=get' -O -
+wget 'http://localhost:4040/rest/jukeboxControl.view?u=admin&p=admin&v=1.6&c=android&action=start' -O -
+wget 'http://localhost:4040/rest/jukeboxControl.view?u=admin&p=admin&v=1.6&c=android&action=status' -O -
+
+wget 'http://localhost:4040/rest/jukeboxControl.view?u=admin&p=admin&v=1.6&c=android&action=add&id=683a5c6d757369632e6576656e5c4169725c54616c6b69652057616c6b6965202d20323030345c3032202d2043686572727920426c6f73736f6d204769726c2e6d7033&id=683a5c6d757369632e6576656e5c4169725c54616c6b69652057616c6b6965202d20323030345c3039202d2042696f6c6f676963616c2e6d7033' -O -
+wget 'http://localhost:8080/rest/jukeboxControl.view?u=admin&p=admin&v=1.6&c=android&action=add&id=2f55736572732f73696e6472652f4d757369632f44696d6d7520426f726769722f41627261686164616272612f3035202d2044696d6d7520426f726769722e6d7033' -O -
 
 SEARCH
 ------

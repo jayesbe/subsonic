@@ -42,8 +42,8 @@
                 var expandedChannels = getExpandedChannels().split(" ");
                 var expandedChannelCount = expandedChannels.length - 1;
                 
-                (expandedChannelCount > 0) ? $("hideEpisodes").show() : $("hideEpisodes").hide();
-                (expandedChannelCount == channelCount) ? $("showEpisodes").hide() : $("showEpisodes").show();
+                (expandedChannelCount > 0) ? $("#hideEpisodes").show() : $("#hideEpisodes").hide();
+                (expandedChannelCount == channelCount) ? $("#showEpisodes").hide() : $("#showEpisodes").show();
 
                 var newURI = "podcastReceiver.view?" + ((expandedChannelCount > 0) ? "expandedChannels=" + getExpandedChannels() : "");
                 persistentTopLinks(newURI, false);
@@ -55,16 +55,16 @@
                 var selectedEpisodes = getSelectedEpisodes().split(" ");
                 var selectedEpisodeCount = selectedEpisodes.length - 1;
 
-                if (selectedChannelCount > 0 || selectedEpisodeCount > 0) {$("downloadSelected").show(); $("deleteSelected").show()} else {$("downloadSelected").hide(); $("deleteSelected").hide();}
+                if (selectedChannelCount > 0 || selectedEpisodeCount > 0) {$("#downloadSelected").show(); $("#deleteSelected").show()} else {$("#downloadSelected").hide(); $("#deleteSelected").hide();}
             }
 
             function toggleEpisodes(channelIndex) {
                 
                 for (var i = 0; i < episodeCount; i++) {
-                    var row = $("episodeRow" + i);
+                    var row = $("#episodeRow" + i)[0];
                     if (row.title == "channel" + channelIndex) {
-                        jQuery(row).delay(i * 10).fadeToggle(100);
-                        $("channelExpanded" + channelIndex).checked = !jQuery(row).is(':visible') ? "checked" : "";
+                        $(row).delay(i * 10).fadeToggle(100);
+                        $("#channelExpanded" + channelIndex)[0].checked = !$(row).is(':visible') ? "checked" : "";
                     }
                 }
                 toggleEpisodesUpdate();
@@ -74,20 +74,20 @@
                 if (playing) return;
                 playing = true;
                 if (visible) {
-                    jQuery('tr[id^="episodeRow"]').each(function(i) {
-                        jQuery(this).css({ 'visibility' : 'visible', "display" : "none" });
-                        jQuery(this).delay(i * 10).fadeIn(400);
+                    $('tr[id^="episodeRow"]').each(function(i) {
+                        $(this).css({ 'visibility' : 'visible', "display" : "none" });
+                        $(this).delay(i * 10).fadeIn(400);
                     })
                 } else {
-                    jQuery('tr[id^="episodeRow"]').each(function(i) {
-                        jQuery(this).delay(i * 10).fadeOut(200);
+                    $('tr[id^="episodeRow"]').each(function(i) {
+                        $(this).delay(i * 10).fadeOut(200);
                     });
                 }
-                jQuery('tr[id^="episodeRow"]').promise().done(function() {
+                $('tr[id^="episodeRow"]').promise().done(function() {
                     playing = false;
                 });
                 for (i = 0; i < channelCount; i++) {
-                    $("channelExpanded" + i).checked = visible ? "checked" : "";
+                    $("#channelExpanded" + i)[0].checked =  visible ? "checked" : "";
                 }
                 toggleEpisodesUpdate();
             }
@@ -95,7 +95,7 @@
             function getExpandedChannels() {
                 var result = "";
                 for (var i = 0; i < channelCount; i++) {
-                    var checkbox = $("channelExpanded" + i);
+                    var checkbox = $("#channelExpanded" + i)[0];
                     if (checkbox.checked) {
                         result += (checkbox.value + " ");
                     }
@@ -106,7 +106,7 @@
             function getSelectedChannels() {
                 var result = "";
                 for (var i = 0; i < channelCount; i++) {
-                    var checkbox = $("channel" + i);
+                    var checkbox = $("#channel" + i)[0];
                     if (checkbox.checked) {
                         result += (checkbox.value + " ");
                     }
@@ -117,7 +117,7 @@
             function getSelectedEpisodes() {
                 var result = "";
                 for (var i = 0; i < episodeCount; i++) {
-                    var checkbox = $("episode" + i);
+                    var checkbox = $("#episode" + i)[0];
                     if (checkbox.checked) {
                         result += (checkbox.value + " ");
                     }
@@ -126,7 +126,7 @@
             }
 
             function toggleAddPodcast() {
-                jQuery("#addPodcastFormContainer").toggle("blind");
+                $("#addPodcastFormContainer").toggle("blind");
             }
             
             function verifyPodcastURI() {
@@ -150,11 +150,10 @@
             }
             
             jQueryLoad.wait(function() {
+                $(toggleEpisodesUpdate)
                 jQueryUILoad.wait(function() {
-                    jQuery("#podcastcontainer").css({ 'visibility' : 'visible', "display" : "none" });
-                    jQuery("#podcastcontainer").delay(30).fadeIn(600);
-                });
-                prototypeLoad.wait(function() { jQuery(toggleEpisodesUpdate)
+                    $("#podcastcontainer").css({ 'visibility' : 'visible', "display" : "none" });
+                    $("#podcastcontainer").delay(30).fadeIn(600);
                 });
             });
         </script>

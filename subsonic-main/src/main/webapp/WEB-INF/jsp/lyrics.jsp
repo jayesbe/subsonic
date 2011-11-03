@@ -12,19 +12,15 @@
 
         dwr.engine.setErrorHandler(null);
 
-        function init() {
-            getLyrics('${model.artist}', '${model.track}', '${model.apikey}');
-        }
-
         function getLyrics(artist, track, apikey) {
-            $("wait").style.display = "inline";
-            $("lyrics").style.display = "none";
-            $("noLyricsFound").style.display = "none";
+            $("#wait").show();
+            $("#lyrics").hide();
+            $("#noLyricsFound").hide();
             lyricsService.getLyrics(artist, track, apikey, getLyricsCallback);
         }
 
         function getLyricsCallback(lyricsInfo) {
-            dwr.util.setValue("lyricsHeader", lyricsInfo.artist + " - " + lyricsInfo.track);
+            $("#lyricsHeader").html(lyricsInfo.artist + " - " + lyricsInfo.track);
             var lyrics;
             if (lyricsInfo.lyrics != null) {
                 lyrics = lyricsInfo.lyrics.replace(/\n/g, "<br>");
@@ -34,20 +30,28 @@
                 tracker = "<script type=\"text\\javascript\" src=\"" + lyricsInfo.tracker + "\">";
                 copyright = lyricsInfo.copyright.replace(/\. /g, ". <br>");
             }
-            dwr.util.setValue("lyricsText", lyrics, { escapeHtml:false });
-            dwr.util.setValue("lyricsCopyright", copyright, { escapeHtml:false });
-            dwr.util.setValue("lyricsTracker", tracker, { escapeHtml:false });
-            $("wait").style.display = "none";
+            $("#lyricsText").html(lyrics, { escapeHtml:false });
+            $("#lyricsCopyright").html(copyright, { escapeHtml:false });
+            $("#lyricsTracker").html(tracker, { escapeHtml:false });
+            $("#wait").hide();
             if (lyrics != null) {
-                $("lyrics").style.display = "inline";
+                $("#lyrics").show();
             } else {
-                $("noLyricsFound").style.display = "inline";
+                $("#noLyricsFound").show();
             }
         }
+
+        function init() {
+            getLyrics("${model.artist}", "${model.track}", "${model.apikey}");
+        }
+
+        jQueryLoad.wait(function() {
+            $(init);
+        });
     </script>
 
 </head>
-<body class="mainframe bgcolor1" onload="init();">
+<body class="mainframe bgcolor1">
 
 <table>
     <tr>

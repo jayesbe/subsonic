@@ -7,8 +7,8 @@
         <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
         <script type="text/javascript" language="javascript">
             function enableLdapFields() {
-                var checkbox = $("ldap");
-                var table = $("ldapTable");
+                var checkbox = $("#ldap")[0];
+                var table = $("#ldapTable");
 
                 if (checkbox && checkbox.checked) {
                     table.show();
@@ -16,10 +16,14 @@
                     table.hide();
                 }
             }
+            
+            jQueryLoad.wait(function() {
+                $(enableLdapFields);
+            });
         </script>
     </head>
 
-    <body class="mainframe bgcolor1" onload="enableLdapFields()">
+    <body class="mainframe bgcolor1">
         <script type="text/javascript" src="<c:url value="/script/wz_tooltip.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/script/tip_balloon.js"/>"></script>
 
