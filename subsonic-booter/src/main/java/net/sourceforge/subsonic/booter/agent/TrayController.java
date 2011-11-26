@@ -1,11 +1,18 @@
 package net.sourceforge.subsonic.booter.agent;
 
-import net.sourceforge.subsonic.booter.deployer.DeploymentStatus;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.net.URL;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+
+import net.sourceforge.subsonic.booter.deployer.DeploymentStatus;
 
 /**
  * Controls the Subsonic tray icon.
@@ -36,6 +43,11 @@ public class TrayController implements SubsonicListener {
         }
     }
 
+    public void showMessage() {
+        trayIcon.displayMessage("Subsonic", "Subsonic is now running. Click this balloon to get started.",
+                TrayIcon.MessageType.INFO);
+    }
+
     private void createActions() {
         openAction = new AbstractAction("Open Subsonic in Browser") {
             public void actionPerformed(ActionEvent e) {
@@ -45,7 +57,7 @@ public class TrayController implements SubsonicListener {
 
         controlPanelAction = new AbstractAction("Subsonic Control Panel") {
             public void actionPerformed(ActionEvent e) {
-                subsonicAgent.showControlPanel();
+                subsonicAgent.showStatusPanel();
             }
         };
 
@@ -87,8 +99,6 @@ public class TrayController implements SubsonicListener {
 
     private void installComponents() throws Throwable {
         SystemTray.getSystemTray().add(trayIcon);
-        trayIcon.displayMessage("Subsonic", "Subsonic is now running. Click this balloon to get started.",
-                                TrayIcon.MessageType.INFO);
     }
 
     public void uninstallComponents() {

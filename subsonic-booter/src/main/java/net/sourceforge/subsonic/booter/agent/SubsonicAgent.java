@@ -1,18 +1,22 @@
 package net.sourceforge.subsonic.booter.agent;
 
-import com.jgoodies.looks.plastic.PlasticXPLookAndFeel;
-import net.sourceforge.subsonic.booter.deployer.DeploymentStatus;
-import net.sourceforge.subsonic.booter.deployer.SubsonicDeployerService;
-import org.apache.commons.io.IOUtils;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Desktop;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+
+import org.apache.commons.io.IOUtils;
+
+import com.jgoodies.looks.plastic.PlasticXPLookAndFeel;
+
+import net.sourceforge.subsonic.booter.deployer.DeploymentStatus;
+import net.sourceforge.subsonic.booter.deployer.SubsonicDeployerService;
 
 /**
  * Responsible for deploying the Subsonic web app in
@@ -24,19 +28,23 @@ public class SubsonicAgent {
 
     private final List<SubsonicListener> listeners = new ArrayList<SubsonicListener>();
     private final TrayController trayController;
-    private final SubsonicFrame frame;
+    private SubsonicFrame frame;
     private final SubsonicDeployerService service;
     private static final int POLL_INTERVAL_DEPLOYMENT_INFO_SECONDS = 5;
     private static final int POLL_INTERVAL_SERVICE_STATUS_SECONDS = 5;
     private String url;
     private boolean serviceStatusPollingEnabled;
+    private boolean elevated;
 
     public SubsonicAgent(SubsonicDeployerService service) {
-        setLookAndFeel();
         this.service = service;
+        setLookAndFeel();
         trayController = new TrayController(this);
-        frame = new SubsonicFrame(this);
         startPolling();
+    }
+
+    public void setFrame(SubsonicFrame frame) {
+        this.frame = frame;
     }
 
     private void setLookAndFeel() {
@@ -86,9 +94,54 @@ public class SubsonicAgent {
 
     public void startOrStopService(boolean start) {
         try {
-            Runtime.getRuntime().exec("subsonic-service.exe " + (start ? "-start" : "-stop"));
+            String cmd = "subsonic-service.exe " + (start ? "-start" : "-stop");
+            System.err.println("Executing: " + cmd);
+
+            Runtime.getRuntime().exec(cmd);
         } catch (Exception x) {
             x.printStackTrace();
+        }
+    }
+
+    /**
+     * If necessary, restart agent with elevated rights.
+     */
+    public void checkElevation(String arg) {
+        if (isElevationNeeded() && !isElevated()) {
+            try {
+                String cmd = "elevate.exe subsonic-agent.exe -elevated " + arg;
+                Runtime.getRuntime().exec(cmd);
+                System.err.println("Executing: " + cmd);
+                System.exit(0);
+            } catch (Exception x) {
+                JOptionPane.showMessageDialog(frame, "Failed to elevate Subsonic Control Panel. " + x, "Error", JOptionPane.WARNING_MESSAGE);
+                x.printStackTrace();
+            }
+        }
+    }
+
+    public void setElevated(boolean elevated) {
+        this.elevated = elevated;
+    }
+
+    private boolean isElevated() {
+        return elevated;
+    }
+
+    /**
+     * Returns whether UAC elevation is necessary (to start/stop services etc).
+     */
+    private boolean isElevationNeeded() {
+
+        String osVersion = System.getProperty("os.version");
+        try {
+            int majorVersion = Integer.parseInt(osVersion.substring(0, osVersion.indexOf(".")));
+
+            // Elevation is necessary in Windows Vista (os.version=6.1) and later.
+            return majorVersion >= 6;
+        } catch (Exception x) {
+            System.err.println("Failed to resolve OS version from '" + osVersion + "'\n" + x);
+            return false;
         }
     }
 
@@ -112,8 +165,16 @@ public class SubsonicAgent {
         }
     }
 
-    public void showControlPanel() {
-        frame.showControlPanel();
+    public void showStatusPanel() {
+        frame.showStatusPanel();
+    }
+
+    public void showSettingsPanel() {
+        frame.showSettingsPanel();
+    }
+
+    public void showTrayIconMessage() {
+        trayController.showMessage();
     }
 
     public void exit() {
