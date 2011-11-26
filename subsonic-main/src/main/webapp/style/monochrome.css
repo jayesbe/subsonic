@@ -4,16 +4,6 @@
  * Author: David D ddavis1@gmail.com
  */
 @import "default.css";
-@import "playermod/fg/333333.css";
-@import "playermod/bg/eeeeee.css";
-
-.ruleTableHeader, .ruleTableCell {
-/* The help, status & web player settings tables. */
-    margin: 5px;
-    padding: 5px;
-    color: #FFFFFF;
-    background-color: #C0C0C0;
-}
 
 /*
  * Background colors
@@ -52,12 +42,6 @@
         color: #000000;
     }
 
-    a:hover, a:hover * {
-    /* Link hover style */
-        text-decoration: underline;
-        color: #FFFFFF;
-    }
-
     h1, .detail, .albumComment {
     /* Secondary foreground color for h1, details etc. (gray) */
         color: #000000;
@@ -71,20 +55,15 @@
     input, select, textarea {
     /* Input form control font style */
         color: #333;
-        background-color: #EEE;
     }
 
     option, #playerSelect option, #moreActions option, #sortActions option {
     /* Background colour for option controls. */
         font-weight: bold;
-        background-color: #666666;
-        color: #FFFFFF;
     }
 
     input:hover, select:hover {
     /* Form control hover color. (default) */
-        color: #000000;
-        background-color: #FFF;
     }
 
     .headerSelected {
@@ -100,7 +79,6 @@
 
     .log {
     /* Log file font size */
-        font-weight: bold;
         color: #000000;
         background-color: #C0C0C0;
     }

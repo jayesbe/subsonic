@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1"% >
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
 <%@ include file="doctype.jsp" %>
 
 <html>
@@ -10,22 +10,19 @@
         </style>
         <script type="text/javascript" src="<c:url value="/dwr/interface/transferService.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/dwr/engine.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/dwr/util.js"/>"></script>
-
-        <script type="text/javascript" src="<c:url value="/script/niceforms2.js"/>"></script>
-        <link type="text/css" rel="stylesheet" href="<c:url value="/style/niceforms2/niceforms-default.css" />"/>
-
         <script type="text/javascript" src="<c:url value="/script/upload.js"/>"></script>
     </head>
     <body class="mainframe bgcolor1">
 
         <%@ include file="uploadForm.jsp" %>
 
-        <div id="mainframecontainer">
-            <div id="mainframemenucontainer" class="bgcolor1 fade">
-                <span id="mainframemenuleft">
-                    <span class="back cancel"><a href="more.view?" id="backlink"><fmt:message key="common.back"/></a></span>
-                    <span id="upload" class="mainframemenuitem" style="background-image: url('<spring:theme code='uploadImage'/>')"><a href="#" onClick="javascript:toggleUploadFile()"><fmt:message key="upload.uploadfile"/></a></span>
+        <div id="mainframecontainer" class="fillframe">
+            <div id="mainframemenucontainer" class="bgcolor1 fade vcenterouter fillwidth">
+                <span id="mainframemenuleft" class="vcenterinner">
+                    <button class="ui-icon-triangle-1-w ui-icon-primary vcenter" onClick="location.href='more.view?'"><fmt:message key="common.back"/></button>
+                </span>
+                <span id="mainframemenucenter" class="vcenterinner">
+                    <button class="ui-icon-arrowthickstop-1-n ui-icon-primary vcenter" onClick="toggleUploadFile()"><fmt:message key="upload.uploadfile"/></button>
                 </span>
             </div>
 
@@ -55,6 +52,14 @@
             </div>
         </div>
     </body>
+    <script type="text/javascript">
+        jQueryLoad.wait(function() {
+            $("#uploadnext").click(function(e) { e.preventDefault(); });
+            $("#uploadback").click(function(e) { e.preventDefault(); });
+            jQueryUILoad.wait(function() {
+                $("#uploadFileForm").validation().stylize();
+                $("#mainframemenucontainer").stylize();
+            });
+        });
+    </script>
 </html>
-
-

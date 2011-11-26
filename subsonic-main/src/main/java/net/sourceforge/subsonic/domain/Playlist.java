@@ -321,7 +321,13 @@ public class Playlist {
             return;
         }
 
-        Collections.swap(files, index, indexto);
+        if (index - indexto > 0) {
+            // "up"
+            Collections.rotate(files.subList(indexto, index + 1), 1);
+        } else {
+            // "down"
+            Collections.rotate(files.subList(index, indexto + 1), -1);
+        }
 
         this.index = indexto;
     }

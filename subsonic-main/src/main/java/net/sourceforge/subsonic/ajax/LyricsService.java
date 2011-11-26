@@ -68,7 +68,6 @@ public class LyricsService {
         // 405: requested method was not found
 
         try {
-            
             if (apikey == null) {
                 LOG.warn("No musiXmatch API key set. Sign up at https://developer.musixmatch.com/signup.");
                 // No musiXmatch API key. Pull from Lyrics Wiki?

@@ -13,14 +13,14 @@ TRANSCODING
 
 /var/subsonic/transcode/ffmpeg -ss 0 -i /Users/sindre/Movies/Test/Sample.wtv -async 1 -b 1000k -s 480x360 -ar 44100 -ac 2 -f flv -scodec copy -vcodec libx264 -preset veryfast -threads 0 foo.flv
 
-DONE IN 4.6
-----------------
-Updated Slovenian translation, courtesy of Jan Jamšek.
+DONE IN 4.6.beta2
+-----------------
 
 TODO IN 4.6
 -----------------
-Add +1 button.
-Add Subsonic for Roku
+Don't hardcode c:/subsonic in windows installer.
+  http://forum.subsonic.org/forum/viewtopic.php?f=2&t=8213
+Add Subsonic Channel (for Roku)
   http://www.randomwalking.com/project.php?project=roku_subsonic
 Audio problems on Linux.
   https://mail.google.com/mail/?ui=2&shva=1#inbox/133318f313c0ffbd
@@ -32,7 +32,6 @@ Better video quality when sharing
   http://forum.subsonic.org/forum/viewtopic.php?f=8&t=7646
 Show license details in About.
 Support custom domain name in sharing (Settings > Advanced)
-Fix permission issue on Win7.
 Rename "offsetSeconds" to "timeOffset" in StreamController, and update API doc.
 Add "byteOffset" parameter as well.
 Add rating attributes to <directory> in getMusicDirectory.
@@ -95,14 +94,17 @@ Linux locale issue
 DONE IN ANDROID 3.3
 --------------------
 Bugfix: Improve buffering of downsampled songs (don't buffer for too long)
+Jukebox (remote control) support
+Show error message if server url contains "@".
 
 TODO IN ANDROID 3.3
 --------------------
-Jukebox (remote control) support
+Include German translation.
+  https://mail.google.com/mail/?shva=1#inbox/133a4277174786c7
+Google TV?
 Test BlackBerry runtime
 Android 4.0: Support Audio remote controls
 Handle files in root folder.
-Improve behavior on player error.
 EQ resets when switching between online/offline.
   https://mail.google.com/mail/?shva=1#inbox/131e7e98173f0c97
 Don't stop playback when switching between online/offline.
@@ -352,7 +354,6 @@ Android: Suggest switching to offline mode if network error.
 Android: Make offline mode more visible.
 Android: Reorder playlist
 Android: Queue Next + Queue Last
-Android: Download error notification is nagging.
 Swipe album art to go to prev/next track.
 Seeking fails when playing partial file.  seekTo() should test if playing from partial.
 Only show fullscreen when applicable.
@@ -686,9 +687,9 @@ cd subsonic-assembly; mvn assembly:assembly; cd ..
 Deploy
 Check that correct local version is displayed.
 Upload files to SourceForge (in separate shell, REMEMBER TO CHANGE VERSION BELOW).
-  rsync -avP -e ssh subsonic-installer-windows/target/subsonic*-setup.exe  sindre_mehus,subsonic@frs.sourceforge.net:/home/frs/project/s/su/subsonic/subsonic/4.6.beta1/
-  rsync -avP -e ssh subsonic-assembly/target/subsonic* sindre_mehus,subsonic@frs.sourceforge.net:/home/frs/project/s/su/subsonic/subsonic/4.6.beta1/
-  rsync -avP -e ssh subsonic-installer-mac/target/subsonic*.pkg subsonic-installer-debian/target/subsonic*.deb subsonic-installer-rpm/target/subsonic*.rpm sindre_mehus,subsonic@frs.sourceforge.net:/home/frs/project/s/su/subsonic/subsonic/4.6.beta1/
+  rsync -avP -e ssh subsonic-installer-windows/target/subsonic*-setup.exe  sindre_mehus,subsonic@frs.sourceforge.net:/home/frs/project/s/su/subsonic/subsonic/4.6.beta2/
+  rsync -avP -e ssh subsonic-assembly/target/subsonic* sindre_mehus,subsonic@frs.sourceforge.net:/home/frs/project/s/su/subsonic/subsonic/4.6.beta2/
+  rsync -avP -e ssh subsonic-installer-mac/target/subsonic*.pkg subsonic-installer-debian/target/subsonic*.deb subsonic-installer-rpm/target/subsonic*.rpm sindre_mehus,subsonic@frs.sourceforge.net:/home/frs/project/s/su/subsonic/subsonic/4.6.beta2/
 
 Modify FRS properties
   https://sourceforge.net/projects/subsonic/files/subsonic/
@@ -699,7 +700,7 @@ Upload site (OLD):
 Upload site (NEW):
   rsync -avP -e ssh --exclude ".*" subsonic-site/src/main/webapp/  root@subsonic.org:/usr/local/jakarta/tomcat/webapps/pages/
 
-svn copy https://subsonic.svn.sourceforge.net/svnroot/subsonic/trunk https://subsonic.svn.sourceforge.net/svnroot/subsonic/tags/release-4.6.beta1 -m "Tagging 4.6.beta1"
+svn copy https://subsonic.svn.sourceforge.net/svnroot/subsonic/trunk https://subsonic.svn.sourceforge.net/svnroot/subsonic/tags/release-4.6.beta2 -m "Tagging 4.6.beta2"
 Register at freshmeat.
 Post message on forum.
 Update version number in pom.xml etc.
@@ -707,11 +708,13 @@ Take backup of forum.
 
 Upgrade Subsonic backend: CHANGE DATE BELOW
   Backup backend database.
+    Checkpoint database (db.view)
     cd /var/subsonic-backend
     tar cvf db-backup-2011-08-11.tar db
   cd subsonic-backend
   mvn clean install
 
+  scp subsonic-backend/target/subsonic-backend-*.war root@subsonic.org:/usr/local/jakarta/tomcat/webapps/ROOT.war.2011-11-07
   scp subsonic-backend/target/subsonic-backend-*.war root@subsonic.org:/usr/local/jakarta/tomcat/webapps-2011-08-11/ROOT.war
   scp subsonic-main/target/subsonic.war              root@subsonic.org:/usr/local/jakarta/tomcat/webapps-2011-08-11/demo.war
   rsync -rlptDvP -e ssh --exclude .svn subsonic-site/src/main/webapp/  root@subsonic.org:/usr/local/jakarta/tomcat/webapps-2011-08-11/pages
@@ -770,11 +773,11 @@ Update
     https://myapps.developer.motorola.com/
     https://slideme.org/application/subsonic
     http://www.camangimarket.com/index.html
-svn copy https://subsonic.svn.sourceforge.net/svnroot/subsonic/trunk/subsonic-android https://subsonic.svn.sourceforge.net/svnroot/subsonic/tags/android-release-3.0.1 -m "Tagging Android 3.0.1"
+svn copy https://subsonic.svn.sourceforge.net/svnroot/subsonic/trunk/subsonic-android https://subsonic.svn.sourceforge.net/svnroot/subsonic/tags/android-release-3.3.beta1 -m "Tagging Android 3.3.beta1"
 Create new directory in FRS
   https://sourceforge.net/projects/subsonic/files/android/
 Upload files to SourceForge (in separate shell, REMEMBER TO CHANGE VERSION BELOW).
-  rsync -avP -e ssh subsonic-android/bin/subsonic-release.apk  sindre_mehus,subsonic@frs.sourceforge.net:/home/frs/project/s/su/subsonic/android/3.0.1/subsonic-3.0.1.apk
+  rsync -avP -e ssh subsonic-android/bin/subsonic-release.apk  sindre_mehus,subsonic@frs.sourceforge.net:/home/frs/project/s/su/subsonic/android/3.3.beta1/subsonic-3.3.beta1.apk
 
 
 HOW TO RELEASE TRANSCODING PACK

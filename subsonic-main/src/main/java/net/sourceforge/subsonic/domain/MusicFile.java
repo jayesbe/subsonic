@@ -661,6 +661,22 @@ public class MusicFile implements Serializable {
         public void setHeight(Integer height) {
             this.height = height;
         }
+
+        public void setFormatType(String format) {
+            throw new UnsupportedOperationException("Not yet implemented");
+        }
+
+        public void setEncodingType(String encodingType) {
+            throw new UnsupportedOperationException("Not yet implemented");
+        }
+
+        public void setSampleRate(int sampleRateAsNumber) {
+            throw new UnsupportedOperationException("Not yet implemented");
+        }
+
+        public void setChannelCount(String channels) {
+            throw new UnsupportedOperationException("Not yet implemented");
+        }
     }
 
     /**
@@ -718,7 +734,7 @@ public class MusicFile implements Serializable {
         /**
          * Visits the given music file.
          *
-         * @param musicFile The music file to visist.
+         * @param musicFile The music file to visit.
          */
         void visit(MusicFile musicFile);
 

@@ -13,9 +13,6 @@
  * Main theme icon part of itunes icon pack created by Michael Flarup (http://pixelresort.com)
  */
 @import "default.css";
-@import "accordion/sunny.css";
-@import "playermod/fg/cccccc.css";
-@import "playermod/bg/333333.css";
 
 /*
  * Background colors
@@ -23,13 +20,12 @@
 
     .bgcolor1 {
     /* Primary background color. (lightgray) */
-        background-color: #222;
+        background-color: #111;
     }
 
     .bgcolor2, .ruleTableHeader, .log {
     /* Secondary background color. (darker blue) */
         background-color: #222;
-        color: #FFFFFF;
     }
 
 /*
@@ -50,29 +46,31 @@
 
     body {
     /* Primary foreground (font) color. (black) */
-        color: #FFFFFF;
-        background-color: #DDDDDD;
+        color: #fff;
     }
 
     a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
     /* Link color */
-        color: #FFFFFF;
+        color: #fff;
     }
 
     a:hover, a:hover * {
     /* Link hover style */
-        text-decoration: underline;
-        color: #FFFFFF;
+        color: #d19405;
     }
 
     h1, .detail, .albumComment {
     /* Secondary foreground color for h1, details etc. (gray) */
-        color: #FFFFFF;
+        color: #fff;
     }
+	
+	.ui-state-active .ui-button-text, .ui-state-active input, .ui-state-active select, .ui-state-active textarea {
+		color: #222;
+	}
 
-    h2, b, tr {
+    tr {
     /* Foreground color for h2, bold and tr. */
-        color: #FFFFFF;
+        color: #fff;
     }
 
     label, p {
@@ -80,16 +78,26 @@
         color: #CCC;
     }
 
+    input:hover, select:hover, textarea:hover {
+    /* Input form control style. */
+		color: #222;
+    }
+    
+    option {
+        color: #ddd;
+        background-color: #222;
+    }
+
     .headerSelected {
     /* Background color for selected header. */
-        color: #FFFFFF;
+        color: #fff;
         background-color: #222;
         border: 1px solid #eee;
     }
 
     .warning {
     /* Color for warning messages. */
-        color: #990099;
+        color: #909;
     }
 
 /*

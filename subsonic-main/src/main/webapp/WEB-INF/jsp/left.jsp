@@ -15,102 +15,32 @@
                 .ui-accordion-header h3 { position:fixed; display:inline-block; }
             </style>
         <![endif]-->
-        <script>
-            function createAccordion() {
-                (function($) {
-                    var icons = {
-                        header: "ui-icon-circle-arrow-e",
-                        headerSelected: "ui-icon-circle-arrow-s"
-                    };
-
-                    $(function() {
-                        $("#accordion").accordion({
-                            active: false,
-                            icons: icons,
-                            autoHeight: false,
-                            navigation: true,
-                            collapsible: true,
-                            event: "click hoverintent"
-                        });
-                    })
-
-                    var cfg = ($.hoverintent = {
-                        sensitivity: 3,
-                        interval: 100
-                    });
-
-                    $.event.special.hoverintent = {
-                        setup: function() {
-                            $( this ).bind( "mouseover", jQuery.event.special.hoverintent.handler );
-                        },
-                        teardown: function() {
-                            $( this ).unbind( "mouseover", jQuery.event.special.hoverintent.handler );
-                        },
-                        handler: function( event ) {
-                            event.type = "hoverintent";
-                            var self = this,
-                                args = arguments,
-                                target = $( event.target ),
-                                cX, cY, pX, pY;
-
-                            function track( event ) {
-                                cX = event.pageX;
-                                cY = event.pageY;
-                            };
-                            pX = event.pageX;
-                            pY = event.pageY;
-                            function clear() {
-                                target
-                                    .unbind( "mousemove", track )
-                                    .unbind( "mouseout", arguments.callee );
-                                clearTimeout( timeout );
-                            }
-                            function handler() {
-                                if ( ( Math.abs( pX - cX ) + Math.abs( pY - cY ) ) < cfg.sensitivity ) {
-                                    clear();
-                                    jQuery.event.handle.apply( self, args );
-                                } else {
-                                    pX = cX;
-                                    pY = cY;
-                                    timeout = setTimeout( handler, cfg.interval );
-                                }
-                            }
-                            var timeout = setTimeout( handler, cfg.interval );
-                            target.mousemove( track ).mouseout( clear );
-                            return true;
-                        }
-                    };
-                })(jQuery);
-            }
-            
-            jQueryLoad.wait(function() {
-                jQueryUILoad.wait(function() { jQuery(createAccordion); });
-            });
-        </script>
     </head>
 
     <body class="bgcolor1 leftframe">
 
-        <div id="leftframecontainer">
-
-            <div id="leftframemenucontainer" class="bgcolor1 fade">
-                <div id="musicfoldercontainer">
-                    <c:if test="${fn:length(model.musicFolders) > 1}">
-                        <select id="musicFolder" name="musicFolderId" class="center" onChange="location='left.view?musicFolderId=' + options[selectedIndex].value;">
-                            <option value="-1"><fmt:message key="left.allfolders"/></option>
+        <div id="leftframecontainer" class="fillframe">
+            <div id="leftframemenucontainer" class="bgcolor1 fade vcenterouter fillwidth">
+                <span id="leftframemenucenter" class="vcenterinner aligncenter">
+                    <span id="leftframemenumusicfoldercontainer" class="vcenter">
+                        <select id="musicFolderId" name="musicFolderId" class="inputWithIcon" onChange="location='left.view?musicFolderId=' + options[selectedIndex].value;">
+                            <c:if test="${fn:length(model.musicFolders) > 1}">
+                                <option value="-1"><fmt:message key="left.allfolders"/></option>
+                            </c:if>
                             <c:forEach items="${model.musicFolders}" var="musicFolder">
                                 <option ${model.selectedMusicFolder.id == musicFolder.id ? "selected" : ""} value="${musicFolder.id}">${musicFolder.name}</option>
                             </c:forEach>
                         </select>
-                    </c:if>
-                </div>
+                        <span class="ui-icon left"></span>
+                    </span>
+                </span>
             </div>
             <a name="top"></a>
 
             <c:if test="${not empty model.podcast}">
                 <h2 class="bgcolor1 messagecontent"><fmt:message key="left.podcast"/></h2>
                 <c:forEach items="${model.podcast}" var="radio">
-                    <p class="dense"  style="margin-left:15px;">
+                    <p class="dense"  style="padding-left:0.5em;">
                         <a target="hidden" href="${episode.path}">
                             <img src="<spring:theme code="playImage"/>" alt="<fmt:message key="common.play"/>" title="<fmt:message key="common.play"/>"></a>
                         <c:choose>
@@ -126,7 +56,7 @@
             </c:if>
 
 
-            <div id="accordioncontainer" class="fade">
+            <div id="accordioncontainer" class="fade scroll-y">
                 <div id="accordion">
                     <c:if test="${model.statistics.songCount gt 0}">
                         <h3><a name="#"><fmt:message key="left.index"/></a></h3>
@@ -164,7 +94,7 @@
                         <h3><a name="#"><fmt:message key="left.radio"/></a></h3>
                         <div>
                         <c:forEach items="${model.radios}" var="radio">
-                            <p class="dense"  style="margin-left:15px;">
+                            <p class="dense"  style="padding-left:0.5em;">
                                 <a target="hidden" href="${radio.streamUrl}">
                                     <img src="<spring:theme code="playImage"/>" alt="<fmt:message key="common.play"/>" title="<fmt:message key="common.play"/>"></a>
                                 <c:choose>
@@ -221,4 +151,76 @@
             </div>
         </div>
     </body>
+    <script type="text/javascript">
+        jQueryLoad.wait(function() {
+            jQueryUILoad.wait(function() {
+                $("#leftframemenucontainer").stylize();
+                $("#musicFolderId").next().addClass(($("#musicFolderId option").size() > 1 && $("#musicFolderId")[0].selectedIndex == 0) ? "ui-icon-star" : "ui-icon-folder-collapsed");
+                if ($("#musicFolderId option").size() > 1) { $("#musicFolderId").removeAttr("disabled"); } else { $("#musicFolderId").attr({ "disabled" : "disabled" }); }
+
+                var icons = {
+                    header: "ui-icon-circle-triangle-e",
+                    headerSelected: "ui-icon-circle-triangle-s"
+                };
+
+                $(function() {
+                    $("#accordion").accordion({
+                        active: false,
+                        icons: icons,
+                        autoHeight: false,
+                        navigation: true,
+                        collapsible: true,
+                        event: "click"
+                    });
+                })
+
+                var cfg = ($.hoverintent = {
+                    sensitivity: 3,
+                    interval: 100
+                });
+
+                $.event.special.hoverintent = {
+                    setup: function() {
+                        $( this ).bind( "mouseover", jQuery.event.special.hoverintent.handler );
+                    },
+                    teardown: function() {
+                        $( this ).unbind( "mouseover", jQuery.event.special.hoverintent.handler );
+                    },
+                    handler: function( event ) {
+                        event.type = "hoverintent";
+                        var self = this,
+                            args = arguments,
+                            target = $( event.target ),
+                            cX, cY, pX, pY;
+
+                        function track( event ) {
+                            cX = event.pageX;
+                            cY = event.pageY;
+                        };
+                        pX = event.pageX;
+                        pY = event.pageY;
+                        function clear() {
+                            target
+                                .unbind( "mousemove", track )
+                                .unbind( "mouseout", arguments.callee );
+                            clearTimeout( timeout );
+                        }
+                        function handler() {
+                            if ( ( Math.abs( pX - cX ) + Math.abs( pY - cY ) ) < cfg.sensitivity ) {
+                                clear();
+                                jQuery.event.handle.apply( self, args );
+                            } else {
+                                pX = cX;
+                                pY = cY;
+                                timeout = setTimeout( handler, cfg.interval );
+                            }
+                        }
+                        var timeout = setTimeout( handler, cfg.interval );
+                        target.mousemove( track ).mouseout( clear );
+                        return true;
+                    }
+                };
+            });
+        });
+    </script>
 </html>

@@ -48,9 +48,9 @@ public class InternetRadioSettingsController extends ParameterizableViewControll
         if (isFormSubmission(request)) {
             String error = handleParameters(request);
             map.put("error", error);
-            if (error == null) {
-                map.put("reload", true);
-            }
+            map.put("reload", error == null);
+        } else {
+            map.put("reload", false);
         }
 
         ModelAndView result = super.handleRequestInternal(request, response);

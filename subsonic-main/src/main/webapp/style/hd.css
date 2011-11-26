@@ -4,8 +4,6 @@
  * Author: Sindre Mehus
  */
 @import "midnight.css";
-@import "playermod/fg/cfd1d6.css";
-@import "playermod/bg/000843.css";
 
 /*
  * Background colors
@@ -54,22 +52,20 @@
 
     a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
     /* Link color */
-        color: #97D9FF
+        color: #75ABFF;
     }
 
     a:hover, a:hover * {
     /* Link hover style */
         color: orange;
     }
-
-    h1, .detail, .albumComment {
-    /* Secondary foreground color for h1, details etc. (gray) */
-        color: #CFD1D6;
+    
+    select option {
+        background-color: #000843;
     }
 
-    h2, b, tr {
-    /* Foreground color for h2, bold and tr. */
-        color: #CFD1D6;
+    input, select, textarea {
+        color: #75ABFF;
     }
 
     .albumComment {

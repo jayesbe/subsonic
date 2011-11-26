@@ -4,9 +4,6 @@
  * Author: Don Pearson
  */
 @import "default.css";
-@import "accordion/darkness.css";
-@import "playermod/fg/ffffff.css";
-@import "playermod/bg/aaaaaa.css";
 
 .ruleTableHeader, .ruleTableCell {
 /* The help, status & web player settings tables. */
@@ -135,38 +132,38 @@
  * Main frame menu images
  */
 
-    .back {
+    .back .ui-icon {
         background-image: url("../icons/midnightfun/back.png");
     }
 
-    .forward {
+    .forward .ui-icon {
         background-image: url("../icons/midnightfun/forward.png");
     }
 
-    .refresh {
+    .refresh .ui-icon {
         background-image: url("../icons/midnightfun/refresh.png");
     }
 
-    .download {
+    .download .ui-icon {
         background-image: url("../icons/midnightfun/download.png");
     }
 
-    .delete {
+    .delete .ui-icon {
         background-image: url("../icons/midnightfun/remove.png");
     }
 
-    .up{
+    .up .ui-icon {
         background-image: url("../icons/midnightfun/up.png");
     }
 
-    .down {
+    .down .ui-icon {
         background-image: url("../icons/midnightfun/down.png");
     }
 
-    .addFromURI {
+    .addFromURI .ui-icon {
         background-image: url("../icons/midnightfun/add.png");
     }
 
-    .logfile {
+    .logfile .ui-icon {
         background-image: url("../icons/midnightfun/log_small.png");
     }

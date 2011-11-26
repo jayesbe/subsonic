@@ -4,9 +4,6 @@
  * Author: Sindre Mehus
  */
 @import "default.css";
-@import "accordion/darkness.css";
-@import "playermod/fg/cccccc.css";
-@import "playermod/bg/656569.css";
  
 /*
  * Background colors
@@ -14,12 +11,12 @@
 
     .bgcolor1 {
     /* Primary background color. (lightgray) */
-		background-color: #656569;
+        background-color: #777;
     }
 
     .bgcolor2, .ruleTableHeader, .log {
     /* Secondary background color. (darker blue) */
-		background-color: #4D4C52
+        background-color: #4D4C52
     }
 
     /*
@@ -28,7 +25,8 @@
 
         .border1, .ruleTableHeader, .ruleTableCell, .headerSelected, .log {
         /* Simple white border. */
-			border: 1px solid white;
+            border: 1px solid white;
+            background-color: #656569;
         }
 
 /*
@@ -37,53 +35,59 @@
 
     body {
     /* Primary foreground (font) color. (black) */
-        color: #DDDDDD;
+        color: #ddd;
 
     /* Scrollbar colors (supported on IE and Opera) */
-		scrollbar-face-color: #4D4C52;
-		scrollbar-highlight-color: #656569;
-		scrollbar-shadow-color: #4D4C52;
-		scrollbar-3dlight-color: #4D4C52;
-		scrollbar-arrow-color: #656569;
-		scrollbar-track-color: #656569;
-		scrollbar-darkshadow-color: #656569;
+        scrollbar-face-color: #4D4C52;
+        scrollbar-highlight-color: #656569;
+        scrollbar-shadow-color: #4D4C52;
+        scrollbar-3dlight-color: #4D4C52;
+        scrollbar-arrow-color: #656569;
+        scrollbar-track-color: #656569;
+        scrollbar-darkshadow-color: #656569;
+    }
+    
+    body, .ui-button {
+        font-size: 9pt;
     }
 
     body, h2, form, label, table, a {
     /* Font 1 */
-		color: #DDDDDD;
     }
 
     a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
     /* Link color */
-        color: #BAD9F2
+        color: #ddd
     }
 
     a:hover, a:hover * {
     /* Link hover style */
-        text-decoration: underline;
         color: #F90;
     }
 
     h1, .detail, .albumComment {
     /* Secondary foreground color for h1, details etc. (gray) */
-		color: #DDDDDD;
+        color: #ddd;
     }
 
     h2, b, tr {
     /* Foreground color for h2, bold and tr. */
-        color: #DDDDDD;
+    }
+    
+    option {
+        color: #ddd;
+        background-color: #4D4C52;
     }
 
     .headerSelected {
     /* Background color for selected header. */
-		color: black;
-		background-color: #DDDDDD;
+        color: black;
+        background-color: #ddd;
     }
 
     .warning {
     /* Color for warning messages. */
-		color: #F90;
+        color: #F90;
     }
 
 /*

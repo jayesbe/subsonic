@@ -3,23 +3,23 @@
 
 <html>
     <head>
-        <%@ include file="head.jsp" %>
-        <meta http-equiv="cache-control" content="no-cache">
         <meta http-equiv="refresh" content="20">
+        <meta http-equiv="cache-control" content="no-cache">
+        <%@ include file="head.jsp" %>
         <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
     </head>
     <body class="bgcolor1 mainframe">
 
-        <div id="mainframecontainer">
+        <div id="mainframecontainer" class="fillframe">
 
-            <div id="mainframemenucontainer" class="bgcolor1 fade">
-                <span id="mainframemenuleft">
-                    <span class="mainframemenuitem logfile"><a href="logfile.view?" onClick="persistentTopLinks('logfile.view?')"><fmt:message key="logfile.logfile"/></a></span>
-                    <span class="mainframemenuitem" id="playerstatuslink"><a href="#" onClick="persistentTopLinks('status.view?display=player')"><fmt:message key="status.playerstatus"/></a></span>
-                    <span class="mainframemenuitem" id="userstatisticslink"><a href="#" onClick="persistentTopLinks('status.view?display=user')"><fmt:message key="status.userstatistics"/></a></span>
+            <div id="mainframemenucontainer" class="bgcolor1 fade vcenterouter fillwidth">
+                <span id="mainframemenuleft" class="vcenterinner">
+                    <button id="playerstatuslink" class="vcenter"><fmt:message key="status.playerstatus"/></button>
+                    <button id="userstatisticslink" class="vcenter"><fmt:message key="status.userstatistics"/></button>
+                    <button id="logfile" class="vcenter" onClick="persistentTopLinks('logfile.view?')"><fmt:message key="logfile.logfile"/></button>
                 </span>
-                <span id="mainframemenuright">
-                    <span class="mainframemenuitem refresh right"><a href="#" onClick="javascript: refreshPage()"><fmt:message key="common.refresh"/></a></span>
+                <span id="mainframemenuright" class="vcenterinner">
+                    <button class="ui-icon-refresh ui-icon-secondary right vcenter" onClick="refreshPage()"><fmt:message key="common.refresh"/></button>
                 </span>
             </div>
 
@@ -32,7 +32,7 @@
                         </h1>
                     </div>
     
-                    <div id="playerstatus" style="width:100%;display:none">
+                    <div id="playerstatus" class="fillwidth ui-helper-hidden">
                         <c:set var="pslen" value="<c:out value='${model.transferStatuses}'/>"/>
                         <table class="ruleTable" style="width:95%;margin:2px auto;">
                             <tr>
@@ -118,7 +118,7 @@
                         </table>
                     </div>
 
-                    <div id="userstatistics" style="width:100%;display:none">
+                    <div id="userstatistics" class="fillwidth ui-helper-hidden">
                         <table style="margin:2px auto">
                             <tr>
                                 <th><fmt:message key="home.chart.total"/></th>
@@ -141,31 +141,31 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
-            function refreshPage() {
-                location.href = "status.view?display=${model.statusView}";
-            }
-
-            jQueryLoad.wait(function() {
-                jQueryUILoad.wait(function() {
-                    switch ("${model.statusView}") {
-                        case "player":
-                            jQuery("#playerstatus").delay(30).fadeIn(600);
-                            jQuery("#playerstatuslink").addClass("forward");
-                            jQuery("#userstatisticslink").removeClass("forward");
-                            break;
-                        case "user":
-                            jQuery("#userstatistics").delay(30).fadeIn(600);
-                            jQuery("#userstatisticslink").addClass("forward");
-                            jQuery("#playerstatuslink").removeClass("forward");
-                            break;
-                        default:
-                            jQuery("#playerstatus").delay(30).fadeIn(600);
-                            jQuery("#playerstatuslink").addClass("forward");
-                            jQuery("#userstatisticslink").removeClass("forward");
-                    }
-                });
-            });
-        </script>
     </body>
+    <script type="text/javascript">
+        jQueryLoad.wait(function() {
+            jQueryUILoad.wait(function() {
+                switch ("${model.statusView}") {
+                    case "player":
+                        var sel = "playerstatuslink";
+                        $("#userstatisticslink").click(function() { persistentTopLinks("status.view?display=user"); });
+                        $("#playerstatus").delay(30).fadeIn(600);
+                        break;
+                    case "user":
+                        var sel = "userstatisticslink";
+                        $("#playerstatuslink").click(function() { persistentTopLinks("status.view?display=player"); });
+                        $("#userstatistics").delay(30).fadeIn(600);
+                        break;
+                    default:
+                        $("#userstatisticslink").click(function() { persistentTopLinks("status.view?display=user"); });
+                        $("#playerstatuslink").addClass("ui-icon-bookmark ui-icon-primary ui-state-active")
+                        $("#playerstatus").delay(30).fadeIn(600);
+                }
+                $("#" + sel).addClass("ui-icon-bookmark ui-icon-primary ui-state-active").html('<h2 class="inline">' + $("#" + sel).html() + '</h2>')
+                $("#mainframemenuleft").buttonset();
+                $("#" + sel).hover(function() { $(this).removeClass("ui-state-active"); }, function() { $(this).addClass("ui-state-active"); }).click(function() { $(this).addClass("ui-state-active"); });
+                $("#mainframemenucontainer").stylize();
+            });
+        });
+    </script>
 </html>

@@ -4,8 +4,6 @@
  * Author: Sindre Mehus
  */
 @import "default.css";
-@import "accordion/humanity.css";
-@import "playermod/bg/f5f5d0.css";
 
 /*
  * Background colors
@@ -44,6 +42,5 @@
 
     a:hover, a:hover * {
     /* Link hover style */
-        text-decoration: underline;
         color: #DD6900
     }

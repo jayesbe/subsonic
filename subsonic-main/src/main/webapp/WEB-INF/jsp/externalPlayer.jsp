@@ -19,13 +19,16 @@
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
     <script type="text/javascript">
+
+        var maxBitRate = 1000; 
         function init() {
             var flashvars = {
                 id:"player1",
+                skin:"<c:url value="/flash/whotube.zip"/>",
                 screencolor:"000000",
-                frontcolor:"<spring:theme code="textColor"/>",
+
                 backcolor:"<spring:theme code="backgroundColor"/>",
-                stretching: "fill",
+                frontcolor:"<spring:theme code="textColor"/>",
                 "playlist.position": "bottom",
                 "playlist.size": 200
             };
@@ -58,7 +61,8 @@
 
            <!-- TODO: Use video provider for aac, m4a -->
             list[${loopStatus.count - 1}] = {
-                file: "${streamUrl}",
+
+                file: "${streamUrl}${song.video ? "&maxBitRate=\" + maxBitRate" : "\""},
                 image: "${coverUrl}",
                 title: "${fn:escapeXml(song.title)}",
                 provider: "${song.video ? "video" : "sound"}",

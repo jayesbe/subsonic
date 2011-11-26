@@ -1,25 +1,33 @@
-        <div class="bgcolor1" id="uploadFile" style="display:none">
-            <div style="width:80%;margin:0px auto">
-                <form name="uploadFileForm" method="post" enctype="multipart/form-data" action="upload.view"><!-- onSubmit="displayUploadResults()">-->
-                    <input id="uploadsource" type="file" id="file" name="file" size="40" onChange="validateSource()"/>
-                    <span id="uploaddirectory" style="display:none;">
-                        <fmt:message key="more.upload.target"/> <input type="text" id="dir" name="dir" size="50" value="${model.uploadDirectory}/${model.user.username}" onChange="validateTarget();"/>
-                    </span>
-                    <span id="uploadunzip" style="display:none;">
-                        <input id="unzip" name="unzip" type="checkbox" class="checkbox"/>
-                        <label for="unzip"><fmt:message key="more.upload.unzip"/></label>
-                    </span>
-                    <span id="uploadconfirm" style="display:none;"></span>
-                    <input id="uploadback" type="button" value="Back" onClick="switchUploadStep('prev')" style="display:none;"/>
-                    <input id="uploadnext" type="button" value="Next" onClick="switchUploadStep('next')" style="display:none;"/>
-                    <input id="uploadsubmit" type="button" value="<fmt:message key='more.upload.ok'/>" onClick="verifyUploadFile()" style="display:none;"/>
-                    <input id="uploadcancel" type="reset" value="Cancel" onClick="cancelUploadFile()"/>
-                </form>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="iso-8859-1" %>
+<%@ include file="include.jsp" %>
 
-                <p class="detail" id="progressText"/>
-
-                <div id="progressBar">
-                    <div id="progressBarContent"/></div>
-                </div>
-            </div>
+<div id="uploadFile" class="bgcolor1 mainmenudropdown vcenterouter fillwidth" style="display:none">
+    <span class="aligncenter vcenterinner">
+        <div>
+        <form id="uploadFileForm" name="uploadFileForm" method="post" enctype="multipart/form-data" action="upload.view" class="vcenter">
+            <table class="center">
+                <tr>
+                    <td>
+                        <input type="file" id="uploadsource" name="file" size="40" onChange="validateSource()" class="inputWithIcon" validation="required" />
+                        <span class="ui-icon ui-icon-folder-open right" onClick="uploadsource.click()"></span>
+                        <span id="uploaddirectory" class="ui-helper-hidden">
+                            <fmt:message key="more.upload.target"/> <input type="text" id="dir" name="dir" size="50" value="${model.uploadDirectory}/${model.user.username}" onChange="validateTarget('${model.hostOS}');" validation="required path" />
+                        </span>
+                        <span id="uploadunzip" class="ui-helper-hidden">
+                            <label for="unzip"><fmt:message key="more.upload.unzip"/></label>
+                            <input type="checkbox" id="unzip" name="unzip"/>
+                        </span>
+                    </td>
+                    <td>
+                        <span id="uploadconfirm" class="ui-helper-hidden"></span>
+                        <button id="uploadback" onClick="switchUploadStep('prev')" class="ui-icon-triangle-1-w ui-icon-primary ui-helper-hidden"><fmt:message key="common.back"/></button>
+                        <button id="uploadnext" onClick="switchUploadStep('next')" class="ui-icon-triangle-1-e ui-icon-secondary ui-helper-hidden"><fmt:message key="common.next"/></button>
+                        <button id="uploadsubmit" onClick="verifyUploadFile()" class="ui-icon-arrowthickstop-1-n ui-icon-primary ui-helper-hidden"><fmt:message key='more.upload.ok'/></button>
+                        <button type="reset" id="uploadcancel" onClick="cancelFileUpload()" class="ui-icon-cancel ui-icon-primary"><fmt:message key='common.cancel'/></button>
+                    </td>
+                </tr>
+            </table>
+        </form>
         </div>
+    </span>
+</div>

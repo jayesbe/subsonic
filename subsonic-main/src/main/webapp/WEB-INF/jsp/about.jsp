@@ -26,16 +26,16 @@
             </c:otherwise>
         </c:choose>
 
-        <div id="mainframecontainer">
+        <div id="mainframecontainer" class="fillframe">
 
-            <div id="mainframemenucontainer" class="bgcolor1 fade">
+            <div id="mainframemenucontainer" class="bgcolor1 fade vcenterouter fillwidth">
                 <c:if test="${not model.licensed}">
-                <span id="mainframemenuleft">
-                    <a href="<c:url value="donate.view?"/>"><img src="<spring:theme code='paypalImage'/>" alt=""></a>
+                <span id="mainframemenuleft" class="vcenterinner">
+                    <a href="<c:url value="donate.view?"/>" class="vcenter"><img src="<spring:theme code='paypalImage'/>" alt=""></a>
                 </span>
                 </c:if>
-                <span id="mainframemenuright">
-                    <span class="mainframemenuitem refresh right" style="margin-top:-1px"><a href="about.view?"><fmt:message key="common.refresh"/></a></span>
+                <span id="mainframemenuright" class="vcenterinner">
+                    <button class="ui-icon-refresh ui-icon-secondary right vcenter" onClick="refreshPage()"><fmt:message key="common.refresh"/></button>
                 </span>
             </div>
     
@@ -73,4 +73,11 @@
             </div>
         </div>
     </body>
+    <script type="text/javascript">
+        jQueryLoad.wait(function() {
+            jQueryUILoad.wait(function() {
+                $("#mainframemenucontainer").stylize()
+            });
+        });
+    </script>
 </html>

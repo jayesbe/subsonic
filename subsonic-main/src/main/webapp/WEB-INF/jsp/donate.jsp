@@ -7,14 +7,13 @@
         <%@ include file="head.jsp" %>
     </head>
     <body class="mainframe bgcolor1">
-        <div id="mainframemenucontainer" class="bgcolor1 fade">
-            <div id="mainframemenu">
-                <div class="mainframemenuleft">
-                </div>
-            </div>
-        </div>
 
-        <div id="mainframecontainer">
+        <div id="mainframecontainer" class="fillframe">
+            <div id="mainframemenucontainer" class="bgcolor1 fade vcenterouter fillwidth">
+                <span id="mainframemenuleft" class="vcenterinner">
+                    <span class="vcenter"></span>
+                </span>
+            </div>
 
             <div id="mainframecontentcontainer">
                 <div id="mainframecontent">
@@ -128,24 +127,25 @@
 
                                 <p><fmt:message key="donate.register"/></p>
 
-                                <form:form commandName="command" method="post" action="donate.view">
+                                <form:form id="licenseform" commandName="command" method="post" action="donate.view">
                                     <form:hidden path="path"/>
                                     <table>
                                         <tr>
-                                            <td><fmt:message key="donate.register.email"/></td>
                                             <td>
-                                                <form:input path="emailAddress" size="40"/>
+                                                <input type="email" id="emailAddress" size="40" name="emailAddress" value="<fmt:message key='donate.register.email'/>" placeholder="<fmt:message key='donate.register.email'/>" validation="required email" onClick="javascript:this.select()"
+                                                    onFocus="if(this.value=='<fmt:message key='donate.register.email'/>'){this.value='';}else{this.select();}"
+                                                    onBlur="if(this.value==''){$('#error_emailAddress').remove();this.value='<fmt:message key='donate.register.email'/>';}">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><fmt:message key="donate.register.license"/></td>
                                             <td>
-                                                <form:input path="license" size="40"/>
+                                                <input type="text" id="license" name="license" size="40" value="<fmt:message key='donate.register.license'/>" placeholder="<fmt:message key='donate.register.license'/>" validation="required" onClick="javascript:this.select()"
+                                                    onFocus="if(this.value=='<fmt:message key='donate.register.license'/>'){this.value='';}else{this.select();}"
+                                                    onBlur="if(this.value==''){$('#error_license').remove();this.value='<fmt:message key='donate.register.license'/>';}">
                                             </td>
-                                            <td><input type="submit" value="<fmt:message key="common.ok"/>"/></td>
+                                            <td><button type="submit"><fmt:message key="common.ok"/></button></td>
                                         </tr>
                                         <tr>
-                                            <td/>
                                             <td class="warning"><form:errors path="license"/></td>
                                         </tr>
                                     </table>
@@ -159,4 +159,11 @@
             </div>
         </div>
     </body>
+    <script type="text/javascript">
+        jQueryLoad.wait(function() {
+            jQueryUILoad.wait(function() {
+                $("#licenseform").validation().stylize()
+            });
+        });
+    </script>
 </html>

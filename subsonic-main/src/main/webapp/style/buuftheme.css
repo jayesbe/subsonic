@@ -12,8 +12,6 @@
  * BUUF artwork: Based on icons by Paul Davey aka Mattahan. All rights reserved.
  */
 @import "default.css";
-@import "accordion/humanity.css";
-@import "playermod/bg/ad845a.css";
  
 /*
  * Background colors
@@ -21,12 +19,12 @@
 
     .bgcolor1 {
     /* Primary background color. (lightgray) */
-		background-color: #3C2D22;
+        background-color: #3C2D22;
     }
 
     .bgcolor2, .ruleTableHeader, .log {
     /* Secondary background color. (darker blue) */
-		background-color: #4C4039;
+        background-color: #4C4039;
     }
 
 /*
@@ -36,18 +34,18 @@
     .mainframe {
     /* Main frame border style */
         border-top: 1px transparent;
-		background-image:url( "../icons/buuftheme/background_main.png" );
-		background-repeat:no-repeat;
-		background-attachment:fixed;
-		background-color: #4C4039;
-		background-position:right;
+        background-image:url( "../icons/buuftheme/background_main.png" );
+        background-repeat:no-repeat;
+        background-attachment:fixed;
+        background-color: #4C4039;
+        background-position:right;
     }
 
     .rightframe {
     /* Right frame border style */
         border-left: 1px transparent;
         border-top: 1px transparent;
-		background-color: #4C4039;
+        background-color: #4C4039;
     }
 
 /*
@@ -56,50 +54,50 @@
 
     body {
     /* Primary foreground (font) color. (black) */
-		color: #ffAE00;
-		background-color: #D1D9E1;
+        color: #ffAE00;
+        background-color: #D1D9E1;
 
     /* Scrollbar colors (supported on IE and Opera) */
-		scrollbar-arrow-color: #636363;
-		scrollbar-track-color: #D1D9E1;
+        scrollbar-arrow-color: #636363;
+        scrollbar-track-color: #D1D9E1;
     }
 
     a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
     /* Link color */
-		color: #ffAE00;
+        color: #ffAE00;
     }
 
     a:hover, a:hover * {
     /* Link hover style */
-		color: #169F30;
+        color: #169F30;
     }
 
     h1, .detail, .albumComment {
     /* Secondary foreground color for h1, details etc. (gray) */
-		color: #ffAE00;
+        color: #ffAE00;
     }
 
     h2, b, tr {
     /* Foreground color for h2, bold and tr. */
-		color: #ffAE00;
+        color: #ffAE00;
     }
 
     .headerSelected {
     /* Background color for selected header. */
-		background-image:url( "../icons/buuftheme/home_hover.png" );
-		background-repeat:repeat;
-		color: #333333;
+        background-image:url( "../icons/buuftheme/home_hover.png" );
+        background-repeat:repeat;
+        color: #333333;
     }
 
     .warning {
     /* Color for warning messages. */
-		color: #AA1F15;
+        color: #AA1F15;
     }
     
     .log {
     /* Log file font size */
         font-size: 8pt;
-		font-weight: bold;
+        font-weight: bold;
     }
 
 /*

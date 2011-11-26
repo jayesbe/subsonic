@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<web-app id="subsonic" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="subsonic" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
     <display-name>Subsonic Music Streamer</display-name>
-
     <!-- Location of application context.  Used by ContextLoaderListener. -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -14,26 +10,22 @@
             /WEB-INF/applicationContext-cache.xml
         </param-value>
     </context-param>
-
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     <listener>
         <listener-class>net.sf.ehcache.constructs.web.ShutdownListener</listener-class>
     </listener>
-
     <servlet>
         <servlet-name>subsonic</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
     <servlet>
         <display-name>DWR Servlet</display-name>
         <servlet-name>dwr-invoker</servlet-name>
         <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>subsonic</servlet-name>
         <url-pattern>*.view</url-pattern>
@@ -66,17 +58,14 @@
         <servlet-name>dwr-invoker</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
     </servlet-mapping>
-
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-
     <error-page>
         <exception-type>java.lang.Throwable</exception-type>
         <location>/error.jsp</location>
     </error-page>
-
     <filter>
         <filter-name>BootstrapVerificationFilter</filter-name>
         <filter-class>net.sourceforge.subsonic.filter.BootstrapVerificationFilter</filter-class>
@@ -85,7 +74,6 @@
         <filter-name>BootstrapVerificationFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
     <filter>
         <filter-name>ParameterDecodingFilter</filter-name>
         <filter-class>net.sourceforge.subsonic.filter.ParameterDecodingFilter</filter-class>
@@ -94,7 +82,6 @@
         <filter-name>ParameterDecodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
     <filter>
         <filter-name>RequestEncodingFilter</filter-name>
         <filter-class>net.sourceforge.subsonic.filter.RequestEncodingFilter</filter-class>
@@ -107,7 +94,6 @@
         <filter-name>RequestEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
     <filter>
         <description>Sets HTTP headers to enable browser caching.</description>
         <filter-name>CacheFilter</filter-name>
@@ -117,7 +103,6 @@
             <param-value>max-age=36000</param-value>
         </init-param>
     </filter>
-
     <filter>
         <description>Sets HTTP headers to disable browser caching.</description>
         <filter-name>NoCacheFilter</filter-name>
@@ -135,7 +120,6 @@
             <param-value>Thu, 01 Dec 1994 16:00:00 GMT</param-value>
         </init-param>
     </filter>
-
     <filter>
         <description>The "Expires" HTTP header is set to avoid overly eager browser caching of
             pages that implements LastModified.</description>
@@ -146,7 +130,6 @@
             <param-value>Thu, 01 Dec 1994 16:00:00 GMT</param-value>
         </init-param>
     </filter>
-
     <filter-mapping>
         <filter-name>CacheFilter</filter-name>
         <url-pattern>/icons/*</url-pattern>
@@ -159,7 +142,6 @@
         <filter-name>CacheFilter</filter-name>
         <url-pattern>/changeCoverArt.view</url-pattern>
     </filter-mapping>
-
     <filter-mapping>
         <filter-name>NoCacheFilter</filter-name>
         <url-pattern>/statusChart.view</url-pattern>
@@ -178,7 +160,7 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>NoCacheFilter</filter-name>
-        <url-pattern>/help.view</url-pattern>
+        <url-pattern>/about.view</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>NoCacheFilter</filter-name>
@@ -188,12 +170,10 @@
         <filter-name>NoCacheFilter</filter-name>
         <url-pattern>/home.view</url-pattern>
     </filter-mapping>
-
     <filter-mapping>
         <filter-name>ExpiresFilter</filter-name>
         <url-pattern>/left.view</url-pattern>
     </filter-mapping>
-
     <filter>
         <filter-name>AcegiFilter</filter-name>
         <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
@@ -202,10 +182,8 @@
             <param-value>org.acegisecurity.util.FilterChainProxy</param-value>
         </init-param>
     </filter>
-
     <filter-mapping>
         <filter-name>AcegiFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
 </web-app>

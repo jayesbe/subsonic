@@ -8,55 +8,13 @@
         <script type="text/javascript" src="<c:url value="/dwr/interface/multiService.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/dwr/engine.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/dwr/util.js"/>"></script>
-        <script type="text/javascript" language="javascript">
-
-            function init() {
-                enableUrlRedirectionFields();
-                refreshStatus();
-            }
-
-            function refreshStatus() {
-                multiService.getNetworkStatus(updateStatus);
-            }
-
-            function updateStatus(networkStatus) {
-                dwr.util.setValue("portForwardingStatus", networkStatus.portForwardingStatusText);
-                dwr.util.setValue("urlRedirectionStatus", networkStatus.urlRedirectionStatusText);
-                window.setTimeout("refreshStatus()", 1000);
-            }
-
-            function enableUrlRedirectionFields() {
-                var checkbox = $("#urlRedirectionEnabled")[0];
-                var field = $("#urlRedirectFrom")[0];
-
-                if (checkbox && checkbox.checked) {
-                    //field.enable();
-                    $(field).removeAttr('disabled');
-                } else {
-                    //field.disable();
-                    $(field).attr('disabled', 'disabled');
-                }
-            }
-
-            jQueryLoad.wait(function() {
-                $(init);
-            });
-        </script>
     </head>
     <body class="mainframe bgcolor1">
-        <script type="text/javascript" src="<c:url value="/script/wz_tooltip.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/tip_balloon.js"/>"></script>
-
         <c:import url="settingsHeader.jsp">
             <c:param name="cat" value="network"/>
         </c:import>
 
-        <form:form commandName="command" action="networkSettings.view" method="post">
-
-            <div class="right">
-                <input type="submit" value="<fmt:message key='common.save'/>" style="margin-right:0.3em">
-                <input type="button" value="<fmt:message key='common.cancel'/>" onclick="location.href='nowPlaying.view'">
-            </div>
+        <form:form id="networksettingsform" commandName="command" action="networkSettings.view" method="post">
 
             <p style="padding-top:1em"><fmt:message key="networksettings.text"/></p>
 
@@ -76,14 +34,13 @@
                 </p>
             </div>
 
-            <p style="padding-top:1em"><form:checkbox id="urlRedirectionEnabled" path="urlRedirectionEnabled"
-                                                      onclick="enableUrlRedirectionFields()"/>
+            <p style="padding-top:1em"><form:checkbox id="urlRedirectionEnabled" path="urlRedirectionEnabled" onclick="enableUrlRedirectionFields()"/>
                 <label for="urlRedirectionEnabled"><fmt:message key="networksettings.urlredirectionenabled"/></label>
             </p>
 
             <div style="padding-left:2em">
 
-                <p>http://<form:input id="urlRedirectFrom" path="urlRedirectFrom" size="16" cssStyle="margin-left:0.25em"/>.subsonic.org</p>
+                <p><form:input id="urlRedirectFrom" path="urlRedirectFrom" size="16" cssStyle="margin-left:0.25em;text-align:center;" onclick="javascript:this.select()" /></p>
 
                 <p class="detail">
                     <fmt:message key="networksettings.status"/>
@@ -101,8 +58,7 @@
                             <fmt:message key="networksettings.trialexpired"><fmt:param>${expiryDate}</fmt:param></fmt:message>
                         </c:when>
                         <c:otherwise>
-                            <fmt:message
-                                    key="networksettings.trialnotexpired"><fmt:param>${expiryDate}</fmt:param></fmt:message>
+                            <fmt:message key="networksettings.trialnotexpired"><fmt:param>${expiryDate}</fmt:param></fmt:message>
                         </c:otherwise>
                     </c:choose>
                 </p>
@@ -114,4 +70,35 @@
     </div>
     </div>
     </body>
+    <script type="text/javascript">
+        function refreshStatus() {
+            multiService.getNetworkStatus(updateStatus);
+        }
+
+        function updateStatus(networkStatus) {
+            $("#portForwardingStatus").html(networkStatus.portForwardingStatusText);
+            $("#urlRedirectionStatus").html(networkStatus.urlRedirectionStatusText);
+            window.setTimeout("refreshStatus()", 1000);
+        }
+
+        function enableUrlRedirectionFields() {
+            var b = $("#urlRedirectionEnabled").attr("checked") ? true : false;
+            var field = $("#urlRedirectFrom");
+
+            if (b) {
+                field.removeAttr("disabled");
+            } else {
+                field.attr({"disabled" : "disabled"});
+            }
+        }
+
+        jQueryLoad.wait(function() {
+            $(refreshStatus);
+            $(enableUrlRedirectionFields);
+            jQueryUILoad.wait(function() {
+                $(init)
+                $("#urlRedirectFrom").parent().prepend("<span style='padding-left:0.4em'>http://</span>").append("<span style='padding-right:0.4em'>.subsonic.org</span>");
+            });
+        });
+    </script>
 </html>

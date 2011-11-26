@@ -11,11 +11,7 @@
             <c:param name="cat" value="musicFolder"/>
         </c:import>
 
-        <form method="post" action="musicFolderSettings.view">
-            <div class="right">
-                <input type="submit" value="<fmt:message key='common.save'/>" style="margin-right:0.3em">
-                <input type="button" value="<fmt:message key='common.cancel'/>" onclick="location.href='nowPlaying.view'">
-            </div>
+        <form id="musicfoldersettingsform" method="post" action="musicFolderSettings.view">
 
             <table>
                 <tr>
@@ -29,7 +25,7 @@
                     <tr>
                         <td><input type="text" name="name[${folder.id}]" size="20" value="${folder.name}"/></td>
                         <td><input type="text" name="path[${folder.id}]" size="40" value="${folder.path.path}"/></td>
-                        <td align="center" style="padding-left:1em"><input type="checkbox" ${folder.enabled ? "checked" : ""} name="enabled[${folder.id}]" class="checkbox"/></td>
+                        <td align="center" style="padding-left:1em"><input type="checkbox" name="enabled[${folder.id}]" class="checkbox" ${folder.enabled ? "checked" : ""}/></td>
                         <td align="center" style="padding-left:1em"><input type="checkbox" name="delete[${folder.id}]" class="checkbox"/></td>
                     </tr>
                 </c:forEach>
@@ -51,16 +47,20 @@
         <c:if test="${not empty model.error}">
             <p class="warning"><fmt:message key="${model.error}"/></p>
         </c:if>
-
-        <c:if test="${model.reload}">
-            <script type="text/javascript">
-                parent.frames.upper.location.href="top.view?";
-                parent.frames.left.location.href="left.view?";
-            </script>
-        </c:if>
     </blockquote>
     </div>
     </div>
     </div>
     </body>
+    <script type="text/javascript">
+        if (${model.reload}) {
+            parent.frames.upper.location.href="top.view?";
+            parent.frames.left.location.href="left.view?";
+        }
+        jQueryLoad.wait(function() {
+            jQueryUILoad.wait(function() {
+                $(init);
+            });
+        });
+    </script>
 </html>

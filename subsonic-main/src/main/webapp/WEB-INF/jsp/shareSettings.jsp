@@ -7,17 +7,12 @@
         <%@ include file="head.jsp" %>
     </head>
     <body class="mainframe bgcolor1">
-
         <c:import url="settingsHeader.jsp">
             <c:param name="cat" value="share"/>
             <c:param name="restricted" value="${not model.user.adminRole}"/>
         </c:import>
 
-        <form method="post" action="shareSettings.view">
-            <div class="right">
-                <input type="submit" value="<fmt:message key='common.save'/>" style="margin-right:0.3em">
-                <input type="button" value="<fmt:message key='common.cancel'/>" onclick="location.href='nowPlaying.view'">
-            </div>
+        <form id="sharesettingsform" method="post" action="shareSettings.view">
 
             <table style="border-collapse:collapse;white-space:nowrap">
                 <tr>
@@ -56,10 +51,12 @@
                         <td ${class} style="padding-left:1em; text-align:right">${share.visitCount}</td>
                         <td ${class} style="padding-left:1em"><a href="${albumUrl}" title="${shareInfo.dir.name}"><str:truncateNicely upper="30">${fn:escapeXml(shareInfo.dir.name)}</str:truncateNicely></a></td>
                         <td ${class} style="padding-left:1em">
-                            <label><input type="radio" name="expireIn[${share.id}]" value="7"><fmt:message key="sharesettings.expirein.week"/></label>
-                            <label><input type="radio" name="expireIn[${share.id}]" value="30"><fmt:message key="sharesettings.expirein.month"/></label>
-                            <label><input type="radio" name="expireIn[${share.id}]" value="365"><fmt:message key="sharesettings.expirein.year"/></label>
-                            <label><input type="radio" name="expireIn[${share.id}]" value="0"><fmt:message key="sharesettings.expirein.never"/></label>
+                            <select id="expireIn[${share.id}]" name="expireIn[${share.id}]">
+                                <option value="7"><fmt:message key="sharesettings.expirein.week"/></option>
+                                <option value="30"><fmt:message key="sharesettings.expirein.month"/></option>
+                                <option value="365"><fmt:message key="sharesettings.expirein.year"/></option>
+                                <option value="0"><fmt:message key="sharesettings.expirein.never"/></option>
+                            </select>
                         </td>
                         <td ${class} style="padding-left:1em" align="center" style="padding-left:1em"><input type="checkbox" name="delete[${share.id}]" class="checkbox"/></td>
                     </tr>
@@ -72,4 +69,11 @@
     </div>
     </div>
     </body>
+    <script type="text/javascript">
+        jQueryLoad.wait(function() {
+            jQueryUILoad.wait(function() {
+                $(init);
+            });
+        });
+    </script>
 </html>

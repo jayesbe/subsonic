@@ -80,11 +80,18 @@ public class JaudiotaggerParser extends MetaDataParser {
                 metaData.setTrackNumber(parseTrackNumber(getTagField(tag, FieldKey.TRACK)));
             }
 
+            //Tag tagv2 = audioFile.getID3v2TagAsv24();
+            //if (tagv2 != null) {}
+
             AudioHeader audioHeader = audioFile.getAudioHeader();
             if (audioHeader != null) {
                 metaData.setVariableBitRate(audioHeader.isVariableBitRate());
                 metaData.setBitRate((int) audioHeader.getBitRateAsNumber());
                 metaData.setDuration(audioHeader.getTrackLength());
+                //metaData.setFormatType(audioHeader.getFormat());
+                //metaData.setEncodingType(audioHeader.getEncodingType());
+                //metaData.setSampleRate(audioHeader.getSampleRateAsNumber());
+                //metaData.setChannelCount(audioHeader.getChannels());
             }
 
 

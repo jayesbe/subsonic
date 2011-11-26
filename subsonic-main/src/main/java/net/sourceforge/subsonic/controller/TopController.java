@@ -63,6 +63,9 @@ public class TopController extends ParameterizableViewController {
         } else if (userSettings.isBetaVersionNotificationEnabled() && versionService.isNewBetaVersionAvailable()) {
             map.put("newVersionAvailable", true);
             map.put("latestVersion", versionService.getLatestBetaVersion());
+        } else {
+            map.put("newVersionAvailable", false);
+            map.put("latestVersion", null);
         }
         map.put("listType", userSettings.getListType());
         map.put("listRows", userSettings.getListRows());
@@ -84,4 +87,5 @@ public class TopController extends ParameterizableViewController {
     public void setSecurityService(SecurityService securityService) {
         this.securityService = securityService;
     }
+
 }

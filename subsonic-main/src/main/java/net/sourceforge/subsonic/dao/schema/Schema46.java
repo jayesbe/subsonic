@@ -77,6 +77,12 @@ public class Schema46 extends Schema {
             LOG.info("Database table 'player_transcoding2' was created successfully.");
         }
 
+        if (!columnExists(template, "default_active", "transcoding2")) {
+            LOG.info("Database column 'transcoding2.default_active' not found.  Creating it.");
+            template.execute("alter table transcoding2 add default_active boolean default true not null");
+            LOG.info("Database column 'transcoding2.default_active' was added successfully.");
+        }
+
         if (!columnExists(template, "list_type", "user_settings")) {
             LOG.info("Database column 'user_settings.list_type' not found.  Creating it.");
             template.execute("alter table user_settings add list_type varchar default 'newest' not null");

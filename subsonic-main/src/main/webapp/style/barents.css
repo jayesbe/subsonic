@@ -4,9 +4,8 @@
  * Author: Sindre Mehus
  */
 @import "hd.css";
-@import "accordion/dotluv.css";
 
-body {
+body, .ui-button {
     font-size: 9pt;
 }
 

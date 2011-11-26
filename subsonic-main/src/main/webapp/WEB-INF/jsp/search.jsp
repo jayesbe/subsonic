@@ -10,42 +10,29 @@
 
         <script type="text/javascript">
             function more(rowSelector, moreId) {
-                var rows = $$(rowSelector);
+                var rows = $(rowSelector);
                 for (var i = 0; i < rows.length; i++) {
-                    rows[i].show();
+                    $(rows[i]).show();
                 }
-                $(moreId).hide();
+                $("#" + moreId).hide();
             }
         </script>
-
     </head>
     <body class="mainframe bgcolor1">
 
         <div id="mainframecontainer">
+            <div id="mainframemenucontainer" class="bgcolor1 fade">
+                <span id="mainframemenuleft">
+                </span>
+            </div>
 
             <div id="mainframecontentcontainer">
                 <div id="mainframecontent">
-                
-                
-                    <h1>
-                        <img id="pageimage" src="<spring:theme code="searchImage"/>" alt=""/>
-                        <span class="desc"><fmt:message key="search.title"/></span>
-                    </h1>
-
-                    <form:form commandName="command" method="post" action="search.view" name="searchForm">
-                    <table cellpadding="0px" cellspacing="0px" align="right" style="margin-right:20px;" width="400px">
-                        <tr>
-                            <td><fmt:message key="search.query"/></td>
-                            <td style="border-style:solid none solid solid;border-color:#849dbd;border-width:1px;background-color:#FFF">
-                            <form:input path="query" size="35"/>
-                            </td>
-                            <td style="border-style:solid solid solid none;border-color:#849dbd;border-width:1px;" width="24px" align="right">
-                            <input id="Submit" type="image" onClick="search(0)" src="<spring:theme code="searchImage"/>" alt="${search}" title="${search}" align="absBottom" style="border-style:none" width="18px">
-                            <!--<a href="javascript:document.searchForm.submit()"><img src="<spring:theme code="searchImage"/>" alt="${search}" title="${search}"></a>-->
-                            </td>
-                        </tr>
-                    </table>
-                    </form:form>
+                    <div id="mainframecontentheader" class="fade">
+                        <h1>
+                            <img id="pageimage" src="<spring:theme code="searchImage"/>" alt=""/>
+                            <span class="desc"><fmt:message key="search.title"/></span>
+                        </h1>
                     </div>
 
                     <br>

@@ -49,10 +49,10 @@ PARAMETERS
                 <div class="innerbox">
                     <c:choose>
                         <c:when test="${param.showLink}"><a href="${mainUrl}" title="${param.albumName}"></c:when>
-                        <c:when test="${param.showZoom}"><a href="${zoomCoverArtUrl}" rel="zoom" title="${param.albumName}"></c:when>
+                        <c:when test="${param.showZoom}"><a href="${zoomCoverArtUrl}" title="${param.albumName}" class="coverart"></c:when>
                     </c:choose>
-                        <img src="${coverArtUrl}" alt="${param.albumName}">
-                        <c:if test="${param.showLink or param.showZoom}"></a></c:if>
+                    <img src="${coverArtUrl}" alt="${param.albumName}">
+                    <c:if test="${param.showLink or param.showZoom}"></a></c:if>
                 </div>
             </div>
         </div>

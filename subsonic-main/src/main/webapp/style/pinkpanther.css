@@ -5,15 +5,12 @@
  *
  */
 @import "default.css";
-@import "accordion/mintchocolate.css";
-@import "playermod/fg/cccccc.css";
-@import "playermod/bg/402c31.css";
 
 /*
  * Background colors
  */
 
-    .bgcolor1 {
+    .bgcolor1, select option {
     /* Primary background color. (lightgray) */
         background-color: #402c31;
     }

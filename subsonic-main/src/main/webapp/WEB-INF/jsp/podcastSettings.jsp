@@ -11,12 +11,7 @@
             <c:param name="cat" value="podcast"/>
         </c:import>
 
-        <form:form commandName="command" action="podcastSettings.view" method="post">
-
-            <div class="right">
-                <input type="submit" value="<fmt:message key='common.save'/>" style="margin-right:0.3em">
-                <input type="button" value="<fmt:message key='common.cancel'/>" onclick="location.href='nowPlaying.view'">
-            </div>
+        <form:form id="podcastsettingsform" commandName="command" action="podcastSettings.view" method="post">
 
             <table>
                 <tr>
@@ -88,4 +83,11 @@
     </div>
     </div>
     </body>
+    <script type="text/javascript">
+        jQueryLoad.wait(function() {
+            jQueryUILoad.wait(function() {
+                $(init);
+            });
+        });
+    </script>
 </html>

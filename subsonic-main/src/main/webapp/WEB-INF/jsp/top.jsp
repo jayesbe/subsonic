@@ -21,160 +21,132 @@
         <fmt:message key="top.donate" var="donate"/>
         <fmt:message key="top.search" var="search"/>
         <fmt:message key="top.upload" var="upload"/>
+        <fmt:message key='search.query' var="query"/>
         
-        <div id="topframecontainer" style="display:none">
+        <div id="topframecontainer" class="fillframe vcenterouter" style="display:none;">
 
-            <div id="logocontainer">
-                <div id="logo"><img src="<spring:theme code='logoImage'/>"></div>
-            </div>
+            <span id="topframelogocontainer" class="vcenterinner">
+                <img id="logo" class="vcenter" src="<spring:theme code='logoImage'/>">
+            </span>
 
-            <div id="topframemenucontainer">
+            <span id="topframemenucontainer" class="vcenterinner">
+                <span id="topframemenuleft" class="vcenter">
+                    <span class="topimgcontainer inline">
+                        <div class="topimg">
+                        <sub:url value="home.view" var="homeUrl">
+                            <sub:param name="listType" value="${model.listType}"/>
+                            <sub:param name="listRows" value="${model.listRows}"/>
+                            <sub:param name="listColumns" value="${model.listColumns}"/>
+                        </sub:url>
+                         <a href="${homeUrl}" target="main" class="TriggerEffect" id="homeLink">
+                            <img id="MenuImg" src="<spring:theme code='homeImage'/>" title="${home}" alt="${home}"/>
+                         </a>
+                         <div class="desc"><a href="${homeUrl}" target="main" id="homeLinkDesc">${home}</a></div> 
+                        </div>
+                    </span>
 
-                <c:if test="${not model.musicFoldersExist}">
-                    <div style="padding-right:2em">
-                        <p class="warning"><fmt:message key="top.missing"/></p>
-                    </div>
-                </c:if>
-
-                <div class="topimgcontainer">
-                    <div class="topimg">
-                    <sub:url value="home.view" var="homeUrl">
-                        <sub:param name="listType" value="${model.listType}"/>
-                        <sub:param name="listRows" value="${model.listRows}"/>
-                        <sub:param name="listColumns" value="${model.listColumns}"/>
-                    </sub:url>
-                     <a href="${homeUrl}" target="main" class="TriggerEffect" id="homeLink">
-                        <img id="MenuImg" src="<spring:theme code='homeImage'/>" title="${home}" alt="${home}"/>
-                     </a>
-                     <div class="desc"><a href="${homeUrl}" target="main" id="homeLinkDesc">${home}</a></div> 
-                    </div>
-                </div>
-
-                <div class="topimgcontainer">
-                    <div class="topimg">
-                     <a href="nowPlaying.view?" target="main" class="TriggerEffect">
-                        <img id="MenuImg" src="<spring:theme code='nowPlayingImage'/>" title="${nowPlaying}" alt="${nowPlaying}" class="hovtive">
-                     </a>
-                     <div class="desc"><a href="nowPlaying.view?" target="main">${nowPlaying}</a></div>
-                    </div>
-                </div>
-                
-                <div class="topimgcontainer">
-                    <div class="topimg">
-                     <a href="podcastReceiver.view?" target="main" id="podcastLink">
-                        <img id="MenuImg" src="<spring:theme code='podcastImage'/>" title="${podcast}" alt="${podcast}">
-                     </a>
-                     <div class="desc"><a href="podcastReceiver.view?" target="main" id="podcastLinkDesc">${podcast}</a></div>
-                    </div>
-                </div>
-                
-                <c:if test="${model.user.settingsRole}">
-                <div class="topimgcontainer">
-                    <div class="topimg">
-                     <a href="settings.view?" target="main" id="settingsLink">
-                        <img id="MenuImg" src="<spring:theme code='settingsImage'/>" title="${settings}" alt="${settings}">
-                     </a>
-                     <div class="desc"><a href="settings.view?" target="main" id="settingsLinkDesc">${settings}</a></div>
-                    </div>
-                </div>
-                </c:if>
-                
-                <c:if test="${model.user.adminRole}">
-                <div class="topimgcontainer">
-                    <div class="topimg">
-                     <a href="status.view?" target="main" id="statusLink">
-                        <img id="MenuImg" src="<spring:theme code='statusImage'/>" title="${status}" alt="${status}">
-                     </a>
-                     <div class="desc"><a href="status.view?" target="main" id="statusLinkDesc">${status}</a></div>
-                    </div>
-                </div>
-                </c:if>
-                
-                <!--
-                <div class="topimgcontainer">
-                    <div class="topimg">
-                     <a href="javascript:chatwindow()">
-                        <img id="MenuImg" src="<spring:theme code='chatImage'/>" title="${chat}" alt="${chat}">
-                     </a>
-                     <div class="desc"><a href="javascript:chatwindow()">${chat}</a></div>
-                    </div>
-                </div>
-                -->
-
-                <div class="topimgcontainer">
-                    <div class="topimg">
-                     <a href="more.view?" target="main">
-                        <img id="MenuImg" src="<spring:theme code='moreImage'/>" title="${more}" alt="${more}">
-                     </a>
-                     <div class="desc"><a href="more.view?" target="main">${more}</a></div>
-                    </div>
-                </div>
-                
-                <c:if test="${model.user.adminRole}">
-                <div class="topimgcontainer">
-                    <div class="topimg">
-                     <a href="about.view?" target="main">
-                        <img id="MenuImg" src="<spring:theme code='aboutImage'/>" title="${about}" alt="${about}">
-                     </a>
-                     <div class="desc"><a href="about.view?" target="main">${about}</a></div>
-                    </div>
-                </div>
-                </c:if>
-                
-                <!--
-                <c:if test="${model.user.uploadRole}">
-                <div class="topimgcontainer">
-                    <div class="topimg">
-                     <a href="javascript:newwindow()">
-                        <img id="MenuImg" src="<spring:theme code='uploadImage'/>" title="${upload}" alt="${upload}"/>
-                     </a>
-                     <div class="desc"><a href="javascript:newwindow()">${upload}</a></div>
-                    </div>
-                </div>
-                </c:if>
-
-                <c:if test="not ${model.user.adminRole}">
-                <div class="topimgcontainer">
-                    <div class="topimg">
-                     <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ZTB47DYWFS64" target="_blank"><SPAN></SPAN>
-                        <img id="MenuImg" src="<spring:theme code='donateImage'/>" title="${donate}" alt="${donate}">
-                     </a>
-                     <div class="desc"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=A8EU47TDXU3YA" target="_blank">${donate}</a></div>
-                    </div>
-                </div>
-                </c:if>
-                -->
-            </div>
-            <div id="topframemenucontainer">
-                <span class="right">
-                    <%@ include file="searchbox.jsp" %>
-                </span>
-            </div>
-
-            <div id="topframerightmenucontainer">
-                <div id="topframerightmenu">
-                    <c:if test="${model.newVersionAvailable}">
-                        <p class="warning center">
-                        <fmt:message key="top.upgrade"><fmt:param value="${model.brand}"/><fmt:param value="${model.latestVersion}"/></fmt:message>
-                        </p>
+                    <span class="topimgcontainer inline">
+                        <div class="topimg">
+                         <a href="nowPlaying.view?" target="main" class="TriggerEffect">
+                            <img id="MenuImg" src="<spring:theme code='nowPlayingImage'/>" title="${nowPlaying}" alt="${nowPlaying}" class="hovtive">
+                         </a>
+                         <div class="desc"><a href="nowPlaying.view?" target="main">${nowPlaying}</a></div>
+                        </div>
+                    </span>
+                    
+                    <span class="topimgcontainer inline">
+                        <div class="topimg">
+                         <a href="podcastReceiver.view?" target="main" id="podcastLink">
+                            <img id="MenuImg" src="<spring:theme code='podcastImage'/>" title="${podcast}" alt="${podcast}">
+                         </a>
+                         <div class="desc"><a href="podcastReceiver.view?" target="main" id="podcastLinkDesc">${podcast}</a></div>
+                        </div>
+                    </span>
+                    
+                    <c:if test="${model.user.settingsRole}">
+                    <span class="topimgcontainer inline">
+                        <div class="topimg">
+                         <a href="settings.view?" target="main" id="settingsLink">
+                            <img id="MenuImg" src="<spring:theme code='settingsImage'/>" title="${settings}" alt="${settings}">
+                         </a>
+                         <div class="desc"><a href="settings.view?" target="main" id="settingsLinkDesc">${settings}</a></div>
+                        </div>
+                    </span>
                     </c:if>
-                    <p class="center">
-                        <a href="j_acegi_logout" target="_top"><fmt:message key="top.logout"><fmt:param value="${model.user.username}"/></fmt:message></a>
-                        <c:if test="${not model.licensed}">
-                            <br><br>
-                            <a href="donate.view" target="main"><img src="<spring:theme code="donateSmallImage"/>" alt=""></a>
-                            <a href="donate.view" target="main"><fmt:message key="donate.title"/></a>
-                        </c:if>
-                    </p>
-                </div>
-            </div>
+                    
+                    <c:if test="${model.user.adminRole}">
+                    <span class="topimgcontainer inline">
+                        <div class="topimg">
+                         <a href="status.view?" target="main" id="statusLink">
+                            <img id="MenuImg" src="<spring:theme code='statusImage'/>" title="${status}" alt="${status}">
+                         </a>
+                         <div class="desc"><a href="status.view?" target="main" id="statusLinkDesc">${status}</a></div>
+                        </div>
+                    </span>
+                    </c:if>
+
+                    <span class="topimgcontainer inline">
+                        <div class="topimg">
+                         <a href="more.view?" target="main" id="moreLink">
+                            <img id="MenuImg" src="<spring:theme code='moreImage'/>" title="${more}" alt="${more}">
+                         </a>
+                         <div class="desc"><a href="more.view?" target="main" id="moreLinkDesc">${more}</a></div>
+                        </div>
+                    </span>
+                    
+                    <c:if test="${model.user.adminRole}">
+                    <span class="topimgcontainer inline">
+                        <div class="topimg">
+                         <a href="about.view?" target="main">
+                            <img id="MenuImg" src="<spring:theme code='aboutImage'/>" title="${about}" alt="${about}">
+                         </a>
+                         <div class="desc"><a href="about.view?" target="main">${about}</a></div>
+                        </div>
+                    </span>
+                    </c:if>
+                </span>
+            </span>
+            <c:if test="${not model.musicFoldersExist || model.newVersionAvailable}">
+            <span id="topframenotificationmessagecontainer" class="vcenterinner">
+                <div id="topframenotificationmessage" class="vcenterinner ui-helper-hidden"></div>
+            </span>
+            </c:if>
+            <span id="topframesearchboxcontainer" class="vcenterinner">
+                <span class="right">
+                    <c:import url="searchbox.jsp">
+                        <c:param name="action" value="search.view"/>
+                        <c:param name="value" value="${query}"/>
+                        <c:param name="title" value="${search}"/>
+                    </c:import>
+                </span>
+            </span>
+            <span id="topframelogoutcontainer" class="vcenterinner aligncenter">
+                <button onClick="javascript:parent.location.href='j_acegi_logout'" class="ui-icon-power ui-icon-secondary bold"><fmt:message key="top.logout"><fmt:param value="${model.user.username}"/></fmt:message></button>
+                <c:if test="${not model.licensed}">
+                <br><br>
+                <button onClick="parent.main.location.href='donate.view'" class="ui-icon-heart ui-icon-secondary ui-state-error bold"><fmt:message key="donate.title"/></button>
+                </c:if>
+            </span>
         </div>
-        <script type="text/javascript">
-            jQueryLoad.wait(function() {
-                jQueryUILoad.wait(function() {
-                        jQuery("#topframecontainer").show("drop", 600);
-                });
-            });
-        </script>
     </body>
+    <script type="text/javascript">
+        jQueryLoad.wait(function() {
+            jQueryUILoad.wait(function() {
+                jAlertLoad = $LAB
+                    .script({src:"script/plugins/jquery-ui.alert.min.js", test:"$.writeAlert"})
+                        .wait(function() {
+                            if (${not model.musicFoldersExist}) $("#topframenotificationmessage").writeError({ msg : '<fmt:message key="top.missing"/>', id : "nomusicfoldermessage" });
+                            if (${model.newVersionAvailable}) {
+                                $("#topframenotificationmessage").writeAlert({ 
+                                    msg : '<fmt:message key="top.upgrade"><fmt:param value="${model.brand}"/><fmt:param value="${model.latestVersion}"/></fmt:message>',
+                                    id : "newversionmessage"
+                                });
+                            }
+                        });
+                $("#searchForm").validation().stylize();
+                $("#topframelogoutcontainer").stylize();
+                $("#topframecontainer").show("drop", 600);
+            });
+        });
+    </script>
 </html>

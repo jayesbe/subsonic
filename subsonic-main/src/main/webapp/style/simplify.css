@@ -5,9 +5,6 @@
  *
  */
 @import "default.css";
-@import "accordion/darkness.css";
-@import "playermod/fg/cccccc.css";
-@import "playermod/bg/1b1b1b.css";
 
 /*
  * Background colors
@@ -63,6 +60,10 @@
     h2, b, tr {
     /* Foreground color for h2, bold and tr. */
         color: #FFFFFF;
+    }
+    
+    select option {
+        background-color: #1b1b1b;
     }
 
     .headerSelected {

@@ -8,7 +8,6 @@
  * Main theme icon part of itunes icon pack created by Michael Flarup (http://pixelresort.com)
  */
 @import "default.css";
-@import "playermod/bg/d1d9e1.css";
 
 /*
  * Background colors
@@ -96,38 +95,38 @@
  * Main frame menu images
  */
 
-    .back {
+    .back .ui-icon {
         background-image: url("../icons/coolandclean/back.png");
     }
 
-    .forward {
+    .forward .ui-icon {
         background-image: url("../icons/coolandclean/forward.png");
     }
 
-    .refresh {
+    .refresh .ui-icon {
         background-image: url("../icons/coolandclean/refresh.png");
     }
 
-    .download {
+    .download .ui-icon {
         background-image: url("../icons/coolandclean/download.png");
     }
 
-    .delete {
+    .delete .ui-icon {
         background-image: url("../icons/coolandclean/remove.png");
     }
 
-    .up{
+    .up .ui-icon {
         background-image: url("../icons/coolandclean/up.png");
     }
 
-    .down {
+    .down .ui-icon {
         background-image: url("../icons/coolandclean/down.png");
     }
 
-    .addFromURI {
+    .addFromURI .ui-icon {
         background-image: url("../icons/coolandclean/add.png");
     }
 
-    .logfile {
+    .logfile .ui-icon {
         background-image: url("../icons/coolandclean/log_small.png");
     }

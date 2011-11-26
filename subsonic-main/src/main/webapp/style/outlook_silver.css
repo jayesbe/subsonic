@@ -1,7 +1,4 @@
 @import "default.css";
-@import "accordion/outlook_silver.css";
-@import "playermod/fg/3b3b3b.css";
-@import "playermod/bg/e8ecf0.css";
  
 /*
  * Stuff that is safe to change
@@ -150,11 +147,6 @@
  * Miscellaneous style settings and helpers
  */
 
-    body {
-    /* Primary foreground (font) color. (black) */
-        font-size: 9pt;
-    }
-
     a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
     /* Link color */
         color:#333;
@@ -173,7 +165,7 @@
         position: absolute;
     }
 
-    #logo img {
+    #logo {
     /* Logo image size */
         width: 200px;
         height: 75px;
@@ -211,18 +203,6 @@
 /*
  * Main frame menu images
  */
-
-    .mainframemenuitem, .forward, .back, .refresh, .addFromURI, .delete, .download, #showEpisodes, #hideEpisodes, #upload {
-        border: solid 1px #818181;
-        color: #818181;
-        background-color:#ffffff;
-        background-image: none;
-        padding: 0.2em 0.4em 0.2em 0.4em;
-    }
-    
-    #minisub {
-        padding-left: 16px;
-    }
 
     .rightframespacebar {
         background-image: url('../icons/outlook_silver/space_bar.png');
@@ -279,24 +259,7 @@
  * Player style
  */
 
-    .solidblockmenu li a:hover, .solidblockmenu li .current {
+    .solidblockmenu li a:hover, .solidblockmenu select:hover, .solidblockmenu li .current {
     /* Player control hover style */
         background-color: #3b3b3b;
     }
-
-    .solidblockmenu select:hover {
-    /* Player select hover style */
-        background-color: #3b3b3b;
-    }
- 
-
-.DynarchCalendar-dayNames div { color: #444; text-shadow: 1px 1px 1px #777; border-bottom: 1px solid #e2e4e7; }
-.DynarchCalendar-day {color: #33;}
-.DynarchCalendar-day-othermonth { color:#9dabab; }
-.DynarchCalendar-weekend { color: #333; }
-.DynarchCalendar-day-today { color: black; }
-.DynarchCalendar-hover-date {border: 1px solid black; color: black;}
-.DynarchCalendar-day-selected {border: 1px solid #c95c05; color: black}
-.DynarchCalendar-day-othermonth.DynarchCalendar-hover-date { border-color: #aaa; color: #9dabab; }
-.DynarchCalendar-dayNames .DynarchCalendar-weekend { color: #333; }
-.DynarchCalendar-day-othermonth.DynarchCalendar-weekend { color: #9dabab; }

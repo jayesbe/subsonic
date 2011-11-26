@@ -14,73 +14,99 @@
     }
 
     body {
+        overflow: hidden;
+    }
+
+    body, p, form, table, img, .dense {
         padding: 0;
+    }
+
+    body, h1, p, form, table, img, input, select, textarea, label, .borderless, .chatLogMessage {
         border: 0;
+    }
+    
+    body, h1, h2, form, button, img, input, select, textarea, label, .dense {
         margin: 0;
-    }
-
-    p {
-        padding: 0;
-        border: 0;
-        margin: 0 0 1em 0;
-    }
-
-    h1 {
-        white-space: nowrap;
-        padding: 0 0 0.2em 0;
-        border: 0;
-        margin: 0;
-    }
-
-    h2 {
-        white-space: nowrap;
-        margin: 0.2em 0 0.2em 0;
-    }
-
-    form {
-        line-height: 140%;
-        padding: 0;
-        border: 0;
-        margin: 0;
-    }
-
-    label {
-        line-height: 140%;
-    }
-
-    table {
-        line-height: 140%;
-        padding: 0;
-        border: 0;
-    }
-
-    table.indent {
-        margin: 1em 0 0.4em 0;
     }
 
     img {
-        margin: 0;
-        padding: 0;
         vertical-align: middle;
     }
 
+    table, form, label {
+        line-height: 140%;
+    }
+
+    h1, h2, .dense, .detail, .nowrap, .warning {
+        white-space: nowrap;
+    }
+    
+    .collapse, .ruleTable {
+        border-collapse: collapse;
+    }
+
+    h1, .chatLogMessage {
+        padding: 0 0 0.2em 0;
+    }
+
+    *:focus {
+        outline: none;
+    }
+    
+    input, select, textarea, label {
+        padding: 0.2em;
+        background: none;
+    }
+    
+    select {
+        height: 2em;
+        -webkit-appearance: button;
+    }
+
+    input {
+        height: 1.6em;
+    }
+    
+    marquee {
+        width: 15em;
+        display: block;
+    }
+    
 /*
  * General Prototypes
  */
 
-    .static {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: auto;
-        height: auto;
-        z-index:100;
+    .handcursor {
+        cursor: pointer;
     }
 
-    .dense {
-        white-space: nowrap;
-        margin: 0;
-        line-height: 1.3em
+    .scroll {
+        overflow: auto;
+    }
+
+    .scroll-x {
+        overflow-x: auto;
+    }
+
+    .scroll-y {
+        overflow-y: auto;
+    }
+
+    .scroll-h {
+        overflow: hidden
+    }
+
+    .fillframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .fillwidth {
+        width: 100%;
+    }
+
+    .fillheight {
+        height: 100%;
     }
 
     .left {
@@ -94,25 +120,98 @@
     .center {
         margin: 0px auto;
     }
-
-    .back, .forward, .current, .mainframemenuitem {
+    
+    .inline {
         display: inline-block;
-        line-height: 16px;
-        background-repeat: no-repeat;
     }
     
-    .mainframemenuitem {
-        padding: 0px 16px 0px 16px;
-        background-position: center left;
+    .block {
+        display: block;
+    }
+
+    .static {
+        left: 0;
+        top: 0;
+        position: fixed;
+        width: auto;
+        height: auto;
+        z-index:100;
+    }
+
+    .alignleft {
+        text-align: left;
+    }
+
+    .alignright {
+        text-align: right;
+    }
+
+    .aligncenter, .topimg {
+        text-align: center;
+    }
+
+    .aligntop {
+        vertical-align: top;
+    }
+
+    .alignbottom {
+        vertical-align: bottom;
+    }
+
+    .vcenterouter {
+        #position: relative;
+        display: table;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+        
+    .vcenterinner {
+        #top: 50%;
+        #position: absolute;
+        display: table-cell; 
+        vertical-align: middle; 
+    }
+
+    .vcenter {
+        #top: -50%;
+        #position: relative;
+    }
+    
+    .flip-horizontal {
+        -moz-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: fliph; /*IE*/
+        -ms-filter: fliph;
+    }
+
+    .flip-vertical {
+        -moz-transform: scaleY(-1);
+        -webkit-transform: scaleY(-1);
+        -o-transform: scaleY(-1);
+        transform: scaleY(-1);
+        filter: flipv; /*IE*/
+        -ms-filter: flipv;
+    }
+    
+    .iconInput .ui-icon, .iconSelect .ui-icon, .iconFile .ui-icon {
+        vertical-align:middle;
+        cursor:pointer;
+    }
+
+    .plainFile, .iconFile {
+        width: 300px;
+        height: 23px;
     }
 
     .current {
-        padding: 0 0.3em 0 0.3em;
+        padding: 0 0.3em;
     }
 
     .back {
-        background-position: center right;
         padding-right: 16px;
+        background-position: center right;
     }
 
     .forward {
@@ -120,48 +219,48 @@
         background-position: center left;
     }
 
-    .cancel {
-        margin-left: 20px;
-        padding-right: 30px;
-    }
-    
-    .settings {
-        padding-left: 0px;
-        padding-right: 16px;
-    }
-    
-    .refresh, .logfile, #minisub {
-        margin-left: 5px;
-    }
-
     .detail {
-        white-space: nowrap;
         line-height: 1.25em;
-    }
-
-    .warning {
-        white-space: nowrap;
     }
 
     .headerSelected {
         padding: 0.4em;
     }
 
+    .dense {
+        line-height: 1.3em
+    }
+    
+    .indent {
+        margin-left: 0.5em;
+    }
+
+    .bold, .ruleTableHeader {
+        font-weight: bold;
+    }
+
+    .back .ui-icon, .forward .ui-icon, .refresh .ui-icon, .download .ui-icon 
+        .delete .ui-icon, .up .ui-icon, .down .ui-icon, .addFromURI .ui-icon, .logfile .ui-icon {
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    .back, .forward, .current, .mainframemenuitem {
+        line-height: 16px;
+    }
+    
+    .mainframemenuitem {
+        padding: 0px 16px 0px 16px;
+        background-position: center left;
+    }
+
     /*
      * Simple table structure
      */
 
-        .ruleTable {
-            border-collapse: collapse;
-        }
-
-        .ruleTableHeader {
-            font-weight: bold;
-        }
-
         .ruleTableHeader, .ruleTableCell {
-            margin: 5px;
-            padding: 5px;
+            margin: 0.5em;
+            padding: 0.5em;
         }
 
 /*
@@ -171,37 +270,8 @@
     /*
      * Shared structure
      */
-
-        #logonframecontainer, #topframecontainer, #leftframecontainer, #mainframecontainer, #playlistframecontainer, #rightframecontainer  {
-            width: 100%;
-            height: 100%;
-            vertical-align: middle;
-        }
-
-        #logonframecontainer, #topframecontainer, #leftframemenucontainer, #mainframemenucontainer, #playlistframemenucontainer {
-            display: table;
-            overflow: hidden;
-            #position: relative;
-            vertical-align: middle;
-            width: 100%;
-        }
-            
-        #logonframeformcontainer, #logocontainer, #topframemenucontainer, #topframerightmenucontainer, #musicfoldercontainer, 
-        #mainframemenuleft, #mainframemenuright, #mainframemenucenter, #playlistframemenupanel {
-            #top: 50%;
-            #position: absolute;
-            display: table-cell; 
-            vertical-align: middle; 
-        }
-
-        #logonframeform, #logo, #musicFolder, #listSize, #listSizeRow, #imageSearchProvider, .solidblockmenu-outer, #mypanel  {
-            #top: -50%;
-            #position: relative;
-            background-position: left; 
-            background-repeat: no-repeat;
-        }
         
-        #mainframecontentcontainer, #accordioncontainer, #playlistcontainer {
+        #mainframecontentcontainer {
             overflow-y: auto;
         }
         
@@ -209,93 +279,70 @@
             overflow-x: hidden;
         }
         
-        #musicfoldercontainer, #accordioncontainer, 
-        #mainframemenuleft, #mainframemenuright, #mainframemenucenter, #mainframecontent, 
-        #playlistframemenupanel, #playlistcontainer {
-            padding: 2px;
+
+        .mainmenudropdown {
+            position: absolute;
+            top: 35px;
+            padding: 0.5em 0;
+            z-index: 1;
         }
         
-        #searchForm, #listSizeForm {
-            width: 300px;
+        #searchFormQuery {
+            width: 275px;
         }
 
         #longbar {
-            width: 100%;
             height: 5px;
             margin: 5px 0px 5px 0px;
             background-position: left;
             background-repeat: repeat-x;
         }
-        
-        .searchboxquery {
-            color: b3b3b3; 
-            border: 1px transparent;
-            width: 100%;
-            height: 18px;
-            padding:1px 3px;
-            position:relative;
-        }
-        
-        .searchboxsubmit {
-            position:relative;
-        }
 
     /*
-     * Logon frame structure
+     * Login frame structure
      */
-    
-        #logonframeform {
-            padding-top: 20px;
-            padding-bottom: 20px;
-            margin-bottom: 300px;
+     
+        #loginframeformcontainer input, .captcha {
+            width: 16em;
         }
-		
-        #logonframeform table {
+    
+        #loginframelogonform {
+            padding: 20px 0px;
+        }
+    
+        #loginframeregistrationform, #loginframeforgotpassform {
+            padding-bottom: 20px;
+        }
+        
+        #loginframeformcontainer {
+            padding-bottom: 300px;
         }
 
     /*
      * Top frame structure
      */
+     
+        .topimgcontainer {
+            padding: 1em;
+        }
         .topframe {
             margin-top: -1px;
         }
 
-        #logocontainer {
+        #topframelogocontainer {
             width: 240px;
             padding-left: 5px
         }
         
-        #topframerightmenucontainer {
+        #topframelogoutcontainer {
             width: 240px;
-            text-align: center;
             padding-right: 5px;
-        }
-        
-        #topframerightmenu p {
         }
 
         /*
          * Top frame menu structure
          */
 
-            .topimgcontainer { 
-                display: inline-block; 
-            }
-
-            .topimg {
-                text-align: center;
-            }
-
-            .topimg * {
-            }
-
-            .topimg img { }
-            .topimg a:hover img { }
-
-            .desc {
-                width: 60px;
-                margin: 2px;
-            }
 
     /*
      * Left frame structure
@@ -305,9 +352,8 @@
             height: 5%;
         }
 
-        #musicFolder {
-            padding: 2px;
-            width: 100%;
+        #musicFolderId {
+            width: 220px;
         }
         
         #accordioncontainer {
@@ -325,21 +371,13 @@
         #mainframemenucontainer {
             height: 6.7%;
         }
-        
-        #mainframemenucenter {
-            text-align: center;
-        }
 
         #mainframecontentcontainer {
-             height: 93.3%;
+            height: 93.3%;
         }
-
-        #uploadFile, #addPodcastFormContainer, #addCoverArtFormContainer {
-            position: fixed;
-            top: 35px;
-            width: 100%;
-            text-align: center;
-            z-index: 1;
+        
+        #mainframecontentalbumdetail {
+            padding: 0.5em;
         }
 
         .albumComment {
@@ -349,10 +387,9 @@
         }
 
         .formattingOptions {
-            display: none;
-            position: relative;
-            width: 575px;
-            margin: 0px 0px 5px 5px;
+            width: 40em;
+            padding: 0.5em;
+            margin-top: 0.5em;
         }
 
         .fade, #mainframecontentheader, #mainframemenucontainer, #welcomemessage, #trackcontainer, #adcontainer, #searchlinks, #podcastcontainer { visibility:hidden; }
@@ -364,68 +401,33 @@
             .pagination {
             }
 
-            .pagination .current {
-                display: inline-block;
-            }
-
             .baseDirectory, .baseDirectoryMarquee,
             .baseAlbum, .baseAlbumMarquee,
             .singleAlbum, .singleAlbumMarquee,
             .doubleAlbumLeft, .doubleAlbumLeftMarquee,
             .doubleAlbumRight, .doubleAlbumRightMarquee,
-            .multipleAlbum, .multipleAlbumMarquee                { text-align: center; min-width: 15em; padding: 0.2em; }
-
-            .doubleAlbumLeft, .doubleAlbumLeftMarquee,
-            .baseAlbum, .baseAlbumMarquee                        { margin-right: 16px; }
-            
-            .doubleAlbumRight, .doubleAlbumRightMarquee,
-            .singleAlbum, .singleAlbumMarquee                    { margin-left: 16px; }
-
-            .baseDirectory, .baseDirectoryMarquee                { margin-left: 2px; }
-
-            .multipleAlbum, .multipleAlbumMarquee                { margin-left: 16px; margin-right: 16px; }
-
-            .prevAncestor, .prevAlbum                            { margin-left: 8px; padding-right: 30px; }
-            .nextAlbum                                           { margin-right: 2px; padding-left: 30px; }
+            .multipleAlbum, .multipleAlbumMarquee                { text-align: center; min-width: 15em; }
             
         /*
          * Home page structure
          */
 
-            .homecategories {
-                margin-top: 2px;
-                margin-bottom: 7px;
-            }
-
             #welcomemessage {
                 width: 20em;
-                padding: 0 1em 0 1em;
+                padding: 0 1em;
             }
             
         /*
          * Edit Tags page structure
          */
 
-            #saveTags {
-                height: 24px;
-                width: 150px;
-                padding: 0;
-            }
-
         /*
          * Change cover art page structure
          */
             
-            #imagesearchresultcontainer {
-            }
-            
         /*
          * Logfile page structure
          */
-            
-            #logfilecontainer {
-                text-align: center;
-            }
 
             .log {
                 white-space: nowrap;
@@ -435,23 +437,14 @@
         /*
          * More page structure
          */
-            
-            #randomplaylistgenerator {
-                width: 100%;
-                display: inline-block;
-            }
 
             #randomplaylistgenerator legend {
-                padding: 5px 10px 5px 10px;
+                padding: 0.4em 0.9em;
             }
             
         /*
          * Settings pages structure
          */
-
-            .avatarimage {
-                display: inline-block;
-            }
 
         /*
          * Database Query page structure
@@ -460,9 +453,8 @@
             #runSQLQuery {
                 height: 24px;
                 width: 150px;
-                padding: 0;
             }
-        
+
         /*
          * Video player structure
          */
@@ -470,17 +462,12 @@
             #timeOffset, #maxBitRate {
                 max-width: 10em;
             }
-        
+
             #timeOffset {
                 padding-left:0.25em;
                 padding-right:0.25em;
                 margin-right:0.5em
             }
-            
-            #maxBitRate {
-            }
-            
-            
 
     /*
      * Playlist structure
@@ -489,31 +476,19 @@
         #playlistframemenucontainer {
             height: 15%;
         }
+        #playlistframemenu, #playlistframemenuadvancedcontainer, #playlistframemenucontrolscontainer {
+            padding: 0.2em;
+        }
         
         #player1 { position: relative}
         
         #playlistcontainer {
             height: 85%;
         }
-        
-        #playerSelect, #moreActions, #sortActions {
-            position: relative;
-            min-width: 10em;
-            border: 0;
-            -webkit-border-radius: 0px;
-        }
-     
-        .solidblockmenu-outer, .solidblockmenu, .solidblockmenu li a {
+
+        .solidblockmenu-outer, .solidblockmenu {
             height: 24px;
             overflow: hidden;
-        }
-
-        #ddpanelcontainer {
-            padding: 2px 0px 2px 0px;
-        }
-
-        #mypanelcontent {
-            margin-bottom: 2px;
         }
 
         .solidblockmenu {
@@ -530,10 +505,9 @@
         }
 
         .solidblockmenu a   {
-            height: 24px;
-            width: 24px;
-            background-position: 0px 0px;
-            background-repeat: no-repeat;
+            height: 16px;
+            width: 16px;
+            padding: 4px;
             display: block;
             text-indent: -9999px;
         }
@@ -559,14 +533,6 @@
             background-position: left;
         }
 
-        .actionsdd {
-            visibility: hidden;
-        }
-
-        .actionslnk {
-            visibility: visible;
-        }
-
     /*
      * Right frame structure
      */
@@ -574,10 +540,9 @@
         #right {
             min-width: 230px;
         }
-		
-        #rightframecontainer {
-            height: 84%;
-            overflow-y: auto;
+
+        #rightframemenucontainer {
+            height: 5%;
         }
          
         .rightframespacebar {
@@ -585,21 +550,57 @@
         }
 
         .lyricslink {
-            display: inline-block;
             margin: 5px auto auto 10px;
         }
 
-        #clockbox {
-            text-align: center;
-        }
-
-        #calendarbox {
-            padding: 5px;
-        }
-
         #calendar {
+            padding: 0.5em 0;
         }
-		
-        #chatContainer div.NFTextCenter {
-            width: 93%;
+        
+        #chatmessageform .iconInput {
+            margin: 0px auto;
         }
+        #chatContainer input {
+            width: 16em;
+        }
+
+/*
+ * jQuery Overrides
+ */
+ 
+    .ui-tooltip {
+        position: absolute !important;
+        padding: 8px !important;
+    }
+    
+    .ui-buttonset {
+        margin-right: 5px !important;
+    }
+    
+    .ui-slider .ui-slider-handle {
+        height: 6px !important;
+        width: 4px !important;
+    }
+    
+    .ui-datepicker, .ui-datepicker .ui-datepicker-title select {
+        display: inline-block !important;
+        font-size: .9em !important;
+    }
+    
+    .ui-datepicker .ui-datepicker-title select {
+        text-align: center !important;
+        -webkit-appearance: menulist !important;
+    }
+
+    .playerrepeaton {
+        border: none !important;
+        background: none !important;
+    }
+    
+    #topframelogoutcontainer .ui-button .ui-button-text {
+        padding: 0.2em 2.1em 0.2em 1em !important;
+    }
+
+    #playlistframemenuadvancedright .ui-button-text-only .ui-button-text {
+        padding: .2em .5em !important;
+    }

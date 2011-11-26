@@ -11,12 +11,10 @@
             <c:param name="cat" value="transcoding"/>
         </c:import>
 
-        <form method="post" action="transcodingSettings.view">
+        <form id="transcodingsettingsform" method="post" action="transcodingSettings.view">
+
             <a href="http://www.subsonic.org/pages/transcoding.jsp" target="_blank"><fmt:message key="transcodingsettings.recommended"/></a>
-            <div class="right">
-                <input type="submit" value="<fmt:message key='common.save'/>" style="margin-right:0.3em">
-                <input type="button" value="<fmt:message key='common.cancel'/>" onclick="location.href='nowPlaying.view'">
-            </div>
+
             <table>
                 <tr>
                     <th><fmt:message key="transcodingsettings.name"/></th>
@@ -50,6 +48,12 @@
                     <td><input style="font-family:monospace" type="text" name="step2" size="22" value="${model.newTranscoding.step2}"/></td>
                     <td/>
                 </tr>
+                <tr>
+                    <td colspan="6" style="padding-top:0.1em">
+                        <input type="checkbox" id="defaultActive" name="defaultActive" class="checkbox" checked/>
+                        <label for="defaultActive"><fmt:message key="transcodingsettings.defaultactive"/></label>
+                    </td>
+                </tr>
             </table>
         </form>
 
@@ -65,4 +69,11 @@
     </div>
     </div>
     </body>
+    <script type="text/javascript">
+        jQueryLoad.wait(function() {
+            jQueryUILoad.wait(function() {
+                $(init);
+            });
+        });
+    </script>
 </html>

@@ -5,9 +5,6 @@
  *
  */
 @import "default.css";
-@import "accordion/redmond.css";
-@import "playermod/fg/cccccc.css";
-@import "playermod/bg/456993.css";
 
 /*
  * Background colors
@@ -50,17 +47,11 @@
 
     a:hover, a:hover * {
     /* Link hover style */
-        text-decoration: underline;
         color: #B6BEC2;
     }
 
     h1, .detail, .albumComment {
     /* Secondary foreground color for h1, details etc. (gray) */
-        color: #EFE9D9;
-    }
-
-    h2, b, tr {
-    /* Foreground color for h2, bold and tr. */
         color: #EFE9D9;
     }
 

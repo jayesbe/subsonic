@@ -4,9 +4,6 @@
  * Author: Jeebs (Fisher Evans)
  */
 @import "default.css";
-@import "accordion/lefrog.css";
-@import "playermod/fg/d2f1d5.css";
-@import "playermod/bg/090a09.css";
 
 /*
  * Background colors
@@ -94,6 +91,10 @@
     /* Color for warning messages. */
         color: white;
     }
+	
+	select option {
+		background-color: #090a09;
+	}
 
 /*
  * Main frame menu images

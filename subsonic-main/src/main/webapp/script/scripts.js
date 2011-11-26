@@ -1,3 +1,7 @@
+String.prototype.toTitleCase = function () {
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
 function noop() {
 }
 
@@ -18,6 +22,11 @@ function popupSize(mylink, windowname, width, height) {
     w.moveTo(300, 200);
     return false;
 }
+
+function refreshPage() {
+	window.location.href = window.location.href;
+}
+
 function persistentTopLinks(newURI, follow) {
     var id;
     var follow = (typeof(follow)=="undefined") ? true : follow;
@@ -30,6 +39,7 @@ function persistentTopLinks(newURI, follow) {
         case "home": id = "homeLink"; break
         case "podcastReceiver": id = "podcastLink"; break
         case "status": id = "statusLink"; break
+        case "more": case "db": id = "moreLink"; break
         case "logfile": id = "statusLink"; break
         case "settings": id = "settingsLink"; break
     }

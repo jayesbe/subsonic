@@ -16,12 +16,7 @@
                 <p><fmt:message key="usersettings.passwordnotsupportedforldap"/></p>
             </c:when>
             <c:otherwise>
-                <form:form method="post" action="passwordSettings.view" commandName="command">
-                    <div class="right">
-                        <input type="submit" value="<fmt:message key='common.save'/>" style="margin-right:0.3em">
-                        <input type="button" value="<fmt:message key='common.cancel'/>" onclick="location.href='nowPlaying.view'">
-                    </div>
-
+                <form:form id="passwordsettingsform" method="post" action="passwordSettings.view" commandName="command">
                     <h2><fmt:message key="passwordsettings.title"><fmt:param>${command.username}</fmt:param></fmt:message></h2>
 
                     <table>
@@ -44,4 +39,11 @@
     </div>
     </div>
     </body>
+    <script type="text/javascript">
+        jQueryLoad.wait(function() {
+            jQueryUILoad.wait(function() {
+                $(init);
+            });
+        });
+    </script>
 </html>

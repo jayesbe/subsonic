@@ -5,65 +5,33 @@
     <head>
         <%@ include file="head.jsp" %>
         <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
-        <script type="text/javascript">
-            function fillBox(what) {
-                document.forms[0].query.value = what.value;
-                return false;
-            }
-            
-            function dbQueryBuilder() {
-                var action = document.getElementById("dbQueryAction").value;
-                var table = document.getElementById("dbQueryTable").value;
-                
-                switch (action) {
-                    case "SELECT":
-                        document.dbQueryForm.query.value = action + " * FROM " + table; break;
-
-                    case "UPDATE":
-                        document.dbQueryForm.query.value = action + " " + table + " SET "; break;
-                    
-                    default:
-                }
-                
-            }
-            
-            function verifySQLQuery() {
-                var sql = document.dbQueryForm.query.value;
-                
-                // Check for null value
-                if (sql == "") {
-                    return false;
-                }
-
-                // Checks passed: submit
-                document.dbQueryForm.submit();
-            }
-        </script>
     </head>
 
     <body class="mainframe bgcolor1">
         <fmt:message key="db.tables" var="dbtables"/>
         <fmt:message key="db.samples" var="samples"/>
 
-        <div id="mainframecontainer">
+        <div id="mainframecontainer" class="fillframe">
 
-            <div id="mainframemenucontainer" class="bgcolor1 fade">
-                <span id="mainframemenuleft">
-                    <span class="mainframemenuitem back cancel"><a href="more.view?"><fmt:message key="common.back"/></a></span>
+            <div id="mainframemenucontainer" class="bgcolor1 fade vcenterouter fillwidth">
+                <span id="mainframemenuleft" class="vcenterinner">
+                    <button onClick="persistentTopLinks('more.view?')" class="ui-icon-triangle-1-w ui-icon-primary vcenter"><fmt:message key="common.back"/></button>
                 </span>
-                <span id="mainframemenucenter">
-                            <select id="dbQueryAction" onChange="dbQueryBuilder()">
-                                <option value="SELECT">SELECT</option>
-                                <option value="UPDATE">UPDATE</option>
-                            </select>
-                            <select id="dbQueryTable" onChange="dbQueryBuilder()">";
-                            <c:forTokens items="${dbtables}" delims=" " var="dbtable">
-                                <option ${dbtable eq model.query ? "selected" : ""} value="${dbtable}">${dbtable}</option>
-                            </c:forTokens>
-                            </select>
+                <span id="mainframemenucenter" class="vcenterinner">
+                    <select id="dbQueryAction" onChange="dbQueryBuilder(this)" class="vcenter">
+                        <option value="ACTION">ACTION</option>
+                        <option value="SELECT">SELECT</option>
+                        <option value="UPDATE">UPDATE</option>
+                    </select>
+                    <select id="dbQueryTable" onChange="dbQueryBuilder(this)" class="vcenter">";
+                        <option value="TABLE">TABLE</option>
+                    <c:forTokens items="${dbtables}" delims=" " var="dbtable">
+                        <option ${dbtable eq model.query ? "selected" : ""} value="${dbtable}">${dbtable}</option>
+                    </c:forTokens>
+                    </select>
                 </span>
-                <span id="mainframemenuright">
-                    <span class="mainframemenuitem forward right"><input id="runSQLQuery" type="button" value="Run" onClick="verifySQLQuery();"></span>
+                <span id="mainframemenuright" class="vcenterinner">
+                    <button id="runSQLQuery" onClick="verifySQLQuery();" class="ui-icon-gear ui-icon-secondary vcenter right"><fmt:message key="db.run"/></button>
                 </span>
             </div>
 
@@ -72,23 +40,25 @@
                     <div id="mainframecontentheader">
                     </div>
 
-                    <div id="dbQueryBuilder" class="fade" style="width:50%;margin: 0px auto; ">
-
-                        <div>
-                            <form name="dbQueryForm" method="post" action="db.view" name="query">
-                                <textarea rows="7" cols="80" name="query" style="margin-top:1em">${model.query}</textarea>
-                            </form>
+                    <div id="dbQueryBuilder" class="fade aligncenter">
+                        <div style="margin-top:2em">
+                            <select id="dbQuerySamples" onChange="dbQueryBuilder(this)">
+                                <option value="SAMPLE"><fmt:message key="db.sample" /></option>
+                            <c:forTokens items="${samples}" delims=";" var="query" varStatus="loopStatus">
+                                <option value="${query}">${query}</option>
+                            </c:forTokens>
+                            </select>
                         </div>
-
-                            <fmt:message key="db.sample" /><br>
-                            ${samples}
+                        <form id="dbQueryForm" name="dbQueryForm" method="post" action="db.view" name="query" class="inline" style="margin-top:2em">
+                            <textarea rows="7" cols="80" name="query" validation="required" class="center">${model.query}</textarea>
+                        </form>
                     </div>
 
-                    <div id="dbQueryResults" class="fade" style="width:100%;margin:0px auto; overflow:auto; display: inline-block;">
+                    <div id="dbQueryResults" class="fade inline fillwidth scroll">
                         <c:if test="${not empty model.result}">
                             <h1 style="margin-top:2em">Result</h1>
 
-                            <table class="indent ruleTable">
+                            <table class="ruleTable center">
                                 <c:forEach items="${model.result}" var="row" varStatus="loopStatus">
 
                                     <c:if test="${loopStatus.count == 1}">
@@ -120,4 +90,51 @@
             </div>
         </div>
     </body>
+    <script type="text/javascript">
+        function fillBox(val) {
+            $("#dbQueryForm textarea").val(val);
+        }
+        
+        function dbQueryBuilder(obj) {
+            if (obj.selectedIndex == 0) {
+                $("#dbQueryForm textarea").val("");
+                return;
+            }
+            
+            switch (obj.id) {
+                case "dbQuerySamples":
+                    $("#dbQueryAction")[0].selectedIndex = 0;
+                    $("#dbQueryTable")[0].selectedIndex = 0;
+                    $("#dbQueryForm textarea").val(obj.value);
+                    return;
+                default:
+                    $("#dbQuerySamples")[0].selectedIndex = 0;
+                    var action = $("#dbQueryAction").val();
+                    var table = $("#dbQueryTable").val();
+                    switch (action) {
+                        case "SELECT": $("#dbQueryForm textarea").val(action + " * FROM " + table); break;
+                        case "UPDATE": $("#dbQueryForm textarea").val(action + " " + table + " SET "); break;
+                    }
+            }
+        }
+        
+        function verifySQLQuery() {
+            var sql = document.dbQueryForm.query.value;
+            
+            // Check for null value
+            if (sql == "") {
+                return false;
+            }
+
+            // Checks passed: submit
+            document.dbQueryForm.submit();
+        }
+        
+        jQueryLoad.wait(function() {
+            jQueryUILoad.wait(function() {
+                $("#mainframemenucontainer").stylize();
+                $("#dbQueryBuilder").validation().stylize();
+            });
+        });
+    </script>
 </html>

@@ -5,24 +5,15 @@
 <html>
     <head>
         <%@ include file="head.jsp" %>
-        <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
     </head>
 
     <body class="mainframe bgcolor1">
-        <script type="text/javascript" src="<c:url value="/script/wz_tooltip.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/tip_balloon.js"/>"></script>
 
         <c:import url="settingsHeader.jsp">
             <c:param name="cat" value="general"/>
         </c:import>
 
-        <form:form method="post" action="generalSettings.view" commandName="command">
-
-            <div class="right">
-                <input type="submit" value="<fmt:message key='common.save'/>" style="margin-right:0.3em">
-                <input type="button" value="<fmt:message key='common.cancel'/>" onclick="location.href='nowPlaying.view'">
-            </div>
-
+        <form:form id="generalsettingsform" method="post" action="generalSettings.view" commandName="command">
             <table>
 
                 <tr>
@@ -152,7 +143,7 @@
                 <tr>
                     <td style="vertical-align:top;"><fmt:message key="generalsettings.welcomemessage"/></td>
                     <td>
-                        <form:textarea path="welcomeMessage" rows="5" cols="70"/>
+                        <form:textarea path="welcomeMessage" rows="8" cols="70"/>
                         <c:import url="helpToolTip.jsp"><c:param name="topic" value="welcomemessage"/></c:import>
                     </td>
                 </tr>
@@ -168,16 +159,17 @@
             </table>
 
         </form:form>
-
-        <c:if test="${command.reloadNeeded}">
-            <script language="javascript" type="text/javascript">
-                parent.location.href="index.view?";
-            </script>
-        </c:if>
-
     </blockquote>
     </div>
     </div>
     </div>
     </body>
+    <script type="text/javascript">
+        if (${command.reloadNeeded}) parent.location.href="index.view?";
+        jQueryLoad.wait(function() {
+            jQueryUILoad.wait(function() {
+                $(init);
+            });
+        });
+    </script>
 </html>

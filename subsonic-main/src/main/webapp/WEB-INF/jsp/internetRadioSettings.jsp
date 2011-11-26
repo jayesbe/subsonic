@@ -11,12 +11,7 @@
             <c:param name="cat" value="internetRadio"/>
         </c:import>
 
-        <form method="post" action="internetRadioSettings.view">
-
-            <div class="right">
-                <input type="submit" value="<fmt:message key='common.save'/>" style="margin-right:0.3em">
-                <input type="button" value="<fmt:message key='common.cancel'/>" onclick="location.href='nowPlaying.view'">
-            </div>
+        <form id="internetradiosettingsform" method="post" action="internetRadioSettings.view">
 
             <table>
                 <tr>
@@ -55,13 +50,17 @@
             <p class="warning"><fmt:message key="${model.error}"/></p>
         </c:if>
 
-        <c:if test="${model.reload}">
-            <script language="javascript" type="text/javascript">parent.frames.left.location.href="left.view?"</script>
-        </c:if>
-
     </blockquote>
     </div>
     </div>
     </div>
     </body>
+    <script type="text/javascript">
+        if (${model.reload}) parent.location.href="index.view?";
+        jQueryLoad.wait(function() {
+            jQueryUILoad.wait(function() {
+                $(init);
+            });
+        });
+    </script>
 </html>

@@ -58,7 +58,19 @@ public final class Util {
     }
 
     public static boolean isWindows() {
-        return System.getProperty("os.name", "Windows").toLowerCase().startsWith("windows");
+        return (System.getProperty("os.name").toLowerCase().indexOf( "win" ) >= 0);
+        //return System.getProperty("os.name", "Windows").toLowerCase().startsWith("windows");
+    }
+
+    public static boolean isMac() {
+        return (System.getProperty("os.name").toLowerCase().indexOf( "mac" ) >= 0); 
+        //return System.getProperty("os.name", "Mac").toLowerCase().startsWith("mac");
+    }
+
+    public static boolean isUnix() {
+	return (System.getProperty("os.name").toLowerCase().indexOf("nix") >=0 || 
+                System.getProperty("os.name").toLowerCase().indexOf("nux") >=0);
+        //return System.getProperty("os.name", "Mac").toLowerCase().startsWith("mac");
     }
 
     public static boolean isWindowsInstall() {

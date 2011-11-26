@@ -69,7 +69,8 @@ public class MoreController extends ParameterizableViewController {
         map.put("musicFolders", settingsService.getAllMusicFolders());
         map.put("clientSidePlaylist", player.isExternalWithPlaylist() || player.isWeb());
         map.put("brand", settingsService.getBrand());
-        map.put("hostOS", Util.isWindows() ? "windows" : "other" );
+        map.put("hostOS", Util.isWindows() ? "windows" : Util.isMac() ? "mac" : "unix" );
+        map.put("clientBrowser", request.getHeader("User-Agent"));
 
         ModelAndView result = super.handleRequestInternal(request, response);
         result.addObject("model", map);

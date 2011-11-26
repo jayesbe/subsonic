@@ -21,6 +21,5 @@
     </frameset>
 
     <noframes></noframes>
-	<input id="webfont" name="webfont" type="hidden">
 
 </html>

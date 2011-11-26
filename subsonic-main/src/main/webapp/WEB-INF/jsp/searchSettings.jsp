@@ -12,12 +12,7 @@
             <c:param name="cat" value="search"/>
         </c:import>
 
-        <form:form commandName="command" action="searchSettings.view" method="post">
-
-            <div class="right">
-                <input type="submit" value="<fmt:message key='common.save'/>" style="margin-right:0.3em">
-                <input type="button" value="<fmt:message key='common.cancel'/>" onclick="location.href='nowPlaying.view'">
-            </div>
+        <form:form id="searchsettingsform" commandName="command" action="searchSettings.view" method="post">
 
             <table>
                 <tr>
@@ -45,15 +40,10 @@
                         </form:select>
                     </td>
                 </tr>
-
-                <tr>
-                    <td colspan="3">
-                        <div class="forward"><a href="searchSettings.view?update"><fmt:message key="searchsettings.manual"/></a></div>
-                    </td>
-                </tr>
-
             </table>
         </form:form>
+
+        <button id="manualupdate" onClick="location.href='searchSettings.view?update'"><fmt:message key="searchsettings.manual"/></button>
 
         <c:if test="${command.creatingIndex}">
             <p><b><fmt:message key="searchsettings.text"><fmt:param value="${command.brand}"/></fmt:message></b></p>
@@ -64,4 +54,12 @@
     </div>
     </div>
     </body>
+    <script type="text/javascript">
+        jQueryLoad.wait(function() {
+            jQueryUILoad.wait(function() {
+                $(init);
+                $("#manualupdate").button({ icons : { primary : "ui-icon-refresh" } });
+            });
+        });
+    </script>
 </html>

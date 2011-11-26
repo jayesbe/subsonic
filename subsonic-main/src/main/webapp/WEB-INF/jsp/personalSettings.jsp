@@ -5,26 +5,9 @@
 <html>
     <head>
         <%@ include file="head.jsp" %>
-        <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
-
-        <script type="text/javascript" language="javascript">
-            function enableLastFmFields() {
-                var checkbox = $("lastFm");
-                var table = $("lastFmTable");
-
-                if (checkbox && checkbox.checked) {
-                    table.show();
-                } else {
-                    table.hide();
-                }
-            }
-        </script>
     </head>
 
-    <body class="mainframe bgcolor1" onLoad="enableLastFmFields()">
-        <script type="text/javascript" src="<c:url value="/script/wz_tooltip.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/tip_balloon.js"/>"></script>
-
+    <body class="mainframe bgcolor1">
         <c:import url="settingsHeader.jsp">
             <c:param name="cat" value="personal"/>
             <c:param name="restricted" value="${not command.user.adminRole}"/>
@@ -35,13 +18,7 @@
         <fmt:message key="common.columns" var="columns"/>
         <fmt:message key="common.pluralizer" var="pluralizer"/>
 
-        <form:form method="post" action="personalSettings.view" commandName="command">
-
-            <div class="right">
-                <input type="submit" value="<fmt:message key='common.save'/>" style="margin-right:0.3em">
-                <input type="button" value="<fmt:message key='common.cancel'/>" onclick="location.href='nowPlaying.view'">
-            </div>
-
+        <form:form id="personalsettingsform" method="post" action="personalSettings.view" commandName="command">
             <h2><fmt:message key="personalsettings.title"><fmt:param>${command.user.username}</fmt:param></fmt:message></h2>
 
             <table>
@@ -180,8 +157,8 @@
                 </tr>
                 <tr>
                     <td><fmt:message key="personalsettings.captioncutoff"/></td>
-                    <td style="text-align:center"><form:input path="mainVisibility.captionCutoff" size="3"/></td>
-                    <td style="text-align:center"><form:input path="playlistVisibility.captionCutoff" size="3"/></td>
+                    <td style="text-align:center"><form:input path="mainVisibility.captionCutoff" size="3" cssStyle="text-align:center"/></td>
+                    <td style="text-align:center"><form:input path="playlistVisibility.captionCutoff" size="3" cssStyle="text-align:center"/></td>
                 </tr>
             </table>
 
@@ -217,7 +194,7 @@
 
             <table class="indent">
                 <tr>
-                    <td><form:checkbox path="lastFmEnabled" id="lastFm" cssClass="checkbox" onclick="javascript:enableLastFmFields()"/></td>
+                    <td><form:checkbox path="lastFmEnabled" id="lastFm" cssClass="checkbox" onclick="toggleLastFmFields()"/></td>
                     <td><label for="lastFm"><fmt:message key="personalsettings.lastfmenabled"/></label></td>
                 </tr>
             </table>
@@ -242,19 +219,22 @@
 
             <h2><fmt:message key="personalsettings.avatar.title"/></h2>
 
-            <p style="padding-top:1em;white-space: nowrap;">
-                <c:forEach items="${command.avatars}" var="avatar">
-                    <c:url value="avatar.view" var="avatarUrl">
-                        <c:param name="id" value="${avatar.id}"/>
-                    </c:url>
-                    <span>
-                    <div class="avatarimage">
-                        <label for="avatar-${avatar.id}"><img id="MenuImg" src="${avatarUrl}" alt="${avatar.name}" width="${avatar.width}" height="${avatar.height}" style="padding-right:2em;padding-bottom:1em"/></label>
-                        <div><form:radiobutton id="avatar-${avatar.id}" path="avatarId" value="${avatar.id}"/></div>
-                    </div>
-                    </span>
-                </c:forEach>
-            </p>
+            <span class="right">
+                <fmt:message key="personalsettings.avatar.courtesy"/>
+            </span>
+            <div style="padding-top:1em; height: 100px; width: 300px;overflow-x:scroll;overflow-y:hidden;white-space: nowrap;">
+            <c:forEach items="${command.avatars}" var="avatar">
+                <c:url value="avatar.view" var="avatarUrl">
+                    <c:param name="id" value="${avatar.id}"/>
+                </c:url>
+                <span>
+                <div class="avatarimage inline">
+                    <label for="avatar-${avatar.id}"><img id="MenuImg" src="${avatarUrl}" alt="${avatar.name}" width="${avatar.width}" height="${avatar.height}" style="padding-right:2em;padding-bottom:1em"/></label>
+                    <div><form:radiobutton id="avatar-${avatar.id}" path="avatarId" value="${avatar.id}"/></div>
+                </div>
+                </span>
+            </c:forEach>
+            </div>
             <p>
                 <form:radiobutton id="noAvatar" path="avatarId" value="-1"/>
                 <label for="noAvatar"><fmt:message key="personalsettings.avatar.none"/></label>
@@ -272,45 +252,47 @@
             </p>
         </form:form>
 
-        <form method="post" enctype="multipart/form-data" action="avatarUpload.view">
+        <form id="avataruploadform" method="post" enctype="multipart/form-data" action="avatarUpload.view">
             <table>
                 <tr>
                     <td style="padding-right:1em"><fmt:message key="personalsettings.avatar.changecustom"/></td>
-                    <td style="padding-right:1em"><input type="file" id="file" name="file" size="40"/></td>
-                    <td style="padding-right:1em"><input type="submit" value="<fmt:message key="personalsettings.avatar.upload"/>"/></td>
+                    <td style="padding-right:1em"><input type="file" id="file" name="file" class="inputWithIcon" /><span class="ui-icon ui-icon-folder-open right" onClick="file.click()"></span></td>
+                    <td style="padding-right:1em"><button type="submit" id="avatarupload" class="ui-icon-arrowthickstop-1-n ui-icon-primary"><fmt:message key="personalsettings.avatar.upload"/></button></td>
                 </tr>
             </table>
         </form>
-
-        <p class="detail" style="text-align:right">
-            <fmt:message key="personalsettings.avatar.courtesy"/>
-        </p>
-
-        <script type="text/javascript">
-        jQueryLoad.wait(function() {
-            if (window.webkitNotifications) {
-                if (window.webkitNotifications.checkPermission() != 0) {
-                    jQuery("#desktopnotifications").show()
-                    document.querySelector('#request_permission').addEventListener('click', function() {
-                        window.webkitNotifications.requestPermission();
-                        debug.log("Requesting permission for Desktop Notifications");
-                    }, false);
-                }
-            }
-            else {
-                jQuery("#desktopnotifications").hide()
-                debug.log("Desktop Notifications are not supported for this Browser/OS version yet.");
-            }
-            
-            if (${command.reloadNeeded}) {
-                parent.location.href="index.view?";
-            }
-        });
-        </script>
 
     </blockquote>
     </div>
     </div>
     </div>
     </body>
+
+    <script type="text/javascript" language="javascript">
+        if (${command.reloadNeeded}) parent.location.href="index.view?";
+        function toggleLastFmFields() {
+            var b = $("#lastFm").attr("checked") ? true : false;
+            $("#lastFmTable").toggle(b)
+        }
+        jQueryLoad.wait(function() {
+            $(toggleLastFmFields)
+            jQueryUILoad.wait(function() {
+                $(init);
+                $("#avataruploadform").stylize();
+            });
+
+            if (window.webkitNotifications) {
+                if (window.webkitNotifications.checkPermission() != 0) {
+                    $("#desktopnotifications").show()
+                    document.querySelector('#request_permission').addEventListener('click', function() {
+                        window.webkitNotifications.requestPermission();
+                        // debug.log("Requesting permission for Desktop Notifications");
+                    }, false);
+                }
+            } else {
+                $("#desktopnotifications").hide()
+                // debug.log("Desktop Notifications are not supported for this Browser/OS version yet.");
+            }
+        });
+    </script>
 </html>

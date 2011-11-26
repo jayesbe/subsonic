@@ -4,39 +4,14 @@
 <html>
     <head>
         <%@ include file="head.jsp" %>
-        <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
-        <script type="text/javascript" language="javascript">
-            function enableLdapFields() {
-                var checkbox = $("#ldap")[0];
-                var table = $("#ldapTable");
-
-                if (checkbox && checkbox.checked) {
-                    table.show();
-                } else {
-                    table.hide();
-                }
-            }
-            
-            jQueryLoad.wait(function() {
-                $(enableLdapFields);
-            });
-        </script>
     </head>
 
     <body class="mainframe bgcolor1">
-        <script type="text/javascript" src="<c:url value="/script/wz_tooltip.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/tip_balloon.js"/>"></script>
-
         <c:import url="settingsHeader.jsp">
             <c:param name="cat" value="advanced"/>
         </c:import>
 
-        <form:form method="post" action="advancedSettings.view" commandName="command">
-
-            <div class="right">
-                <input type="submit" value="<fmt:message key='common.save'/>" style="margin-right:0.3em">
-                <input type="button" value="<fmt:message key='common.cancel'/>" onclick="location.href='nowPlaying.view'">
-            </div>
+        <form:form id="advancedsettingsform" method="post" action="advancedSettings.view" commandName="command">
 
             <table>
 
@@ -86,7 +61,7 @@
 
                 <tr>
                     <td colspan="2">
-                        <form:checkbox path="ldapEnabled" id="ldap" cssClass="checkbox" onclick="javascript:enableLdapFields()"/>
+                        <form:checkbox path="ldapEnabled" id="ldap" cssClass="checkbox" onclick="toggleLdapFields()"/>
                         <label for="ldap"><fmt:message key="advancedsettings.ldapenabled"/></label>
                         <c:import url="helpToolTip.jsp"><c:param name="topic" value="ldap"/></c:import>
                     </td>
@@ -137,16 +112,27 @@
 
         </form:form>
 
-        <c:if test="${command.reloadNeeded}">
-            <script language="javascript" type="text/javascript">
-                parent.frames.left.location.href="left.view?";
-                parent.frames.playlist.location.href="playlist.view?";
-            </script>
-        </c:if>
-
     </blockquote>
     </div>
     </div>
     </div>
     </body>
+    <script type="text/javascript">
+        if (${command.reloadNeeded}) {
+            parent.frames.left.location.href="left.view?";
+            parent.frames.playlist.location.href="playlist.view?";
+        }
+
+        function toggleLdapFields() {
+            var b = $("#ldap").attr("checked") ? true : false;
+            $("#ldapTable").toggle(b);
+        }
+
+        jQueryLoad.wait(function() {
+            $(toggleLdapFields);
+            jQueryUILoad.wait(function() {
+                $(init);
+            });
+        });
+    </script>
 </html>

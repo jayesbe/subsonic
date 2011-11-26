@@ -5,12 +5,8 @@
 <html>
     <head>
         <%@ include file="head.jsp" %>
-        <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
     </head>
     <body class="mainframe bgcolor1">
-        <script type="text/javascript" src="<c:url value="/script/wz_tooltip.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/tip_balloon.js"/>"></script>
-
         <c:import url="settingsHeader.jsp">
             <c:param name="cat" value="player"/>
             <c:param name="restricted" value="${not command.admin}"/>
@@ -23,20 +19,8 @@
                 <p><fmt:message key="playersettings.noplayers"/></p>
             </c:when>
             <c:otherwise>
-                <form:form commandName="command" method="post" action="playerSettings.view">
+                <form:form id="playersettingsform" commandName="command" method="post" action="playerSettings.view">
                     <form:hidden path="playerId"/>
-
-                    <div class="right">
-                        <input type="submit" value="<fmt:message key='common.save'/>" style="margin-right:0.3em">
-                        <input type="button" value="<fmt:message key='common.cancel'/>" onclick="location.href='nowPlaying.view'">
-                    </div>
-
-                    <c:url value="playerSettings.view" var="deleteUrl">
-                        <c:param name="delete" value="${command.playerId}"/>
-                    </c:url>
-                    <c:url value="playerSettings.view" var="cloneUrl">
-                        <c:param name="clone" value="${command.playerId}"/>
-                    </c:url>
 
                     <table>
                         <tr>
@@ -51,8 +35,18 @@
                             </td>
                         </tr>
                         <tr>
-                            <td style="padding-right:1em"><div class="forward"><a href="${deleteUrl}"><fmt:message key="playersettings.forget"/></a></div></td>
-                            <td><div class="forward"><a href="${cloneUrl}"><fmt:message key="playersettings.clone"/></a></div></td>
+                            <td colspan="2">
+                                <span id="playerActions">
+                                    <c:url value="playerSettings.view" var="deleteUrl">
+                                        <c:param name="delete" value="${command.playerId}"/>
+                                    </c:url>
+                                    <c:url value="playerSettings.view" var="cloneUrl">
+                                        <c:param name="clone" value="${command.playerId}"/>
+                                    </c:url>
+                                    <button id="deletePlayer" class="ui-icon-cancel ui-icon-primary" onClick="javascript:location.href='${deleteUrl}'"><fmt:message key="playersettings.forget"/></a>
+                                    <button id="clonePlayer" class="ui-icon-copy ui-icon-primary" onClick="javascript:location.href='${cloneUrl}'"><fmt:message key="playersettings.clone"/></a>
+                                </span>
+                            </td>
                         </tr>
                     </table>
 
@@ -95,13 +89,12 @@
 
                         <tr>
                             <td><fmt:message key="playersettings.name"/></td>
-                            <td><form:input path="name" size="16"/></td>
-                            <td colspan="2"><c:import url="helpToolTip.jsp"><c:param name="topic" value="playername"/></c:import></td>
+                            <td colspan="3"><form:input path="name" size="16"/><c:import url="helpToolTip.jsp"><c:param name="topic" value="playername"/></c:import></td>
                         </tr>
 
                         <tr>
                             <td><fmt:message key="playersettings.coverartsize"/></td>
-                            <td>
+                            <td colspan="3">
                                 <form:select path="coverArtSchemeName" cssStyle="width:8em">
                                     <c:forEach items="${command.coverArtSchemeHolders}" var="coverArtSchemeHolder">
                                         <c:set var="coverArtSchemeName">
@@ -110,8 +103,8 @@
                                         <form:option value="${coverArtSchemeHolder.name}" label="${coverArtSchemeName}"/>
                                     </c:forEach>
                                 </form:select>
+                                <c:import url="helpToolTip.jsp"><c:param name="topic" value="cover"/></c:import>
                             </td>
-                            <td colspan="2"><c:import url="helpToolTip.jsp"><c:param name="topic" value="cover"/></c:import></td>
                         </tr>
 
                         <tr>
@@ -122,8 +115,6 @@
                                         <form:option value="${transcodeSchemeHolder.name}" label="${transcodeSchemeHolder.description}"/>
                                     </c:forEach>
                                 </form:select>
-                            </td>
-                            <td>
                                 <c:import url="helpToolTip.jsp"><c:param name="topic" value="transcode"/></c:import>
                             </td>
                             <td class="warning">
@@ -171,14 +162,18 @@
 
             </c:otherwise>
         </c:choose>
-
-        <c:if test="${command.reloadNeeded}">
-            <script language="javascript" type="text/javascript">parent.frames.playlist.location.href="playlist.view?"</script>
-        </c:if>
-
     </blockquote>
     </div>
     </div>
     </div>
     </body>
+    <script type="text/javascript">
+        if (${command.reloadNeeded}) parent.frames.playlist.location.href="playlist.view?"
+        jQueryLoad.wait(function() {
+            $("#deletePlayer, #clonePlayer").click(function(e) { e.preventDefault(); });
+            jQueryUILoad.wait(function() {
+                $(init);
+            });
+        });
+    </script>
 </html>

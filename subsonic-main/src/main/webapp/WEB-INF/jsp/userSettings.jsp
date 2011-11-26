@@ -4,59 +4,28 @@
 <html>
     <head>
         <%@ include file="head.jsp" %>
-        <script type="text/javascript" language="javascript">
-            function enablePasswordChangeFields() {
-                var changePasswordCheckbox = $("passwordChange");
-                var ldapCheckbox = $("ldapAuthenticated");
-                var passwordChangeTable = $("passwordChangeTable");
-                var passwordChangeCheckboxTable = $("passwordChangeCheckboxTable");
-
-                if (changePasswordCheckbox && changePasswordCheckbox.checked && (ldapCheckbox == null || !ldapCheckbox.checked)) {
-                    passwordChangeTable.show();
-                } else {
-                    passwordChangeTable.hide();
-                }
-
-                if (changePasswordCheckbox) {
-                    if (ldapCheckbox && ldapCheckbox.checked) {
-                        passwordChangeCheckboxTable.hide();
-                    } else {
-                        passwordChangeCheckboxTable.show();
-                    }
-                }
-            }
-        </script>
     </head>
 
     <body class="mainframe bgcolor1">
-        <script type="text/javascript" src="<c:url value="/script/wz_tooltip.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/tip_balloon.js"/>"></script>
-
         <c:import url="settingsHeader.jsp">
             <c:param name="cat" value="user"/>
         </c:import>
 
-        <form:form method="post" action="userSettings.view" commandName="command">
+        <table id="userselect">
+            <tr>
+                <td><b><fmt:message key="usersettings.title"/></b></td>
+                <td>
+                    <select name="username" onchange="location='userSettings.view?userIndex=' + (selectedIndex - 1);">
+                        <option value="">-- <fmt:message key="usersettings.newuser"/> --</option>
+                        <c:forEach items="${command.users}" var="user">
+                            <option ${user.username eq command.username ? "selected" : ""} value="${user.username}">${user.username}</option>
+                        </c:forEach>
+                    </select>
+                </td>
+            </tr>
+        </table>
 
-            <div class="right">
-                <input type="submit" value="<fmt:message key='common.save'/>" style="margin-right:0.3em">
-                <input type="button" value="<fmt:message key='common.cancel'/>" onclick="location.href='nowPlaying.view'">
-            </div>
-
-            <table>
-                <tr>
-                    <td><b><fmt:message key="usersettings.title"/></b></td>
-                    <td>
-                        <select name="username" onchange="location='userSettings.view?userIndex=' + (selectedIndex - 1);">
-                            <option value="">-- <fmt:message key="usersettings.newuser"/> --</option>
-                            <c:forEach items="${command.users}" var="user">
-                                <option ${user.username eq command.username ? "selected" : ""} value="${user.username}">${user.username}</option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                </tr>
-            </table>
-
+        <form:form id="usersettingsform" method="post" action="userSettings.view" commandName="command">
             <c:if test="${not command.admin}">
                 <table>
                     <tr>
@@ -196,7 +165,6 @@
                             <td class="warning"><form:errors path="email"/></td>
                         </tr>
                     </table>
-                    <script>enablePasswordChangeFields();</script>
                 </c:otherwise>
             </c:choose>
         </form:form>
@@ -206,4 +174,20 @@
     </div>
     </div>
     </body>
+    <script type="text/javascript">
+        function enablePasswordChangeFields() {
+            var changePasswordCheckbox = $("#passwordChange");
+            var ldapCheckbox = $("#ldapAuthenticated");
+
+            $("#passwordChangeTable").toggle(changePasswordCheckbox.length > 0 && changePasswordCheckbox[0].checked && (ldapCheckbox.length == 0 || !ldapCheckbox[0].checked));
+            $("#passwordChangeCheckboxTable").toggle(ldapCheckbox.length == 0 || !ldapCheckbox[0].checked)
+        }
+        jQueryLoad.wait(function() {
+            $(enablePasswordChangeFields)
+            jQueryUILoad.wait(function() {
+                $(init);
+                $("#userselect").stylize();
+            });
+        });
+    </script>
 </html>

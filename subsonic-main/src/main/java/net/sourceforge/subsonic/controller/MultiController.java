@@ -57,6 +57,12 @@ public class MultiController extends MultiActionController {
             }
             LOG.warn("Failed login attempt captured from " + ipAddress);
         }
+        if (request.getParameter("register") != null) {
+            // TODO Add user to database and send confirmation e-mail.
+        }
+        if (request.getParameter("forgotpass") != null) {
+            // TODO Send password-reset email.
+        }
 
         // Auto-login if "user" and "password" parameters are given.
         String username = request.getParameter("user");
@@ -71,14 +77,14 @@ public class MultiController extends MultiActionController {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("logout", request.getParameter("logout") != null);
         map.put("error", request.getParameter("error") != null);
+        map.put("register", request.getParameter("register") != null);
+        map.put("forgotpass", request.getParameter("forgotpass") != null);
         map.put("brand", settingsService.getBrand());
         map.put("loginMessage", settingsService.getLoginMessage());
         map.put("systemWebFont", settingsService.getWebFont());
 
         User admin = securityService.getUserByName(User.USERNAME_ADMIN);
-        if (User.USERNAME_ADMIN.equals(admin.getPassword())) {
-            map.put("insecure", true);
-        }
+        map.put("secured", !User.USERNAME_ADMIN.equals(admin.getPassword()));
 
         return new ModelAndView("login", "model", map);
     }

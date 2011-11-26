@@ -10,180 +10,13 @@
 <html>
     <head>
         <%@ include file="head.jsp" %>
+        <sub:url value="main.view" var="backUrl"><sub:param name="path" value="${model.path}"/></sub:url>
         <script type="text/javascript" src="<c:url value="/dwr/engine.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/dwr/util.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/dwr/interface/coverArtService.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/script/scripts.js"/>"></script>
-
-        <script type="text/javascript" src="<c:url value="/script/fancyzoom/FancyZoom.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/script/fancyzoom/FancyZoomHTML.js"/>"></script>
+        <link rel="stylesheet" href="/script/plugins/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
 
         <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-        <script type="text/javascript" language="javascript">
-
-            var imageSearch;
-            dwr.engine.setErrorHandler(null);
-            google.load('search', '1');
-            google.setOnLoadCallback(onLoad);
-
-            function onLoad() {
-                imageSearch = new google.search.ImageSearch();
-                imageSearch.setSearchCompleteCallback(this, searchComplete, null);
-                imageSearch.setNoHtmlGeneration();
-                imageSearch.setResultSetSize(${imagesPerPage});
-                google.search.Search.getBranding("branding");
-                doSearch();
-            }
-
-            function doSearch() {
-                $("#wait").show();
-                $("#success").hide();
-                $("#error").hide();
-                $("#errorDetails").hide();
-                $("#noImagesFound").hide();
-                $("#imagesearchresults").hide();
-                var query = dwr.util.getValue("query");
-                imageSearch.execute(query);
-            }
-
-            function searchComplete() {
-
-                $("#wait").hide();
-
-                if (imageSearch.results && imageSearch.results.length > 0) {
-                    var images = $("#images")[0];
-                    images.innerHTML = "";
-                    $("#imagesearchresultcontainer").css({ "maxWidth" : 240 * (imageSearch.results.length / 2) + "px" });
-                    setupZoom('<c:url value="/"/>');
-
-                    $("#imagesearchresults").show();
-                    var results = imageSearch.results;
-                    for (var i = 0; i < results.length; i++) {
-                        var result = results[i];
-                        var node = $("#coverarttemplate").clone();
-                        var zoomlink = node.find(".search-result-thumbnail-zoom")[0];
-                        zoomlink.href = result.url;
-
-                        var thumbnail = node.find(".search-result-thumbnail")[0];
-                        thumbnail.src = result.tbUrl;
-
-                        var setlink = node.find(".search-result-setimage")[0];
-                        setlink.href = "javascript:setImage('" + result.url + "');";
-
-                        var title = node.find(".search-result-title")[0];
-                        title.innerHTML = result.contentNoFormatting;
-
-                        var dimension = node.find(".search-result-dimension")[0];
-                        dimension.innerHTML = result.width + " &#215; " + result.height;
-
-                        var url = node.find(".search-result-url")[0];
-                        url.innerHTML = result.visibleUrl;
-
-                        $('#images').append(node).end();
-                        $(node).css({ 'visibility' : 'visible', "display" : "none" });
-                        $(node).delay(30).fadeIn(600);
-                    }
-                    prepZooms();
-                    addPaginationLinks();
-                } else {
-                    $("#noImagesFound").show();
-                }
-            }
-
-            function addPaginationLinks() {
-                // To paginate search results, use the cursor function.
-                var cursor = imageSearch.cursor;
-                var curPage = cursor.currentPageIndex; // check what page the app is on
-                var pagesDiv = document.createElement("span");
-                pagesDiv.className = "imageResultPages";
-
-                // Create link to prev page.
-                var prev = document.createElement("a");
-                prev.href = (curPage > 0) ? "javascript:imageSearch.gotoPage(" + (curPage - 1) + ");" : "#";
-                prev.innerHTML = "<fmt:message key='common.previous'/>";
-                prev.style.marginRight = "0.5em";
-                prev.className = "back"
-                $(prev).appendTo(pagesDiv);
-                
-                for (var i = 0; i < cursor.pages.length; i++) {
-                    var page = cursor.pages[i];
-                    var label;
-                    label = (curPage == i) ? document.createElement("b") : document.createElement("a");
-                    if (curPage != i) { label.href = "javascript:imageSearch.gotoPage(" + i + ");"; }
-                    label.style.width = "1em";
-                    label.innerHTML = page.label;
-                    label.style.padding = (curPage == i) ? "0.3em" : "0.2em";
-                    label.style.paddingTop = "0.2em";
-                    label.style.marginRight = "0.5em";
-                    $(label).appendTo(pagesDiv);
-                }
-
-                // Create link to next page.
-                var next = document.createElement("a");
-                next.href = (curPage < cursor.pages.length - 1) ? "javascript:imageSearch.gotoPage(" + (curPage + 1) + ");" : "#";
-                next.innerHTML = "<fmt:message key='common.next'/>";
-                next.style.marginLeft = "0.5em";
-                next.className = "forward"
-                $(next).appendTo(pagesDiv);
-
-                var pages = $("#pages")[0];
-                pages.innerHTML = "";
-                $(pagesDiv).appendTo(pages);
-            }
-
-            function setImage(imageUrl) {
-                $("#wait").show();
-                $("#success").hide();
-                $("#error").hide();
-                $("#errorDetails").hide();
-                $("#noImagesFound").hide();
-                $("#pages").hide();
-                $("#backlink").hide();
-                $("#addFromURILink").hide();
-                $("#imagesearchresults").hide();
-                var path = dwr.util.getValue("path");
-                coverArtService.setCoverArtImage(path, imageUrl, setImageComplete);
-            }
-
-            function setImageComplete(errorDetails) {
-                $("#wait").hide();
-                if (errorDetails != null) {
-                    dwr.util.setValue("errorDetails", "<br/>" + errorDetails, { escapeHtml:false });
-                    $("#error").show();
-                    $("#errorDetails").show();
-                    $("#pages").show();
-                    $("#addFromURILink").show();
-                } else {
-                    $("#success").show();
-                    $("#backlink").show();
-                    $("#backlink").innerHTML = "Back"
-                }
-            }
-        </script>
-        <script type="text/javascript">
-            function toggleAddFromURI() {
-                $("#addCoverArtFormContainer").toggle("blind");
-            }
-            
-            function verifyImageURI() {
-                var uri = document.addFromURIForm.url.value 
-                var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-
-                // Check for null value
-                if (uri == "") {
-                    return false;
-                }
-                // Check for valid URI
-                if (regexp.test(uri) == false) {
-                    return false;
-                }
-                
-                // Checks passed: submit
-                document.addFromURIForm.submit();
-                $("#addCoverArtFormContainer").toggle();
-            }
-        </script>
-
         <style type="text/css">
             /*Google powered by branding*/
             td.gsc-branding-text div.gsc-branding-text, td.gcsc-branding-text div.gcsc-branding-text { display: none; }
@@ -192,57 +25,34 @@
     </head>
     <body class="mainframe bgcolor1">
 
-        <div id="addCoverArtFormContainer" class="bgcolor1" style="display:none">
-            <div style="width:50%;margin:2px auto;">
-                <form name="addCoverArtForm" method="post" action="javascript:setImage(dwr.util.getValue('url'))">
+        <div id="addCoverArtFormContainer" class="bgcolor1 mainmenudropdown vcenterouter fillwidth" style="display:none">
+            <span class="aligncenter vcenterinner">
+                <form id="addCoverArtForm" name="addCoverArtForm" method="post" action="javascript:setImage($('#addCoverArtForm')[0].url.value)" class="vcenter">
                     <input id="path" type="hidden" name="path" value="${model.path}"/>
-                    <table>
-                        <tr>
-                            <td><label for="url"><fmt:message key="changecoverart.address"/></label></td>
-                            <td><input type="text" name="url" value="" style="width:30em" onclick="select()"/></td>
-                            <td><input type="button" value="<fmt:message key='common.ok'/>" onClick="verifyImageURI()"/></td>
-                            <td><input type="reset" value="<fmt:message key='common.cancel'/>" onClick="toggleAddFromURI()"/></td>
-                        </tr>
-                    </table>
+                    <label for="url"><fmt:message key="changecoverart.address"/></label>
+                    <input type="text" name="url" placeholder="http://" style="width:30em" validation="required url"/>
+                    <button type="reset" onClick="toggleAddFromURI()"><fmt:message key="common.cancel"/></button>
+                    <button type="submit"><fmt:message key="common.ok"/></button>
                 </form>
-            </div>
+            </span>
         </div>
 
-        <div id="mainframecontainer">
-            <div id="mainframemenucontainer" class="bgcolor1 fade">
-                <span id="mainframemenuleft">
-                    <sub:url value="main.view" var="backUrl"><sub:param name="path" value="${model.path}"/></sub:url>
-                    <span class="back cancel"><a href="${backUrl}" id="backlink"><fmt:message key="common.cancel"/></a></span>
+        <div id="mainframecontainer" class="fillframe">
+            <div id="mainframemenucontainer" class="bgcolor1 fade vcenterouter fillwidth">
+                <span id="mainframemenuleft" class="vcenterinner">
+                    <button id="cancelCoverArtChange" class="ui-icon-close ui-icon-primary"><fmt:message key="common.cancel"/></button>
+                    <button id="addFromURILink" class="ui-icon-link ui-icon-primary" onClick="toggleAddFromURI()"><fmt:message key="changecoverart.addfromuri"/></button>
                 </span>
-                <span id="mainframemenucenter">
-                    <span id="addFromURILink" class="mainframemenuitem addFromURI" style="background-image: url(<spring:theme code='addImage'/>)"><a href="#" onClick="toggleAddFromURI()"><fmt:message key="changecoverart.addfromuri"/></a></span>
+                <span id="mainframemenucenter" class="aligncenter vcenterinner">
+                    <span id="pages" class="vcenter"></span>
                 </span>
-                <span id="mainframemenucenter">
-                    <div class="pagination">
-                        <span id="pages"></span>
-                    </div>
-                </span>
-                <span id="mainframemenuright">
-                    <span class="right">
-                        <!-- TODO Add ability to choose cover art search provider.
-                        <select name="imageSearchProvider" id="imageSearchProvider" onChange="" disabled="disabled">
-                            <option value="google" selected><fmt:message key="changecoverart.search"/></option>
-                        </select>
-                        -->
-                        <form name="searchForm" id="searchForm" method="post" action="javascript:doSearch()">
-                            <table bgcolor="#ffffff" cellpadding="0px" cellspacing="0px" align="right" width="300px" style="margin-top:1px">
-                                <tr>
-                                    <td style="border-style:solid none solid solid;border-color:#849dbd;border-width:1px;">
-                                        <input class="searchboxquery" type="text" name="query" id="query" onClick="select();" value="<str:capitalize>${model.artist} ${model.album}</str:capitalize>"
-                                            onFocus="if(this.value=='<str:capitalize>${model.artist} ${model.album}</str:capitalize>'){this.value='';this.style.color='#000';}else{this.select();}"
-                                            onBlur="if(this.value==''){this.value='<str:capitalize>${model.artist} ${model.album}</str:capitalize>';this.style.color='b3b3b3';}">
-                                    </td>
-                                    <td style="border-style:solid solid solid none;border-color:#849dbd;border-width:1px;" width="24px" align="right">
-                                        <input id="Submit" type="image" src="<spring:theme code='searchImage'/>" alt="${search}" title="${search}" align="absBottom" style="border-style:none" width="18px">
-                                    </td>
-                                </tr>
-                            </table>
-                        </form>
+                <span id="mainframemenuright" class="vcenterinner">
+                    <span class="vcenter right">
+                    <c:set var="query" value="${model.artist} ${model.album}"/>
+                    <c:import url="searchbox.jsp">
+                        <c:param name="action" value="javascript:doSearch()"/>
+                        <c:param name="value" value="${query}"/>
+                    </c:import>
                     </span>
                 </span>
             </div>
@@ -252,35 +62,26 @@
 
                     <h1><fmt:message key="changecoverart.title"/></h1>
 
-                    <h2 id="wait" style="display:none"><fmt:message key="changecoverart.wait"/></h2>
-                    <h2 id="noImagesFound" style="display:none"><fmt:message key="changecoverart.noimagesfound"/></h2>
-                    <h2 id="success" style="display:none"><fmt:message key="changecoverart.success"/></h2>
-                    <h2 id="error" style="display:none"><fmt:message key="changecoverart.error"/></h2>
-                    <div id="errorDetails" class="warning" style="display:none">
+                    <h2 id="wait" class="ui-helper-hidden"><fmt:message key="changecoverart.wait"/></h2>
+                    <h2 id="noImagesFound" class="ui-helper-hidden"><fmt:message key="changecoverart.noimagesfound"/></h2>
+                    <h2 id="success" class="ui-helper-hidden"><fmt:message key="changecoverart.success"/></h2>
+                    <h2 id="error" class="ui-helper-hidden"><fmt:message key="changecoverart.error"/></h2>
+                    <div id="errorDetails" class="warning ui-helper-hidden">
                     </div>
 
                     <div id="imagesearchresultcontainer" class="center">
-                        <div id="imagesearchresults">
-
-                            <div id="branding" style="float:right;padding-right:1em;padding-top:0.5em">
-                            </div>
-
-                            <div style="clear:both;">
-                            </div>
-
-                            <div id="images" style="width:100%;padding-bottom:2em">
-                            </div>
-
-                            <div style="clear:both;">
-                            </div>
-
+                        <div id="imagesearchresults" class="ui-helper-hidden">
+                            <div id="branding" style="float:right;padding-right:1em;padding-top:0.5em"></div>
+                            <div style="clear:both;"></div>
+                            <div id="images" style="padding-bottom:2em" class="fillwidth"></div>
+                            <div style="clear:both;"></div>
                         </div>
                     </div>
 
-                    <div id="coverarttemplate" class="left" style="visibility:hidden;height:190px; width:220px;padding:10px;text-align:center;position:relative;vertical-align:bottom;">
-                        <div style="position: absolute;bottom:0;margin:0px auto">
+                    <div id="coverarttemplate" class="left" style="visibility:hidden;height:190px; width:220px;padding:10px;text-align:center;position:relative;vertical-align:bottom;display:none">
+                        <div style="position: absolute;bottom:0;" class="center">
                             <div class="search-result-thumb">&nbsp;</div>
-                            <a class="search-result-thumbnail-zoom" rel="zoom"><img class="search-result-thumbnail" style="padding:1px; border:1px solid #021a40; background-color:white;"></a>
+                            <a class="search-result-thumbnail-zoom"><img class="search-result-thumbnail" style="padding:1px; border:1px solid #021a40; background-color:white;"></a>
                             <div><a class="search-result-setimage">Set as Cover Image</a></div>
                             <div class="search-result-title"></div>
                             <div class="search-result-dimension detail"></div>
@@ -291,4 +92,131 @@
             </div>
         </div>
     </body>
+    <script type="text/javascript">
+        var imageSearch;
+        dwr.engine.setErrorHandler(null);
+        google.load('search', '1');
+
+        function searchComplete() {
+            $("#wait").hide();
+            if (imageSearch.results && imageSearch.results.length > 0) {
+                $("#imagesearchresultcontainer").css({ "maxWidth" : 240 * (imageSearch.results.length / 2) + "px" });
+                $("#images").html("");
+                var results = imageSearch.results;
+                for (var i = 0; i < results.length; i++) {
+                    var result = results[i];
+                    var node = $("#coverarttemplate").clone();
+                    node.find(".search-result-thumbnail-zoom").attr("href" , result.url).addClass("coverart");
+                    node.find(".search-result-thumbnail").attr("src", result.tbUrl);
+                    node.find(".search-result-setimage").attr("href", "javascript:setImage('" + result.url + "');");
+                    node.find(".search-result-title").html(result.contentNoFormatting);
+                    node.find(".search-result-dimension").html(result.width + " &#215; " + result.height);
+                    node.find(".search-result-url").html(result.visibleUrl);
+                    $("#images").append(node);
+                    $(node).css({ 'visibility' : 'visible', "display" : "none" });
+                    $(node).delay(30).fadeIn(600);
+                }
+                addPaginationLinks();
+                $("#imagesearchresults").show();
+                $(".coverart").fancybox({
+                    'type' : 'image', 
+                    'overlayShow' : false, 
+                    'hideOnContentClick' : true, 
+                    'padding' : 0
+                });
+            } else {
+                $("#noImagesFound").show();
+            }
+        }
+
+        function onLoad() {
+            imageSearch = new google.search.ImageSearch();
+            imageSearch.setNoHtmlGeneration();
+            imageSearch.setResultSetSize(${imagesPerPage});
+            //google.search.Search.getBranding("branding");
+            imageSearch.setSearchCompleteCallback(this, searchComplete, null);
+        }
+        google.setOnLoadCallback(onLoad);
+
+        function doSearch() {
+            imageSearch.execute($("#searchFormQuery").val()); 
+        }
+
+        function addPaginationLinks() {
+            // To paginate search results, use the cursor function.
+            var cursor = imageSearch.cursor;
+            var curPage = cursor.currentPageIndex; // check what page the app is on
+            $("#pages").html("");
+
+            // Create link to prev page.
+            $("#pages").append('<button class="ui-icon-triangle-1-w ui-icon-primary"><fmt:message key="common.previous"/></button>');
+            if (curPage == 0) {
+                $("#pages button").attr("disabled", "disabled");
+            } else {
+                $("#pages button").removeAttr("disabled").click(function() {
+                    if (imageSearch.cursor.currentPageIndex == 0) return;
+                    imageSearch.gotoPage(imageSearch.cursor.currentPageIndex - 1);
+                });
+            }
+
+            for (var i = 0; i < cursor.pages.length; i++) {
+                var page = cursor.pages[i];
+                if (curPage == i) {
+                    $("#pages").append('<span class="ui-state-active"><h2 class="inline"></h2></span>')
+                    $("#pages h2").html(page.label)
+                } else {
+                    $("#pages").append('<button onClick="imageSearch.gotoPage(' + i + ')">' + page.label + "</button>")
+                }
+            }
+
+            // Create link to next page.
+            $("#pages").append('<button class="ui-icon-triangle-1-e ui-icon-secondary"><fmt:message key="common.next"/></button>')
+            if (curPage == 7) {
+                $("#pages button:last").attr("disabled", "disabled");
+            } else {
+                $("#pages button:last").removeAttr("disabled").click(function() {
+                    if (imageSearch.cursor.currentPageIndex == 7) return;
+                    imageSearch.gotoPage(imageSearch.cursor.currentPageIndex + 1);
+                });
+            }
+            $("#mainframemenucontainer .ui-state-active").button().hover(function() { $(this).removeClass("ui-state-active"); }, function() { $(this).addClass("ui-state-active"); }).click(function() { $(this).addClass("ui-state-active"); });
+            $("#pages").stylize().buttonset();
+        }
+
+        function setImage(imageUrl) {
+            $("#wait").show();
+            $("#success, #error, #errorDetails, #noImagesFound, #pages, #cancelCoverArtChange, #addFromURILink, #imagesearchresults").hide();
+            coverArtService.setCoverArtImage($("#path").val(), imageUrl, setImageComplete);
+        }
+
+        function setImageComplete(errorDetails) {
+            $("#wait").hide();
+            if (errorDetails != null) {
+                $("#errorDetails").html("<br/>" + errorDetails);
+                $("#error, #errorDetails, #pages, #addFromURILink").show();
+            } else {
+                $("#success, #cancelCoverArtChange").show();
+                $(".ui-button-text", "#cancelCoverArtChange").html("<fmt:message key='common.back'/>")
+                $(".ui-icon", "#cancelCoverArtChange").removeClass("ui-icon-close").addClass("ui-icon-triangle-1-w");
+            }
+        }
+
+        function toggleAddFromURI() {
+            $("#addCoverArtFormContainer").toggle("blind");
+        }
+
+        jQueryLoad.wait(function() {
+            $("#wait").show();
+            jQueryUILoad.wait(function() {
+                jFancyboxLoad = $LAB
+                    .script({src:"script/plugins/jquery.fancybox.min.js", test:"$.fancybox"})
+                        .wait(function() {
+                            imageSearch.execute($("#searchFormQuery").val()); 
+                            $("#cancelCoverArtChange").click(function() { location.href = '${backUrl}' });
+                            $("#addCoverArtForm").validation().stylize();
+                            $("#mainframemenucontainer").stylize();
+                        });
+            });
+        });
+    </script>
 </html>

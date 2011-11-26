@@ -32,9 +32,8 @@
 /*
  * Border settings for main frames
  */
-
-    .logonframe {
-    /* Logon frame border style */
+ 
+    .loginframe {
         border-top: 1px solid black;
         border-bottom: 1px solid black;
     }
@@ -166,9 +165,8 @@
         font-size: 100%;
     }
 
-    h2, b, tr {
+    h2 {
     /* Foreground color for h2, bold and tr. */
-        color: #333333;
     }
 
     table {
@@ -188,6 +186,7 @@
 
     input, select, textarea {
     /* Input form control font style */
+        color: inherit;
         font-size: 9pt;
     }
 
@@ -195,30 +194,6 @@
     /* Img border style */
         border: 0px;
         border-style: none;
-    }
-
-    input {
-    /* Input form control style. */
-        color: #555;
-        font-weight: normal;
-        border: 1px solid #AAA;
-        background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
-        -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-        -webkit-border-radius: 1px;
-    }
-
-    select, #musicFolder, #listSize, #listSizeRow, #imageSearchProvider {
-    /* Dropdown form control style */
-        margin: 0;
-        padding: 2px;
-        height: 24px;
-        color: #555;
-        font-weight: bold;
-        border: 1px solid #AAA;
-        background-image: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
-        -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-        -webkit-appearance: button;
-        -webkit-border-radius: 2px;
     }
 
     #pageimage {
@@ -231,9 +206,30 @@
         position: absolute;
     }
 
+    select {
+        font-weight: bold;
+    }
+
     input:hover, select:hover {
     /* Form control hover color. (default) */
         color:;
+    }
+    
+    input:focus, textarea:focus, select:focus {
+    /* Form control focus color. (default) */
+        color:;
+    }
+    
+    .focusField {
+        color:;
+        border: solid 2px #73A6FF;
+        background: #EFF5FF;
+        color: #000;
+    }
+
+    .idleField {
+        color:;
+        border: solid 2px #DFDFDF;
     }
 
     #logo img {
@@ -270,7 +266,6 @@
         font-size: 14pt;
         font-weight: bold;
         color: #FFE600;
-        font-family: Arial, Helvetica, sans-serif;
         text-align: left;
     }
 
@@ -329,39 +324,39 @@
  * Main frame menu images
  */
 
-    .back {
+    .back, .back .ui-icon {
         background-image: url("../icons/back.png");
     }
 
-    .forward {
+    .forward , .forward .ui-icon {
         background-image: url("../icons/forward.png");
     }
 
-    .refresh {
+    .refresh, .refresh .ui-icon {
         background-image: url("../icons/refresh.png");
     }
 
-    .download {
+    .download, .download .ui-icon {
         background-image: url("../icons/download.png");
     }
 
-    .delete {
+    .delete, .delete .ui-icon {
         background-image: url("../icons/remove.png");
     }
 
-    .up{
+    .up, .up .ui-icon {
         background-image: url("../icons/up.png");
     }
 
-    .down {
+    .down, .down .ui-icon {
         background-image: url("../icons/down.png");
     }
 
-    .addFromURI {
+    .addFromURI, .addFromURI .ui-icon {
         background-image: url("../icons/add.png");
     }
 
-    .logfile {
+    .logfile, .logfile .ui-icon {
         background-image: url("../icons/log_small.png");
     }
 
@@ -369,12 +364,25 @@
  * Player style
  */
 
-    .solidblockmenu li a:hover, .solidblockmenu li .current {
+    .solidblockmenu li a:hover, .solidblockmenu li .current, .solidblockmenu select:hover  {
     /* Player control hover style */
-        background-color: #8a8a8a;
+        background-color: #8a8a8a !important;
+    }
+    
+/*
+ * Shadows (to be supported by CSS3)
+ */
+ 
+    .coverart {
+        -moz-box-shadow: 4px 4px 4px #888;
+        -webkit-box-shadow: 4px 4px 4px #888;
+        box-shadow: 4px 4px 4px #888;
     }
 
-    .solidblockmenu select:hover {
-    /* Player select hover style */
-        background-color: #8a8a8a;
+/*
+ * jQuery Overrides
+ */
+ 
+    .ui-button {
+        font-size: 9pt !important;
     }
