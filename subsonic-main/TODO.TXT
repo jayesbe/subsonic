@@ -1,6 +1,10 @@
 DONE IN 5.3
 ------------
 
+TODO, MySQL
+---------------
+Unicode
+Give constraints names
 
 TODO IN 5.3
 ------------

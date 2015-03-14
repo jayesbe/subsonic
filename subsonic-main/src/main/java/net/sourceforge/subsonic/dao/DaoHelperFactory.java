@@ -26,6 +26,7 @@ package net.sourceforge.subsonic.dao;
 public class DaoHelperFactory {
 
     public static DaoHelper create() {
-        return new HsqlDaoHelper();
+        String jdbcUrl = System.getProperty("subsonic.db");
+        return jdbcUrl == null ? new HsqlDaoHelper() : new MySqlDaoHelper(jdbcUrl);
     }
 }
