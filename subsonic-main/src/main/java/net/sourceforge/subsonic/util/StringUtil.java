@@ -525,4 +525,12 @@ public final class StringUtil {
         }
         return s.replaceAll("<.*?>", "");
     }
+
+    public static Double parseDouble(String s) {
+        try {
+            return Double.parseDouble(s);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

@@ -118,6 +118,7 @@ import net.sourceforge.subsonic.domain.Share;
 import net.sourceforge.subsonic.domain.TranscodeScheme;
 import net.sourceforge.subsonic.domain.User;
 import net.sourceforge.subsonic.domain.UserSettings;
+import net.sourceforge.subsonic.service.AudioAdService;
 import net.sourceforge.subsonic.service.AudioScrobblerService;
 import net.sourceforge.subsonic.service.JukeboxService;
 import net.sourceforge.subsonic.service.LastFmService;
@@ -178,6 +179,7 @@ public class RESTController extends MultiActionController {
     private PodcastService podcastService;
     private RatingService ratingService;
     private SearchService searchService;
+    private AudioAdService audioAdService;
     private MediaFileDao mediaFileDao;
     private ArtistDao artistDao;
     private AlbumDao albumDao;
@@ -341,7 +343,7 @@ public class RESTController extends MultiActionController {
         Integer musicFolderId = getIntParameter(request, "musicFolderId");
         List<MusicFolder> musicFolders = settingsService.getMusicFoldersForUser(username, musicFolderId);
 
-        for (MediaFile mediaFile : mediaFileDao.getSongsByGenre(genre, offset, count, musicFolders)) {
+        for (MediaFile mediaFile : addAds(mediaFileDao.getSongsByGenre(genre, offset, count, musicFolders))) {
             songs.getSong().add(createJaxbChild(player, mediaFile, username));
         }
         Response res = createResponse();
@@ -392,7 +394,7 @@ public class RESTController extends MultiActionController {
         List<MusicFolder> musicFolders = settingsService.getMusicFoldersForUser(username);
         List<MediaFile> similarSongs = lastFmService.getSimilarSongs(mediaFile, count, musicFolders);
         Player player = playerService.getPlayer(request, response);
-        for (MediaFile similarSong : similarSongs) {
+        for (MediaFile similarSong : addAds(similarSongs)) {
             result.getSong().add(createJaxbChild(player, similarSong, username));
         }
 
@@ -420,7 +422,7 @@ public class RESTController extends MultiActionController {
         List<MusicFolder> musicFolders = settingsService.getMusicFoldersForUser(username);
         List<MediaFile> similarSongs = lastFmService.getSimilarSongs(artist, count, musicFolders);
         Player player = playerService.getPlayer(request, response);
-        for (MediaFile similarSong : similarSongs) {
+        for (MediaFile similarSong : addAds(similarSongs)) {
             result.getSong().add(createJaxbChild(player, similarSong, username));
         }
 
@@ -597,7 +599,7 @@ public class RESTController extends MultiActionController {
         }
 
         AlbumWithSongsID3 result = createJaxbAlbum(new AlbumWithSongsID3(), album, username);
-        for (MediaFile mediaFile : mediaFileDao.getSongsForAlbum(album.getArtist(), album.getName())) {
+        for (MediaFile mediaFile : addAds(mediaFileDao.getSongsForAlbum(album.getArtist(), album.getName()))) {
             result.getSong().add(createJaxbChild(player, mediaFile, username));
         }
 
@@ -657,7 +659,7 @@ public class RESTController extends MultiActionController {
         directory.setName(dir.getName());
         directory.setStarred(jaxbWriter.convertDate(mediaFileDao.getMediaFileStarredDate(id, username)));
 
-        for (MediaFile child : mediaFileService.getChildrenOf(dir, true, true, true)) {
+        for (MediaFile child : addAds(mediaFileService.getChildrenOf(dir, true, true, true))) {
             directory.getChild().add(createJaxbChild(player, child, username));
         }
 
@@ -831,7 +833,7 @@ public class RESTController extends MultiActionController {
             return;
         }
         PlaylistWithSongs result = createJaxbPlaylist(new PlaylistWithSongs(), playlist);
-        for (MediaFile mediaFile : playlistService.getFilesInPlaylist(id)) {
+        for (MediaFile mediaFile : addAds(playlistService.getFilesInPlaylist(id))) {
             if (securityService.isFolderAccessAllowed(mediaFile, username)) {
                 result.getEntry().add(createJaxbChild(player, mediaFile, username));
             }
@@ -1161,7 +1163,7 @@ public class RESTController extends MultiActionController {
         RandomSearchCriteria criteria = new RandomSearchCriteria(size, genre, fromYear, toYear, musicFolders);
 
         Songs result = new Songs();
-        for (MediaFile mediaFile : searchService.getRandomSongs(criteria)) {
+        for (MediaFile mediaFile : addAds(searchService.getRandomSongs(criteria))) {
             result.getSong().add(createJaxbChild(player, mediaFile, username));
         }
         Response res = createResponse();
@@ -1287,6 +1289,9 @@ public class RESTController extends MultiActionController {
                     break;
                 case AUDIOBOOK:
                     child.setType(MediaType.AUDIOBOOK);
+                    break;
+                case AD:
+                    child.setType(MediaType.AD);
                     break;
                 case VIDEO:
                     child.setType(MediaType.VIDEO);
@@ -2289,6 +2294,10 @@ public class RESTController extends MultiActionController {
         return !players.isEmpty() ? players.get(0).getId() : null;
     }
 
+    private List<MediaFile> addAds(List<MediaFile> files) {
+        return audioAdService.addAudioAds(files);
+    }
+
     public void setSettingsService(SettingsService settingsService) {
         this.settingsService = settingsService;
     }
@@ -2407,6 +2416,10 @@ public class RESTController extends MultiActionController {
 
     public void setPlayQueueDao(PlayQueueDao playQueueDao) {
         this.playQueueDao = playQueueDao;
+    }
+
+    public void setAudioAdService(AudioAdService audioAdService) {
+        this.audioAdService = audioAdService;
     }
 
     public static enum ErrorCode {

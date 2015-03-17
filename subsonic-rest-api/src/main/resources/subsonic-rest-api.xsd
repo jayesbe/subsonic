@@ -4,7 +4,7 @@
            targetNamespace="http://subsonic.org/restapi"
            attributeFormDefault="unqualified"
            elementFormDefault="qualified"
-           version="1.12.0">
+           version="1.13.0">
 
     <xs:element name="subsonic-response" type="sub:Response"/>
 
@@ -219,6 +219,7 @@
             <xs:enumeration value="music"/>
             <xs:enumeration value="podcast"/>
             <xs:enumeration value="audiobook"/>
+            <xs:enumeration value="ad"/> <!-- Added in 1.13.0 -->
             <xs:enumeration value="video"/>
         </xs:restriction>
     </xs:simpleType>

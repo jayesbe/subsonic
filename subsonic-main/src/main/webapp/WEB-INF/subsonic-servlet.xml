@@ -204,9 +204,14 @@
         <property name="transcodingService" ref="transcodingService"/>
         <property name="settingsService" ref="settingsService"/>
     </bean>
-    <bean id="internetRadioSettingsController"
-          class="net.sourceforge.subsonic.controller.InternetRadioSettingsController">
+    <bean id="internetRadioSettingsController" class="net.sourceforge.subsonic.controller.InternetRadioSettingsController">
         <property name="viewName" value="internetRadioSettings"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="audioAdSettingsController" class="net.sourceforge.subsonic.controller.AudioAdSettingsController">
+        <property name="viewName" value="audioAdSettings"/>
+        <property name="audioAdDao" ref="audioAdDao"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
         <property name="settingsService" ref="settingsService"/>
     </bean>
     <bean id="podcastSettingsController" class="net.sourceforge.subsonic.controller.PodcastSettingsController">
@@ -379,6 +384,7 @@
         <property name="chatService" ref="ajaxChatService"/>
         <property name="lyricsService" ref="ajaxLyricsService"/>
         <property name="podcastService" ref="podcastService"/>
+        <property name="audioAdService" ref="audioAdService"/>
         <property name="shareService" ref="shareService"/>
         <property name="mediaFileDao" ref="mediaFileDao"/>
         <property name="artistDao" ref="artistDao"/>
@@ -447,6 +453,7 @@
                 <prop key="/networkSettings.view">networkSettingsController</prop>
                 <prop key="/transcodingSettings.view">transcodingSettingsController</prop>
                 <prop key="/internetRadioSettings.view">internetRadioSettingsController</prop>
+                <prop key="/audioAdSettings.view">audioAdSettingsController</prop>
                 <prop key="/podcastSettings.view">podcastSettingsController</prop>
                 <prop key="/generalSettings.view">generalSettingsController</prop>
                 <prop key="/advancedSettings.view">advancedSettingsController</prop>
