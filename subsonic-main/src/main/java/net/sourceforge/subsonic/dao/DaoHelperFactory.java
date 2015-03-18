@@ -19,14 +19,28 @@
 
 package net.sourceforge.subsonic.dao;
 
+import net.sourceforge.subsonic.Logger;
+
 /**
  * @author Sindre Mehus
  * @version $Id$
  */
 public class DaoHelperFactory {
 
+    private static final Logger LOG = Logger.getLogger(DaoHelperFactory.class);
+
     public static DaoHelper create() {
         String jdbcUrl = System.getProperty("subsonic.db");
-        return jdbcUrl == null ? new HsqlDaoHelper() : new MySqlDaoHelper(jdbcUrl);
+
+        if (jdbcUrl == null) {
+            return new HsqlDaoHelper();
+        }
+
+        if (jdbcUrl.contains("mysql")) {
+            return new MySqlDaoHelper(jdbcUrl);
+        }
+
+        LOG.error("Unsupported JDBC url:" + jdbcUrl + ". Reverting to HSQL. Check system property 'subsonic.db'.");
+        return new HsqlDaoHelper();
     }
 }
