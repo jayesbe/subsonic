@@ -23,6 +23,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -198,5 +199,10 @@ public final class Util {
             result[i] = values.get(i);
         }
         return result;
+    }
+
+    public static Date toWholeSecond(Date date) {
+        long time = date.getTime();
+        return new Date(time - time % 1000L);
     }
 }

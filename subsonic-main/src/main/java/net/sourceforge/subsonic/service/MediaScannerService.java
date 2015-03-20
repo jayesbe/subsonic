@@ -39,6 +39,7 @@ import net.sourceforge.subsonic.domain.MediaFile;
 import net.sourceforge.subsonic.domain.MediaLibraryStatistics;
 import net.sourceforge.subsonic.domain.MusicFolder;
 import net.sourceforge.subsonic.util.FileUtil;
+import net.sourceforge.subsonic.util.Util;
 
 /**
  * Provides services for scanning the music library.
@@ -157,7 +158,8 @@ public class MediaScannerService {
         LOG.info("Starting to scan media library.");
 
         try {
-            Date lastScanned = new Date();
+            // MySQL uses second precision.
+            Date lastScanned = Util.toWholeSecond(new Date());
 
             // Maps from artist name to album count.
             Map<String, Integer> albumCount = new HashMap<String, Integer>();

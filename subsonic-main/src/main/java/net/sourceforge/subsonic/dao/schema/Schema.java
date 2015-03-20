@@ -31,7 +31,7 @@ public abstract class Schema {
      * Executes this schema.
      * @param template The JDBC template to use.
      */
-    public abstract void execute(JdbcTemplate template);
+    public abstract void execute(JdbcTemplate template) throws Exception;
 
     /**
      * Returns whether the given table exists.

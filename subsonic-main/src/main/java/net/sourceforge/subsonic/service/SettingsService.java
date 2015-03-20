@@ -139,6 +139,8 @@ public class SettingsService {
     private static final String KEY_SONOS_ENABLED = "SonosEnabled";
     private static final String KEY_SONOS_SERVICE_NAME = "SonosServiceName";
     private static final String KEY_SONOS_SERVICE_ID = "SonosServiceId";
+    private static final String KEY_AUDIO_AD_ENABLED = "AudioAdEnabled";
+    private static final String KEY_AUDIO_AD_FREQUENCY = "AudioAdFrequency";
 
     // Default values.
     private static final String DEFAULT_INDEX_STRING = "A B C D E F G H I J K L M N O P Q R S T U V W X-Z(XYZ)";
@@ -179,7 +181,7 @@ public class SettingsService {
     private static final String DEFAULT_LICENSE_DATE = null;
     private static final String DEFAULT_DOWNSAMPLING_COMMAND = "ffmpeg -i %s -map 0:0 -b:a %bk -v 0 -f mp3 -";
     private static final String DEFAULT_HLS_COMMAND = "ffmpeg -ss %o -t %d -i %s -async 1 -b:v %bk -s %wx%h -ar 44100 -ac 2 -v 0 -f mpegts -c:v libx264 -preset superfast -c:a libmp3lame -threads 0 -";
-    private static final String DEFAULT_JUKEBOX_COMMAND = "ffmpeg -ss %o -i %s -map 0:0 -v 0 -ar 44100 -ac 2 -f s16be -";
+    private static final String DEFAULT_JUKEBOX_COMMAND = "ffmpeg -ss %o -i %s -map 0:0 -v 0 -f s16be -";
     private static final String DEFAULT_VIDEO_IMAGE_COMMAND = "ffmpeg -r 1 -ss %o -t 1 -i %s -s %wx%h -v 0 -f mjpeg -";
     private static final boolean DEFAULT_REWRITE_URL = true;
     private static final boolean DEFAULT_LDAP_ENABLED = false;
@@ -206,6 +208,8 @@ public class SettingsService {
     private static final boolean DEFAULT_SONOS_ENABLED = false;
     private static final String DEFAULT_SONOS_SERVICE_NAME = "Subsonic";
     private static final int DEFAULT_SONOS_SERVICE_ID = 242;
+    private static final double DEFAULT_AUDIO_AD_FREQUENCY = 0.1;
+    private static final boolean DEFAULT_AUDIO_AD_ENABLED = false;
 
     // Array of obsolete keys.  Used to clean property file.
     private static final List<String> OBSOLETE_KEYS = Arrays.asList("PortForwardingPublicPort", "PortForwardingLocalPort",
@@ -363,6 +367,14 @@ public class SettingsService {
     }
 
     private void setLong(String key, long value) {
+        setProperty(key, String.valueOf(value));
+    }
+
+    private double getDouble(String key, double defaultValue) {
+        return Double.valueOf(properties.getProperty(key, String.valueOf(defaultValue)));
+    }
+
+    private void setDouble(String key, double value) {
         setProperty(key, String.valueOf(value));
     }
 
@@ -856,6 +868,22 @@ public class SettingsService {
 
     public void setServerId(String serverId) {
         properties.setProperty(KEY_SERVER_ID, serverId);
+    }
+
+    public double getAudioAdFrequency() {
+        return getDouble(KEY_AUDIO_AD_FREQUENCY, DEFAULT_AUDIO_AD_FREQUENCY);
+    }
+
+    public void setAudioAdFrequency(double frequency) {
+        setDouble(KEY_AUDIO_AD_FREQUENCY, frequency);
+    }
+
+    public boolean isAudioAdEnabled() {
+        return getBoolean(KEY_AUDIO_AD_ENABLED, DEFAULT_AUDIO_AD_ENABLED);
+    }
+
+    public void setAudioAdEnabled(boolean enabled) {
+        setBoolean(KEY_AUDIO_AD_ENABLED, enabled);
     }
 
     public long getSettingsChanged() {

@@ -39,6 +39,7 @@ import net.sourceforge.subsonic.domain.PlayQueue;
 import net.sourceforge.subsonic.domain.Player;
 import net.sourceforge.subsonic.domain.SavedPlayQueue;
 import net.sourceforge.subsonic.domain.UserSettings;
+import net.sourceforge.subsonic.service.AudioAdService;
 import net.sourceforge.subsonic.service.JukeboxService;
 import net.sourceforge.subsonic.service.LastFmService;
 import net.sourceforge.subsonic.service.MediaFileService;
@@ -69,6 +70,7 @@ public class PlayQueueService {
     private SecurityService securityService;
     private SearchService searchService;
     private RatingService ratingService;
+    private AudioAdService audioAdService;
     private net.sourceforge.subsonic.service.PlaylistService playlistService;
     private MediaFileDao mediaFileDao;
     private PlayQueueDao playQueueDao;
@@ -279,7 +281,7 @@ public class PlayQueueService {
         if (player.isWeb()) {
             mediaFileService.removeVideoFiles(files);
         }
-        player.getPlayQueue().addFiles(false, files);
+        player.getPlayQueue().addFiles(false, addAds(files));
         player.getPlayQueue().setRandomSearchCriteria(null);
         return convert(request, player, true);
     }
@@ -291,7 +293,7 @@ public class PlayQueueService {
         MediaFile file = mediaFileService.getMediaFile(id);
         List<MediaFile> randomFiles = mediaFileService.getRandomSongsForParent(file, count);
         Player player = getCurrentPlayer(request, response);
-        player.getPlayQueue().addFiles(false, randomFiles);
+        player.getPlayQueue().addFiles(false, addAds(randomFiles));
         player.getPlayQueue().setRandomSearchCriteria(null);
         return convert(request, player, true).setStartPlayerAt(0);
     }
@@ -304,8 +306,12 @@ public class PlayQueueService {
         List<MusicFolder> musicFolders = settingsService.getMusicFoldersForUser(username);
         List<MediaFile> similarSongs = lastFmService.getSimilarSongs(artist, count, musicFolders);
         Player player = getCurrentPlayer(request, response);
-        player.getPlayQueue().addFiles(false, similarSongs);
+        player.getPlayQueue().addFiles(false, addAds(similarSongs));
         return convert(request, player, true).setStartPlayerAt(0);
+    }
+
+    private List<MediaFile> addAds(List<MediaFile> files) {
+        return audioAdService.addAudioAds(files);
     }
 
     public PlayQueueInfo add(int id) throws Exception {
@@ -330,6 +336,9 @@ public class PlayQueueService {
         if (player.isWeb()) {
             mediaFileService.removeVideoFiles(files);
         }
+
+        files = addAds(files);
+
         if (index != null) {
             player.getPlayQueue().addFilesAt(files, index);
         } else {
@@ -602,6 +611,10 @@ public class PlayQueueService {
 
     public void setRatingService(RatingService ratingService) {
         this.ratingService = ratingService;
+    }
+
+    public void setAudioAdService(AudioAdService audioAdService) {
+        this.audioAdService = audioAdService;
     }
 
     public void setSecurityService(SecurityService securityService) {

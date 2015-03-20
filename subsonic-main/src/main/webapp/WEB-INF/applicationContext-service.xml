@@ -66,6 +66,11 @@
         <property name="daoHelper" ref="daoHelper"/>
     </bean>
 
+    <bean id="audioAdDao" class="net.sourceforge.subsonic.dao.AudioAdDao">
+        <property name="mediaFileDao" ref="mediaFileDao"/>
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
     <bean id="daoHelper" class="net.sourceforge.subsonic.dao.DaoHelperFactory" factory-method="create"/>
 
 
@@ -176,6 +181,11 @@
         <property name="adInterval" value="8"/>
     </bean>
 
+    <bean id="audioAdService" class="net.sourceforge.subsonic.service.AudioAdService">
+        <property name="settingsService" ref="settingsService"/>
+        <property name="audioAdDao" ref="audioAdDao"/>
+    </bean>
+
     <bean id="jukeboxService" class="net.sourceforge.subsonic.service.JukeboxService">
         <property name="statusService" ref="statusService"/>
         <property name="transcodingService" ref="transcodingService"/>
@@ -254,6 +264,7 @@
         <property name="settingsService" ref="settingsService"/>
         <property name="searchService" ref="searchService"/>
         <property name="ratingService" ref="ratingService"/>
+        <property name="audioAdService" ref="audioAdService"/>
         <property name="securityService" ref="securityService"/>
     </bean>
 

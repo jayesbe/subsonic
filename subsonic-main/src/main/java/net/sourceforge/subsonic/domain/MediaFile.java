@@ -466,6 +466,7 @@ public class MediaFile {
         MUSIC,
         PODCAST,
         AUDIOBOOK,
+        AD,
         VIDEO,
         DIRECTORY,
         ALBUM
