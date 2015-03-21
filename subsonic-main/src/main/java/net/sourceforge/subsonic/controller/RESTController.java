@@ -670,7 +670,11 @@ public class RESTController extends MultiActionController {
         directory.setName(dir.getName());
         directory.setStarred(jaxbWriter.convertDate(mediaFileDao.getMediaFileStarredDate(id, username)));
 
-        for (MediaFile child : addAds(mediaFileService.getChildrenOf(dir, true, true, true))) {
+        for (MediaFile child : mediaFileService.getChildrenOf(dir, false, true, true)) {
+            directory.getChild().add(createJaxbChild(player, child, username));
+        }
+
+        for (MediaFile child : addAds(mediaFileService.getChildrenOf(dir, true, false, true))) {
             directory.getChild().add(createJaxbChild(player, child, username));
         }
 
