@@ -21,7 +21,7 @@
 
 <div style="float:right;padding-right:1em">
 
-    <input type="checkbox" id="hidden" onclick="multiService.setMediaFileHidden(${model.dir.id}, this.checked)">
+    <input type="checkbox" id="hidden" <c:if test="${model.dir.hidden}">checked</c:if> onclick="multiService.setMediaFileHidden(${model.dir.id}, this.checked)">
     <label for="hidden" style="padding-right:2em">Hidden</label>
 
     <c:url value="main.view" var="changeViewUrl">

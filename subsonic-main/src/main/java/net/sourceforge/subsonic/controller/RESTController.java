@@ -84,6 +84,7 @@ import org.subsonic.restapi.Videos;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 
 import net.sourceforge.subsonic.Logger;
 import net.sourceforge.subsonic.ajax.ChatService;
@@ -313,13 +314,13 @@ public class RESTController extends MultiActionController {
         jaxbWriter.writeResponse(request, response, res);
     }
 
-    private Iterable<MediaFile> filterHidden(List<MediaFile> files) {
-        return Iterables.filter(files, new Predicate<MediaFile>() {
+    private List<MediaFile> filterHidden(List<MediaFile> files) {
+        return Lists.newArrayList(Iterables.filter(files, new Predicate<MediaFile>() {
             @Override
             public boolean apply(MediaFile file) {
                 return !file.isHidden();
             }
-        });
+        }));
     }
 
     @SuppressWarnings("UnusedDeclaration")
@@ -670,11 +671,11 @@ public class RESTController extends MultiActionController {
         directory.setName(dir.getName());
         directory.setStarred(jaxbWriter.convertDate(mediaFileDao.getMediaFileStarredDate(id, username)));
 
-        for (MediaFile child : mediaFileService.getChildrenOf(dir, false, true, true)) {
+        for (MediaFile child : filterHidden(mediaFileService.getChildrenOf(dir, false, true, true))) {
             directory.getChild().add(createJaxbChild(player, child, username));
         }
 
-        for (MediaFile child : addAds(mediaFileService.getChildrenOf(dir, true, false, true))) {
+        for (MediaFile child : addAds(filterHidden(mediaFileService.getChildrenOf(dir, true, false, true)))) {
             directory.getChild().add(createJaxbChild(player, child, username));
         }
 
@@ -1110,7 +1111,7 @@ public class RESTController extends MultiActionController {
         }
 
         AlbumList result = new AlbumList();
-        for (MediaFile album : albums) {
+        for (MediaFile album : filterHidden(albums)) {
             result.getAlbum().add(createJaxbChild(player, album, username));
         }
 
@@ -1510,13 +1511,13 @@ public class RESTController extends MultiActionController {
         List<MusicFolder> musicFolders = settingsService.getMusicFoldersForUser(username, musicFolderId);
 
         Starred result = new Starred();
-        for (MediaFile artist : mediaFileDao.getStarredDirectories(0, Integer.MAX_VALUE, username, musicFolders)) {
+        for (MediaFile artist : filterHidden(mediaFileDao.getStarredDirectories(0, Integer.MAX_VALUE, username, musicFolders))) {
             result.getArtist().add(createJaxbArtist(artist, username));
         }
-        for (MediaFile album : mediaFileDao.getStarredAlbums(0, Integer.MAX_VALUE, username, musicFolders)) {
+        for (MediaFile album : filterHidden(mediaFileDao.getStarredAlbums(0, Integer.MAX_VALUE, username, musicFolders))) {
             result.getAlbum().add(createJaxbChild(player, album, username));
         }
-        for (MediaFile song : mediaFileDao.getStarredFiles(0, Integer.MAX_VALUE, username, musicFolders)) {
+        for (MediaFile song : filterHidden(mediaFileDao.getStarredFiles(0, Integer.MAX_VALUE, username, musicFolders))) {
             result.getSong().add(createJaxbChild(player, song, username));
         }
         Response res = createResponse();
@@ -2309,7 +2310,7 @@ public class RESTController extends MultiActionController {
         return !players.isEmpty() ? players.get(0).getId() : null;
     }
 
-    private List<MediaFile> addAds(List<MediaFile> files) {
+    private Iterable<MediaFile> addAds(List<MediaFile> files) {
         return audioAdService.addAudioAds(files);
     }
 
