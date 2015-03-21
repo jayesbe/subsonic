@@ -301,7 +301,6 @@ public class RESTController extends MultiActionController {
 
         // Add children
         Player player = playerService.getPlayer(request, response);
-        List<MediaFile> singleSongs = musicIndexService.getSingleSongs(musicFolders, false);
 
         for (MediaFile singleSong : musicFolderContent.getSingleSongs()) {
             indexes.getChild().add(createJaxbChild(player, singleSong, username));
