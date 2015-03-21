@@ -166,6 +166,7 @@ CREATE TABLE media_file (
   last_scanned          DATETIME     NOT NULL,
   children_last_updated DATETIME     NOT NULL,
   present               BOOLEAN      NOT NULL,
+  hidden                BOOLEAN      NOT NULL,
   version               INTEGER      NOT NULL,
   CONSTRAINT UNIQUE (path));
 

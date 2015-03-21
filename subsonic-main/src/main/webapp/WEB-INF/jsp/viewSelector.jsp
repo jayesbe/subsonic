@@ -20,6 +20,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div style="float:right;padding-right:1em">
+
+    <input type="checkbox" id="hidden" onclick="multiService.setMediaFileHidden(${model.dir.id}, this.checked)">
+    <label for="hidden" style="padding-right:2em">Hidden</label>
+
     <c:url value="main.view" var="changeViewUrl">
         <c:param name="id" value="${model.dir.id}"/>
         <c:param name="viewAsList" value="${not model.viewAsList}"/>

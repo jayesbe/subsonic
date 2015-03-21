@@ -67,13 +67,14 @@ public class MediaFile {
     private Date starredDate;
     private Date childrenLastUpdated;
     private boolean present;
+    private boolean hidden;
     private int version;
 
     public MediaFile(int id, String path, String folder, MediaType mediaType, String format, String title,
                      String albumName, String artist, String albumArtist, Integer discNumber, Integer trackNumber, Integer year, String genre, Integer bitRate,
                      boolean variableBitRate, Integer durationSeconds, Long fileSize, Integer width, Integer height, String coverArtPath,
                      String parentPath, int playCount, Date lastPlayed, String comment, Date created, Date changed, Date lastScanned,
-                     Date childrenLastUpdated, boolean present, int version) {
+                     Date childrenLastUpdated, boolean present, boolean hidden, int version) {
         this.id = id;
         this.path = path;
         this.folder = folder;
@@ -103,6 +104,7 @@ public class MediaFile {
         this.lastScanned = lastScanned;
         this.childrenLastUpdated = childrenLastUpdated;
         this.present = present;
+        this.hidden = hidden;
         this.version = version;
     }
 
@@ -423,6 +425,14 @@ public class MediaFile {
 
     public void setPresent(boolean present) {
         this.present = present;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 
     public int getVersion() {

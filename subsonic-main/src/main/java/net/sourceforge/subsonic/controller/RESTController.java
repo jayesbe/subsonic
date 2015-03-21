@@ -82,6 +82,9 @@ import org.subsonic.restapi.Starred2;
 import org.subsonic.restapi.Users;
 import org.subsonic.restapi.Videos;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+
 import net.sourceforge.subsonic.Logger;
 import net.sourceforge.subsonic.ajax.ChatService;
 import net.sourceforge.subsonic.ajax.LyricsInfo;
@@ -274,7 +277,7 @@ public class RESTController extends MultiActionController {
             }
         }
 
-        for (MediaFile shortcut : musicIndexService.getShortcuts(musicFolders)) {
+        for (MediaFile shortcut : filterHidden(musicIndexService.getShortcuts(musicFolders))) {
             indexes.getShortcut().add(createJaxbArtist(shortcut, username));
         }
 
@@ -286,7 +289,7 @@ public class RESTController extends MultiActionController {
             index.setName(entry.getKey().getIndex());
 
             for (MusicIndex.SortableArtistWithMediaFiles artist : entry.getValue()) {
-                for (MediaFile mediaFile : artist.getMediaFiles()) {
+                for (MediaFile mediaFile : filterHidden(artist.getMediaFiles())) {
                     if (mediaFile.isDirectory()) {
                         Date starredDate = mediaFileDao.getMediaFileStarredDate(mediaFile.getId(), username);
                         org.subsonic.restapi.Artist a = new org.subsonic.restapi.Artist();
@@ -301,14 +304,22 @@ public class RESTController extends MultiActionController {
 
         // Add children
         Player player = playerService.getPlayer(request, response);
-        List<MediaFile> singleSongs = musicIndexService.getSingleSongs(musicFolders, false);
 
-        for (MediaFile singleSong : musicFolderContent.getSingleSongs()) {
+        for (MediaFile singleSong : filterHidden(musicFolderContent.getSingleSongs())) {
             indexes.getChild().add(createJaxbChild(player, singleSong, username));
         }
 
         res.setIndexes(indexes);
         jaxbWriter.writeResponse(request, response, res);
+    }
+
+    private Iterable<MediaFile> filterHidden(List<MediaFile> files) {
+        return Iterables.filter(files, new Predicate<MediaFile>() {
+            @Override
+            public boolean apply(MediaFile file) {
+                return !file.isHidden();
+            }
+        });
     }
 
     @SuppressWarnings("UnusedDeclaration")

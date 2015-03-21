@@ -467,6 +467,7 @@ public class MediaFileService {
         mediaFile.setCreated(lastModified);
         mediaFile.setMediaType(DIRECTORY);
         mediaFile.setPresent(true);
+        mediaFile.setHidden(false);
 
         if (file.isFile()) {
 

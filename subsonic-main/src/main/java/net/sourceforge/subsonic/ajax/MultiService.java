@@ -71,6 +71,12 @@ public class MultiService {
         return new ArtistInfo(similarArtists, artistBio);
     }
 
+    public void setMediaFileHidden(int mediaFileId, boolean hidden) {
+        MediaFile mediaFile = mediaFileService.getMediaFile(mediaFileId);
+        mediaFile.setHidden(hidden);
+        mediaFileService.updateMediaFile(mediaFile);
+    }
+
     private List<SimilarArtist> getSimilarArtists(int mediaFileId, int limit) {
         HttpServletRequest request = WebContextFactory.get().getHttpServletRequest();
         String username = securityService.getCurrentUsername(request);
