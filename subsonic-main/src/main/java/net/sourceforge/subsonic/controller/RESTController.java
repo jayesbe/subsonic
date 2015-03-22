@@ -744,21 +744,21 @@ public class RESTController extends MultiActionController {
         criteria.setCount(getIntParameter(request, "artistCount", 20));
         criteria.setOffset(getIntParameter(request, "artistOffset", 0));
         SearchResult artists = searchService.search(criteria, musicFolders, SearchService.IndexType.ARTIST);
-        for (MediaFile mediaFile : artists.getMediaFiles()) {
+        for (MediaFile mediaFile : filterHidden(artists.getMediaFiles())) {
             searchResult.getArtist().add(createJaxbArtist(mediaFile, username));
         }
 
         criteria.setCount(getIntParameter(request, "albumCount", 20));
         criteria.setOffset(getIntParameter(request, "albumOffset", 0));
         SearchResult albums = searchService.search(criteria, musicFolders, SearchService.IndexType.ALBUM);
-        for (MediaFile mediaFile : albums.getMediaFiles()) {
+        for (MediaFile mediaFile : filterHidden(albums.getMediaFiles())) {
             searchResult.getAlbum().add(createJaxbChild(player, mediaFile, username));
         }
 
         criteria.setCount(getIntParameter(request, "songCount", 20));
         criteria.setOffset(getIntParameter(request, "songOffset", 0));
         SearchResult songs = searchService.search(criteria, musicFolders, SearchService.IndexType.SONG);
-        for (MediaFile mediaFile : songs.getMediaFiles()) {
+        for (MediaFile mediaFile : filterHidden(songs.getMediaFiles())) {
             searchResult.getSong().add(createJaxbChild(player, mediaFile, username));
         }
 
