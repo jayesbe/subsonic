@@ -11,6 +11,7 @@ SUBSONIC_HOST=0.0.0.0
 SUBSONIC_PORT=4040
 SUBSONIC_HTTPS_PORT=0
 SUBSONIC_CONTEXT_PATH=/
+SUBSONIC_DB=
 SUBSONIC_MAX_MEMORY=150
 SUBSONIC_PIDFILE=
 SUBSONIC_DEFAULT_MUSIC_FOLDER=/var/music
@@ -34,6 +35,7 @@ usage() {
     echo "                       incoming HTTPS traffic. Default: 0 (disabled)"
     echo "  --context-path=PATH  The context path, i.e., the last part of the Subsonic"
     echo "                       URL. Typically '/' or '/subsonic'. Default '/'"
+    echo "  --db=JDBC_URL        Use alternate database. MySQL and HSQL are currently supported."
     echo "  --max-memory=MB      The memory limit (max Java heap size) in megabytes."
     echo "                       Default: 100"
     echo "  --pidfile=PIDFILE    Write PID to this file. Default not created."
@@ -67,6 +69,9 @@ while [ $# -ge 1 ]; do
             ;;
         --context-path=?*)
             SUBSONIC_CONTEXT_PATH=${1#--context-path=}
+            ;;
+        --db=?*)
+            SUBSONIC_DB=${1#--db=}
             ;;
         --max-memory=?*)
             SUBSONIC_MAX_MEMORY=${1#--max-memory=}
@@ -110,12 +115,13 @@ if [ -L $0 ] && ([ -e /bin/readlink ] || [ -e /usr/bin/readlink ]); then
     cd $(dirname $(readlink $0))
 fi
 
-${JAVA} -Xmx${SUBSONIC_MAX_MEMORY}m \
+echo ${JAVA} -Xmx${SUBSONIC_MAX_MEMORY}m \
   -Dsubsonic.home=${SUBSONIC_HOME} \
   -Dsubsonic.host=${SUBSONIC_HOST} \
   -Dsubsonic.port=${SUBSONIC_PORT} \
   -Dsubsonic.httpsPort=${SUBSONIC_HTTPS_PORT} \
   -Dsubsonic.contextPath=${SUBSONIC_CONTEXT_PATH} \
+  -Dsubsonic.db="${SUBSONIC_DB}" \
   -Dsubsonic.defaultMusicFolder=${SUBSONIC_DEFAULT_MUSIC_FOLDER} \
   -Dsubsonic.defaultPodcastFolder=${SUBSONIC_DEFAULT_PODCAST_FOLDER} \
   -Dsubsonic.defaultPlaylistFolder=${SUBSONIC_DEFAULT_PLAYLIST_FOLDER} \

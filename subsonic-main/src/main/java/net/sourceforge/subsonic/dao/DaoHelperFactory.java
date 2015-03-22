@@ -19,6 +19,8 @@
 
 package net.sourceforge.subsonic.dao;
 
+import org.apache.commons.lang.StringUtils;
+
 import net.sourceforge.subsonic.Logger;
 
 /**
@@ -30,7 +32,7 @@ public class DaoHelperFactory {
     private static final Logger LOG = Logger.getLogger(DaoHelperFactory.class);
 
     public static DaoHelper create() {
-        String jdbcUrl = System.getProperty("subsonic.db");
+        String jdbcUrl = StringUtils.trimToNull(System.getProperty("subsonic.db"));
 
         if (jdbcUrl == null) {
             return new HsqlDaoHelper();
