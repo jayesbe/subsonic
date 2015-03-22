@@ -83,5 +83,12 @@ public class Schema52 extends Schema {
 
             LOG.info("Database table 'play_queue_file' was created successfully.");
         }
+
+        // Kalimba
+        if (!columnExists(template, "hidden", "media_file")) {
+            LOG.info("Database column 'media_file.hidden' not found.  Creating it.");
+            template.execute("alter table media_file add hidden boolean default false");
+            LOG.info("Database column 'media_file.hidden' was added successfully.");
+        }
     }
 }
