@@ -409,7 +409,6 @@ CREATE INDEX idx_bookmark_media_file_id ON bookmark (media_file_id);
 CREATE INDEX idx_bookmark_username ON bookmark (username);
 CREATE INDEX idx_music_folder_user_username ON music_folder_user (username);
 
-# TODO
 ALTER TABLE user_settings ADD CONSTRAINT FOREIGN KEY (system_avatar_id) REFERENCES system_avatar (id);
 
 INSERT INTO role VALUES (1, 'admin');
@@ -423,7 +422,7 @@ INSERT INTO role VALUES (8, 'stream');
 INSERT INTO role VALUES (9, 'settings');
 INSERT INTO role VALUES (10, 'jukebox');
 INSERT INTO role VALUES (11, 'share');
-INSERT INTO USER VALUES ('admin', 'admin', 0, 0, 0, FALSE, NULL);
+INSERT INTO user VALUES ('admin', 'admin', 0, 0, 0, FALSE, NULL);
 INSERT INTO user_role VALUES ('admin', 1);
 INSERT INTO user_role VALUES ('admin', 2);
 INSERT INTO user_role VALUES ('admin', 3);

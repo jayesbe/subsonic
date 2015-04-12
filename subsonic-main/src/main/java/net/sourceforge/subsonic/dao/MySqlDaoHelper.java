@@ -21,9 +21,9 @@ package net.sourceforge.subsonic.dao;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import net.sourceforge.subsonic.Logger;
 import net.sourceforge.subsonic.dao.schema.Schema;
@@ -62,7 +62,7 @@ public class MySqlDaoHelper implements DaoHelper {
     }
 
     private DataSource createDataSource() {
-        DriverManagerDataSource ds = new DriverManagerDataSource();
+        BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         ds.setUrl(jdbcUrl);
 
