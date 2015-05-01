@@ -40,45 +40,45 @@
 
 <table style="margin:0;padding-top:5px">
     <tr>
-        <td style="padding-right:3.5em;">
-            <a href="help.view?" target="main"><img src="<spring:theme code="logoImage"/>" title="${help}" alt=""></a>
+        <td style="padding-right:5.5em;">
+            <img src="coverArt.view?logo=1" alt="">
         </td>
         <td style="min-width:4em;padding-right:2em;text-align: center">
-            <a href="home.view?" target="main"><img src="<spring:theme code="homeImage"/>" title="${home}" alt="${home}"></a>
-            <div class="topHeader"><a href="home.view?" target="main">${home}</a></div>
+            <a href="home.view?" target="main"><img src="<spring:theme code="homeImage"/>" title="${home}" alt="${home}">
+            <div class="topHeader">${home}</div></a>
         </td>
         <td style="min-width:4em;padding-right:2em;text-align: center">
-            <a href="nowPlaying.view?" target="main"><img src="<spring:theme code="nowPlayingImage"/>" title="${nowPlaying}" alt="${nowPlaying}"></a>
-            <div class="topHeader"><a href="nowPlaying.view?" target="main">${nowPlaying}</a></div>
+            <a href="nowPlaying.view?" target="main"><img src="<spring:theme code="nowPlayingImage"/>" title="${nowPlaying}" alt="${nowPlaying}">
+            <div class="topHeader">${nowPlaying}</div></a>
         </td>
         <td style="min-width:4em;padding-right:2em;text-align: center">
-            <a href="starred.view?" target="main"><img src="<spring:theme code="starredImage"/>" title="${starred}" alt="${starred}"></a>
-            <div class="topHeader"><a href="starred.view?" target="main">${starred}</a></div>
+            <a href="starred.view?" target="main"><img src="<spring:theme code="starredImage"/>" title="${starred}" alt="${starred}">
+            <div class="topHeader">${starred}</div></a>
         </td>
         <td style="min-width:4em;padding-right:2em;text-align: center">
-            <a href="playlists.view?" target="main"><img src="<spring:theme code="playlistImage"/>" title="${playlists}" alt="${playlists}"></a>
-            <div class="topHeader"><a href="playlists.view?" target="main">${playlists}</a></div>
+            <a href="playlists.view?" target="main"><img src="<spring:theme code="playlistImage"/>" title="${playlists}" alt="${playlists}">
+            <div class="topHeader">${playlists}</div></a>
         </td>
-        <td style="min-width:4em;padding-right:2em;text-align: center">
-            <a href="podcastReceiver.view?" target="main"><img src="<spring:theme code="podcastLargeImage"/>" title="${podcast}" alt="${podcast}"></a>
-            <div class="topHeader"><a href="podcastReceiver.view?" target="main">${podcast}</a></div>
-        </td>
+        <%--<td style="min-width:4em;padding-right:2em;text-align: center">--%>
+            <%--<a href="podcastReceiver.view?" target="main"><img src="<spring:theme code="podcastLargeImage"/>" title="${podcast}" alt="${podcast}"></a>--%>
+            <%--<div class="topHeader"><a href="podcastReceiver.view?" target="main">${podcast}</a></div>--%>
+        <%--</td>--%>
         <c:if test="${model.user.settingsRole}">
             <td style="min-width:4em;padding-right:2em;text-align: center">
-                <a href="settings.view?" target="main"><img src="<spring:theme code="settingsImage"/>" title="${settings}" alt="${settings}"></a>
-                <div class="topHeader"><a href="settings.view?" target="main">${settings}</a></div>
+                <a href="settings.view?" target="main"><img src="<spring:theme code="settingsImage"/>" title="${settings}" alt="${settings}">
+                <div class="topHeader">${settings}</div></a>
             </td>
         </c:if>
-        <td style="min-width:4em;padding-right:2em;text-align: center">
-            <a href="more.view?" target="main"><img src="<spring:theme code="moreImage"/>" title="${more}" alt="${more}"></a>
-            <div class="topHeader"><a href="more.view?" target="main">${more}</a></div>
-        </td>
-        <td style="min-width:4em;padding-right:2em;text-align: center">
-            <a href="help.view?" target="main"><img src="<spring:theme code="helpImage"/>" title="${help}" alt="${help}"></a>
-            <div class="topHeader"><a href="help.view?" target="main">${help}</a></div>
-        </td>
+        <%--<td style="min-width:4em;padding-right:2em;text-align: center">--%>
+            <%--<a href="more.view?" target="main"><img src="<spring:theme code="moreImage"/>" title="${more}" alt="${more}"></a>--%>
+            <%--<div class="topHeader"><a href="more.view?" target="main">${more}</a></div>--%>
+        <%--</td>--%>
+        <%--<td style="min-width:4em;padding-right:2em;text-align: center">--%>
+            <%--<a href="help.view?" target="main"><img src="<spring:theme code="helpImage"/>" title="${help}" alt="${help}"></a>--%>
+            <%--<div class="topHeader"><a href="help.view?" target="main">${help}</a></div>--%>
+        <%--</td>--%>
 
-        <td style="padding-left:1em">
+        <td style="padding-left:5em">
             <form method="post" action="search.view" target="main" name="searchForm">
                 <td><input type="text" name="query" id="query" size="28" placeholder="${search}" onclick="select();"
                            onkeyup="triggerInstantSearch();"></td>
@@ -86,23 +86,23 @@
             </form>
         </td>
 
-        <td style="padding-left:15pt;padding-right:5pt;vertical-align: middle;width: 100%;text-align: center">
+        <%--<td style="padding-left:15pt;padding-right:5pt;vertical-align: middle;width: 100%;text-align: center">--%>
 
-            <c:if test="${model.showAvatar}">
-            <sub:url value="avatar.view" var="avatarUrl">
-                <sub:param name="username" value="${model.user.username}"/>
-            </sub:url>
-                <div style="padding-bottom: 4px">
-                    <c:if test="${model.user.settingsRole}"><a href="personalSettings.view" target="main"></c:if>
-                        <img src="${avatarUrl}" alt="" width="30" height="30">
-                        <c:if test="${model.user.settingsRole}"></a></c:if>
-                </div>
-            </c:if>
+            <%--<c:if test="${model.showAvatar}">--%>
+            <%--<sub:url value="avatar.view" var="avatarUrl">--%>
+                <%--<sub:param name="username" value="${model.user.username}"/>--%>
+            <%--</sub:url>--%>
+                <%--<div style="padding-bottom: 4px">--%>
+                    <%--<c:if test="${model.user.settingsRole}"><a href="personalSettings.view" target="main"></c:if>--%>
+                        <%--<img src="${avatarUrl}" alt="" width="30" height="30">--%>
+                        <%--<c:if test="${model.user.settingsRole}"></a></c:if>--%>
+                <%--</div>--%>
+            <%--</c:if>--%>
 
-            <div class="detail">
-                <a href="j_acegi_logout" target="_top"><fmt:message key="top.logout"><fmt:param value="${model.user.username}"/></fmt:message></a>
-            </div>
-        </td>
+            <%--<div class="detail">--%>
+                <%--<a href="j_acegi_logout" target="_top"><fmt:message key="top.logout"><fmt:param value="${model.user.username}"/></fmt:message></a>--%>
+            <%--</div>--%>
+        <%--</td>--%>
 
     </tr></table>
 

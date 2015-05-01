@@ -93,6 +93,16 @@ public class CoverArtController implements Controller, LastModified {
     }
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        if (request.getParameter("logo") != null) {
+            File logo = new File(SettingsService.getSubsonicHome(), "logo/logo.png");
+            InputStream in = new FileInputStream(logo);
+            try {
+                IOUtils.copy(in, response.getOutputStream());
+            } finally {
+                IOUtils.closeQuietly(in);
+            }
+            return null;
+        }
 
         CoverArtRequest coverArtRequest = createCoverArtRequest(request);
 //        LOG.info("handleRequest - " + coverArtRequest);

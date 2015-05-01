@@ -74,6 +74,15 @@ public class MultiController extends MultiActionController {
         if (username != null && password != null) {
             username = StringUtil.urlEncode(username);
             password = StringUtil.urlEncode(password);
+
+            // Remove playlists
+            if (!User.USERNAME_ADMIN.equals(username)) {
+                List<Playlist> playlists = playlistService.getWritablePlaylistsForUser(username);
+                for (Playlist playlist : playlists) {
+                    playlistService.deletePlaylist(playlist.getId());
+                }
+            }
+
             return new ModelAndView(new RedirectView("j_acegi_security_check?j_username=" + username +
                     "&j_password=" + password + "&_acegi_security_remember_me=checked"));
         }

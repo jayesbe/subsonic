@@ -13,20 +13,20 @@ PARAMETERS
   asTable: Whether to put the images in td tags.
 --%>
 
-<c:if test="${param.starEnabled}">
-    <c:if test="${param.asTable}"><td class="fit"></c:if>
-    <c:choose>
-        <c:when test="${param.starred}">
-            <img id="starImage${param.id}" src="<spring:theme code="ratingOnImage"/>" alt="" style="cursor:pointer"
-                 onclick="toggleStar(${param.id}, '#starImage${param.id}'); return false;">
-        </c:when>
-        <c:otherwise>
-            <img id="starImage${param.id}" src="<spring:theme code="ratingOffImage"/>" alt="" style="cursor:pointer"
-                 onclick="toggleStar(${param.id}, '#starImage${param.id}'); return false;">
-        </c:otherwise>
-    </c:choose>
-    <c:if test="${param.asTable}"></td></c:if>
-</c:if>
+<%--<c:if test="${param.starEnabled}">--%>
+    <%--<c:if test="${param.asTable}"><td class="fit"></c:if>--%>
+    <%--<c:choose>--%>
+        <%--<c:when test="${param.starred}">--%>
+            <%--<img id="starImage${param.id}" src="<spring:theme code="ratingOnImage"/>" alt="" style="cursor:pointer"--%>
+                 <%--onclick="toggleStar(${param.id}, '#starImage${param.id}'); return false;">--%>
+        <%--</c:when>--%>
+        <%--<c:otherwise>--%>
+            <%--<img id="starImage${param.id}" src="<spring:theme code="ratingOffImage"/>" alt="" style="cursor:pointer"--%>
+                 <%--onclick="toggleStar(${param.id}, '#starImage${param.id}'); return false;">--%>
+        <%--</c:otherwise>--%>
+    <%--</c:choose>--%>
+    <%--<c:if test="${param.asTable}"></td></c:if>--%>
+<%--</c:if>--%>
 
 <c:if test="${param.asTable}"><td class="fit"></c:if>
 <c:if test="${empty param.playEnabled or param.playEnabled}">

@@ -1,3 +1,84 @@
+HOTEL
+-----
+As discussed below are the changed we would like to have made for our installation.
+
+For guest users:
+
+1) Remove or hide the chat section entirely.
+
+DONE
+
+Logon as guest. Turn off:
+  Settings > Personal > Show what others are playing
+  Settings > Personal > Show chat messages
+  Settings > Personal > Let others see what I am playing
+  Settings > Personal > Notify me about new versions
+  Settings > Personal > Notify me about new beta versions
+
+
+2) Remove or hide "Log out” as they will not ever need to log out of the system.
+
+DONE
+
+3) Remove or hide “About”, “Podcast” and rename “Starred” to “Favorites” - to be controlled by admins only, not editable by user.
+
+OK.  Admins would then have to manage favorites manually by issuing database commands (SQL).  I will give instructions for how to do it.
+
+4) Search bar  and all items should be made more prevalent with larger bold test for easy viewing.
+
+OK.
+
+5) Navigation by tv remote needs to be better, for example - as it right now the user can highlight the “Home” icon and and label separately leading to more presses needed on the remote navi buttons to move around the interface/screen.
+
+OK.
+
+
+6) Logo needs to be replaced or made replaceable with a png or jpeg that can be set by the admin (this doesn’t need to
+be done often so it can be crude like dropping a file of a specific size etc into a folder or path on the server) and can
+the Logo size be larger (height more so than width) preferably aspect ratio of 1:1 “square”.
+
+DONE. Put image in /var/subsonic/logo/logo.png (or c:/subsonic/logo/logo.png on Windows)
+
+7) Playlists should be created/edited only by the admins, however if possible, users should be able to add there own
+temporary playlists that will be deleted when the user exits the browser.
+
+OK.  I think it should be possible to delete user-defined playlists when a user logs in.
+
+DONE. Deleted when entering login.view?username=foo&password=bar
+
+8) any auto logout timers for the user should be disabled.
+
+OK.
+
+9) Users should not be able the upload files.
+
+OK.
+
+10) Welcome message should be more prevalent.
+
+Do you want it moved above the album covers (instead of to the right)?
+
+DONE
+
+11) Sort by artist, album, track name should appear in the top menu below Random and recently added and the More actions menu
+should be removed or hidden leaving room to make the Shuffle and repeat a little bigger.
+
+Doable, but I think it will be confusing to the user to move these play queue controls to the album list.  How about instead changing it from:
+
+     Clear | Shuffle | Repeat is off | Undo | Settings | More actions
+to
+     Clear | Shuffle | Repeat is off | Sort by artist / album / track
+
+DONE. I don't think the sorting is really needed, so I decided to leave it out.  If you think otherwise I can put it back in.
+
+12) Can the Player at the bottom be moved to a more prominent position on screen.
+
+
+Sorry, for technical reasons that is not trivial to do.
+
+
+
+
 DONE IN 5.3
 ------------
 Bugfix: Ensure correct playback speed for mono and high sample frequency files in jukebox mode.

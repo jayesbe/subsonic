@@ -71,8 +71,8 @@
 </c:if>
 
 <h1 style="padding-top:1em;padding-bottom:0.5em;">
-    <img id="starImage" src="<spring:theme code="${not empty model.video.starredDate ? 'ratingOnImage' : 'ratingOffImage'}"/>"
-         onclick="toggleStar(${model.video.id}, '#starImage'); return false;" style="cursor:pointer" alt="">
+    <%--<img id="starImage" src="<spring:theme code="${not empty model.video.starredDate ? 'ratingOnImage' : 'ratingOffImage'}"/>"--%>
+         <%--onclick="toggleStar(${model.video.id}, '#starImage'); return false;" style="cursor:pointer" alt="">--%>
     <span style="vertical-align:middle">${fn:escapeXml(model.video.title)}</span>
 </h1>
 

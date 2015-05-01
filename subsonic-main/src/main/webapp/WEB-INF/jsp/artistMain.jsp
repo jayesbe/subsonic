@@ -96,8 +96,8 @@
 
 <div style="float:left">
     <h1>
-        <img id="starImage" src="<spring:theme code="${not empty model.dir.starredDate ? 'ratingOnImage' : 'ratingOffImage'}"/>"
-             onclick="toggleStar(${model.dir.id}, '#starImage'); return false;" style="cursor:pointer" alt="">
+        <%--<img id="starImage" src="<spring:theme code="${not empty model.dir.starredDate ? 'ratingOnImage' : 'ratingOffImage'}"/>"--%>
+             <%--onclick="toggleStar(${model.dir.id}, '#starImage'); return false;" style="cursor:pointer" alt="">--%>
 
         <span style="vertical-align: middle">
             <c:forEach items="${model.ancestors}" var="ancestor">

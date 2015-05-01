@@ -105,11 +105,11 @@
                 var song  = songs[i];
                 var id = i + 1;
                 dwr.util.cloneNode("pattern", { idSuffix:id });
-                if (song.starred) {
-                    $("#starSong" + id).attr("src", "<spring:theme code='ratingOnImage'/>");
-                } else {
-                    $("#starSong" + id).attr("src", "<spring:theme code='ratingOffImage'/>");
-                }
+                <%--if (song.starred) {--%>
+                    <%--$("#starSong" + id).attr("src", "<spring:theme code='ratingOnImage'/>");--%>
+                <%--} else {--%>
+                    <%--$("#starSong" + id).attr("src", "<spring:theme code='ratingOffImage'/>");--%>
+                <%--}--%>
                 if (!song.present) {
                     $("#missing" + id).show();
                 }
@@ -222,9 +222,9 @@
 <table class="music" style="cursor:pointer">
     <tbody id="playlistBody">
     <tr id="pattern" style="display:none;margin:0;padding:0;border:0">
-        <td class="fit">
-            <img id="starSong" onclick="onStar(this.id.substring(8) - 1)" src="<spring:theme code="ratingOffImage"/>"
-                 style="cursor:pointer" alt="" title=""></td>
+        <%--<td class="fit">--%>
+            <%--<img id="starSong" onclick="onStar(this.id.substring(8) - 1)" src="<spring:theme code="ratingOffImage"/>"--%>
+                 <%--style="cursor:pointer" alt="" title=""></td>--%>
         <td class="fit">
             <img id="play" src="<spring:theme code="playImage"/>" alt="<fmt:message key="common.play"/>" title="<fmt:message key="common.play"/>"
                  style="padding-right:0.1em;cursor:pointer" onclick="onPlay(this.id.substring(4) - 1)"></td>
