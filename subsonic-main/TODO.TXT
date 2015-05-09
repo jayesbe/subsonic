@@ -1,64 +1,63 @@
 HOTEL
 -----
-As discussed below are the changed we would like to have made for our installation.
 
-For guest users:
-
-1) Remove or hide the chat section entirely.
-
-DONE
-
-Logon as guest. Turn off:
-  Settings > Personal > Show what others are playing
-  Settings > Personal > Show chat messages
-  Settings > Personal > Let others see what I am playing
-  Settings > Personal > Notify me about new versions
-  Settings > Personal > Notify me about new beta versions
+Instructions
 
 
-2) Remove or hide "Log out” as they will not ever need to log out of the system.
+CONFIGURING THE GUEST USER
 
-DONE
+1. As admin, create a "guest" user with password "guest". Turn off all privileges except:
+ - "User is allowed to play files"
+ - "User is allowed to change personal settings and password"
 
-3) Remove or hide “About”, “Podcast” and rename “Starred” to “Favorites” - to be controlled by admins only, not editable by user.
+2. Logon as guest by visiting http://localhost:4040/login.view?user=guest&password=guest
 
-OK.  Admins would then have to manage favorites manually by issuing database commands (SQL).  I will give instructions for how to do it.
+3. Select "Settings > Personal" and turn off:
+ - Show what others are playing
+ - Show chat messages
+ - Let others see what I am playing
+ - Notify me about new versions
+ - Notify me about new beta versions
 
-4) Search bar  and all items should be made more prevalent with larger bold test for easy viewing.
+4. Logon as admin from http://localhost:4040/login.view
 
-OK.
+5. In "Settings > Users", select the "guest" user and turn off "User is allowed to change personal settings and password".
 
-5) Navigation by tv remote needs to be better, for example - as it right now the user can highlight the “Home” icon and and label separately leading to more presses needed on the remote navi buttons to move around the interface/screen.
-
-OK.
+6. For the hotel application, I recommend creating separate guest users for each room, otherwise they will see each others temporary playlists.
 
 
-6) Logo needs to be replaced or made replaceable with a png or jpeg that can be set by the admin (this doesn’t need to
-be done often so it can be crude like dropping a file of a specific size etc into a folder or path on the server) and can
-the Logo size be larger (height more so than width) preferably aspect ratio of 1:1 “square”.
+CONFIGURING FAVORITES
 
-DONE. Put image in /var/subsonic/logo/logo.png (or c:/subsonic/logo/logo.png on Windows)
+1. Logon as admin from http://localhost:4040/login.view
 
-7) Playlists should be created/edited only by the admins, however if possible, users should be able to add there own
-temporary playlists that will be deleted when the user exits the browser.
+2. Go to http://localhost:4040/db.view
 
-OK.  I think it should be possible to delete user-defined playlists when a user logs in.
+3. List all files by running this query: select * from media_file
 
-DONE. Deleted when entering login.view?username=foo&password=bar
+4. Note down the ID for those artists/albums/songs you want to add as favorites.
 
-8) any auto logout timers for the user should be disabled.
+5. To add a favorite, run this query (replace <ID> with the actual id): insert into starred_media_file values (null, <ID>, 'guest', '2015-01-01')
 
-OK.
 
-9) Users should not be able the upload files.
+CONFIGURING PLAYLISTS
 
-OK.
+1. Logon as admin from http://localhost:4040/login.view
 
-10) Welcome message should be more prevalent.
+2. Create the playlists the normal way.
 
-Do you want it moved above the album covers (instead of to the right)?
+3. To make a playlist visible by the guest user, click on the playlist, then click "Edit".
 
-DONE
+4. Turn on "Make this playlist visible to other users"
+
+5. Note: The guest user can create his own temporary playlists.  These are automatically removed when logging on again using the link http://localhost:4040/login.view?user=guest&password=guest
+
+
+ADDING CUSTOM LOGO
+
+1. Put the image in /var/subsonic/logo/logo.png (or c:/subsonic/logo/logo.png on Windows)
+
+
+
 
 11) Sort by artist, album, track name should appear in the top menu below Random and recently added and the More actions menu
 should be removed or hidden leaving room to make the Shuffle and repeat a little bigger.
@@ -70,12 +69,6 @@ to
      Clear | Shuffle | Repeat is off | Sort by artist / album / track
 
 DONE. I don't think the sorting is really needed, so I decided to leave it out.  If you think otherwise I can put it back in.
-
-12) Can the Player at the bottom be moved to a more prominent position on screen.
-
-
-Sorry, for technical reasons that is not trivial to do.
-
 
 
 
