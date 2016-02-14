@@ -18,6 +18,7 @@ Keyboard shortcut "l" to toggle list/grid mode.
 Index page: Use tabs for media folders.
 Self-host fonts.
 Use Open Sans font.
+REST: Return error code 41 if trying to authenticate LDAP users by token.
 
 TODO IN 6.0
 ------------
@@ -99,9 +100,6 @@ Rename "Save/Load play queue" to "Save/Load bookmark"?
 
 Update recommended transcoding settings on web.
 Create hover effect in top and left.
-REST authentication not supported for LDAP users.
-  https://mail.google.com/mail/ca/u/0/#inbox/14fc35534d00d8e4
-  https://sourceforge.net/p/subsonic/bugs/158/
 
 ID3 lyrics
   http://forum.subsonic.org/forum/viewtopic.php?f=3&t=12595

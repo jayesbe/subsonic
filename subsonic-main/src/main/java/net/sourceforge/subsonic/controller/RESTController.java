@@ -2517,6 +2517,7 @@ public class RESTController extends MultiActionController {
         PROTOCOL_MISMATCH_CLIENT_TOO_OLD(20, "Incompatible Subsonic REST protocol version. Client must upgrade."),
         PROTOCOL_MISMATCH_SERVER_TOO_OLD(30, "Incompatible Subsonic REST protocol version. Server must upgrade."),
         NOT_AUTHENTICATED(40, "Wrong username or password."),
+        NOT_AUTHENTICATED_LDAP(41, "Token authentication not supported for LDAP users"),
         NOT_AUTHORIZED(50, "User is not authorized for the given operation."),
         NOT_LICENSED(60, "The trial period for the Subsonic server is over. Please upgrade to Subsonic Premium. Visit subsonic.org for details."),
         NOT_FOUND(70, "Requested data was not found.");

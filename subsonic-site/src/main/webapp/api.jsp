@@ -224,6 +224,10 @@
             <td>Wrong username or password.</td>
         </tr>
         <tr>
+            <td>41</td>
+            <td>Token authentication not supported for LDAP users.</td>
+        </tr>
+        <tr>
             <td>50</td>
             <td>User is not authorized for the given operation.</td>
         </tr>
