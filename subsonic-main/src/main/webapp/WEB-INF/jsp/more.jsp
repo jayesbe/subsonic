@@ -160,12 +160,12 @@
     <tr>
         <td class="more-shortcut">Shift <i class="fa fa-long-arrow-left"></i></td><td class="more-shortcut-descr"><fmt:message key="more.keyboard.seekbackward"/></td>
         <td class="more-shortcut">g <fmt:message key="more.keyboard.then"/> o</td><td class="more-shortcut-descr"><fmt:message key="more.keyboard.podcasts"/></td>
-        <td class="more-shortcut">?</td><td class="more-shortcut-descr"><fmt:message key="more.keyboard.shortcuts"/></td>
+        <td class="more-shortcut">l</td><td class="more-shortcut-descr"><fmt:message key="more.keyboard.listgrid"/></td>
     </tr>
     <tr>
         <td class="more-shortcut">Shift <i class="fa fa-long-arrow-right"></i></td><td class="more-shortcut-descr"><fmt:message key="more.keyboard.seekforward"/></td>
         <td class="more-shortcut">g <fmt:message key="more.keyboard.then"/> s</td><td class="more-shortcut-descr"><fmt:message key="more.keyboard.settings"/></td>
-        <td></td><td></td>
+        <td class="more-shortcut">?</td><td class="more-shortcut-descr"><fmt:message key="more.keyboard.shortcuts"/></td>
     </tr>
     <tr>
         <td class="more-shortcut">&ndash;</td><td class="more-shortcut-descr"><fmt:message key="more.keyboard.volumedown"/></td>

@@ -14,14 +14,20 @@ Add button to show/hide play queue. Only visible if "Settings > Personal > Auto-
 Add button to star currently playing song (keyboard shortcut "*")
 Add repeat button
 Keyboard shortcut "q" to toggle play queue.
+Keyboard shortcut "l" to toggle list/grid mode.
 Index page: Use tabs for media folders.
 Self-host fonts.
 Use Open Sans font.
 
 TODO IN 6.0
 ------------
+Add "Add" and "Play random" to playlist menu
+Add second level playlist menu (with share, edit, delete, ...)
+
 External player broken
   http://forum.subsonic.org/forum/viewtopic.php?f=2&t=16084
+
+Change xsd links to git.
 
 Preconvert audio?
 
@@ -110,10 +116,6 @@ HTML5 player?
 Ellipsise buttons in left.jsp
 createShare.jsp using path for back button
 Update dsub in apps page
-
-Add Play button to playlist
-Add "Add" and "Play random" to playlist menu
-Add second level playlist menu (with share, edit, delete, ...)
 
 Make proper Back buttons.
 Add Beta Beats
@@ -1067,6 +1069,7 @@ MAKE SURE YOU'RE ON TRUNK
 Update version number in pom.xml, version.html, MultiController.java, download.jsp
 Update changelog.jsp
 Commit
+# TODO: GIT
 svn up
 mvn clean -P full
 mvn install -P full
@@ -1083,6 +1086,7 @@ On Mac OS:
 
 On Windows
   # Verify that we're on trunk
+  # TODO: GIT
   svn info
   svn update
   mvn clean install -Pfull
@@ -1092,6 +1096,7 @@ On Windows
 On demo.subsonic.org (Ubuntu)
   cd subsonic
   # Verify that we're on trunk
+  # TODO: GIT
   svn info
   svn update
   mvn clean -Pfull,debian
@@ -1103,6 +1108,7 @@ On demo.subsonic.org (Ubuntu)
 On subsonic.org (Fedora)
   cd subsonic
   # Verify that we're on trunk
+  # TODO: GIT
   svn info
   svn update
   mvn clean -Pfull,rpm
@@ -1118,6 +1124,7 @@ Modify FRS properties
 Upload site (OLD):
  rsync -avP -e ssh --exclude ".*" subsonic-web/  sindre_mehus,subsonic@web.sourceforge.net:htdocs/
 
+# TODO: GIT
 svn copy svn+ssh://sindre_mehus@svn.code.sf.net/p/subsonic/code/trunk svn+ssh://sindre_mehus@svn.code.sf.net/p/subsonic/code/tags/release-6.0.beta1 -m "Tagging 6.0.beta1"
 Post message on forum.
 
