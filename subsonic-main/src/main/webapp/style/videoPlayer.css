@@ -18,7 +18,7 @@
 
 #title {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 #progress-slider {
@@ -86,6 +86,17 @@
 
 #cc-on, #cast-active {
     color: #E65100;
+}
+
+/* Work-around for Safari */
+#new-window, #share, #download, #audio-on, #audio-off {
+    width: 20px;
+}
+#cast-active, #cast-idle {
+    width: 24px;
+}
+#cc-on, #cc-off {
+    width: 26px;
 }
 
 .ui-slider .ui-slider-handle {
