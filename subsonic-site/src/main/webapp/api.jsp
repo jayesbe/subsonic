@@ -232,7 +232,7 @@
             <td>User is not authorized for the given operation.</td>
         </tr>
         <tr>
-            <td>50</td>
+            <td>60</td>
             <td>The trial period for the Subsonic server is over. Please upgrade to Subsonic Premium.
                 Visit subsonic.org for details.
             </td>

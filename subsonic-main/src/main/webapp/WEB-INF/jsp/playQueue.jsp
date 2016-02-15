@@ -837,8 +837,8 @@
             <div class="ellipsis" style="display:flex; align-items:center; margin-left:10px">
                 <div class="ellipsis" style="display:flex; flex:1; align-items:center; margin-right:30px">
                     <div class="ellipsis" style="flex:1">
-                        <div id="songName" class="ellipsis"></div>
-                        <div id="artistName" class="ellipsis"></div>
+                        <div><a id="songName" class="ellipsis"></a></div>
+                        <div><a id="artistName" class="ellipsis"></a></div>
                     </div>
                     <i id="starCurrentSong" class="material-icons" onclick="onStarCurrentSong(true)">star_border</i>
                     <i id="unstarCurrentSong" class="material-icons starred" onclick="onStarCurrentSong(false)">star</i>
