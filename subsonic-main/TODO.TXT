@@ -31,9 +31,6 @@ Improve hyperlink to album in playQueue.jsp
 
 Video player layout broken in Safari
 
-
-Star single files in artists.jsp broken.
-
 Lyrics search broken.
 
 External player broken
