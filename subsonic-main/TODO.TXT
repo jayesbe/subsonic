@@ -19,6 +19,8 @@ Index page: Use tabs for media folders.
 Self-host fonts.
 Use Open Sans font.
 REST: Return error code 41 if trying to authenticate LDAP users by token.
+Sonos: Add option to play all top songs for an artist
+
 
 TODO IN 6.0
 ------------
@@ -31,6 +33,8 @@ External player broken
 Change xsd links to git.
 
 Preconvert audio?
+
+Improve breadcrumb, including link to Index page.
 
 Test with SONOS
   Also transcoded
