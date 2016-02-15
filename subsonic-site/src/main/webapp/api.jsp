@@ -264,91 +264,91 @@
         <tr>
             <td>6.0</td>
             <td>
-                <a href="https://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-6.0.beta1/subsonic-rest-api/src/main/resources/subsonic-rest-api.xsd">1.14.0</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-6.0.beta1/subsonic-rest-api/src/main/resources/subsonic-rest-api.xsd">1.14.0</a>
             </td>
         </tr>
         <tr>
             <td>5.3</td>
             <td>
-                <a href="https://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-5.3/subsonic-rest-api/src/main/resources/subsonic-rest-api.xsd">1.13.0</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-5.3/subsonic-rest-api/src/main/resources/subsonic-rest-api.xsd">1.13.0</a>
             </td>
         </tr>
         <tr>
             <td>5.2</td>
             <td>
-                <a href="https://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-5.2/subsonic-rest-api/src/main/resources/subsonic-rest-api.xsd">1.12.0</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-5.2/subsonic-rest-api/src/main/resources/subsonic-rest-api.xsd">1.12.0</a>
             </td>
         </tr>
         <tr>
             <td>5.1</td>
             <td>
-                <a href="https://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-5.1/subsonic-rest-api/src/main/resources/subsonic-rest-api.xsd">1.11.0</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-5.1/subsonic-rest-api/src/main/resources/subsonic-rest-api.xsd">1.11.0</a>
             </td>
         </tr>
         <tr>
             <td>4.9</td>
             <td>
-                <a href="https://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-4.9/subsonic-site/src/main/webapp/inc/api/subsonic-rest-api.xsd">1.10.2</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-4.9/subsonic-site/src/main/webapp/inc/api/subsonic-rest-api.xsd">1.10.2</a>
             </td>
         </tr>
         <tr>
             <td>4.8</td>
             <td>
-                <a href="http://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-4.8/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.9.0</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-4.8/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.9.0</a>
             </td>
         </tr>
         <tr>
             <td>4.7</td>
             <td>
-                <a href="http://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-4.7/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.8.0</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-4.7/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.8.0</a>
             </td>
         </tr>
         <tr>
             <td>4.6</td>
             <td>
-                <a href="http://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-4.6/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.7.0</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-4.6/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.7.0</a>
             </td>
         </tr>
         <tr>
             <td>4.5</td>
             <td>
-                <a href="http://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-4.5/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.6.0</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-4.5/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.6.0</a>
             </td>
         </tr>
         <tr>
             <td>4.4</td>
             <td>
-                <a href="http://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-4.4/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.5.0</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-4.4/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.5.0</a>
             </td>
         </tr>
         <tr>
             <td>4.2</td>
             <td>
-                <a href="http://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-4.2/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.4.0</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-4.2/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.4.0</a>
             </td>
         </tr>
         <tr>
             <td>4.1</td>
             <td>
-                <a href="http://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-4.1.beta1/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.3.0</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-4.1.beta1/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.3.0</a>
             </td>
         </tr>
         <tr>
             <td>4.0</td>
             <td>
-                <a href="http://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-4.0/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.2.0</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-4.0/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.2.0</a>
             </td>
         </tr>
         <tr>
             <td>3.9</td>
             <td>
-                <a href="http://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-3.9/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.1.1</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-3.9/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.1.1</a>
             </td>
         </tr>
         <tr>
             <td>3.8</td>
             <td>
-                <a href="http://sourceforge.net/p/subsonic/code/HEAD/tree/tags/release-3.8/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.1.0</a>
+                <a href="https://github.com/sindremehus/subsonic/tree/release-3.8/subsonic-main/src/main/webapp/xsd/subsonic-rest-api.xsd">1.1.0</a>
             </td>
         </tr>
         </tbody>

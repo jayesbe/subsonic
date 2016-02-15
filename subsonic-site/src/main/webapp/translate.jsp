@@ -53,7 +53,7 @@
         <li>Add the ISO-639 code to the file <strong>&lt;ROOT&gt;\subsonic.war\WEB_INF\classes\net\sourceforge\subsonic\i18n\locales.txt</strong>.</li>
         <li>In the same directory is the file <strong>ResourceBundle_en.properties</strong> which is the English translation. Use this (or any other file)
             as the basis for your translation. Better yet, use the latest version from the
-            <a href="https://sourceforge.net/p/subsonic/code/HEAD/tree/trunk/subsonic-main/src/main/resources/net/sourceforge/subsonic/i18n/">SVN repository</a>.</li>
+            <a href="https://github.com/sindremehus/subsonic/tree/master/subsonic-main/src/main/resources/net/sourceforge/subsonic/i18n/">git repository</a>.</li>
         <li>Create the new resource file, for instance <strong>ResourceBundle_it.properties</strong>.</li>
         <li>Translate the text in the new file.</li>
         <li>If you are using a non-Latin alphabet (e.g., Cyrillic or Japanese), you have to convert the property file to ASCII before using it.

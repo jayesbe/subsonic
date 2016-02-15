@@ -36,8 +36,6 @@ Lyrics search broken.
 External player broken
   http://forum.subsonic.org/forum/viewtopic.php?f=2&t=16084
 
-Change xsd links to git.
-
 Preconvert audio?
 
 Improve breadcrumb, including link to Index page.
