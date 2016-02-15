@@ -31,8 +31,6 @@ Improve hyperlink to album in playQueue.jsp
 
 Video player layout broken in Safari
 
-Git: Extract "build number"
-
 Play movies from left.jsp broken. Also, don't display add to play queue icons.
 
 Star single files in artists.jsp broken.

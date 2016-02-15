@@ -60,9 +60,9 @@
     </pluginRepositories>
 
     <scm>
-        <connection>scm:svn:svn+ssh://sindre_mehus@svn.code.sf.net/p/subsonic/code/trunk</connection>
-        <developerConnection>scm:svn:svn+ssh://sindre_mehus@svn.code.sf.net/p/subsonic/code/trunk</developerConnection>
-        <url>https://sourceforge.net/p/subsonic/code</url>
+        <connection>scm:git:https://github.com/sindremehus/subsonic.git</connection>
+        <developerConnection>scm:git:https://github.com/sindremehus/subsonic.git</developerConnection>
+        <url>https://github.com/sindremehus/subsonic</url>
     </scm>
 
     <ciManagement>
@@ -133,7 +133,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>buildnumber-maven-plugin</artifactId>
-                    <version>1.0</version>
+                    <version>1.4</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.cxf</groupId>
@@ -178,6 +178,16 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <configuration>
+                    <doCheck>false</doCheck>
+                    <doUpdate>false</doUpdate>
+                    <shortRevisionLength>6</shortRevisionLength>
+                </configuration>
             </plugin>
 
         </plugins>
