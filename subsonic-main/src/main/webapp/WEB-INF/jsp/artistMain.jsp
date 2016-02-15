@@ -159,36 +159,14 @@
     <img id="artistThumbImage" alt="" class="circle dropshadow" style="display:none;width:4em;height:4em;margin-right:1em">
 
     <div style="flex-grow:1" class="ellipsis">
-        <h1 class="ellipsis">
-            <c:forEach items="${model.ancestors}" var="ancestor">
-                <sub:url value="main.view" var="ancestorUrl">
-                    <sub:param name="id" value="${ancestor.id}"/>
-                </sub:url>
-                <a href="${ancestorUrl}">${fn:escapeXml(ancestor.name)}</a> &nbsp;&bull;&nbsp;
-            </c:forEach>
-            ${fn:escapeXml(model.dir.name)}
-        </h1>
 
-        <c:if test="${not model.partyMode}">
-            <h2 class="ellipsis">
-                <i class="fa ${not empty model.dir.starredDate ? 'fa-star starred' : 'fa-star-o'} clickable"
-                   onclick="toggleStar(${model.dir.id}, this)" style="padding-right:0.25em"></i>
-                <c:set var="needSep" value="true"/>
+        <div class="ellipsis" style="margin-bottom:0.5em">
+            <c:set var="musicFolder" value="${model.musicFolder}"/>
+            <c:set var="ancestors" value="${model.ancestors}"/>
+            <%@ include file="indexLink.jsp" %>
+        </div>
 
-                <c:if test="${model.user.streamRole}">
-                    <c:if test="${needSep}">|</c:if>
-                    <span class="header"><a href="javascript:playAll()"><fmt:message key="main.playall"/></a></span> |
-                    <span class="header"><a href="javascript:playRandom(0)"><fmt:message key="main.playrandom"/></a></span> |
-                    <span class="header"><a href="javascript:addAll(0)"><fmt:message key="main.addall"/></a></span>
-                    <c:set var="needSep" value="true"/>
-                </c:if>
-
-                <c:if test="${model.user.commentRole}">
-                    <c:if test="${needSep}">|</c:if>
-                    <span class="header"><a href="javascript:toggleComment()"><fmt:message key="main.comment"/></a></span>
-                </c:if>
-            </h2>
-        </c:if>
+        <h1 class="ellipsis">${fn:escapeXml(model.dir.name)}</h1>
     </div>
 
     <div>
@@ -198,6 +176,27 @@
         </c:import>
     </div>
 </div>
+
+<c:if test="${not model.partyMode}">
+    <h2 class="ellipsis">
+        <i class="fa ${not empty model.dir.starredDate ? 'fa-star starred' : 'fa-star-o'} clickable"
+           onclick="toggleStar(${model.dir.id}, this)" style="padding-right:0.25em"></i>
+        <c:set var="needSep" value="true"/>
+
+        <c:if test="${model.user.streamRole}">
+            <c:if test="${needSep}">|</c:if>
+            <span class="header"><a href="javascript:playAll()"><fmt:message key="main.playall"/></a></span> |
+            <span class="header"><a href="javascript:playRandom(0)"><fmt:message key="main.playrandom"/></a></span> |
+            <span class="header"><a href="javascript:addAll(0)"><fmt:message key="main.addall"/></a></span>
+            <c:set var="needSep" value="true"/>
+        </c:if>
+
+        <c:if test="${model.user.commentRole}">
+            <c:if test="${needSep}">|</c:if>
+            <span class="header"><a href="javascript:toggleComment()"><fmt:message key="main.comment"/></a></span>
+        </c:if>
+    </h2>
+</c:if>
 
 <div id="comment" class="albumComment"><sub:wiki text="${model.dir.comment}"/></div>
 
@@ -223,7 +222,6 @@
         <table class="music indent">
             <c:forEach items="${model.subDirs}" var="subDir">
                 <tr>
-
                     <c:choose>
                         <c:when test="${subDir.album}">
                             <c:import url="playButtons.jsp">
@@ -240,7 +238,6 @@
                             <td class="truncate" colspan="5"><a href="main.view?id=${subDir.id}" title="${fn:escapeXml(subDir.name)}">${fn:escapeXml(subDir.name)}</a></td>
                         </c:otherwise>
                     </c:choose>
-
                 </tr>
             </c:forEach>
         </table>
@@ -259,7 +256,7 @@
             </c:forEach>
         </table>
 
-        <div style="float: left;padding-top: 1.5em">
+        <div style="float: left;padding-top: 0.5em">
             <c:set var="albumCount" value="0"/>
             <c:forEach items="${model.subDirs}" var="subDir" varStatus="loopStatus">
                 <c:if test="${subDir.album}">

@@ -92,6 +92,8 @@ public class VideoPlayerController extends ParameterizableViewController {
         String remoteCaptionsUrl = settingsService.rewriteRemoteUrl(captionsUrl);
 
         map.put("video", file);
+        map.put("ancestors", mediaFileService.getAncestorsOf(file));
+        map.put("musicFolder", settingsService.getMusicFolderByPath(file.getFolder()));
         map.put("hasCaptions", captionsController.findCaptionsVideo(file) != null);
         map.put("remoteStreamUrl", remoteStreamUrl);
         map.put("remoteCoverArtUrl", remoteCoverArtUrl);

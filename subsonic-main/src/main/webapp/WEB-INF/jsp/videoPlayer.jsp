@@ -66,9 +66,20 @@
                 <div id="progress-slider"></div>
 
                 <div class="ellipsis" style="display:flex; align-items:center; margin-left:10px">
-                    <div id="title" class="ellipsis" style="flex:1">
-                        <i id="star" class="fa ${not empty model.video.starredDate ? 'fa-star starred' : 'fa-star-o'} fa-lg clickable"
-                           onclick="toggleStar(${model.video.id}, this)" style="padding-right:0.25em"></i>&nbsp;${fn:escapeXml(model.video.title)}
+                    <div class="ellipsis" style="flex:1">
+                        <div id="title" class="ellipsis">
+                            <i id="star" class="fa ${not empty model.video.starredDate ? 'fa-star starred' : 'fa-star-o'} fa-lg clickable"
+                               onclick="toggleStar(${model.video.id}, this)" style="padding-right:0.25em"></i>&nbsp;${fn:escapeXml(model.video.title)}
+                        </div>
+
+                        <c:if test="${empty model.position}">
+                            <div class="detail" style="margin-top:0.4em">
+                                <a href="artists.view?musicFolderId=${model.musicFolder.id}">${fn:escapeXml(model.musicFolder.name)}</a>
+                                        <c:forEach items="${model.ancestors}" var="ancestor">
+                                            &nbsp;&bull;&nbsp; <a href="main.view?id=${ancestor.id}">${fn:escapeXml(ancestor.name)}</a>
+                                        </c:forEach>
+                            </div>
+                        </c:if>
                     </div>
 
                     <span id="play" class="fa-stack fa-lg">

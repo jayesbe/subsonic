@@ -189,17 +189,16 @@
     <img id="artistThumbImage" alt="" class="circle dropshadow" style="display:none;width:4em;height:4em;margin-right:1em">
 
     <div style="flex-shrink:1" class="ellipsis">
-        <h1 class="ellipsis">
-            <c:forEach items="${model.ancestors}" var="ancestor">
-                <sub:url value="main.view" var="ancestorUrl">
-                    <sub:param name="id" value="${ancestor.id}"/>
-                </sub:url>
-                <a href="${ancestorUrl}">${fn:escapeXml(ancestor.name)}</a> &nbsp;&bull;&nbsp;
-            </c:forEach>
-            ${fn:escapeXml(model.dir.name)}
-        </h1>
 
-        <div class="detail ellipsis" style="padding-top:1.0em;padding-bottom:0">
+        <div class="ellipsis" style="margin-bottom:0.5em">
+            <c:set var="musicFolder" value="${model.musicFolder}"/>
+            <c:set var="ancestors" value="${model.ancestors}"/>
+            <%@ include file="indexLink.jsp" %>
+        </div>
+
+        <h1 class="ellipsis">${fn:escapeXml(model.dir.name)}</h1>
+
+        <div class="detail ellipsis" style="padding-top:0.5em;padding-bottom:0">
             <c:if test="${not empty model.dir.year}">
                 ${model.dir.year}&nbsp;&nbsp;&bull;&nbsp;&nbsp;
             </c:if>

@@ -68,16 +68,14 @@
 
 <div style="display:flex; align-items:center; padding-bottom:2em">
 
-    <h1 class="ellipsis" style="flex-grow:1">
-        <c:forEach items="${model.ancestors}" var="ancestor">
-            <sub:url value="main.view" var="ancestorUrl">
-                <sub:param name="id" value="${ancestor.id}"/>
-            </sub:url>
-            <a href="${ancestorUrl}">${fn:escapeXml(ancestor.name)}</a> &nbsp;&bull;&nbsp;
-        </c:forEach>
-        ${fn:escapeXml(model.dir.name)}
-    </h1>
-
+    <div style="flex-grow:1" class="ellipsis">
+        <div class="ellipsis" style="margin-bottom:1.0em">
+            <c:set var="musicFolder" value="${model.musicFolder}"/>
+            <c:set var="ancestors" value="${model.ancestors}"/>
+            <%@ include file="indexLink.jsp" %>
+        </div>
+        <h1 class="ellipsis" style="flex-grow:1">${fn:escapeXml(model.dir.name)}</h1>
+    </div>
     <div>
         <c:import url="viewSelector.jsp">
             <c:param name="changeViewUrl" value="main.view?id=${model.dir.id}&viewAsList=${not model.viewAsList}"/>

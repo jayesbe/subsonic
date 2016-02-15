@@ -27,10 +27,10 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.apache.commons.io.FilenameUtils;
@@ -686,6 +686,21 @@ public class MediaFileService {
             } else {
                 result.add(child);
             }
+        }
+        return result;
+    }
+
+    public List<MediaFile> getAncestorsOf(MediaFile dir) {
+        LinkedList<MediaFile> result = new LinkedList<MediaFile>();
+
+        try {
+            MediaFile parent = getParentOf(dir);
+            while (parent != null && !isRoot(parent)) {
+                result.addFirst(parent);
+                parent = getParentOf(parent);
+            }
+        } catch (SecurityException x) {
+            // Happens if Podcast directory is outside music folder.
         }
         return result;
     }

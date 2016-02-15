@@ -20,12 +20,24 @@ Self-host fonts.
 Use Open Sans font.
 REST: Return error code 41 if trying to authenticate LDAP users by token.
 Sonos: Add option to play all top songs for an artist
-
+New: Improved breadcrumbs for easier navigation
 
 TODO IN 6.0
 ------------
 Add "Add" and "Play random" to playlist menu
 Add second level playlist menu (with share, edit, delete, ...)
+
+Improve hyperlink to album in playQueue.jsp
+
+Video player layout broken in Safari
+
+Git: Extract "build number"
+
+Play movies from left.jsp broken. Also, don't display add to play queue icons.
+
+Star single files in artists.jsp broken.
+
+Lyrics search broken.
 
 External player broken
   http://forum.subsonic.org/forum/viewtopic.php?f=2&t=16084
