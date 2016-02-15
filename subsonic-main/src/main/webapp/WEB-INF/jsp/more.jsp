@@ -5,7 +5,7 @@
     <style type="text/css">
         body a {text-decoration: underline;}
         .more-header {padding-top: 1em; padding-bottom: 0.3em;}
-        .more-shortcut {font-weight: 500; padding-left: 2em; padding-right: 0.5em;}
+        .more-shortcut {font-weight: 600; padding-left: 2em; padding-right: 0.5em;}
         .more-shortcut-descr {padding-left: 1em; padding-right: 3em; font-weight: 300;}
         #progressBar {width: 350px; height: 10px; border: 1px solid black; display:none;}
         #progressBarContent {width: 0; height: 10px; background: url("<c:url value="/icons/default_light/progress.png"/>") repeat;}

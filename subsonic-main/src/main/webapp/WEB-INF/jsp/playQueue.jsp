@@ -50,7 +50,7 @@
             opacity: 0.8;
         }
         #songName {
-            cursor:pointer; font-weight:500;
+            cursor:pointer; font-weight:600;
         }
         #artistName {
             cursor:pointer; font-weight:300;

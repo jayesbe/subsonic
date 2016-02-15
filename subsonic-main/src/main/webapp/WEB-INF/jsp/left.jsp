@@ -15,7 +15,7 @@
             margin-top: 1.5em;
             padding-top: 2px;
             padding-bottom: 2px;
-            font-weight: 500;
+            font-weight: 600;
         }
         .left-index-shortcut-letter {
             flex-grow: 1;
