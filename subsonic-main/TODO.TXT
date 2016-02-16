@@ -32,8 +32,6 @@ External player broken
 
 Add (+) icon on coverart.
 
-Change shadow for coverart on hover.
-
 Preconvert audio?
 
 Test mkv with html5 player

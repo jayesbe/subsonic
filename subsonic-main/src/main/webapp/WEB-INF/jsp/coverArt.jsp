@@ -28,12 +28,11 @@ PARAMETERS
 
 <c:set var="captionCount" value="${empty param.captionCount ? 0 : param.captionCount}"/>
 
-<str:randomString count="5" type="alphabet" var="divId"/>
-<str:randomString count="5" type="alphabet" var="imgId"/>
-<str:randomString count="5" type="alphabet" var="playId"/>
+<div class="coverart dropshadow"
+     onmouseover="$(this).find('img').stop().animate({opacity: 0.7}, 150); $(this).find('.coverart-play').show()"
+     onmouseout="$(this).find('img').stop().animate({opacity: 1.0}, 150); $(this).find('.coverart-play').hide()">
 
-<div class="coverart dropshadow">
-    <div style="width:${size};max-width:${size};height:${size};max-height:${size};cursor:pointer" title="${param.caption1}" id="${divId}">
+    <div style="width:${size};max-width:${size};height:${size};max-height:${size};cursor:pointer" title="${param.caption1}">
 
         <c:if test="${not empty param.albumId}">
             <c:url value="main.view" var="targetUrl">
@@ -74,7 +73,10 @@ PARAMETERS
             <c:param name="auth" value="${param.auth}"/>
         </c:url>
 
-        <div id="${playId}" style="position:relative; width:0; height:0; display:none">
+        <div class="coverart-play" style="position:relative; width:0; height:0; display:none"
+             onclick="<c:if test="${not empty param.albumId}">top.playQueue.onPlay(${param.albumId});</c:if>
+             <c:if test="${not empty param.playlistId}">top.playQueue.onPlayPlaylist(${param.playlistId});</c:if>
+             <c:if test="${not empty param.podcastChannelId}">top.playQueue.onPlayPodcastChannel(${param.podcastChannelId});</c:if>">
             <i class="material-icons" style="position:absolute; top: 8px; left: 8px; z-index: 2; font-size:36px; opacity:0.8">play_circle_filled</i>
             <i class="material-icons" style="position:absolute; top: 14px; left: 14px; z-index: 3; font-size:24px; color:white">play_arrow</i>
         </div>
@@ -82,9 +84,9 @@ PARAMETERS
         <c:when test="${param.showLink}"><a href="${targetUrl}" title="${param.caption1}"></c:when>
         <c:when test="${param.showZoom}"><a href="${zoomCoverArtUrl}" rel="zoom" title="${param.caption1}"></c:when>
             </c:choose>
-            <img src="${coverArtUrl}" id="${imgId}" alt="${param.caption1}"
-                 style="display:none">
-            <c:if test="${param.showLink or param.showZoom}"></a></c:if>
+            <img src="${coverArtUrl}" alt="${param.caption1}" style="display:none"
+                 onload="$(this).delay(${empty param.appearAfter ? 0 : param.appearAfter}).fadeIn(500);">
+        <c:if test="${param.showLink or param.showZoom}"></a></c:if>
     </div>
 
     <c:if test="${captionCount gt 0}">
@@ -107,33 +109,3 @@ PARAMETERS
            title="<fmt:message key="coverart.change"/>"></i>
     </div>
 </c:if>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        setTimeout("$('#${imgId}').fadeIn(500)", ${empty param.appearAfter ? 0 : param.appearAfter});
-    });
-
-    $("#${divId}").mouseenter(function () {
-        $("#${playId}").show();
-        $("#${imgId}").stop();
-        $("#${imgId}").animate({opacity: 0.7}, 150);
-    });
-    $("#${divId}").mouseleave(function () {
-        $("#${playId}").hide();
-        $("#${imgId}").stop();
-        $("#${imgId}").animate({opacity: 1.0}, 150);
-    });
-    $("#${playId}").click(function () {
-        <c:if test="${not empty param.albumId}">
-        top.playQueue.onPlay(${param.albumId});
-        </c:if>
-        <c:if test="${not empty param.playlistId}">
-        top.playQueue.onPlayPlaylist(${param.playlistId});
-        </c:if>
-        <c:if test="${not empty param.podcastChannelId}">
-        top.playQueue.onPlayPodcastChannel(${param.podcastChannelId});
-        </c:if>
-    });
-
-</script>
-
