@@ -73,7 +73,7 @@
                         </div>
 
                         <c:if test="${empty model.position}">
-                            <div class="detail" style="margin-top:0.4em">
+                            <div class="detail ellipsis" style="margin-top:0.4em">
                                 <a href="artists.view?musicFolderId=${model.musicFolder.id}">${fn:escapeXml(model.musicFolder.name)}</a>
                                         <c:forEach items="${model.ancestors}" var="ancestor">
                                             &nbsp;&bull;&nbsp; <a href="main.view?id=${ancestor.id}">${fn:escapeXml(ancestor.name)}</a>

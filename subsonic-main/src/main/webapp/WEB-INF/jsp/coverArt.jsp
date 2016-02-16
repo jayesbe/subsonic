@@ -74,9 +74,9 @@ PARAMETERS
             <c:param name="auth" value="${param.auth}"/>
         </c:url>
 
-        <div style="position: relative; width: 0; height: 0">
-            <img src="<spring:theme code="playOverlayImage"/>" id="${playId}"
-                 style="position: relative; top: 8px; left: 8px; z-index: 2; display:none" >
+        <div id="${playId}" style="position:relative; width:0; height:0; display:none">
+            <i class="material-icons" style="position:absolute; top: 8px; left: 8px; z-index: 2; font-size:36px; opacity:0.8">play_circle_filled</i>
+            <i class="material-icons" style="position:absolute; top: 14px; left: 14px; z-index: 3; font-size:24px; color:white">play_arrow</i>
         </div>
         <c:choose>
         <c:when test="${param.showLink}"><a href="${targetUrl}" title="${param.caption1}"></c:when>

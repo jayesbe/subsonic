@@ -27,10 +27,12 @@ TODO IN 6.0
 Add "Add" and "Play random" to playlist menu
 Add second level playlist menu (with share, edit, delete, ...)
 
-Lyrics search broken.
-
 External player broken
   http://forum.subsonic.org/forum/viewtopic.php?f=2&t=16084
+
+Add (+) icon on coverart.
+
+Change shadow for coverart on hover.
 
 Preconvert audio?
 
@@ -58,6 +60,10 @@ Video conversion:
   Store path to target file and log file in db
   Add control panel
   Automatic delete if target file missing.
+  Specify bitrate?
+  REST support
+  Link to logfile if error?
+  Show conversion queue?
 
 Use <!DOCTYPE html>
 
@@ -129,11 +135,6 @@ Video
 Live streaming from mic / camera?
 
 Scrubbing works poorly in IE.
-
-Conversion
-  REST support
-  Link to logfile if error?
-  Show conversion queue?
 
 Don't transcode m4a?
 Create simple webapp with responsive design
