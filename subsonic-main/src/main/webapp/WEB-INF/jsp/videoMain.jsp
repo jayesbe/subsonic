@@ -69,7 +69,7 @@
 <div style="display:flex; align-items:center; padding-bottom:2em">
 
     <div style="flex-grow:1" class="ellipsis">
-        <div class="ellipsis" style="margin-bottom:1.0em">
+        <div class="ellipsis" style="margin-bottom:0.5em">
             <c:set var="musicFolder" value="${model.musicFolder}"/>
             <c:set var="ancestors" value="${model.ancestors}"/>
             <%@ include file="indexLink.jsp" %>

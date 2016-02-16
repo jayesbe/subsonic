@@ -34,6 +34,8 @@ External player broken
 
 Preconvert audio?
 
+Test mkv with html5 player
+
 Uncaught SyntaxError: Unexpected identifier
 
 Use BrowserStack for testing.
@@ -123,6 +125,8 @@ Video
   Some videos doesn't start in Firefox (e.g., House of cards)
     castPlayer.localPlayer.play(true).pause(true).play(true)
     Hide playQueue?
+
+Live streaming from mic / camera?
 
 Scrubbing works poorly in IE.
 

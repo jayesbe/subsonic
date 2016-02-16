@@ -70,6 +70,12 @@
 
 <body class="mainframe bgcolor1" style="padding-bottom:0.5em" onload="init()">
 
+<div class="ellipsis" style="margin-bottom:0.5em">
+    <c:set var="musicFolder" value="${model.musicFolder}"/>
+    <c:set var="ancestors" value="${model.ancestors}"/>
+    <%@ include file="indexLink.jsp" %>
+</div>
+
 <h1><i class="fa fa-film fa-fw icon"></i>&nbsp;&nbsp;<fmt:message key="videoConverter.title"/></h1>
 
 <p style="margin-top:1.5em">

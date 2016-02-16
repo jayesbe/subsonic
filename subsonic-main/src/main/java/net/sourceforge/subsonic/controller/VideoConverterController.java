@@ -76,6 +76,8 @@ public class VideoConverterController extends ParameterizableViewController {
         map.put("audioTracks", audioTracks);
         map.put("audioCodecs", audioCodecs);
         map.put("videoCodecs", videoCodecs);
+        map.put("ancestors", mediaFileService.getAncestorsOf(video));
+        map.put("musicFolder", settingsService.getMusicFolderByPath(video.getFolder()));
         map.put("user", securityService.getCurrentUser(request));
         map.put("licenseInfo", settingsService.getLicenseInfo());
 
