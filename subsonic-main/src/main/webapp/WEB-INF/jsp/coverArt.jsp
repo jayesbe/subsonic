@@ -28,9 +28,9 @@ PARAMETERS
 
 <c:set var="captionCount" value="${empty param.captionCount ? 0 : param.captionCount}"/>
 
-<div class="coverart dropshadow"
-     onmouseover="$(this).find('img').stop().animate({opacity: 0.7}, 150); $(this).find('.coverart-play').show()"
-     onmouseout="$(this).find('img').stop().animate({opacity: 1.0}, 150); $(this).find('.coverart-play').hide()">
+<div class="coverart dropshadow hoverable"
+     onmouseover="$(this).find('.coverart-play').show()"
+     onmouseout="$(this).find('.coverart-play').hide()">
 
     <div style="width:${size};max-width:${size};height:${size};max-height:${size};cursor:pointer" title="${param.caption1}">
 

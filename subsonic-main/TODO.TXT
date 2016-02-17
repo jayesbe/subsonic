@@ -26,6 +26,8 @@ Add [+] icon on coverart.
 TODO IN 6.0
 ------------
 
+Safari: Annoying scrollbars on hover.
+
 Rewrite combobox in play queue.
 
 Add "Add" and "Play random" to playlist menu
