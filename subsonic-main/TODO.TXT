@@ -36,8 +36,6 @@ External player broken
 
 Bookmarks feature
 
-Show toast when adding to queue.
-
 Playlist list mode: Add (+)
 
 Strange behavior of adding to empty play queue.

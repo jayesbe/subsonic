@@ -501,7 +501,7 @@
     function onSavePlayQueue() {
         var positionMillis = localPlayer ? Math.round(1000.0 * localPlayer.currentTime) : 0;
         playQueueService.savePlayQueue(getCurrentSongIndex(), positionMillis);
-        $().toastmessage("showSuccessToast", "<fmt:message key="playlist.toast.saveplayqueue"/>");
+        toast("<fmt:message key="playlist.toast.saveplayqueue"/>");
     }
     function onLoadPlayQueue() {
         playQueueService.loadPlayQueue(playQueueCallback);
@@ -509,7 +509,7 @@
     function onSavePlaylist() {
         playlistService.createPlaylistForPlayQueue(function (playlistId) {
             top.main.location.href = "playlist.view?id=" + playlistId;
-            $().toastmessage("showSuccessToast", "<fmt:message key="playlist.toast.saveasplaylist"/>");
+            toast("<fmt:message key="playlist.toast.saveasplaylist"/>");
         });
     }
     function onAppendPlaylist() {
@@ -535,7 +535,7 @@
         }
         playlistService.appendToPlaylist(playlistId, mediaFileIds, function (){
             top.main.location.href = "playlist.view?id=" + playlistId;
-            $().toastmessage("showSuccessToast", "<fmt:message key="playlist.toast.appendtoplaylist"/>");
+            toast("<fmt:message key="playlist.toast.appendtoplaylist"/>");
         });
     }
     function playQueueCallback(playQueue) {
