@@ -21,16 +21,24 @@ Use Open Sans font.
 REST: Return error code 41 if trying to authenticate LDAP users by token.
 Sonos: Add option to play all top songs for an artist
 New: Improved breadcrumbs for easier navigation
+Add [+] icon on coverart.
 
 TODO IN 6.0
 ------------
+
+Rewrite combobox in play queue.
+
 Add "Add" and "Play random" to playlist menu
 Add second level playlist menu (with share, edit, delete, ...)
 
 External player broken
   http://forum.subsonic.org/forum/viewtopic.php?f=2&t=16084
 
-Add (+) icon on coverart.
+Show toast when adding to queue.
+
+Playlist list mode: Add (+)
+
+Strange behavior of adding to empty play queue.
 
 Preconvert audio?
 

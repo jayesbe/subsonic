@@ -125,10 +125,10 @@
         }
 
         function onPlay(index) {
-            top.playQueue.onPlayPlaylist(playlist.id, index);
+            top.playQueue.onPlayPlaylist(playlist.id, false, index);
         }
         function onPlayAll() {
-            top.playQueue.onPlayPlaylist(playlist.id);
+            top.playQueue.onPlayPlaylist(playlist.id, false);
         }
         function onAdd(index) {
             top.playQueue.onAdd(songs[index].id);

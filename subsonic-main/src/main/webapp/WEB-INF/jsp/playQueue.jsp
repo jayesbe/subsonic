@@ -413,14 +413,14 @@
     function onPlayShuffle(albumListType, offset, size, genre, decade) {
         playQueueService.playShuffle(albumListType, offset, size, genre, decade, playQueueCallback);
     }
-    function onPlayPlaylist(id, index) {
-        playQueueService.playPlaylist(id, index, playQueueCallback);
+    function onPlayPlaylist(id, append, index) {
+        playQueueService.playPlaylist(id, append, index, playQueueCallback);
     }
     function onPlayTopSong(id, index) {
         playQueueService.playTopSong(id, index, playQueueCallback);
     }
-    function onPlayPodcastChannel(id) {
-        playQueueService.playPodcastChannel(id, playQueueCallback);
+    function onPlayPodcastChannel(id, append) {
+        playQueueService.playPodcastChannel(id, append, playQueueCallback);
     }
     function onPlayPodcastEpisode(id) {
         playQueueService.playPodcastEpisode(id, playQueueCallback);

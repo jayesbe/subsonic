@@ -73,12 +73,19 @@ PARAMETERS
             <c:param name="auth" value="${param.auth}"/>
         </c:url>
 
-        <div class="coverart-play" style="position:relative; width:0; height:0; display:none"
-             onclick="<c:if test="${not empty param.albumId}">top.playQueue.onPlay(${param.albumId});</c:if>
-             <c:if test="${not empty param.playlistId}">top.playQueue.onPlayPlaylist(${param.playlistId});</c:if>
-             <c:if test="${not empty param.podcastChannelId}">top.playQueue.onPlayPodcastChannel(${param.podcastChannelId});</c:if>">
-            <i class="material-icons" style="position:absolute; top: 8px; left: 8px; z-index: 2; font-size:36px; opacity:0.8">play_circle_filled</i>
-            <i class="material-icons" style="position:absolute; top: 14px; left: 14px; z-index: 3; font-size:24px; color:white">play_arrow</i>
+        <div class="coverart-play" style="position:relative; width:0; height:0; display:none">
+            <div onclick="<c:if test="${not empty param.albumId}">top.playQueue.onPlay(${param.albumId});</c:if>
+            <c:if test="${not empty param.playlistId}">top.playQueue.onPlayPlaylist(${param.playlistId}, false);</c:if>
+            <c:if test="${not empty param.podcastChannelId}">top.playQueue.onPlayPodcastChannel(${param.podcastChannelId}, false);</c:if>">
+                <i class="material-icons" style="position:absolute; top: 8px; left: 8px; z-index: 2; font-size:36px; opacity:0.8">play_circle_filled</i>
+                <i class="material-icons" style="position:absolute; top: 14px; left: 14px; z-index: 3; font-size:24px; color:white">play_arrow</i>
+            </div>
+            <div onclick="<c:if test="${not empty param.albumId}">top.playQueue.onAdd(${param.albumId});</c:if>
+            <c:if test="${not empty param.playlistId}">top.playQueue.onPlayPlaylist(${param.playlistId}, true);</c:if>
+            <c:if test="${not empty param.podcastChannelId}">top.playQueue.onPlayPodcastChannel(${param.podcastChannelId}, true);</c:if>">
+                <i class="material-icons" style="position:absolute; top: 8px; left: 46px; z-index: 2; font-size:36px; opacity:0.8">add_circle</i>
+                <i class="material-icons" style="position:absolute; top: 14px; left: 52px; z-index: 3; font-size:24px; color:white">add</i>
+            </div>
         </div>
         <c:choose>
         <c:when test="${param.showLink}"><a href="${targetUrl}" title="${param.caption1}"></c:when>
