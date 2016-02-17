@@ -415,12 +415,18 @@
     }
     function onPlayPlaylist(id, append, index) {
         playQueueService.playPlaylist(id, append, index, playQueueCallback);
+        if (append) {
+            toast("<fmt:message key="main.addlast.toast"/>");
+        }
     }
     function onPlayTopSong(id, index) {
         playQueueService.playTopSong(id, index, playQueueCallback);
     }
     function onPlayPodcastChannel(id, append) {
         playQueueService.playPodcastChannel(id, append, playQueueCallback);
+        if (append) {
+            toast("<fmt:message key="main.addlast.toast"/>");
+        }
     }
     function onPlayPodcastEpisode(id) {
         playQueueService.playPodcastEpisode(id, playQueueCallback);
@@ -439,9 +445,11 @@
     }
     function onAdd(id) {
         playQueueService.add(id, playQueueCallback);
+        toast("<fmt:message key="main.addlast.toast"/>");
     }
     function onAddNext(id) {
         playQueueService.addAt(id, getCurrentSongIndex() + 1, playQueueCallback);
+        toast("<fmt:message key="main.addnext.toast"/>");
     }
     function onShuffle() {
         playQueueService.shuffle(playQueueCallback);
@@ -819,6 +827,15 @@
                 $("#songIndex" + (i + 1)).removeAttr("checked");
             }
         }
+    }
+
+    function toast(text) {
+        $().toastmessage("showToast", {
+            text     : text,
+            sticky   : false,
+            position : "middle-center",
+            type     : "success"
+        });
     }
 
     </script>

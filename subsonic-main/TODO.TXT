@@ -34,6 +34,8 @@ Add second level playlist menu (with share, edit, delete, ...)
 External player broken
   http://forum.subsonic.org/forum/viewtopic.php?f=2&t=16084
 
+Bookmarks feature
+
 Show toast when adding to queue.
 
 Playlist list mode: Add (+)
