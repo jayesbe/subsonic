@@ -29,8 +29,6 @@ TODO IN 6.0
 
 Safari: Annoying scrollbars on hover.
 
-Play queue: Missing ellipsis for song name.
-
 Add "Add" and "Play random" to playlist menu
 Add second level playlist menu (with share, edit, delete, ...)
 

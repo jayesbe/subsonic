@@ -50,10 +50,10 @@
             opacity: 0.8;
         }
         #songName {
-            cursor:pointer; font-weight:600;
+            cursor:pointer; font-weight:600; display:block;
         }
         #artistName {
-            cursor:pointer; font-weight:300;
+            cursor:pointer; font-weight:300; display:block;
         }
         #coverArt {
             cursor:pointer; width:80px; height:80px;
