@@ -39,9 +39,7 @@ External player broken
 
 Bookmarks feature
 
-Playlist list mode: Add (+)
-
-Strange behavior of adding to empty play queue.
+Strange behavior when adding to empty play queue.
 
 Preconvert audio?
 
