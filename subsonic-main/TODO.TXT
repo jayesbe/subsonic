@@ -27,7 +27,17 @@ Nicer play queue action buttons
 TODO IN 6.0
 ------------
 
+HLS: Wrong start time?  -copyts
+HLS: Change default transcoding in SettingsService.
+HLS: Test with old ffmpeg
+HLS: Add -strict -2
+
+Remove Search Google Wikipedia etc?
+
 Safari: Annoying scrollbars on hover.
+
+FLAC problem?
+  https://mail.google.com/mail/u/0/#inbox/152f0f8a9bf666d4
 
 Add "Add" and "Play random" to playlist menu
 Add second level playlist menu (with share, edit, delete, ...)
@@ -70,6 +80,8 @@ Video conversion:
   Link to logfile if error?
   Show conversion queue?
 
+Make it possible to select audio track when streaming
+
 Use <!DOCTYPE html>
 
 Fix sorting in index.
@@ -102,14 +114,8 @@ DASH
     Seems to work in all browsers? Buggy in Safari and Firefox
 
 Make it work with Edge and qutebrowser.
-Podcast:
-  Doesn't play on demo.subsonic.org
-  Title doesn't show
 
 Video: Feature-detect HLS support?
-
-Rename "Save/Load play queue" to "Save/Load bookmark"?
-   http://forum.subsonic.org/forum/viewtopic.php?f=3&t=16368&sid=f893f69cd8b78513d949b968a84c1db9&p=70040#p70040
 
 Update recommended transcoding settings on web.
 Create hover effect in top and left.
