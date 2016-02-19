@@ -199,7 +199,7 @@ public class TranscodingService {
         if (transcoding != null) {
             parameters.setTranscoding(transcoding);
             if (maxBitRate == null) {
-                maxBitRate = mediaFile.isVideo() ? VideoPlayerController.DEFAULT_BIT_RATE : TranscodeScheme.MAX_192.getMaxBitRate();
+                maxBitRate = mediaFile.isVideo() ? VideoPlayerController.DEFAULT_BIT_RATE : TranscodeScheme.MAX_320.getMaxBitRate();
             }
         } else if (maxBitRate != null) {
             boolean supported = isDownsamplingSupported(mediaFile);
