@@ -143,6 +143,7 @@ public class SettingsService {
     private static final String KEY_SONOS_SERVICE_NAME = "SonosServiceName";
     private static final String KEY_SONOS_SERVICE_ID = "SonosServiceId";
     private static final String KEY_ARTIST_BIO_LAST_UPDATED = "ArtistBioLastUpdated";
+    private static final String KEY_VIDEO_CONVERSION_DIRECTORY = "VideoConversionDirectory";
 
     // Default values.
     private static final String DEFAULT_INDEX_STRING = "A B C D E F G H I J K L M N O P Q R S T U V W X-Z(XYZ)";
@@ -212,6 +213,7 @@ public class SettingsService {
     private static final String DEFAULT_SONOS_SERVICE_NAME = "Subsonic";
     private static final int DEFAULT_SONOS_SERVICE_ID = 242;
     private static final long DEFAULT_ARTIST_BIO_LAST_UPDATED = 0L;
+    private static final String DEFAULT_VIDEO_CONVERSION_DIRECTORY = new File(getSubsonicHome(), "video").getPath();
 
     // Array of obsolete keys.  Used to clean property file.
     private static final List<String> OBSOLETE_KEYS = Arrays.asList("PortForwardingPublicPort", "PortForwardingLocalPort",
@@ -1386,6 +1388,10 @@ public class SettingsService {
 
     public void setArtistBioLastUpdated(long updated) {
         setLong(KEY_ARTIST_BIO_LAST_UPDATED, updated);
+    }
+
+    public String getVideoConversionDirectory() {
+        return getString(KEY_VIDEO_CONVERSION_DIRECTORY, DEFAULT_VIDEO_CONVERSION_DIRECTORY);
     }
 
     public String getLocalIpAddress() {

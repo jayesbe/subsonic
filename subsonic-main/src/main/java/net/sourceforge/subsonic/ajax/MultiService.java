@@ -18,6 +18,7 @@
  */
 package net.sourceforge.subsonic.ajax;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -181,8 +182,15 @@ public class MultiService {
         String username = securityService.getCurrentUsername(request);
         authorizeVideoConversion();
 
+        Integer bitRate = null; // TODO
+
+        File dir = new File(settingsService.getVideoConversionDirectory());
+        dir.mkdirs();
+
+        String targetFile = new File(dir, mediaFileId + ".mp4").getPath();
+        String logFile = new File(dir, mediaFileId + ".log").getPath();
         VideoConversion conversion = new VideoConversion(null, mediaFileId, audioTrackId, username, VideoConversion.Status.NEW,
-                                                         null, new Date(), new Date(), null);
+                                                         targetFile, logFile, bitRate, null, new Date(), new Date(), null);
         videoConversionService.createVideoConversion(conversion);
 
         return getVideoConversionStatus(mediaFileId);
@@ -192,10 +200,10 @@ public class MultiService {
         authorizeVideoConversion();
         VideoConversion conversion = videoConversionService.getVideoConversionForFile(mediaFileId);
         if (conversion != null) {
-            videoConversionService.cancelVideoConversion(conversion);
+            videoConversionService.deleteVideoConversion(conversion);
         }
 
-        return getVideoConversionStatus(mediaFileId);
+        return null;
     }
 
     private void authorizeVideoConversion() {

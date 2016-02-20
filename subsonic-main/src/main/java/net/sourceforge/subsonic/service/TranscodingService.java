@@ -39,6 +39,7 @@ import net.sourceforge.subsonic.domain.Player;
 import net.sourceforge.subsonic.domain.TranscodeScheme;
 import net.sourceforge.subsonic.domain.Transcoding;
 import net.sourceforge.subsonic.domain.UserSettings;
+import net.sourceforge.subsonic.domain.VideoConversion;
 import net.sourceforge.subsonic.domain.VideoTranscodingSettings;
 import net.sourceforge.subsonic.io.TranscodeInputStream;
 import net.sourceforge.subsonic.util.StringUtil;
@@ -182,12 +183,18 @@ public class TranscodingService {
      * @param maxBitRate               Overrides the per-player and per-user bitrate limit. May be {@code null}.
      * @param preferredTargetFormat    Used to select among multiple applicable transcodings. May be {@code null}.
      * @param videoTranscodingSettings Parameters used when transcoding video. May be {@code null}.
+     * @param videoConversion          Set if video has been converted to a streamable format. May be {@code null}.
      * @return Parameters to be used in the {@link #getTranscodedInputStream} method.
      */
     public Parameters getParameters(MediaFile mediaFile, Player player, Integer maxBitRate, String preferredTargetFormat,
-                                    VideoTranscodingSettings videoTranscodingSettings) {
+                                    VideoTranscodingSettings videoTranscodingSettings, VideoConversion videoConversion) {
 
         Parameters parameters = new Parameters(mediaFile, videoTranscodingSettings);
+
+        if (videoConversion != null) {
+            parameters.setVideoConversion(videoConversion);
+            return parameters;
+        }
 
         TranscodeScheme transcodeScheme = getTranscodeScheme(player);
         if (maxBitRate == null && transcodeScheme != TranscodeScheme.OFF) {
@@ -500,6 +507,7 @@ public class TranscodingService {
         private final VideoTranscodingSettings videoTranscodingSettings;
         private Integer maxBitRate;
         private Transcoding transcoding;
+        private VideoConversion videoConversion;
 
         public Parameters(MediaFile mediaFile, VideoTranscodingSettings videoTranscodingSettings) {
             this.mediaFile = mediaFile;
@@ -540,6 +548,14 @@ public class TranscodingService {
 
         public VideoTranscodingSettings getVideoTranscodingSettings() {
             return videoTranscodingSettings;
+        }
+
+        public void setVideoConversion(VideoConversion videoConversion) {
+            this.videoConversion = videoConversion;
+        }
+
+        public VideoConversion getVideoConversion() {
+            return videoConversion;
         }
     }
 }

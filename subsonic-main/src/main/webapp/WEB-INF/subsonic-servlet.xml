@@ -81,6 +81,7 @@
         <property name="statusService" ref="statusService"/>
         <property name="playerService" ref="playerService"/>
         <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
     </bean>
     <bean id="lyricsController" class="net.sourceforge.subsonic.controller.LyricsController">
         <property name="viewName" value="lyrics"/>
@@ -337,6 +338,7 @@
         <property name="searchService" ref="searchService"/>
         <property name="transcodingService" ref="transcodingService"/>
         <property name="audioScrobblerService" ref="audioScrobblerService"/>
+        <property name="videoConversionService" ref="videoConversionService"/>
     </bean>
     <bean id="hlsController" class="net.sourceforge.subsonic.controller.HLSController">
         <property name="playerService" ref="playerService"/>

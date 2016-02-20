@@ -26,13 +26,15 @@ Nicer play queue action buttons
 Increase default transcoding bitrate from 192 to 320 kbps.
 Moved search links to album notes.
 Index page: Hide index letters when filtering.
+Store converted videos in configurable directory.
 
 TODO IN 6.0
 ------------
-
 HLS: Wrong start time?  -copyts
 HLS: Change default transcoding in SettingsService (use aac and -strict -2)
 HLS: Test with old ffmpeg
+
+VideoPlayerController: Use base url.
 
 Safari: Annoying scrollbars on hover.
 
@@ -63,6 +65,8 @@ ffmpeg -ss %o -t %d -i %s -async 1 -b:v %bk -s %wx%h -ar 44100 -ac 2 -f mpegts -
 Upgrade ffmpeg.
 
 Video conversion:
+  Show target/log file in videoConverter.jsp
+  Change text in videoConverter.jsp
   Allow m4v (mp4, m4v, f4v, mov)
   Rephrase to "optimize"
   Configurable directory (default SUBSONIC_HOME/conversion)
@@ -74,6 +78,7 @@ Video conversion:
   REST support
   Link to logfile if error?
   Show conversion queue?
+  video_conversion.started not set
 
 Make it possible to select audio track when streaming
 

@@ -33,6 +33,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import net.sourceforge.subsonic.domain.MediaFile;
 import net.sourceforge.subsonic.domain.Player;
 import net.sourceforge.subsonic.domain.User;
+import net.sourceforge.subsonic.domain.VideoConversion;
 import net.sourceforge.subsonic.service.MediaFileService;
 import net.sourceforge.subsonic.service.PlayerService;
 import net.sourceforge.subsonic.service.SecurityService;
@@ -63,7 +64,8 @@ public class VideoPlayerController extends ParameterizableViewController {
         int id = ServletRequestUtils.getRequiredIntParameter(request, "id");
         MediaFile file = mediaFileService.getMediaFile(id);
 
-        if (!isStreamable(file)) {
+        boolean converted = isConverted(file);
+        if (!isStreamable(file) && !converted) {
             return new ModelAndView(new RedirectView("videoConverter.view?id=" + id));
         }
 
@@ -79,6 +81,8 @@ public class VideoPlayerController extends ParameterizableViewController {
         String coverArtUrl = url.replaceFirst("/videoPlayer.view.*", "/coverArt.view?id=" + file.getId() + "&auth=" + file.getHash());
         String captionsUrl = url.replaceFirst("/videoPlayer.view.*", "/captions.view?id=" + file.getId() + "&auth=" + file.getHash());
 
+        // TODO: Use base url
+
         // Rewrite URLs in case we're behind a proxy.
         if (settingsService.isRewriteUrlEnabled()) {
             String referer = request.getHeader("referer");
@@ -92,6 +96,7 @@ public class VideoPlayerController extends ParameterizableViewController {
         String remoteCaptionsUrl = settingsService.rewriteRemoteUrl(captionsUrl);
 
         map.put("video", file);
+        map.put("converted", converted);
         map.put("ancestors", mediaFileService.getAncestorsOf(file));
         map.put("musicFolder", settingsService.getMusicFolderByPath(file.getFolder()));
         map.put("hasCaptions", captionsController.findCaptionsVideo(file) != null);
@@ -126,6 +131,11 @@ public class VideoPlayerController extends ParameterizableViewController {
             return false;
         }
         return true;
+    }
+
+    private boolean isConverted(MediaFile file) {
+        VideoConversion conversion = videoConversionService.getVideoConversionForFile(file.getId());
+        return conversion != null && conversion.getStatus() == VideoConversion.Status.COMPLETED;
     }
 
     public void setMediaFileService(MediaFileService mediaFileService) {

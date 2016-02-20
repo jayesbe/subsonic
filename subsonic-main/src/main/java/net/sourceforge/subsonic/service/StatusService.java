@@ -157,16 +157,12 @@ public class StatusService {
 
         for (TransferStatus streamStatus : statuses) {
             Player player = streamStatus.getPlayer();
-            File file = streamStatus.getFile();
-            if (file == null) {
-                continue;
-            }
-            MediaFile mediaFile = mediaFileService.getMediaFile(file);
-            if (player == null || mediaFile == null) {
+            MediaFile file = streamStatus.getFile();
+            if (file == null || player == null) {
                 continue;
             }
             Date time = new Date(System.currentTimeMillis() - streamStatus.getMillisSinceLastUpdate());
-            result.put(player.getId(), new PlayStatus(mediaFile, player, time));
+            result.put(player.getId(), new PlayStatus(file, player, time));
         }
         return new ArrayList<PlayStatus>(result.values());
     }

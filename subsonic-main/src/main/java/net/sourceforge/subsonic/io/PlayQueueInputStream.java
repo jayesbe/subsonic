@@ -33,7 +33,6 @@ import net.sourceforge.subsonic.service.MediaFileService;
 import net.sourceforge.subsonic.service.SearchService;
 import net.sourceforge.subsonic.service.TranscodingService;
 import net.sourceforge.subsonic.service.sonos.SonosHelper;
-import net.sourceforge.subsonic.util.FileUtil;
 
 /**
  * Implementation of {@link InputStream} which reads from a {@link net.sourceforge.subsonic.domain.PlayQueue}.
@@ -126,10 +125,10 @@ public class PlayQueueInputStream extends InputStream {
                 audioScrobblerService.register(file, player.getUsername(), false, null);
             }
 
-            TranscodingService.Parameters parameters = transcodingService.getParameters(file, player, maxBitRate, preferredTargetFormat, videoTranscodingSettings);
+            TranscodingService.Parameters parameters = transcodingService.getParameters(file, player, maxBitRate, preferredTargetFormat, videoTranscodingSettings, null);
             currentInputStream = transcodingService.getTranscodedInputStream(parameters);
             currentFile = file;
-            status.setFile(currentFile.getFile());
+            status.setFile(currentFile);
         }
     }
 

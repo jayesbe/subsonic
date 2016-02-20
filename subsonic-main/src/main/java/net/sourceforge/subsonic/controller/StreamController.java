@@ -44,6 +44,7 @@ import net.sourceforge.subsonic.domain.PlayQueue;
 import net.sourceforge.subsonic.domain.Player;
 import net.sourceforge.subsonic.domain.TransferStatus;
 import net.sourceforge.subsonic.domain.User;
+import net.sourceforge.subsonic.domain.VideoConversion;
 import net.sourceforge.subsonic.domain.VideoTranscodingSettings;
 import net.sourceforge.subsonic.io.PlayQueueInputStream;
 import net.sourceforge.subsonic.io.ShoutCastOutputStream;
@@ -56,6 +57,7 @@ import net.sourceforge.subsonic.service.SecurityService;
 import net.sourceforge.subsonic.service.SettingsService;
 import net.sourceforge.subsonic.service.StatusService;
 import net.sourceforge.subsonic.service.TranscodingService;
+import net.sourceforge.subsonic.service.VideoConversionService;
 import net.sourceforge.subsonic.service.sonos.SonosHelper;
 import net.sourceforge.subsonic.util.HttpRange;
 import net.sourceforge.subsonic.util.StringUtil;
@@ -80,6 +82,7 @@ public class StreamController implements Controller {
     private AudioScrobblerService audioScrobblerService;
     private MediaFileService mediaFileService;
     private SearchService searchService;
+    private VideoConversionService videoConversionService;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return handleRequest(request, response, true);
@@ -134,6 +137,7 @@ public class StreamController implements Controller {
             boolean isHls = false;
             boolean isConversion = false;
             HttpRange range = null;
+            VideoConversion videoConversion = null;
 
             if (isSingleFile) {
 
@@ -144,14 +148,12 @@ public class StreamController implements Controller {
                     return null;
                 }
 
-                PlayQueue playQueue = new PlayQueue();
-                playQueue.addFiles(true, file);
-                player.setPlayQueue(playQueue);
+                videoConversion = getVideoConversion(file, request);
 
                 response.setIntHeader("ETag", file.getId());
                 response.setHeader("Accept-Ranges", "bytes");
 
-                TranscodingService.Parameters parameters = transcodingService.getParameters(file, player, maxBitRate, preferredTargetFormat, null);
+                TranscodingService.Parameters parameters = transcodingService.getParameters(file, player, maxBitRate, preferredTargetFormat, null, videoConversion);
                 long fileLength = getFileLength(parameters);
                 isConversion = parameters.isDownsample() || parameters.isTranscode();
                 boolean estimateContentLength = ServletRequestUtils.getBooleanParameter(request, "estimateContentLength", false);
@@ -172,7 +174,7 @@ public class StreamController implements Controller {
                 if (isHls) {
                     response.setContentType(StringUtil.getMimeType("ts")); // HLS is always MPEG TS.
                 } else {
-                    String transcodedSuffix = transcodingService.getSuffix(player, file, preferredTargetFormat);
+                    String transcodedSuffix = videoConversion != null ? "mp4" : transcodingService.getSuffix(player, file, preferredTargetFormat);
                     boolean sonos = SonosHelper.SUBSONIC_CLIENT_ID.equals(player.getClientId());
                     response.setContentType(StringUtil.getMimeType(transcodedSuffix, sonos));
                     setContentDuration(response, file);
@@ -200,7 +202,7 @@ public class StreamController implements Controller {
 
             // Optimize the case where no conversion is to take place
             if (isSingleFile && !isHls && !isConversion) {
-                sendFile(file, range, status, response, player);
+                sendFile(file, videoConversion, range, status, response, player);
                 return null;
             }
 
@@ -262,8 +264,18 @@ public class StreamController implements Controller {
         return null;
     }
 
-    private void sendFile(MediaFile mediaFile, HttpRange range, TransferStatus transferStatus, HttpServletResponse response, Player player) throws IOException {
-        File file = mediaFile.getFile();
+    private VideoConversion getVideoConversion(MediaFile file, HttpServletRequest request) {
+        if (ServletRequestUtils.getBooleanParameter(request, "converted", false)) {
+            VideoConversion conversion = videoConversionService.getVideoConversionForFile(file.getId());
+            if (conversion.getStatus() == VideoConversion.Status.COMPLETED) {
+                return conversion;
+            }
+        }
+        return null;
+    }
+
+    private void sendFile(MediaFile mediaFile, VideoConversion videoConversion, HttpRange range, TransferStatus transferStatus, HttpServletResponse response, Player player) throws IOException {
+        File file = videoConversion != null ? new File(videoConversion.getTargetFile()) : mediaFile.getFile();
 
         long offset = 0;
         long length = file.length();
@@ -276,7 +288,7 @@ public class StreamController implements Controller {
             mediaFileService.incrementPlayCount(mediaFile);
         }
 
-        transferStatus.setFile(file);
+        transferStatus.setFile(mediaFile);
         scrobble(mediaFile, player, false);
 
         long n = Files.asByteSource(file)
@@ -319,6 +331,12 @@ public class StreamController implements Controller {
     }
 
     private long getFileLength(TranscodingService.Parameters parameters) {
+
+        VideoConversion videoConversion = parameters.getVideoConversion();
+        if (videoConversion != null) {
+            return new File(videoConversion.getTargetFile()).length();
+        }
+
         MediaFile file = parameters.getMediaFile();
 
         if (!parameters.isDownsample() && !parameters.isTranscode()) {
@@ -458,5 +476,9 @@ public class StreamController implements Controller {
 
     public void setSearchService(SearchService searchService) {
         this.searchService = searchService;
+    }
+
+    public void setVideoConversionService(VideoConversionService videoConversionService) {
+        this.videoConversionService = videoConversionService;
     }
 }

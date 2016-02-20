@@ -160,7 +160,7 @@ public class JukeboxService implements AudioPlayer.Listener {
     private void onSongStart(MediaFile file) {
         LOG.info(player.getUsername() + " starting jukebox for \"" + FileUtil.getShortPath(file.getFile()) + "\"");
         status = statusService.createStreamStatus(player);
-        status.setFile(file.getFile());
+        status.setFile(file);
         status.addBytesTransfered(file.getFileSize());
         mediaFileService.incrementPlayCount(file);
         scrobble(file, false);

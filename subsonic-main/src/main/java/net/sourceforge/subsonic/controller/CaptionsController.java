@@ -134,7 +134,7 @@ public class CaptionsController implements Controller {
 
     public File findCaptionsVideo(MediaFile video) {
         File file = video.getFile();
-        String videoFileBaseName = FilenameUtils.getBaseName(file.getName()).replace(".streamable", "");
+        String videoFileBaseName = FilenameUtils.getBaseName(file.getName());
 
         for (File candidate : file.getParentFile().listFiles()) {
             for (String format : CAPTIONS_FORMATS) {
