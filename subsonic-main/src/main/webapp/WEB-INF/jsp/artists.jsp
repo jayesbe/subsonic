@@ -45,9 +45,14 @@
 
         function filterArtists(element) {
             var filter = $(element).val().toLowerCase();
-            $(".browse-artist").each(function(i) {
+            $(".browse-artist").each(function() {
                 var artist = $(this).text().toLowerCase();
                 $(this).toggle(artist.indexOf(filter) != -1);
+            });
+
+            $(".browse-index-title").each(function() {
+                var show = $(this).nextUntil(".browse-index-title", ".browse-artist:visible").length > 0;
+                $(this).toggle(show);
             });
         }
 
