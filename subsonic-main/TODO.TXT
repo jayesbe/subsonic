@@ -37,9 +37,6 @@ Remove Search Google Wikipedia etc?
 
 Safari: Annoying scrollbars on hover.
 
-FLAC problem?
-  https://mail.google.com/mail/u/0/#inbox/152f0f8a9bf666d4
-
 Add "Add" and "Play random" to playlist menu
 Add second level playlist menu (with share, edit, delete, ...)
 
@@ -47,8 +44,6 @@ External player broken
   http://forum.subsonic.org/forum/viewtopic.php?f=2&t=16084
 
 Bookmarks feature
-
-Strange behavior when adding to empty play queue.
 
 Preconvert audio?
 
@@ -136,8 +131,6 @@ createShare.jsp using path for back button
 Update dsub in apps page
 
 Make proper Back buttons.
-Add Beta Beats
-  https://mail.google.com/mail/u/1/?tab=cm#inbox/15222fd6c2682067
 Video
   Wrong aspect rate in video preview image.
   Some videos doesn't start in Firefox (e.g., House of cards)

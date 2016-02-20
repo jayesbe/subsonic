@@ -301,7 +301,7 @@
             castPlayer.playCast();
         } else if (localPlayer) {
             if (localPlayer.ended && getCurrentSongIndex() == songs.length -1) {
-                skip(0);
+                skip(0, 0, true);
             } else {
                 localPlayer.play();
             }
@@ -398,13 +398,13 @@
         if (wrap) {
             index = index % songs.length;
         }
-        skip(index);
+        skip(index, 0, true);
     }
     function onPrevious() {
         if (localPlayer && !castPlayer.castSession && localPlayer.currentTime > 4.0) {
-            skip(parseInt(getCurrentSongIndex()));
+            skip(parseInt(getCurrentSongIndex()), 0, true);
         } else {
-            skip(Math.max(0, parseInt(getCurrentSongIndex()) - 1));
+            skip(Math.max(0, parseInt(getCurrentSongIndex()) - 1), 0, true);
         }
     }
     function onPlay(id) {
@@ -553,7 +553,7 @@
             if ($("#titleUrl" + id)) {
                 $("#titleUrl" + id).html(song.title);
                 $("#titleUrl" + id).attr("title", song.title);
-                $("#titleUrl" + id).click(function () {skip(this.id.substring(8) - 1, 0)});
+                $("#titleUrl" + id).click(function () {skip(this.id.substring(8) - 1, 0, true)});
             }
             if ($("#album" + id)) {
                 $("#album" + id).html(song.album);
@@ -614,12 +614,14 @@
     function triggerLocalPlayer(index, positionMillis) {
 
         // Load first song (but don't play) if this is the initial case.
-        if (localPlayer.networkState == localPlayer.NETWORK_EMPTY && localPlayer.readyState == localPlayer.HAVE_NOTHING) {
-            skip(0);
-            localPlayer.pause();
+        if (index == -1 &&
+            (localPlayer.networkState == localPlayer.NETWORK_EMPTY || localPlayer.networkState == localPlayer.NETWORK_NO_SOURCE) &&
+            localPlayer.readyState == localPlayer.HAVE_NOTHING) {
+            skip(0, 0, false);
+        } else {
+            skip(index, 0, true);
         }
 
-        skip(index);
         if (positionMillis != 0) {
             localPlayer.currentTime = positionMillis / 1000;
         }
@@ -652,7 +654,7 @@
         $("#unstarCurrentSong").toggle(starred);
     }
 
-    function skip(index, position) {
+    function skip(index, position, play) {
         if (index < 0 || index >= songs.length) {
             return;
         }
@@ -666,7 +668,9 @@
         } else if (localPlayer) {
             console.log(song.streamUrl);
             localPlayer.src = song.streamUrl;
-            localPlayer.play();
+            if (play) {
+                localPlayer.play();
+            }
         } else {
             playQueueService.skip(index, playQueueCallback);
         }
@@ -674,7 +678,7 @@
         updateWindowTitle(song);
         updateCoverArt(song);
 
-        if (${model.notify}) {
+        if (play && ${model.notify}) {
             showNotification(song);
         }
     }
