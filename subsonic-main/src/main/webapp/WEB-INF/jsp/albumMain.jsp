@@ -58,10 +58,10 @@
 
                 var html = "";
                 for (var i = 0; i < artistInfo.similarArtists.length; i++) {
-                    html += "<a href='main.view?id=" + artistInfo.similarArtists[i].mediaFileId + "' target='main'>" +
-                            escapeHtml(artistInfo.similarArtists[i].artistName) + "</a>";
+                    html += "<span class='header'><a href='main.view?id=" + artistInfo.similarArtists[i].mediaFileId + "' target='main'>" +
+                            escapeHtml(artistInfo.similarArtists[i].artistName) + "</a></span>";
                     if (i < artistInfo.similarArtists.length - 1) {
-                        html += " <span class='similar-artist-divider'>|</span> ";
+                        html += " | ";
                     }
                 }
                 $("#similarArtists").append(html);
@@ -268,39 +268,20 @@
     </c:if>
 
     <c:if test="${model.user.shareRole}">
-        <span class="header" style="padding-left:1em">
+        <span class="header" style="padding-left:1.5em">
             <i class="fa fa-share-alt clickable" onclick="location.href='${shareUrl}'"></i>
-            <a href="${shareUrl}"><fmt:message key="main.sharealbum"/></a> </span> |
+            <a href="${shareUrl}"><fmt:message key="main.sharealbum"/></a></span>
     </c:if>
 
-    <c:if test="${not empty model.artist and not empty model.album}">
-        <sub:url value="http://www.google.com/search" var="googleUrl" encoding="UTF-8">
-            <sub:param name="q" value="\"${model.artist}\" \"${model.album}\""/>
-        </sub:url>
-        <sub:url value="http://en.wikipedia.org/wiki/Special:Search" var="wikipediaUrl" encoding="UTF-8">
-            <sub:param name="search" value="\"${model.album}\""/>
-            <sub:param name="go" value="Go"/>
-        </sub:url>
-        <sub:url value="allmusic.view" var="allmusicUrl">
-            <sub:param name="album" value="${model.album}"/>
-        </sub:url>
-        <sub:url value="http://www.last.fm/search" var="lastFmUrl" encoding="UTF-8">
-            <sub:param name="q" value="\"${model.artist}\" \"${model.album}\""/>
-            <sub:param name="type" value="album"/>
-        </sub:url>
-        <span class="header"><fmt:message key="top.search"/> <a target="_blank" href="${googleUrl}">Google</a></span> |
-        <span class="header"><a target="_blank" href="${wikipediaUrl}">Wikipedia</a></span> |
-        <span class="header"><a target="_blank" href="${allmusicUrl}">allmusic</a></span> |
-        <span class="header"><a target="_blank" href="${lastFmUrl}">Last.fm</a></span> |
-        <span class="header">
-            <fmt:message key="main.playcount"><fmt:param value="${model.dir.playCount}"/></fmt:message>
-            <c:if test="${not empty model.dir.lastPlayed}">
-                <fmt:message key="main.lastplayed">
-                    <fmt:param><fmt:formatDate type="date" dateStyle="long" value="${model.dir.lastPlayed}"/></fmt:param>
-                </fmt:message>
-            </c:if>
+    <span class="header" style="padding-left:0.5em">
+        <fmt:message key="main.playcount"><fmt:param value="${model.dir.playCount}"/></fmt:message>
+    </span>
+    <c:if test="${not empty model.dir.lastPlayed}">
+        <span class="header" style="padding-left:0.5em">
+            <fmt:message key="main.lastplayed">
+                <fmt:param><fmt:formatDate type="date" dateStyle="long" value="${model.dir.lastPlayed}"/></fmt:param>
+            </fmt:message>
         </span>
-
     </c:if>
 </div>
 
@@ -518,7 +499,7 @@
 
 <table id="albumInfoTable" style="padding:2em;clear:both;display:none" class="bgcolor2 dropshadow">
     <tr>
-        <td rowspan="5" style="vertical-align: top">
+        <td rowspan="6" style="vertical-align: top">
             <a id="artistImageZoom" rel="zoom" href="void">
                 <img id="artistImage" class="dropshadow" alt="" style="margin-right:2em; display:none; max-width:300px; max-height:300px">
             </a>
@@ -528,13 +509,39 @@
     <tr>
         <td id="artistBio" style="padding-bottom: 0.5em"></td>
     </tr>
-    <tr><td style="padding-bottom: 0.5em">
-        <span id="similarArtistsTitle" style="padding-right: 0.5em; display: none"><fmt:message key="main.similarartists"/>:</span>
-        <span id="similarArtists"></span>
+    <tr><td style="padding-bottom: 0.25em">
+        <div style="display:flex">
+            <span id="similarArtistsTitle" style="padding-right:0.5em; display:none; white-space:nowrap"><fmt:message key="main.similarartists"/>:</span>
+            <span id="similarArtists"></span>
+        </div>
     </td></tr>
-    <tr><td style="text-align:center">
+    <tr><td style="text-align:center; padding-bottom:1em">
         <input id="similarArtistsRadio" style="display:none;margin-top:1em;margin-right:0.3em;cursor:pointer" type="button" value="<fmt:message key="main.startradio"/>" onclick="playSimilar()">
     </td></tr>
+    <tr>
+        <td class="detail" style="text-align:center">
+            <c:if test="${not empty model.artist and not empty model.album}">
+                <sub:url value="http://www.google.com/search" var="googleUrl" encoding="UTF-8">
+                    <sub:param name="q" value="\"${model.artist}\" \"${model.album}\""/>
+                </sub:url>
+                <sub:url value="http://en.wikipedia.org/wiki/Special:Search" var="wikipediaUrl" encoding="UTF-8">
+                    <sub:param name="search" value="\"${model.album}\""/>
+                    <sub:param name="go" value="Go"/>
+                </sub:url>
+                <sub:url value="allmusic.view" var="allmusicUrl">
+                    <sub:param name="album" value="${model.album}"/>
+                </sub:url>
+                <sub:url value="http://www.last.fm/search" var="lastFmUrl" encoding="UTF-8">
+                    <sub:param name="q" value="\"${model.artist}\" \"${model.album}\""/>
+                    <sub:param name="type" value="album"/>
+                </sub:url>
+                <span class="header"><a target="_blank" href="${googleUrl}">Google</a></span> |
+                <span class="header"><a target="_blank" href="${wikipediaUrl}">Wikipedia</a></span> |
+                <span class="header"><a target="_blank" href="${allmusicUrl}">allmusic</a></span> |
+                <span class="header"><a target="_blank" href="${lastFmUrl}">Last.fm</a></span>
+            </c:if>
+        </td>
+    </tr>
     <tr><td style="height: 100%"></td></tr>
 </table>
 

@@ -52,10 +52,10 @@
 
                 var html = "";
                 for (var i = 0; i < artistInfo.similarArtists.length; i++) {
-                    html += "<a href='main.view?id=" + artistInfo.similarArtists[i].mediaFileId + "' target='main'>" +
-                            escapeHtml(artistInfo.similarArtists[i].artistName) + "</a>";
+                    html += "<span class='header'><a href='main.view?id=" + artistInfo.similarArtists[i].mediaFileId + "' target='main'>" +
+                            escapeHtml(artistInfo.similarArtists[i].artistName) + "</a></span>";
                     if (i < artistInfo.similarArtists.length - 1) {
-                        html += " <span class='similar-artist-divider'>|</span> ";
+                        html += " | ";
                     }
                 }
                 $("#similarArtists").append(html);
@@ -295,8 +295,10 @@
         <td id="artistBio" style="padding-bottom: 0.5em"></td>
     </tr>
     <tr><td style="padding-bottom: 0.5em">
-        <span id="similarArtistsTitle" style="padding-right: 0.5em; display: none"><fmt:message key="main.similarartists"/>:</span>
-        <span id="similarArtists"></span>
+        <div style="display:flex">
+            <span id="similarArtistsTitle" style="padding-right:0.5em; display:none; white-space:nowrap"><fmt:message key="main.similarartists"/>:</span>
+            <span id="similarArtists"></span>
+        </div>
     </td></tr>
     <tr><td style="text-align:center">
         <input id="similarArtistsRadio" style="display:none;margin-top:1em;margin-right:0.3em;cursor:pointer" type="button" value="<fmt:message key="main.startradio"/>" onclick="playSimilar()">
