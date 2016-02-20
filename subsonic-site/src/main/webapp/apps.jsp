@@ -51,6 +51,7 @@
                     <li><a href="#winphone">Subsonic</a> for Windows Phone</li>
                     <li><a href="#silversonic">SilverSonic</a> for Windows Phone</li>
                     <li><a href="#sonicstreamer">SonicStreamer</a> for Windows Phone</li>
+                    <li><a href="#betabeats">Beta Beats</a> for Windows 10</li>
                     <li><a href="#subsonar">SubSonar</a> for BlackBerry</li>
                 </ul>
             </div>
@@ -109,6 +110,7 @@
                     <li><a href="#supersonic">Supersonic</a> for Windows 8</li>
                     <li><a href="#subsonic8">Subsonic8</a> for Windows 8</li>
                     <li><a href="#sonicstreamer">SonicStreamer</a> for Windows 8</li>
+                    <li><a href="#betabeats">Beta Beats</a> for Windows 10</li>
                 </ul>
             </div>
         </div>
@@ -152,6 +154,7 @@
     <%@ include file="apps-winphone.jsp" %>
     <%@ include file="apps-silversonic.jsp" %>
     <%@ include file="apps-sonicstreamer.jsp" %>
+    <%@ include file="apps-betabeats.jsp" %>
     <%@ include file="apps-subsonar.jsp" %>
 
     <%@ include file="apps-isub.jsp" %>
