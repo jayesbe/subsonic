@@ -29,6 +29,7 @@ Index page: Hide index letters when filtering.
 Store converted videos in configurable directory.
 Add option to set bitrate when converting videos.
 Configurable disk usage threshold for video conversion
+REST: Support for retrieving converted videos (see stream method).
 
 TODO IN 6.0
 ------------
@@ -52,6 +53,8 @@ Preconvert audio?
 
 Test mkv with html5 player
 
+Remove ".view" from REST API doc.
+
 Uncaught SyntaxError: Unexpected identifier
 
 Use BrowserStack for testing.
@@ -70,10 +73,12 @@ Video conversion:
   Change text in videoConverter.jsp
   Rephrase to "optimize"
   Use 96k audio bitrate?
-  REST support
   Link to logfile?
 
 Make it possible to select audio track when streaming
+
+Support composer tag
+  http://forum.subsonic.org/forum/viewtopic.php?f=4&t=16372&p=70347#p70347
 
 Use <!DOCTYPE html>
 
@@ -146,8 +151,6 @@ Create simple webapp with responsive design
   https://mail.google.com/mail/ca/u/0/#inbox/152945938b13b9c5
 Test UPnP video streaming.  Ensure non-conversion
 Site: Add video
-Site: Update screenshots
-Demo: Add video
 Jukebox mute: Add REST support
 Improve Subsonic logo
 Table in artists.jsp crashes with index.

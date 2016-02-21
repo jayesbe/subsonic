@@ -121,6 +121,7 @@ import net.sourceforge.subsonic.domain.Share;
 import net.sourceforge.subsonic.domain.TranscodeScheme;
 import net.sourceforge.subsonic.domain.User;
 import net.sourceforge.subsonic.domain.UserSettings;
+import net.sourceforge.subsonic.domain.VideoConversion;
 import net.sourceforge.subsonic.service.AudioScrobblerService;
 import net.sourceforge.subsonic.service.JukeboxService;
 import net.sourceforge.subsonic.service.LastFmService;
@@ -136,6 +137,7 @@ import net.sourceforge.subsonic.service.SettingsService;
 import net.sourceforge.subsonic.service.ShareService;
 import net.sourceforge.subsonic.service.StatusService;
 import net.sourceforge.subsonic.service.TranscodingService;
+import net.sourceforge.subsonic.service.VideoConversionService;
 import net.sourceforge.subsonic.util.Pair;
 import net.sourceforge.subsonic.util.StringUtil;
 import net.sourceforge.subsonic.util.Util;
@@ -181,6 +183,7 @@ public class RESTController extends MultiActionController {
     private PodcastService podcastService;
     private RatingService ratingService;
     private SearchService searchService;
+    private VideoConversionService videoConversionService;
     private MediaFileDao mediaFileDao;
     private ArtistDao artistDao;
     private AlbumDao albumDao;
@@ -1352,7 +1355,6 @@ public class RESTController extends MultiActionController {
             String suffix = mediaFile.getFormat();
             child.setSuffix(suffix);
             child.setContentType(StringUtil.getMimeType(suffix));
-            child.setIsVideo(mediaFile.isVideo());
             child.setPath(getRelativePath(mediaFile));
 
             Bookmark bookmark = bookmarkCache.get(new BookmarkKey(username, mediaFile.getId()));
@@ -1386,6 +1388,12 @@ public class RESTController extends MultiActionController {
                     child.setType(MediaType.VIDEO);
                     child.setOriginalWidth(mediaFile.getWidth());
                     child.setOriginalHeight(mediaFile.getHeight());
+                    child.setIsVideo(true);
+
+                    VideoConversion conversion = videoConversionService.getVideoConversionForFile(mediaFile.getId());
+                    if (conversion != null && conversion.getStatus() == VideoConversion.Status.COMPLETED) {
+                        child.setHasVideoConversion(true);
+                    }
                     break;
                 default:
                     break;
@@ -2508,6 +2516,10 @@ public class RESTController extends MultiActionController {
 
     public void setPlayQueueDao(PlayQueueDao playQueueDao) {
         this.playQueueDao = playQueueDao;
+    }
+
+    public void setVideoConversionService(VideoConversionService videoConversionService) {
+        this.videoConversionService = videoConversionService;
     }
 
     public enum ErrorCode {

@@ -36,11 +36,8 @@
             <td>No</td>
             <td></td>
             <td>(Since <a href="#versions">1.6.0</a>) Specifies the preferred target format (e.g., "mp3" or "flv") in
-                case
-                there
-                are multiple applicable transcodings. Starting with <a href="#versions">1.9.0</a> you can use the
-                special
-                value "raw" to disable transcoding.
+                case there are multiple applicable transcodings. Starting with <a href="#versions">1.9.0</a> you can use the
+                special value "raw" to disable transcoding.
             </td>
         </tr>
         <tr>
@@ -48,9 +45,7 @@
             <td>No</td>
             <td></td>
             <td>Only applicable to video streaming. If specified, start streaming at the given offset (in seconds) into
-                the
-                video.
-                Typically used to implement video skipping.
+                the video. Typically used to implement video skipping.
             </td>
         </tr>
         <tr>
@@ -58,8 +53,7 @@
             <td>No</td>
             <td></td>
             <td>(Since <a href="#versions">1.6.0</a>) Only applicable to video streaming. Requested video size specified
-                as
-                WxH, for instance "640x480".
+                as WxH, for instance "640x480".
             </td>
         </tr>
         <tr>
@@ -67,9 +61,16 @@
             <td>No</td>
             <td>false</td>
             <td>(Since <a href="#versions">1.8.0</a>). If set to "true", the <em>Content-Length</em> HTTP header will be
-                set
-                to an estimated value
-                for transcoded or downsampled media.
+                set to an estimated value for transcoded or downsampled media.
+            </td>
+        </tr>
+        <tr>
+            <td><code>converted</code></td>
+            <td>No</td>
+            <td>false</td>
+            <td>(Since <a href="#versions">1.14.0</a>) Only applicable to video streaming. Subsonic can optimize videos for streaming
+                by converting them to MP4. If a conversion exists for the video in question, then setting this parameter to "true" will
+                cause the converted video to be returned instead of the original.
             </td>
         </tr>
     </table>
