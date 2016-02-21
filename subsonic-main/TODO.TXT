@@ -70,8 +70,6 @@ Video conversion:
   Change text in videoConverter.jsp
   Allow m4v (mp4, m4v, f4v, mov)
   Rephrase to "optimize"
-  Add control panel (accessible if role)
-  Automatic delete if target file missing.
   Set video dimensions?
   Use 96k audio bitrate?
   REST support

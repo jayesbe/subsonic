@@ -18,6 +18,7 @@
  */
 package net.sourceforge.subsonic.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -115,7 +116,7 @@ public class VideoPlayerController extends ParameterizableViewController {
     }
 
     private boolean isStreamable(MediaFile file) {
-        if (!StringUtils.equalsIgnoreCase("mp4", file.getFormat())) {
+        if (!Arrays.asList("mp4", "m4v").contains(StringUtils.lowerCase(file.getFormat()))) {
             return false;
         }
 
