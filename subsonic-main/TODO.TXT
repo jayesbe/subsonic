@@ -72,13 +72,14 @@ Video conversion:
   Configurable directory (default SUBSONIC_HOME/conversion)
   Configurable disk usage threshold
   Store path to target file and log file in db
-  Add control panel
+  Add control panel (accessible if role)
   Automatic delete if target file missing.
   Set video dimensions?
   Use 96k audio bitrate?
   REST support
-  Link to logfile if error?
+  Link to logfile?
   Show conversion queue?
+  Rename "Target file" to "Converted file"
 
 Make it possible to select audio track when streaming
 

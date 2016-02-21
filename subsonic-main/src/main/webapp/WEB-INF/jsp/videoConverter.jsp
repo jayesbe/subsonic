@@ -99,7 +99,7 @@
         <select id="conversion-bit-rate" style="width:100%; margin-top:1em">
             <option value="0"><fmt:message key="personalsettings.bitrate"/>: <fmt:message key="common.default"/></option>
             <c:forEach items="${model.bitRates}" var="bitRate">
-                <option value="${bitRate}"><fmt:message key="personalsettings.bitrate"/>: ${bitRate} kbps</option>
+                <option value="${bitRate}"><fmt:message key="personalsettings.bitrate"/>: ${bitRate} Kbps</option>
             </c:forEach>
         </select>
         <c:if test="${fn:length(model.audioTracks) gt 1}">

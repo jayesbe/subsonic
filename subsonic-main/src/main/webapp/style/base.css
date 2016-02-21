@@ -205,13 +205,13 @@ table.music {
     width: 100%;
 }
 
-td.fit {
+td.fit, th.fit {
     width:1px;
     padding-left:4px;
     padding-right:4px;
 }
 
-td.truncate {
+td.truncate, th.truncate {
     max-width:50px;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -223,6 +223,10 @@ td.truncate {
 td.rightalign {
     text-align:right;
     padding-right: 20px;
+}
+
+th {
+    font-weight: 600;
 }
 
 a {

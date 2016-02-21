@@ -100,6 +100,10 @@ public class VideoConversionService {
         return conversion;
     }
 
+    public List<VideoConversion> getAllVideoConversions() {
+        return videoConversionDao.getAllVideoConversions();
+    }
+
     public MetaData getVideoMetaData(MediaFile video) {
         MetaDataParser parser = metaDataParserFactory.getParser(video.getFile());
         return parser != null ? parser.getMetaData(video.getFile()) : null;

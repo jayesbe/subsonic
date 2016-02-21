@@ -65,6 +65,10 @@ public class VideoConversionDao extends AbstractDao {
                         rowMapper, mediaFileId);
     }
 
+    public synchronized List<VideoConversion> getAllVideoConversions() {
+        return query("select " + COLUMNS + " from video_conversion order by created desc", rowMapper);
+    }
+
     public synchronized void deleteVideoConversionsForFile(Integer mediaFileId) {
         update("delete from video_conversion where media_file_id=?", mediaFileId);
     }
