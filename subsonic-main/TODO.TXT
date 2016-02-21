@@ -66,7 +66,6 @@ ffmpeg -ss %o -t %d -i %s -async 1 -b:v %bk -s %wx%h -ar 44100 -ac 2 -f mpegts -
 Upgrade ffmpeg.
 
 Video conversion:
-  Show target/log file in videoConverter.jsp
   Change text in videoConverter.jsp
   Allow m4v (mp4, m4v, f4v, mov)
   Rephrase to "optimize"

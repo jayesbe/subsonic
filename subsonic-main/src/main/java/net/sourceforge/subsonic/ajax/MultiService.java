@@ -155,6 +155,8 @@ public class MultiService {
             return null;
         }
         VideoConversionStatus result = new VideoConversionStatus();
+        result.setTargetFile(conversion.getTargetFile());
+        result.setLogFile(conversion.getLogFile());
         result.setProgressSeconds(conversion.getProgressSeconds());
         result.setProgressString(StringUtil.formatDuration(conversion.getProgressSeconds()));
 

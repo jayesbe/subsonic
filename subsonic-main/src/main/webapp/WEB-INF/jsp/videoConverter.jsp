@@ -41,6 +41,9 @@
             $("#conversion-bit-rate").toggle(authorized && (conversionStatus == null || conversionStatus.statusError));
             $("#conversion-cancel").toggle(authorized && (conversionStatus != null && (conversionStatus.statusNew || conversionStatus.statusInProgress)));
 
+            $("#conversion-target-file").text(conversionStatus == null ? "" : conversionStatus.targetFile);
+            $("#conversion-log-file").text(conversionStatus == null ? "" : conversionStatus.logFile);
+
             if (conversionStatus != null && conversionStatus.statusInProgress) {
                 $("#conversion-thumb").attr("src", "coverArt.view?id=${model.video.id}&auth=${model.video.hash}&size=120&offset=" + conversionStatus.progressSeconds);
                 $("#conversion-status-progress").text(conversionStatus.progressString);
@@ -129,6 +132,8 @@
             <span style="display:none" id="conversion-status-completed"><fmt:message key="videoConverter.status.completed"/></span>
             <span style="display:none" id="conversion-status-error"><fmt:message key="videoConverter.status.error"/></span>
         </td></tr>
+        <tr><td style="padding-right:1em"><b><fmt:message key="videoConverter.details.targetfile"/></b></td><td><span id="conversion-target-file"></span></td></tr>
+        <tr><td style="padding-right:1em"><b><fmt:message key="videoConverter.details.logfile"/></b></td><td><span id="conversion-log-file"></span></td></tr>
     </table>
 </div>
 
