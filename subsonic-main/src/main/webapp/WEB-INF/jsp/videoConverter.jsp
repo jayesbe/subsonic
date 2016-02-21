@@ -38,6 +38,7 @@
 
             $("#conversion-start").toggle(authorized && (conversionStatus == null || conversionStatus.statusError));
             $("#conversion-audio-track").toggle(authorized && (conversionStatus == null || conversionStatus.statusError));
+            $("#conversion-bit-rate").toggle(authorized && (conversionStatus == null || conversionStatus.statusError));
             $("#conversion-cancel").toggle(authorized && (conversionStatus != null && (conversionStatus.statusNew || conversionStatus.statusInProgress)));
 
             if (conversionStatus != null && conversionStatus.statusInProgress) {
@@ -53,7 +54,12 @@
             if ($("#conversion-audio-track").length > 0) {
                 audioTrackId = parseInt($("#conversion-audio-track").val());
             }
-            multiService.startVideoConversion(${model.video.id}, audioTrackId, conversionStatusCallback);
+            var bitRate = parseInt($("#conversion-bit-rate").val());
+            if (bitRate == 0) {
+                bitRate = null;
+            }
+            console.log(bitRate);
+            multiService.startVideoConversion(${model.video.id}, audioTrackId, bitRate, conversionStatusCallback);
         }
         function cancelConversion() {
             multiService.cancelVideoConversion(${model.video.id}, conversionStatusCallback);
@@ -87,10 +93,16 @@
         <img id="conversion-thumb" src="coverArt.view?id=${model.video.id}&auth=${model.video.hash}&size=120" height="120" width="213">
         <div id="conversion-progressbar" style="width:100%; height:7px;margin-top: 0.5em"></div>
 
+        <select id="conversion-bit-rate" style="width:100%; margin-top:1em">
+            <option value="0"><fmt:message key="personalsettings.bitrate"/>: <fmt:message key="common.default"/></option>
+            <c:forEach items="${model.bitRates}" var="bitRate">
+                <option value="${bitRate}"><fmt:message key="personalsettings.bitrate"/>: ${bitRate} kbps</option>
+            </c:forEach>
+        </select>
         <c:if test="${fn:length(model.audioTracks) gt 1}">
             <select id="conversion-audio-track" style="width:100%; margin-top:1em">
                 <c:forEach items="${model.audioTracks}" var="track">
-                    <option value="${track.id}"><fmt:message key="videoConverter.audiotrack"/> ${track.id} &ndash; ${track.language}</option>
+                    <option value="${track.id}"><fmt:message key="videoConverter.audiotrack"/>: ${track.id} &ndash; ${track.language}</option>
                 </c:forEach>
             </select>
         </c:if>

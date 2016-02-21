@@ -51,6 +51,8 @@ import net.sourceforge.subsonic.service.metadata.Track;
  */
 public class VideoConverterController extends ParameterizableViewController {
 
+    private static final int[] BIT_RATES = {200, 300, 400, 500, 700, 1000, 1200, 1500, 2000, 3000, 5000};
+
     private MediaFileService mediaFileService;
     private SecurityService securityService;
     private VideoConversionService videoConversionService;
@@ -76,6 +78,7 @@ public class VideoConverterController extends ParameterizableViewController {
         map.put("audioTracks", audioTracks);
         map.put("audioCodecs", audioCodecs);
         map.put("videoCodecs", videoCodecs);
+        map.put("bitRates", BIT_RATES);
         map.put("ancestors", mediaFileService.getAncestorsOf(video));
         map.put("musicFolder", settingsService.getMusicFolderByPath(video.getFolder()));
         map.put("user", securityService.getCurrentUser(request));

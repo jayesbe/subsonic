@@ -177,12 +177,10 @@ public class MultiService {
         return result;
     }
 
-    public VideoConversionStatus startVideoConversion(int mediaFileId, Integer audioTrackId) {
+    public VideoConversionStatus startVideoConversion(int mediaFileId, Integer audioTrackId, Integer bitRate) {
         HttpServletRequest request = WebContextFactory.get().getHttpServletRequest();
         String username = securityService.getCurrentUsername(request);
         authorizeVideoConversion();
-
-        Integer bitRate = null; // TODO
 
         File dir = new File(settingsService.getVideoConversionDirectory());
         dir.mkdirs();

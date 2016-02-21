@@ -214,16 +214,26 @@ public class VideoConversionService {
             command.add("-2");
             command.add("-y");
 
-            // Look for video track with streamable codec. If found, copy it.
+            Integer bitRate = conversion.getBitRate();
+            if (bitRate != null) {
+                command.add("-b:v");
+                command.add(bitRate + "k");
+            }
+
             MetaData metaData = getVideoMetaData(mediaFile);
             Track videoTrack = null;
             List<Track> videoTracks = metaData.getVideoTracks();
-            for (Track track : videoTracks) {
-                if (track.isStreamable()) {
-                    command.add("-c:v");
-                    command.add("copy");
-                    videoTrack = track;
-                    break;
+
+            if (bitRate == null) {
+
+                // Look for video track with streamable codec. If found, copy it.
+                for (Track track : videoTracks) {
+                    if (track.isStreamable()) {
+                        command.add("-c:v");
+                        command.add("copy");
+                        videoTrack = track;
+                        break;
+                    }
                 }
             }
             if (videoTrack == null && !videoTracks.isEmpty()) {

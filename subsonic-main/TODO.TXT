@@ -27,6 +27,7 @@ Increase default transcoding bitrate from 192 to 320 kbps.
 Moved search links to album notes.
 Index page: Hide index letters when filtering.
 Store converted videos in configurable directory.
+Add option to set bitrate when converting videos.
 
 TODO IN 6.0
 ------------
@@ -74,15 +75,17 @@ Video conversion:
   Store path to target file and log file in db
   Add control panel
   Automatic delete if target file missing.
-  Specify bitrate?
+  Set video dimensions?
+  Use 96k audio bitrate?
   REST support
   Link to logfile if error?
   Show conversion queue?
-  video_conversion.started not set
 
 Make it possible to select audio track when streaming
 
 Use <!DOCTYPE html>
+
+Overflow button per song, with popup menu.
 
 Fix sorting in index.
 

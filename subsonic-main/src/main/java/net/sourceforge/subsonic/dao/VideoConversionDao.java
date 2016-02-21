@@ -52,9 +52,12 @@ public class VideoConversionDao extends AbstractDao {
     }
 
     public synchronized void updateStatus(Integer id, VideoConversion.Status status) {
-        Date changed = new Date();
-        Date started = status == VideoConversion.Status.IN_PROGRESS ? changed : null;
-        update("update video_conversion set status=?, changed=?, started=? where id=?", status.name(), changed, started, id);
+        Date now = new Date();
+        if (status == VideoConversion.Status.IN_PROGRESS) {
+            update("update video_conversion set status=?, changed=?, started=? where id=?", status.name(), now, now, id);
+        } else {
+            update("update video_conversion set status=?, changed=? where id=?", status.name(), now, id);
+        }
     }
 
     public synchronized VideoConversion getVideoConversionForFile(int mediaFileId) {
