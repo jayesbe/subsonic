@@ -369,7 +369,7 @@ public class StreamController implements Controller {
 
         Dimension dim = getRequestedVideoSize(request.getParameter("size"));
         if (dim == null) {
-            dim = getSuitableVideoSize(existingWidth, existingHeight, maxBitRate);
+            dim = Util.getSuitableVideoSize(existingWidth, existingHeight, maxBitRate);
         }
 
         return new VideoTranscodingSettings(dim.width, dim.height, timeOffset, duration, hls);
@@ -390,42 +390,6 @@ public class StreamController implements Controller {
             }
         }
         return null;
-    }
-
-    protected Dimension getSuitableVideoSize(Integer existingWidth, Integer existingHeight, Integer maxBitRate) {
-        if (maxBitRate == null) {
-            return new Dimension(400, 224);
-        }
-
-        int w;
-        if (maxBitRate < 400) {
-            w = 400;
-        } else if (maxBitRate < 600) {
-            w = 480;
-        } else if (maxBitRate < 1800) {
-            w = 640;
-        } else {
-            w = 960;
-        }
-        int h = even(w * 9 / 16);
-
-        if (existingWidth == null || existingHeight == null) {
-            return new Dimension(w, h);
-        }
-
-        if (existingWidth < w || existingHeight < h) {
-            return new Dimension(even(existingWidth), even(existingHeight));
-        }
-
-        double aspectRate = existingWidth.doubleValue() / existingHeight.doubleValue();
-        h = (int) Math.round(w / aspectRate);
-
-        return new Dimension(even(w), even(h));
-    }
-
-    // Make sure width and height are multiples of two, as some versions of ffmpeg require it.
-    private int even(int size) {
-        return size + (size % 2);
     }
 
     /**

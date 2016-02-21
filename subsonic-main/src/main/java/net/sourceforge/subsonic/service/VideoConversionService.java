@@ -19,6 +19,7 @@
 
 package net.sourceforge.subsonic.service;
 
+import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -186,7 +187,6 @@ public class VideoConversionService {
 
                 LOG.info("Starting video conversion of " + mediaFile);
 
-                File originalFile = mediaFile.getFile();
                 File logFile = new File(conversion.getLogFile());
                 File targetFile = new File(conversion.getTargetFile());
 
@@ -194,7 +194,7 @@ public class VideoConversionService {
                     throw new Exception("Write access denied to " + targetFile);
                 }
 
-                List<String> command = buildFFmpegCommand(originalFile, targetFile);
+                List<String> command = buildFFmpegCommand(targetFile);
 
                 StringBuffer buf = new StringBuffer("Starting video converter: ");
                 for (String s : command) {
@@ -275,12 +275,12 @@ public class VideoConversionService {
             }
         }
 
-        private List<String> buildFFmpegCommand(File originalFile, File targetFile) {
+        private List<String> buildFFmpegCommand(File targetFile) {
             List<String> command = new ArrayList<String>();
 
             command.add(transcodingService.getTranscodeDirectory() + File.separator + "ffmpeg");
             command.add("-i");
-            command.add(originalFile.getAbsolutePath());
+            command.add(mediaFile.getFile().getAbsolutePath());
             command.add("-ac");
             command.add("2");
             command.add("-f");
@@ -295,6 +295,12 @@ public class VideoConversionService {
             if (bitRate != null) {
                 command.add("-b:v");
                 command.add(bitRate + "k");
+
+                if (bitRate < 2000) {
+                    Dimension dim = Util.getSuitableVideoSize(mediaFile.getWidth(), mediaFile.getHeight(), bitRate);
+                    command.add("-s");
+                    command.add(dim.width + "x" + dim.height);
+                }
             }
 
             MetaData metaData = getVideoMetaData(mediaFile);
