@@ -21,12 +21,20 @@
 
     <table>
         <tr>
-            <td><fmt:message key="videoconversionsettings.directory"/></td>
-            <td><input name="directory" value="${model.directory}" style="width:300px"></td>
+            <td style="padding-right:0.5em"><fmt:message key="videoconversionsettings.directory"/></td>
+            <td colspan="2"><input name="directory" value="${model.directory}" style="width:100%"></td>
         </tr>
         <tr>
-            <td><fmt:message key="videoconversionsettings.threshold"/></td>
-            <td><input name="directory" value="${model.directory}" style="width:300px"></td>
+            <td style="padding-right:0.5em"><fmt:message key="videoconversionsettings.limit"/></td>
+            <td style="padding-right:0.5em">
+                <select name="diskLimit">
+                    <option value="0" ${model.diskLimit eq 0 ? "selected" : ""}><fmt:message key="videoconversionsettings.nolimit"/></option>
+                    <c:forTokens items="1 2 3 5 10 20 30 50 100 200 300 500 1000 2000 3000 5000" delims=" " var="limit">
+                        <option value="${limit}" ${model.diskLimit eq limit ? "selected" : ""}>${limit} GB</option>
+                    </c:forTokens>
+                </select>
+            </td>
+            <td class="detail"><fmt:message key="videoconversionsettings.used"/> <sub:formatBytes bytes="${model.bytesUsed}"/></td>
         </tr>
     </table>
 
@@ -36,6 +44,7 @@
             <tr>
                 <th class="truncate"><fmt:message key="videoconversionsettings.source"/></th>
                 <th class="truncate"><fmt:message key="videoConverter.details.targetfile"/></th>
+                <th class="truncate"><fmt:message key="personalsettings.filesize"/></th>
                 <th class="truncate"><fmt:message key="videoConverter.details.status"/></th>
                 <th class="truncate"><fmt:message key="personalsettings.bitrate"/></th>
                 <th class="truncate"><fmt:message key="usersettings.username"/></th>
@@ -44,8 +53,9 @@
 
             <c:forEach items="${model.conversionInfos}" var="conversionInfo">
                 <tr>
-                    <td class="truncate" style="max-width:150px"><a href="main.view?id=${conversionInfo.video.id}">${conversionInfo.video.name}</a></td>
+                    <td class="truncate" style="max-width:150px"><a href="videoPlayer.view?id=${conversionInfo.video.id}">${conversionInfo.video.name}</a></td>
                     <td class="truncate" style="max-width:150px" title="${conversionInfo.conversion.targetFile}">${conversionInfo.conversion.targetFile}</td>
+                    <td class="truncate"><sub:formatBytes bytes="${conversionInfo.size}"/></td>
                     <td class="truncate"><fmt:message key="videoConverter.status.${fn:toLowerCase(conversionInfo.conversion.status)}"/></td>
                     <td class="truncate"><c:if test="${not empty conversionInfo.conversion.bitRate}">${conversionInfo.conversion.bitRate} Kbps</c:if></td>
                     <td class="truncate">${conversionInfo.conversion.username}</td>

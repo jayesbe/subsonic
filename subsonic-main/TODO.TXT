@@ -28,6 +28,7 @@ Moved search links to album notes.
 Index page: Hide index letters when filtering.
 Store converted videos in configurable directory.
 Add option to set bitrate when converting videos.
+Configurable disk usage threshold for video conversion
 
 TODO IN 6.0
 ------------
@@ -69,17 +70,12 @@ Video conversion:
   Change text in videoConverter.jsp
   Allow m4v (mp4, m4v, f4v, mov)
   Rephrase to "optimize"
-  Configurable directory (default SUBSONIC_HOME/conversion)
-  Configurable disk usage threshold
-  Store path to target file and log file in db
   Add control panel (accessible if role)
   Automatic delete if target file missing.
   Set video dimensions?
   Use 96k audio bitrate?
   REST support
   Link to logfile?
-  Show conversion queue?
-  Rename "Target file" to "Converted file"
 
 Make it possible to select audio track when streaming
 

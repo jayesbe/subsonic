@@ -155,6 +155,9 @@
 
 <p>
     <i class="fa fa-chevron-left icon"></i>&nbsp;<a href="javascript:back()"><fmt:message key="common.back"/></a>
+    <span style="margin-left:3em">
+    <i class="fa fa-cog fa-lg icon"></i>&nbsp;<a href="videoConversionSettings.view"><fmt:message key="top.settings"/></a>
+        </span>
 </p>
 </body>
 </html>

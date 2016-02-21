@@ -18,6 +18,7 @@
  */
 package net.sourceforge.subsonic.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
@@ -61,16 +65,31 @@ public class VideoConversionSettingsController extends ParameterizableViewContro
 
         map.put("conversionInfos", getVideoConversionInfo());
         map.put("directory", settingsService.getVideoConversionDirectory());
+        map.put("diskLimit", settingsService.getVideoConversionDiskLimit());
+        map.put("bytesUsed", getDiskUsage());
         map.put("licenseInfo", settingsService.getLicenseInfo());
 
         result.addObject("model", map);
         return result;
     }
 
+    private long getDiskUsage() {
+        File dir = new File(settingsService.getVideoConversionDirectory());
+        if (dir.canRead() && dir.isDirectory()) {
+            return FileUtils.sizeOfDirectory(dir);
+        }
+        return 0;
+    }
+
     private List<VideoConversionInfo> getVideoConversionInfo() {
         List<VideoConversionInfo> result = new ArrayList<VideoConversionInfo>();
         for (VideoConversion conversion : videoConversionService.getAllVideoConversions()) {
-            result.add(new VideoConversionInfo(conversion, mediaFileService.getMediaFile(conversion.getMediaFileId())));
+            File file = new File(conversion.getTargetFile());
+            Long size = null;
+            if (file.exists()) {
+                size = file.length();
+            }
+            result.add(new VideoConversionInfo(conversion, mediaFileService.getMediaFile(conversion.getMediaFileId()), size));
         }
         return result;
     }
@@ -85,7 +104,7 @@ public class VideoConversionSettingsController extends ParameterizableViewContro
         return "POST".equals(request.getMethod());
     }
 
-    private void handleParameters(HttpServletRequest request) {
+    private void handleParameters(HttpServletRequest request) throws ServletRequestBindingException {
         for (VideoConversion conversion : videoConversionService.getAllVideoConversions()) {
             boolean delete = getParameter(request, "delete", conversion.getId()) != null;
             if (delete) {
@@ -96,8 +115,10 @@ public class VideoConversionSettingsController extends ParameterizableViewContro
         String directory = StringUtils.trimToNull(request.getParameter("directory"));
         if (directory != null) {
             settingsService.setVideoConversionDirectory(directory);
-            settingsService.save();
         }
+        int limit = ServletRequestUtils.getRequiredIntParameter(request, "diskLimit");
+        settingsService.setVideoConversionDiskLimit(limit);
+        settingsService.save();
     }
 
     private String getParameter(HttpServletRequest request, String name, int id) {
@@ -108,13 +129,23 @@ public class VideoConversionSettingsController extends ParameterizableViewContro
         this.mediaFileService = mediaFileService;
     }
 
+    public void setVideoConversionService(VideoConversionService videoConversionService) {
+        this.videoConversionService = videoConversionService;
+    }
+
+    public void setSettingsService(SettingsService settingsService) {
+        this.settingsService = settingsService;
+    }
+
     public static class VideoConversionInfo {
         private final VideoConversion conversion;
         private final MediaFile video;
+        private final Long size;
 
-        public VideoConversionInfo(VideoConversion conversion, MediaFile video) {
+        public VideoConversionInfo(VideoConversion conversion, MediaFile video, Long size) {
             this.conversion = conversion;
             this.video = video;
+            this.size = size;
         }
 
         public VideoConversion getConversion() {
@@ -124,13 +155,9 @@ public class VideoConversionSettingsController extends ParameterizableViewContro
         public MediaFile getVideo() {
             return video;
         }
-    }
 
-    public void setVideoConversionService(VideoConversionService videoConversionService) {
-        this.videoConversionService = videoConversionService;
-    }
-
-    public void setSettingsService(SettingsService settingsService) {
-        this.settingsService = settingsService;
+        public Long getSize() {
+            return size;
+        }
     }
 }

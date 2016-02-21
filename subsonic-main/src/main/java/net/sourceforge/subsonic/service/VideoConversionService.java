@@ -22,15 +22,22 @@ package net.sourceforge.subsonic.service;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.filefilter.FileFileFilter;
+
+import com.google.common.collect.Iterables;
 
 import net.sourceforge.subsonic.Logger;
 import net.sourceforge.subsonic.dao.VideoConversionDao;
@@ -52,6 +59,7 @@ public class VideoConversionService {
 
     private MediaFileService mediaFileService;
     private TranscodingService transcodingService;
+    private SettingsService settingsService;
     private VideoConversionDao videoConversionDao;
     private VideoConverter videoConverter;
     private MetaDataParserFactory metaDataParserFactory;
@@ -90,23 +98,34 @@ public class VideoConversionService {
 
     public VideoConversion getVideoConversionForFile(int mediaFileId) {
         VideoConversion conversion = videoConversionDao.getVideoConversionForFile(mediaFileId);
-
-        if (conversion != null && conversion.getStatus() == VideoConversion.Status.COMPLETED &&
-            (conversion.getTargetFile() == null || !(new File(conversion.getTargetFile()).exists()))) {
-            deleteVideoConversion(conversion);
+        if (conversion == null) {
             return null;
         }
 
-        return conversion;
+        List<VideoConversion> conversions = deleteIfFileMissing(Collections.singletonList(conversion));
+        return Iterables.getFirst(conversions, null);
     }
 
     public List<VideoConversion> getAllVideoConversions() {
-        return videoConversionDao.getAllVideoConversions();
+        return deleteIfFileMissing(videoConversionDao.getAllVideoConversions());
     }
 
     public MetaData getVideoMetaData(MediaFile video) {
         MetaDataParser parser = metaDataParserFactory.getParser(video.getFile());
         return parser != null ? parser.getMetaData(video.getFile()) : null;
+    }
+
+    private List<VideoConversion> deleteIfFileMissing(List<VideoConversion> conversions) {
+        List<VideoConversion> result = new ArrayList<VideoConversion>();
+        for (VideoConversion conversion : conversions) {
+            if (conversion.getStatus() == VideoConversion.Status.COMPLETED &&
+                (conversion.getTargetFile() == null || !(new File(conversion.getTargetFile()).exists()))) {
+                deleteVideoConversion(conversion);
+            } else {
+                result.add(conversion);
+            }
+        }
+        return result;
     }
 
     public void setVideoConversionDao(VideoConversionDao videoConversionDao) {
@@ -123,6 +142,10 @@ public class VideoConversionService {
 
     public void setMetaDataParserFactory(MetaDataParserFactory metaDataParserFactory) {
         this.metaDataParserFactory = metaDataParserFactory;
+    }
+
+    public void setSettingsService(SettingsService settingsService) {
+        this.settingsService = settingsService;
     }
 
     private class VideoConverter extends Thread{
@@ -159,6 +182,8 @@ public class VideoConversionService {
 
             mediaFile = mediaFileService.getMediaFile(conversion.getMediaFileId());
             try {
+                checkDiskLimit();
+
                 LOG.info("Starting video conversion of " + mediaFile);
 
                 File originalFile = mediaFile.getFile();
@@ -199,6 +224,54 @@ public class VideoConversionService {
             } catch (Exception x) {
                 LOG.error("An error occurred while converting video " + mediaFile + ": " + x, x);
                 videoConversionDao.updateStatus(conversion.getId(), VideoConversion.Status.ERROR);
+            }
+        }
+
+        private void checkDiskLimit() {
+            int limitInGB = settingsService.getVideoConversionDiskLimit();
+            if (limitInGB == 0) {
+                return;
+            }
+            long limitInBytes = limitInGB * FileUtils.ONE_GB;
+
+            File dir = new File(settingsService.getVideoConversionDirectory());
+            if (!dir.canRead() || !dir.isDirectory()){
+                return;
+            }
+
+            List<File> files = new ArrayList<File>();
+            long usedBytes = 0;
+            for (File file : dir.listFiles((FileFilter) FileFileFilter.FILE)) {
+                files.add(file);
+                usedBytes += file.length();
+            }
+
+            if (usedBytes < limitInBytes) {
+                return;
+            }
+
+            // Sort files by modification date.
+            Collections.sort(files, new Comparator<File>() {
+                @Override
+                public int compare(File a, File b) {
+                    long lastModifiedA = a.lastModified();
+                    long lastModifiedB = b.lastModified();
+                    if (lastModifiedA < lastModifiedB) {
+                        return -1;
+                    }
+                    if (lastModifiedA > lastModifiedB) {
+                        return 1;
+                    }
+                    return 0;
+                }
+            });
+
+            // Delete files until we're below the limit.
+            while (usedBytes > limitInBytes && !files.isEmpty()) {
+                File victim = files.remove(0);
+                usedBytes -= victim.length();
+                victim.delete();
+                LOG.info("Deleted converted video file " + victim);
             }
         }
 
