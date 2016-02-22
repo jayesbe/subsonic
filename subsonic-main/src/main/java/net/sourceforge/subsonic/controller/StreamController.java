@@ -150,6 +150,10 @@ public class StreamController implements Controller {
 
                 videoConversion = getVideoConversion(file, request);
 
+                PlayQueue playQueue = new PlayQueue();
+                playQueue.addFiles(true, file);
+                player.setPlayQueue(playQueue);
+
                 response.setIntHeader("ETag", file.getId());
                 response.setHeader("Accept-Ranges", "bytes");
 
